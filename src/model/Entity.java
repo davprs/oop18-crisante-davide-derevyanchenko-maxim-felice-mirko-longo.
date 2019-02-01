@@ -6,10 +6,11 @@ package model;
 public interface Entity {
 
     /**
+     * method to move an Entity.
+     * 
      * @param x the horizontal position.
      * @param y the vertical position.
      * 
-     * method to move an Entity.
      */
     void move(int x, int y);
 }
