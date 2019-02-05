@@ -1,0 +1,8 @@
+SIGN IN
+Username:
+Password:
+Enter your password:
+Confirm your password:
+Confirm
+Sign
+Cancel

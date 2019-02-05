@@ -2,3 +2,6 @@ Log in
 Username
 Password
 Register
+Login
+Confirm
+Exit

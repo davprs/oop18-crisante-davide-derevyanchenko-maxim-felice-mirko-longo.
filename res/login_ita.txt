@@ -2,3 +2,6 @@ Accedi
 Nome utente
 Password
 Registrati
+Accedi
+Conferma
+Esci

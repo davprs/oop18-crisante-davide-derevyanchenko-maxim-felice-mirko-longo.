@@ -1,0 +1,8 @@
+REGISTRATI
+Nome utente:
+Soprannome:
+Digita la tua password:
+Conferma la tua password:
+Conferma
+Registra
+Annulla
