@@ -2,6 +2,7 @@ Log in
 Username
 Password
 Register
-Login
+LOGIN
 Confirm
 Exit
+Select the language

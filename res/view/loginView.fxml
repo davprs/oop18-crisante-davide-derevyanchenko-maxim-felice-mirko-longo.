@@ -23,7 +23,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="loginBtn" mnemonicParsing="false" onMouseClicked="#tryLogin" text="Accedi" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+      <Button fx:id="loginBtn" mnemonicParsing="false" onMouseClicked="#tryLogin" text="ACCEDI" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="13.0" />
          </font></Button>
@@ -42,6 +42,7 @@
                     <String fx:value="ENG" />
                 </FXCollections>
             </items>
+            <tooltip> <Tooltip text="Seleziona la lingua" /></tooltip>
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin> 

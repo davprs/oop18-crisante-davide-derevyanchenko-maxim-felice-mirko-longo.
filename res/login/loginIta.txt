@@ -2,6 +2,7 @@ Accedi
 Nome utente
 Password
 Registrati
-Accedi
+ACCEDI
 Conferma
 Esci
+Seleziona la lingua

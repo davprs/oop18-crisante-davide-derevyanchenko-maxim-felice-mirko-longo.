@@ -1,11 +1,12 @@
 package controller;
 
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
+import controller.utilities.SizeUtils;
+import controller.utilities.StringUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -25,13 +26,8 @@ import javafx.stage.Stage;
  */
 public class LoginController extends Application implements Controller {
 
-    private static final double WIDTH_RELATIONSHIP = 4.8;
-    private static final double HEIGHT_RELATIONSHIP = 3.375;
-    private static final int PREF_WIDTH =  Math.toIntExact(Math.round((Toolkit.getDefaultToolkit().getScreenSize().getWidth() / WIDTH_RELATIONSHIP)));
-    private static final int PREF_HEIGHT = Math.toIntExact(Math.round((Toolkit.getDefaultToolkit().getScreenSize().getHeight() / HEIGHT_RELATIONSHIP)));
-    private static final double MIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 6;
-    private static final double MIN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5.4;
     private static final String TITLE = "ACCEDERE";
+    private boolean isAlreadyRegistering;
     @FXML
     private Label login;
     @FXML
@@ -70,8 +66,7 @@ public class LoginController extends Application implements Controller {
            @Override
            public void run() {
                try {
-                   final String path = "res" + System.getProperty("file.separator");
-                   final String pathname = lang.equals(Language.ITA) ? path + "login_ita.txt" : path + "login_eng.txt";
+                   final String pathname = lang.equals(Language.ITA) ? StringUtils.LOGIN_ITA : StringUtils.LOGIN_ENG;
                    final Iterator<String> iterator = Files.readAllLines(Paths.get(pathname)).iterator();
                    login.setText(iterator.next());
                    username.setText(iterator.next());
@@ -80,11 +75,12 @@ public class LoginController extends Application implements Controller {
                    loginBtn.setText(iterator.next());
                    confBtn.setText(iterator.next());
                    exitBtn.setText(iterator.next());
+                   lngBox.getTooltip().setText(iterator.next());
                    if (iterator.hasNext()) {
                        throw new IllegalStateException();
                    }
                } catch (IOException | IllegalStateException e) {
-                   System.out.println("Sorry, something went wrong.");
+                   System.out.println(StringUtils.ERROR_MESSAGE);
                    Platform.exit();
                }
            }
@@ -101,9 +97,12 @@ public class LoginController extends Application implements Controller {
     @FXML
     public void register() {
         try {
-            new RegisterController().start(new Stage());
+            if (!isAlreadyRegistering) {
+                new RegisterController().start(new Stage());
+            }
+            isAlreadyRegistering = true;
         } catch (Exception e) {
-            System.out.println("Sorry, something went wrong.");
+            System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
         }
     }
@@ -118,7 +117,7 @@ public class LoginController extends Application implements Controller {
             stage.close();
             new MenuController().start(new Stage());
         } catch (Exception e) {
-            System.out.println("Sorry, something went wrong.");
+            System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
         }
     }
@@ -132,16 +131,16 @@ public class LoginController extends Application implements Controller {
     }
 
     /**
-     * Start method needed to run the Application.
+     * Start method to load the view.
      */
     @Override
     public void start(final Stage stage) throws Exception {
-        final GridPane root = FXMLLoader.load(ClassLoader.getSystemResource("loginView.fxml"));
-        final Scene scene = new Scene(root, PREF_WIDTH, PREF_HEIGHT);
+        final GridPane root = FXMLLoader.load(ClassLoader.getSystemResource(StringUtils.LOGIN_VIEW));
+        final Scene scene = new Scene(root, SizeUtils.LOGIN_PREF_WIDTH, SizeUtils.LOGIN_PREF_HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
-        stage.setMinHeight(MIN_HEIGHT);
-        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(SizeUtils.LOGIN_MIN_HEIGHT);
+        stage.setMinWidth(SizeUtils.LOGIN_MIN_WIDTH);
         stage.centerOnScreen();
         stage.show();
     }

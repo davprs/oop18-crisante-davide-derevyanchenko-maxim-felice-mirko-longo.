@@ -6,3 +6,4 @@ Conferma la tua password:
 Conferma
 Registra
 Annulla
+Seleziona la lingua

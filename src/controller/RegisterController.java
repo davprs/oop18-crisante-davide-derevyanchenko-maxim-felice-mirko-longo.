@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
+import controller.utilities.SizeUtils;
+import controller.utilities.StringUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
  */
 public class RegisterController extends Application implements Controller {
 
+    private static final String TITLE = "REGISTRAZIONE";
     @FXML
     private Label regLabel;
     @FXML
@@ -44,9 +47,17 @@ public class RegisterController extends Application implements Controller {
     @FXML
     private TextField usrField;
     @FXML
-    private PasswordField  pswField;
+    private PasswordField pswField;
+    @FXML
+    private TextField pswTextField;
+    @FXML
+    private PasswordField confPswField;
+    @FXML
+    private TextField confPswTextField;
     @FXML
     private CheckBox pswCheckBox;
+    @FXML
+    private CheckBox confPswCheckBox;
     @FXML
     private ChoiceBox<String> lngBox;
 
@@ -68,7 +79,7 @@ public class RegisterController extends Application implements Controller {
     }
 
     /**
-     * 
+     * Set the desired language.
      */
     @FXML
     public void setLanguage() {
@@ -80,29 +91,46 @@ public class RegisterController extends Application implements Controller {
      */
     @FXML
     public void checkPswField() {
-        if (pswCheckBox.isSelected()) {
-            pswField.setPromptText(pswField.getText());
-            pswField.setDisable(true);
-        } else {
-            pswField.setText(pswField.getPromptText());
-            pswField.setPromptText("");
-            pswField.setDisable(false);
-        }
+        togglePasswordVisibility(pswCheckBox, pswField, pswTextField);
     }
 
     /**
      * 
      */
+    @FXML
+    public void checkConfPswField() {
+       togglePasswordVisibility(confPswCheckBox, confPswField, confPswTextField);
+    }
+
+    private void togglePasswordVisibility(final CheckBox cb, final PasswordField psw, final TextField text) {
+        if (cb.isSelected()) {
+            text.setText(psw.getText());
+            text.setVisible(true);
+            psw.setVisible(false);
+        } else {
+            psw.setText(text.getText());
+            text.setVisible(false);
+            psw.setVisible(true);
+        }
+    }
+
+    /**
+     * Start method to load the view.
+     */
     @Override
     public void start(final Stage stage) throws Exception {
-        final GridPane root = FXMLLoader.load(ClassLoader.getSystemResource("registerView.fxml"));
-        final Scene scene = new Scene(root, 600, 400);
+        final GridPane root = FXMLLoader.load(ClassLoader.getSystemResource(StringUtils.REGISTER_VIEW));
+        final Scene scene = new Scene(root, SizeUtils.REGISTER_PREF_WIDTH, SizeUtils.REGISTER_PREF_HEIGHT);
         stage.setScene(scene);
+        stage.setTitle(TITLE);
+        stage.setMinHeight(SizeUtils.REGISTER_MIN_HEIGHT);
+        stage.setMinWidth(SizeUtils.REGISTER_MIN_WIDTH);
+        stage.centerOnScreen();
         stage.show();
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public Runnable createLanguageChanger(final Language lang) {
@@ -110,8 +138,7 @@ public class RegisterController extends Application implements Controller {
             @Override
             public void run() {
                 try {
-                    final String path = "res" + System.getProperty("file.separator");
-                    final String pathname = lang.equals(Language.ITA) ? path + "register_ita.txt" : path + "register_eng.txt";
+                    final String pathname = lang.equals(Language.ITA) ? StringUtils.REGISTER_ITA : StringUtils.REGISTER_ENG;
                     final Iterator<String> iterator = Files.readAllLines(Paths.get(pathname)).iterator();
                     regLabel.setText(iterator.next());
                     usrLabel.setText(iterator.next());
@@ -121,11 +148,12 @@ public class RegisterController extends Application implements Controller {
                     confBtn.setText(iterator.next());
                     regBtn.setText(iterator.next());
                     closeBtn.setText(iterator.next());
+                    lngBox.getTooltip().setText(iterator.next());
                     if (iterator.hasNext()) {
                         throw new IllegalStateException();
                     }
                 } catch (IOException | IllegalStateException e) {
-                    System.out.println("Sorry, something went wrong.");
+                    System.out.println(StringUtils.ERROR_MESSAGE);
                     Platform.exit();
                 }
             }

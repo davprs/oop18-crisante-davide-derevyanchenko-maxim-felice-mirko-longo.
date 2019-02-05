@@ -1,8 +1,9 @@
 SIGN IN
 Username:
-Password:
+Nickname:
 Enter your password:
 Confirm your password:
 Confirm
 Sign
 Cancel
+Select the language

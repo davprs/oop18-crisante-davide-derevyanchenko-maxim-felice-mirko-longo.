@@ -32,9 +32,9 @@
       <Button fx:id="confBtn" mnemonicParsing="false" onMouseClicked="#setLanguage" text="Conferma" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <PasswordField fx:id="confPswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label fx:id="usrLabel" text="Nome utente:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <ChoiceBox fx:id="lngBox" nodeOrientation="LEFT_TO_RIGHT" prefWidth="50.0" value="ITA" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
       		<items> 
                 <FXCollections fx:factory="observableArrayList">
@@ -42,12 +42,15 @@
                     <String fx:value="ENG" />
                 </FXCollections>
             </items>
+            <tooltip> <Tooltip text="Seleziona la lingua" /></tooltip>
          <GridPane.margin>
-            <Insets left="10.0" />
+            <Insets left="7.0" />
          </GridPane.margin>
       </ChoiceBox>
       <CheckBox fx:id="pswCheckBox" mnemonicParsing="false" onMouseClicked="#checkPswField" text="Mostra password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <CheckBox fx:id="confPswCheckBox" mnemonicParsing="false" onMouseClicked="#checkConfPswField" text="Mostra password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <TextField fx:id="pswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <TextField fx:id="confPswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />
