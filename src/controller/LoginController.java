@@ -1,10 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 
+import controller.utilities.FileUtils;
 import controller.utilities.SizeUtils;
 import controller.utilities.StringUtils;
 import javafx.application.Application;
@@ -19,7 +18,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
+import model.account.Account;
+import model.account.AccountImpl;
+import model.account.AccountManager;
+import model.account.AccountManagerImpl;
 /**
  * This class controls the login before starting the game.
  *
@@ -27,7 +29,6 @@ import javafx.stage.Stage;
 public class LoginController extends Application implements Controller {
 
     private static final String TITLE = "ACCEDERE";
-    private boolean isAlreadyRegistering;
     @FXML
     private Label login;
     @FXML
@@ -54,7 +55,7 @@ public class LoginController extends Application implements Controller {
      */
     @FXML
     public void setLanguage() {
-       changeLanguage(lngBox.getValue());
+        Platform.runLater(createLanguageChanger(Language.valueOf(lngBox.getValue())));
     }
 
     /**
@@ -66,8 +67,7 @@ public class LoginController extends Application implements Controller {
            @Override
            public void run() {
                try {
-                   final String pathname = lang.equals(Language.ITA) ? StringUtils.LOGIN_ITA : StringUtils.LOGIN_ENG;
-                   final Iterator<String> iterator = Files.readAllLines(Paths.get(pathname)).iterator();
+                   final Iterator<String> iterator = FileUtils.iteratorFromFile(lang, FileType.LOGIN);
                    login.setText(iterator.next());
                    username.setText(iterator.next());
                    password.setText(iterator.next());
@@ -76,6 +76,8 @@ public class LoginController extends Application implements Controller {
                    confBtn.setText(iterator.next());
                    exitBtn.setText(iterator.next());
                    lngBox.getTooltip().setText(iterator.next());
+                   final Stage stage = (Stage) login.getScene().getWindow();
+                   stage.setTitle(iterator.next());
                    if (iterator.hasNext()) {
                        throw new IllegalStateException();
                    }
@@ -87,20 +89,13 @@ public class LoginController extends Application implements Controller {
        };
     }
 
-    private void changeLanguage(final String lang) { 
-       Platform.runLater(createLanguageChanger(Language.valueOf(lang)));
-    }
-
     /**
      * Register a new account.
      */
     @FXML
     public void register() {
         try {
-            if (!isAlreadyRegistering) {
-                new RegisterController().start(new Stage());
-            }
-            isAlreadyRegistering = true;
+            new RegisterController().start(new Stage());
         } catch (Exception e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
@@ -112,14 +107,22 @@ public class LoginController extends Application implements Controller {
      */
     @FXML
     public void tryLogin() {
-        try {
-            final Stage stage = (Stage) loginBtn.getScene().getWindow();
-            stage.close();
-            new MenuController().start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
+        final Account account = new AccountImpl(usrField.getText(), pswField.getText());
+        final AccountManager accManager = new AccountManagerImpl();
+        if (accManager.isPresent(account)) {
+            if (accManager.checkPassword(account)) {
+                try {
+                    final Stage stage = (Stage) loginBtn.getScene().getWindow();
+                    stage.close();
+                    new MenuController().start(new Stage());
+                } catch (Exception e) {
+                    System.out.println(StringUtils.ERROR_MESSAGE);
+                    Platform.exit();
+                }
+            }
+            System.out.println("Password errata");
         }
+        System.out.println("Account inesistente");
     }
 
     /**

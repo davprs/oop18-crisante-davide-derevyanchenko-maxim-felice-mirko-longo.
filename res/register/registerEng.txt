@@ -7,3 +7,6 @@ Confirm
 Sign
 Cancel
 Select the language
+Show password
+Show password
+SIGNING IN

@@ -6,9 +6,10 @@ package controller.utilities;
  */
 public final class StringUtils {
 
-    private static final String RES_PATH = "res" + System.getProperty("file.separator");
-    private static final String LOGIN_PATH = RES_PATH + "login" + System.getProperty("file.separator");
-    private static final String REGISTER_PATH = RES_PATH + "register" + System.getProperty("file.separator");
+    private static final String SEPARATOR = System.getProperty("file.separator");
+    private static final String RES_PATH = "res" + SEPARATOR;
+    private static final String LOGIN_PATH = RES_PATH + "login" + SEPARATOR;
+    private static final String REGISTER_PATH = RES_PATH + "register" + SEPARATOR;
     /**
      * Path of Italian Login file.
      */
@@ -37,6 +38,14 @@ public final class StringUtils {
      * Simple Error message.
      */
     public static final String ERROR_MESSAGE = "Sorry. Something went wrong.";
+    /**
+     * Path of the Accounts.
+     */
+    public static final String ACCOUNT_PATH = RES_PATH + "accounts" + SEPARATOR;
+    /**
+     * Txt file extension.
+     */
+    public static final String TXT_EXTENSION = ".txt";
 
     private StringUtils() { }
 

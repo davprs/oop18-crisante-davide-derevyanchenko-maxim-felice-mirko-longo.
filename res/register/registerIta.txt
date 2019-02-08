@@ -7,3 +7,6 @@ Conferma
 Registra
 Annulla
 Seleziona la lingua
+Mostra password
+Mostra password
+REGISTRAZIONE

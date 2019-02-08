@@ -1,10 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 
+import controller.utilities.FileUtils;
 import controller.utilities.SizeUtils;
 import controller.utilities.StringUtils;
 import javafx.application.Application;
@@ -19,7 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.account.Account;
+import model.account.AccountImpl;
+import model.account.AccountManager;
+import model.account.AccountManagerImpl;
 
 /**
  * This class controls the signing in of new accounts.
@@ -28,6 +32,7 @@ import javafx.stage.Stage;
 public class RegisterController extends Application implements Controller {
 
     private static final String TITLE = "REGISTRAZIONE";
+    private final AccountManager manager = new AccountManagerImpl();
     @FXML
     private Label regLabel;
     @FXML
@@ -46,6 +51,8 @@ public class RegisterController extends Application implements Controller {
     private Button confBtn;
     @FXML
     private TextField usrField;
+    @FXML
+    private TextField nickField;
     @FXML
     private PasswordField pswField;
     @FXML
@@ -71,11 +78,22 @@ public class RegisterController extends Application implements Controller {
     }
 
     /**
-     * 
+     * Register the account.
      */
     @FXML
     public void register() {
-
+        if (!checkPassword()) {
+            System.out.println("Errore");
+            return;
+        }
+        final Account account = new AccountImpl(usrField.getText(), nickField.getText(), getPassword());
+        if (manager.isPresent(account)) {
+            System.out.println("Account già presente");
+        } else {
+            manager.register(account);
+            System.out.println("Account registrato");
+            close();
+        }
     }
 
     /**
@@ -87,18 +105,18 @@ public class RegisterController extends Application implements Controller {
     }
 
     /**
-     * 
+     * Change the visibility of the first PasswordField.
      */
     @FXML
-    public void checkPswField() {
+    public void changePswField() {
         togglePasswordVisibility(pswCheckBox, pswField, pswTextField);
     }
 
     /**
-     * 
+     * Change the visibility of the second PasswordField.
      */
     @FXML
-    public void checkConfPswField() {
+    public void changeConfPswField() {
        togglePasswordVisibility(confPswCheckBox, confPswField, confPswTextField);
     }
 
@@ -121,6 +139,7 @@ public class RegisterController extends Application implements Controller {
     public void start(final Stage stage) throws Exception {
         final GridPane root = FXMLLoader.load(ClassLoader.getSystemResource(StringUtils.REGISTER_VIEW));
         final Scene scene = new Scene(root, SizeUtils.REGISTER_PREF_WIDTH, SizeUtils.REGISTER_PREF_HEIGHT);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.setTitle(TITLE);
         stage.setMinHeight(SizeUtils.REGISTER_MIN_HEIGHT);
@@ -138,8 +157,7 @@ public class RegisterController extends Application implements Controller {
             @Override
             public void run() {
                 try {
-                    final String pathname = lang.equals(Language.ITA) ? StringUtils.REGISTER_ITA : StringUtils.REGISTER_ENG;
-                    final Iterator<String> iterator = Files.readAllLines(Paths.get(pathname)).iterator();
+                    final Iterator<String> iterator = FileUtils.iteratorFromFile(lang, FileType.REGISTER);
                     regLabel.setText(iterator.next());
                     usrLabel.setText(iterator.next());
                     nickLabel.setText(iterator.next());
@@ -149,6 +167,10 @@ public class RegisterController extends Application implements Controller {
                     regBtn.setText(iterator.next());
                     closeBtn.setText(iterator.next());
                     lngBox.getTooltip().setText(iterator.next());
+                    pswCheckBox.setText(iterator.next());
+                    confPswCheckBox.setText(iterator.next());
+                    final Stage stage = (Stage) closeBtn.getScene().getWindow();
+                    stage.setTitle(iterator.next());
                     if (iterator.hasNext()) {
                         throw new IllegalStateException();
                     }
@@ -160,4 +182,17 @@ public class RegisterController extends Application implements Controller {
         };
     }
 
+    private boolean checkPassword() {
+        if (pswField.getText().equals(confPswField.getText())) {
+            return !pswField.getText().equals("");
+        }
+        if (pswTextField.getText().equals(confPswTextField.getText())) {
+            return !pswTextField.getText().equals("");
+        }
+        return false;
+    }
+
+    private String getPassword() {
+        return pswCheckBox.isSelected() ? pswTextField.getText() : pswField.getText();
+    }
 }

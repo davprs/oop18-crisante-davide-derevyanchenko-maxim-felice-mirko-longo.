@@ -6,3 +6,4 @@ ACCEDI
 Conferma
 Esci
 Seleziona la lingua
+ACCEDERE
