@@ -16,6 +16,7 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
+import view.MenuView;
 import view.RegisterView;
 /**
  * This class controls the login before starting the game.
@@ -72,7 +73,7 @@ public class LoginController implements Initializable {
                 try {
                     final Stage stage = (Stage) loginBtn.getScene().getWindow();
                     stage.close();
-                    new MenuController().start(new Stage());
+                    new MenuView(bundle.getLocale().getLanguage()).start(new Stage());
                 } catch (Exception e) {
                     System.out.println(StringUtils.ERROR_MESSAGE);
                     Platform.exit();

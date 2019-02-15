@@ -1,2 +1,4 @@
 ﻿bin/
 doc/
+/bin/
+.directory
