@@ -1,9 +1,0 @@
-Accedi
-Nome utente
-Password
-Registrati
-ACCEDI
-Conferma
-Esci
-Seleziona la lingua
-ACCEDERE

@@ -1,9 +1,0 @@
-Log in
-Username
-Password
-Register
-LOGIN
-Confirm
-Exit
-Select the language
-LOGGING IN

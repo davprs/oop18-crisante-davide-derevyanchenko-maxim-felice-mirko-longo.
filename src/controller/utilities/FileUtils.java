@@ -7,12 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
-
-import controller.FileType;
-import controller.Language;
 import model.account.Account;
 import model.account.AccountImpl;
 
@@ -22,30 +18,11 @@ import model.account.AccountImpl;
  */
 public final class FileUtils {
 
-    private FileUtils() { }
+    private static final String SEPARATOR = System.getProperty("file.separator");
+    private static final String ACCOUNT_PATH = "res" + SEPARATOR + "accounts" + SEPARATOR;
+    private static final String TXT_EXTENSION = ".txt";
 
-    /**
-     * Generate a String Iterator from a specific File.
-     * 
-     * @param lang the file language
-     * @param fileType the fileType according to the Enum
-     * @return an Iterator.
-     * @throws IOException if an I/O error is thrown when accessing the file.
-     */
-    public static Iterator<String> iteratorFromFile(final Language lang, final FileType fileType) throws IOException {
-        String pathname;
-        switch (fileType) {
-            case LOGIN:
-                pathname = lang.equals(Language.ITA) ? StringUtils.LOGIN_ITA : StringUtils.LOGIN_ENG;
-                break;
-            case REGISTER:
-                pathname = lang.equals(Language.ITA) ? StringUtils.REGISTER_ITA : StringUtils.REGISTER_ENG;
-                break;
-            default: 
-                throw new IllegalArgumentException();
-        }
-        return Files.readAllLines(Paths.get(pathname)).iterator();
-    }
+    private FileUtils() { }
 
     /**
      * Print an Account on a simple text File. 
@@ -54,7 +31,7 @@ public final class FileUtils {
      * @throws IOException if an I/O error is thrown when accessing the file.
      */
     public static void printAccount(final Account account) throws IOException {
-        final File file = new File(StringUtils.ACCOUNT_PATH + account.getUsername() + StringUtils.TXT_EXTENSION);
+        final File file = new File(ACCOUNT_PATH + account.getUsername() + TXT_EXTENSION);
         file.createNewFile();
         try (PrintStream ps = new PrintStream(file)) {
             ps.println(account.getUsername());
@@ -71,7 +48,7 @@ public final class FileUtils {
      */
     public static Set<Account> readAccounts() throws IOException {
         final Set<Account> set = new HashSet<>();
-        try (Stream<Path> paths = Files.walk(Paths.get(StringUtils.ACCOUNT_PATH))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(ACCOUNT_PATH))) {
             paths
                 .filter(Files::isRegularFile)
                 .map(p -> {

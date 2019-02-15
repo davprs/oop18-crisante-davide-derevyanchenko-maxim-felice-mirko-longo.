@@ -35,18 +35,6 @@
          <font>
             <Font size="13.0" />
          </font></Button>
-      <ChoiceBox fx:id="lngBox" nodeOrientation="LEFT_TO_RIGHT" prefWidth="50.0" value="ITA" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
-      		<items> 
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="ITA" />
-                    <String fx:value="ENG" />
-                </FXCollections>
-            </items>
-            <tooltip> <Tooltip text="Seleziona la lingua" /></tooltip>
-         <GridPane.margin>
-            <Insets left="7.0" />
-         </GridPane.margin> 
-            </ChoiceBox>
       <Label fx:id="login" text="Accedi" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -61,11 +49,6 @@
          </font></Label>
       <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <TextField fx:id="usrField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <Button fx:id="confBtn" mnemonicParsing="false" onMouseClicked="#setLanguage" text="Conferma" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-         <GridPane.margin>
-            <Insets left="60.0" />
-         </GridPane.margin>
-      </Button>
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />

@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.collections.FXCollections?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
   <columnConstraints>
@@ -36,27 +35,11 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Button fx:id="confBtn" mnemonicParsing="false" onMouseClicked="#setLanguage" text="Conferma" GridPane.halignment="LEFT" GridPane.rowIndex="5">
-         <GridPane.margin>
-            <Insets left="60.0" />
-         </GridPane.margin></Button>
       <TextField fx:id="nickField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="usrField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <PasswordField fx:id="confPswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label fx:id="usrLabel" text="Nome utente:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <ChoiceBox fx:id="lngBox" nodeOrientation="LEFT_TO_RIGHT" prefWidth="50.0" value="ITA" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-      		<items> 
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="ITA" />
-                    <String fx:value="ENG" />
-                </FXCollections>
-            </items>
-            <tooltip> <Tooltip text="Seleziona la lingua" /></tooltip>
-         <GridPane.margin>
-            <Insets left="7.0" />
-         </GridPane.margin>
-      </ChoiceBox>
       <CheckBox fx:id="pswCheckBox" mnemonicParsing="false" onMouseClicked="#changePswField" text="Mostra password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <CheckBox fx:id="confPswCheckBox" mnemonicParsing="false" onMouseClicked="#changeConfPswField" text="Mostra password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       <TextField fx:id="pswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
