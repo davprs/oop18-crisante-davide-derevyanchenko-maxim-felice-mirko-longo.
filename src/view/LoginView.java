@@ -18,7 +18,7 @@ public class LoginView extends Application {
 
     private static final String LOGGING_IN_KEY = "LOGGING_IN";
     private static final String BUNDLE = "login.LoginBundle";
-    private static final String LOGIN_VIEW = "LoginView.fxml";
+    private static final String LOGIN_VIEW = "loginView.fxml";
     private static final double WIDTH_RELATIONSHIP = 4.8;
     private static final double HEIGHT_RELATIONSHIP = 3.375;
     private static final double PREF_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / WIDTH_RELATIONSHIP;
@@ -33,7 +33,6 @@ public class LoginView extends Application {
     public LoginView(final String language) {
         this.language = language;
     }
-
     /**
      * Start method to load the view.
      */

@@ -30,7 +30,6 @@ public class LanguageView extends Application {
         stage.centerOnScreen();
         stage.show();
     }
-
     /**
      * @param args ignored.
      */

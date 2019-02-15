@@ -16,7 +16,6 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
-import view.LanguageView;
 import view.RegisterView;
 /**
  * This class controls the login before starting the game.
@@ -99,12 +98,6 @@ public class LoginController implements Initializable {
     public void initialize(final URL location, final ResourceBundle resources) {
         bundle = resources;
         setComponents();
-        try {
-            new LanguageView().start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
     }
 
     private void setComponents() {

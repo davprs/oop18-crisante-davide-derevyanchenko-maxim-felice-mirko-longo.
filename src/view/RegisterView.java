@@ -19,7 +19,7 @@ public class RegisterView extends Application {
 
     private static final String BUNDLE = "register.RegisterBundle";
     private static final String SIGNING_IN_KEY = "SIGNING_IN";
-    private static final String REGISTER_VIEW = "RegisterView.fxml";
+    private static final String REGISTER_VIEW = "registerView.fxml";
     private static final double PREF_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3.49;
     private static final double PREF_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3.08571428571;
     private static final double MIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3.5;
