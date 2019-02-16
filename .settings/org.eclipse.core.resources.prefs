@@ -1,2 +1,12 @@
 eclipse.preferences.version=1
+encoding//res/bundles/errors/accountError/AccountErrorBundle_en.properties=UTF-8
+encoding//res/bundles/errors/accountError/AccountErrorBundle_it.properties=UTF-8
+encoding//res/bundles/errors/passwordError/PasswordErrorBundle_en.properties=UTF-8
+encoding//res/bundles/errors/passwordError/PasswordErrorBundle_it.properties=UTF-8
+encoding//res/bundles/login/LoginBundle_en.properties=UTF-8
+encoding//res/bundles/login/LoginBundle_it.properties=UTF-8
+encoding//res/bundles/menu/MenuBundle_en.properties=UTF-8
+encoding//res/bundles/menu/MenuBundle_it.properties=UTF-8
+encoding//res/bundles/register/RegisterBundle_en.properties=UTF-8
+encoding//res/bundles/register/RegisterBundle_it.properties=UTF-8
 encoding/<project>=UTF-8

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import view.GameView;
+//import view.GameView;
 
 /**
  * class MenuController that controls the menu.
@@ -28,10 +28,10 @@ public class MenuController implements Initializable {
      */
     @FXML
     public void play() {
-        Stage stage = (Stage) play.getScene().getWindow();
+        final Stage stage = (Stage) play.getScene().getWindow();
         stage.close();
         try {
-            new GameView(bundle.getLocale().getLanguage()).start(new Stage());
+            //new GameView(bundle.getLocale().getLanguage()).start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }

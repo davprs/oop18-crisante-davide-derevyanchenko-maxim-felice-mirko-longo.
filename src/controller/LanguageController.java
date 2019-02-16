@@ -19,7 +19,7 @@ public class LanguageController {
     private Button english;
 
     /**
-     * Set the language to italian.
+     * Set the language to Italian.
      */
     @FXML
     public void setItalian() {
@@ -27,7 +27,7 @@ public class LanguageController {
     }
 
     /**
-     * Set the language to english.
+     * Set the language to English.
      */
     @FXML
     public void setEnglish() {

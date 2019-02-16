@@ -16,7 +16,9 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
+import view.AccountErrorView;
 import view.MenuView;
+import view.PasswordErrorView;
 import view.RegisterView;
 /**
  * This class controls the login before starting the game.
@@ -53,12 +55,7 @@ public class LoginController implements Initializable {
      */
     @FXML
     public void register() {
-        try {
-            new RegisterView(bundle.getLocale().getLanguage()).start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
+        startRegister();
     }
 
     /**
@@ -70,18 +67,13 @@ public class LoginController implements Initializable {
         final AccountManager accManager = new AccountManagerImpl();
         if (accManager.isPresent(account)) {
             if (accManager.checkPassword(account)) {
-                try {
-                    final Stage stage = (Stage) loginBtn.getScene().getWindow();
-                    stage.close();
-                    new MenuView(bundle.getLocale().getLanguage()).start(new Stage());
-                } catch (Exception e) {
-                    System.out.println(StringUtils.ERROR_MESSAGE);
-                    Platform.exit();
-                }
+                startMenu();
+            } else {
+                startPasswordError();
             }
-            System.out.println("Password errata");
+        } else {
+            startAccountError();
         }
-        System.out.println("Account inesistente");
     }
 
     /**
@@ -93,7 +85,7 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
@@ -110,4 +102,41 @@ public class LoginController implements Initializable {
         exitBtn.setText(bundle.getString(EXIT_KEY));
     }
 
+    private void startMenu() {
+        try {
+            final Stage stage = (Stage) loginBtn.getScene().getWindow();
+            stage.close();
+            new MenuView(bundle.getLocale().getLanguage()).start(new Stage());
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
+
+    private void startAccountError() {
+        try {
+            new AccountErrorView(bundle.getLocale().getLanguage()).start(new Stage());
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
+
+    private void startPasswordError() {
+        try {
+            new PasswordErrorView(bundle.getLocale().getLanguage()).start(new Stage());
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
+
+    private void startRegister() {
+        try {
+            new RegisterView(bundle.getLocale().getLanguage()).start(new Stage());
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
 }

@@ -108,7 +108,7 @@ public class RegisterController implements Initializable {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {

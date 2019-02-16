@@ -15,6 +15,8 @@ import javafx.stage.Stage;
  */
 public class MenuView extends Application {
 
+    private static final double PREF_WIDTH = 600;
+    private static final double PREF_HEIGHT = 500;
     private final String language;
 
     /**
@@ -31,9 +33,9 @@ public class MenuView extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         BundleUtils.setLocale(language);
-        ResourceBundle bundle = ResourceBundle.getBundle("menu.MenuBundle");
-        GridPane root = FXMLLoader.load(ClassLoader.getSystemResource("menuView.fxml"), bundle);
-        Scene scene = new Scene(root,600,500);
+        final ResourceBundle bundle = ResourceBundle.getBundle("menu.MenuBundle");
+        final GridPane root = FXMLLoader.load(ClassLoader.getSystemResource("menuView.fxml"), bundle);
+        final Scene scene = new Scene(root, PREF_WIDTH, PREF_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class LanguageView extends Application {
 
-    private static final String TITLE = "";
+    private static final String TITLE = "Hello!";
     private static final String LANGUAGE_VIEW = "languageView.fxml";
     private static final double PREF_WIDTH = 390;
     private static final double PREF_HEIGHT = 200;
