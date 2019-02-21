@@ -7,6 +7,18 @@ package model;
 public interface Life {
 
     /**
+     * Lose a certain quantity of health.
+     * @param health the health to lose
+     */
+    void loseHealth(int health);
+
+    /**
+     * Add a certain quantity of health.
+     * @param health the health to add
+     */
+    void addHealth(int health);
+
+    /**
      * Add a life.
      */
     void addLife();

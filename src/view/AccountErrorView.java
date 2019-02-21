@@ -2,7 +2,7 @@ package view;
 
 import java.util.ResourceBundle;
 
-import controller.utilities.BundleUtils;
+import utilities.BundleUtils;
 
 /**
  * View of AccountError.

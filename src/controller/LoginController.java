@@ -3,7 +3,6 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import controller.utilities.StringUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +15,7 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
+import utilities.StringUtils;
 import view.AccountErrorView;
 import view.MenuView;
 import view.PasswordErrorView;
@@ -63,7 +63,7 @@ public class LoginController implements Initializable {
      */
     @FXML
     public void tryLogin() {
-        final Account account = new AccountImpl(usrField.getText(), pswField.getText());
+        final Account account = AccountImpl.createSimpleAccount(usrField.getText(), pswField.getText());
         final AccountManager accManager = new AccountManagerImpl();
         if (accManager.isPresent(account)) {
             if (accManager.checkPassword(account)) {

@@ -1,4 +1,4 @@
-package controller.utilities;
+package utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import model.account.Account;
 import model.account.AccountImpl;
 
@@ -19,7 +22,9 @@ import model.account.AccountImpl;
 public final class FileUtils {
 
     private static final String SEPARATOR = System.getProperty("file.separator");
-    private static final String ACCOUNT_PATH = "res" + SEPARATOR + "accounts" + SEPARATOR;
+    private static final String RES_PATH = "res" + SEPARATOR;
+    private static final String ACCOUNT_PATH = RES_PATH + "accounts" + SEPARATOR;
+    private static final String TOP_SCORE_PATH = RES_PATH + "topScore" + SEPARATOR + "topScore.txt";
     private static final String TXT_EXTENSION = ".txt";
 
     private FileUtils() { }
@@ -53,9 +58,17 @@ public final class FileUtils {
                 .filter(Files::isRegularFile)
                 .map(p -> {
                     try {
-                        return new AccountImpl(Files.readAllLines(p).get(0), Files.readAllLines(p).get(1), Files.readAllLines(p).get(2));
+                        final List<String> file = Files.readAllLines(p);
+                        if (file.size() == 3) {
+                            return AccountImpl.createAccountWithNickname(file.get(0), file.get(2), file.get(1));
+                        } else {
+                            return AccountImpl.createCompleteAccount(file.get(0), file.get(2), file.get(1), file.stream()
+                                                                                                                .skip(3)
+                                                                                                                .map(value -> Integer.parseInt(value))
+                                                                                                                .collect(Collectors.toList()));
+                        }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println(StringUtils.ERROR_MESSAGE);
                     }
                     return null;
                 })
@@ -78,4 +91,5 @@ public final class FileUtils {
                              .get()
                              .getPassword();
     }
+
 }

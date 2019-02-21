@@ -1,65 +1,102 @@
 package model.account;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Implementation of Account Interface.
  *
  */
-public class AccountImpl implements Account {
+public final class AccountImpl implements Account {
 
     private final String username;
-    private String nickname;
+    private Optional<String> nickname;
     private String password;
+    private Optional<List<Integer>> topScores;
 
-    /**
-     * Build a complete Account.
-     * @param username the Account username
-     * @param nickname the Account nickname
-     * @param password the Account password
-     */
-    public AccountImpl(final String username, final String nickname, final String password) {
+    private AccountImpl(final String username, final Optional<String> nickname, final String password, final Optional<List<Integer>> topScores) {
+        if (username == null || password == null) {
+            throw new IllegalArgumentException();
+        }
         this.username = username;
         this.nickname = nickname;
         this.password = password;
+        this.topScores = topScores;
     }
 
-    /**
-     * Build a simple Account.
-     * @param username the Account username
-     * @param password the Account password
+    /** 
+     * Create a simple Account.
+     * @param username the account username
+     * @param password the account password
+     * @return the Account
      */
-    public AccountImpl(final String username, final String password) {
-        this(username, null, password);
+    public static Account createSimpleAccount(final String username, final String password) {
+        return new AccountImpl(username, Optional.empty(), password, Optional.empty());
     }
 
     /**
-     * @return the username
+     * Create an Account with nickname.
+     * @param username the account username
+     * @param password the account password
+     * @param nickname the account nickname
+     * @return the Account
+     */
+    public static Account createAccountWithNickname(final String username, final String password, final String nickname) {
+        if (nickname == null) {
+            throw new IllegalArgumentException();
+        }
+        return new AccountImpl(username, Optional.of(nickname), password, Optional.empty());
+    }
+
+    /**
+     * Create a complete Account.
+     * @param username the account username
+     * @param password the account password
+     * @param nickname the account nickname
+     * @param topScores the account topScores
+     * @return the Account
+     */
+    public static Account createCompleteAccount(final String username, final String password, final String nickname, final List<Integer> topScores) {
+        if (nickname == null || topScores == null) {
+            throw new IllegalArgumentException();
+        }
+        return new AccountImpl(username, Optional.of(nickname), password, Optional.of(topScores));
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public String getUsername() {
         return this.username;
     }
 
     /**
-     * @return the nickname
+     * {@inheritDoc}
      */
-    public String getNickname() {
+    public Optional<String> getNickname() {
         return this.nickname;
     }
 
     /**
-     * @return the password
+     * {@inheritDoc}
      */
     public String getPassword() {
         return this.password;
     }
 
     /**
+     * Set the nickname.
      * @param nickname the nickname to set
      */
     public void setNickname(final String nickname) {
-        this.nickname = nickname;
+        if (nickname == null) {
+            throw new IllegalArgumentException();
+        }
+        this.nickname = Optional.of(nickname);
     }
 
     /**
+     * Set the password.
      * @param password the password to set
      */
     public void setPassword(final String password) {

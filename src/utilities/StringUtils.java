@@ -1,4 +1,4 @@
-package controller.utilities;
+package utilities;
 
 /**
  * This class is created only to give String utilities.

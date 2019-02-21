@@ -1,5 +1,7 @@
 package model.account;
 
+import java.util.Optional;
+
 /**
  * Represents a Game Account.
  *
@@ -14,11 +16,11 @@ public interface Account {
     String getUsername();
 
     /**
-     * Get the nickname.
+     * Get the nickname(optional).
      * 
      * @return the account nickname
      */
-    String getNickname();
+    Optional<String> getNickname();
 
     /**
      * Get the password.

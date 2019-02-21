@@ -2,12 +2,12 @@ package view;
 
 import java.util.ResourceBundle;
 
-import controller.utilities.BundleUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import utilities.BundleUtils;
 
 /**
  * 

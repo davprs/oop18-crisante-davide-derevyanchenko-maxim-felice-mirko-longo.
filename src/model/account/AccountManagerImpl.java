@@ -3,8 +3,8 @@ package model.account;
 import java.io.IOException;
 import java.util.Set;
 
-import controller.utilities.FileUtils;
-import controller.utilities.StringUtils;
+import utilities.FileUtils;
+import utilities.StringUtils;
 
 /**
  * Implementation of AccountManager Interface.

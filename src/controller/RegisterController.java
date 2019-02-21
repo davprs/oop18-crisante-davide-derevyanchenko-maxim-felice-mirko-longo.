@@ -81,7 +81,7 @@ public class RegisterController implements Initializable {
             System.out.println("Errore");
             return;
         }
-        final Account account = new AccountImpl(usrField.getText(), nickField.getText(), getPassword());
+        final Account account =  AccountImpl.createAccountWithNickname(usrField.getText(), getPassword(), nickField.getText());
         if (manager.isPresent(account)) {
             System.out.println("Account già presente");
         } else {

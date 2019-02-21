@@ -1,4 +1,4 @@
-package controller.utilities;
+package utilities;
 
 import java.util.Locale;
 

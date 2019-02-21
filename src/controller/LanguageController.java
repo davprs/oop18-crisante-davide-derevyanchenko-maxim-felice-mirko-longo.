@@ -1,10 +1,10 @@
 package controller;
 
-import controller.utilities.StringUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import utilities.StringUtils;
 import view.LoginView;
 
 /**
