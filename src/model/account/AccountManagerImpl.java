@@ -19,7 +19,7 @@ public class AccountManagerImpl implements AccountManager {
      */
     public AccountManagerImpl() {
        try {
-           accounts = FileUtils.readAccounts();
+           accounts = FileUtils.getAccounts();
         } catch (IOException e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             throw new IllegalStateException();
@@ -54,7 +54,7 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public boolean checkPassword(final Account account) {
         try {
-            return isPresent(account) && account.getPassword().equals(FileUtils.readPassword(account.getUsername()));
+            return isPresent(account) && account.getPassword().equals(FileUtils.getPassword(account.getUsername()));
         } catch (IOException e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             System.exit(0);

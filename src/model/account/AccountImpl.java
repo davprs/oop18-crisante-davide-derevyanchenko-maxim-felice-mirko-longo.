@@ -1,8 +1,5 @@
 package model.account;
 
-import java.util.List;
-import java.util.Optional;
-
 /**
  * Implementation of Account Interface.
  *
@@ -10,18 +7,20 @@ import java.util.Optional;
 public final class AccountImpl implements Account {
 
     private final String username;
-    private Optional<String> nickname;
+    private String nickname;
     private String password;
-    private Optional<List<Integer>> topScores;
+    private final int bestScore;
+    private final Settings settings;
 
-    private AccountImpl(final String username, final Optional<String> nickname, final String password, final Optional<List<Integer>> topScores) {
+    private AccountImpl(final String username, final String nickname, final String password, final int bestScore, final Settings settings) {
         if (username == null || password == null) {
             throw new IllegalArgumentException();
         }
         this.username = username;
         this.nickname = nickname;
         this.password = password;
-        this.topScores = topScores;
+        this.bestScore = bestScore;
+        this.settings = settings;
     }
 
     /** 
@@ -31,7 +30,7 @@ public final class AccountImpl implements Account {
      * @return the Account
      */
     public static Account createSimpleAccount(final String username, final String password) {
-        return new AccountImpl(username, Optional.empty(), password, Optional.empty());
+        return new AccountImpl(username, username, password, 0, Settings.DEFAULT);
     }
 
     /**
@@ -45,7 +44,7 @@ public final class AccountImpl implements Account {
         if (nickname == null) {
             throw new IllegalArgumentException();
         }
-        return new AccountImpl(username, Optional.of(nickname), password, Optional.empty());
+        return new AccountImpl(username, nickname, password, 0, Settings.DEFAULT);
     }
 
     /**
@@ -53,14 +52,15 @@ public final class AccountImpl implements Account {
      * @param username the account username
      * @param password the account password
      * @param nickname the account nickname
-     * @param topScores the account topScores
+     * @param bestScore the account topScores
+     * @param settings the account settings
      * @return the Account
      */
-    public static Account createCompleteAccount(final String username, final String password, final String nickname, final List<Integer> topScores) {
-        if (nickname == null || topScores == null) {
+    public static Account createCompleteAccount(final String username, final String password, final String nickname, final int bestScore, final Settings settings) {
+        if (nickname == null || bestScore < 0) {
             throw new IllegalArgumentException();
         }
-        return new AccountImpl(username, Optional.of(nickname), password, Optional.of(topScores));
+        return new AccountImpl(username, nickname, password, bestScore, settings);
     }
 
     /**
@@ -73,7 +73,7 @@ public final class AccountImpl implements Account {
     /**
      * {@inheritDoc}
      */
-    public Optional<String> getNickname() {
+    public String getNickname() {
         return this.nickname;
     }
 
@@ -85,6 +85,20 @@ public final class AccountImpl implements Account {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public int getBestScore() {
+        return this.bestScore;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Settings getSettings() {
+        return settings;
+    }
+
+    /**
      * Set the nickname.
      * @param nickname the nickname to set
      */
@@ -92,7 +106,7 @@ public final class AccountImpl implements Account {
         if (nickname == null) {
             throw new IllegalArgumentException();
         }
-        this.nickname = Optional.of(nickname);
+        this.nickname = nickname;
     }
 
     /**
@@ -100,6 +114,9 @@ public final class AccountImpl implements Account {
      * @param password the password to set
      */
     public void setPassword(final String password) {
+        if (password == null) {
+            throw new IllegalArgumentException();
+        }
         this.password = password;
     }
 

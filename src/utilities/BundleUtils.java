@@ -13,7 +13,7 @@ public final class BundleUtils {
     private BundleUtils() { }
 
     /**
-     * 
+     * Set the language.
      * @param language the desired language
      */
     public static void setLocale(final String language) {
