@@ -1,23 +1,32 @@
-package view;
+package view.login;
 
 import java.util.ResourceBundle;
 
 import utilities.BundleUtils;
+import view.ErrorView;
 
 /**
- * View of PasswordError.
+ * View of AccountError.
  *
  */
-public class PasswordErrorView extends ErrorView {
+public class LoginUsernameErrorView extends ErrorView {
 
-    private static final String BUNDLE = "errors.passwordError.PasswordErrorBundle";
+    private static final String DEFAULT = "en";
+    private static final String BUNDLE = "errors.login.usernameError.UsernameErrorBundle";
     private final String language;
+
+    /**
+     * Construct the default View.
+     */
+    public LoginUsernameErrorView() {
+        this.language = DEFAULT;
+    }
 
     /**
      * Construct the View, according to the language.
      * @param language the desired language
      */
-    public PasswordErrorView(final String language) {
+    public LoginUsernameErrorView(final String language) {
         this.language = language;
     }
 
@@ -37,3 +46,4 @@ public class PasswordErrorView extends ErrorView {
         return ResourceBundle.getBundle(BUNDLE);
     }
 }
+

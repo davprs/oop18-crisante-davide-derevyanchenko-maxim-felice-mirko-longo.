@@ -1,23 +1,32 @@
-package view;
+package view.register;
 
 import java.util.ResourceBundle;
 
 import utilities.BundleUtils;
+import view.ErrorView;
 
 /**
- * View of AccountError.
+ * View of RegisterAccountError.
  *
  */
-public class AccountErrorView extends ErrorView {
+public class RegisterAccountErrorView extends ErrorView {
 
-    private static final String BUNDLE = "errors.accountError.AccountErrorBundle";
+    private static final String DEFAULT = "en";
+    private static final String BUNDLE = "errors.register.accountError.AccountErrorBundle";
     private final String language;
+
+    /**
+     * Construct the default View.
+     */
+    public RegisterAccountErrorView() {
+        this.language = DEFAULT;
+    }
 
     /**
      * Construct the View, according to the language.
      * @param language the desired language
      */
-    public AccountErrorView(final String language) {
+    public RegisterAccountErrorView(final String language) {
         this.language = language;
     }
 
@@ -36,5 +45,5 @@ public class AccountErrorView extends ErrorView {
     protected ResourceBundle getBundle() {
         return ResourceBundle.getBundle(BUNDLE);
     }
-}
 
+}

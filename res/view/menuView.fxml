@@ -24,7 +24,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="Play" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#play" prefHeight="43.0" prefWidth="286.0" text="GIOCA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Button fx:id="Highscore" mnemonicParsing="false" prefHeight="46.0" prefWidth="283.0" text="HIGHSCORE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="play" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#play" prefHeight="43.0" prefWidth="286.0" text="GIOCA" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button fx:id="highscore" mnemonicParsing="false" prefHeight="46.0" prefWidth="283.0" text="HIGHSCORE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

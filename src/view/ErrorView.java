@@ -10,7 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * 
+ * Abstract view class of Errors.
  *
  */
 public abstract class ErrorView extends Application {
@@ -19,6 +19,7 @@ public abstract class ErrorView extends Application {
     private static final String ERROR_VIEW = "errorView.fxml";
     private static final double PREF_WIDTH = 300;
     private static final double PREF_HEIGHT = 200;
+
     /**
      * Start method to load the view.
      */
@@ -34,10 +35,12 @@ public abstract class ErrorView extends Application {
         stage.centerOnScreen();
         stage.show();
     }
+
     /**
-     * Abstract method to setLanguage.
+     * Set the language.
      */
     protected abstract void setLanguage();
+
     /**
      * Get the ResourceBundle.
      * @return the Bundle of this View.
