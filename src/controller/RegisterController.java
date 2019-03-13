@@ -1,10 +1,7 @@
 package controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -15,23 +12,18 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
+import utilities.ErrorType;
+import utilities.StringUtils;
+import view.register.RegisterView;
 
 /**
  * This class controls the signing in of new accounts.
  *
  */
-public class RegisterController implements Initializable {
+public class RegisterController {
 
-    private static final String SIGN_IN_KEY = "SIGN_IN";
-    private static final String USERNAME_KEY = "username";
-    private static final String NICKNAME_KEY = "nickname";
-    private static final String PASSWORD_KEY = "password";
-    private static final String CONF_PASSWORD_KEY = "confPassword";
-    private static final String SIGN_KEY = "sign";
-    private static final String CANCEL_KEY = "cancel";
-    private static final String SHOW_PASSWORD_KEY = "showPassword";
     private final AccountManager manager = new AccountManagerImpl();
-    private ResourceBundle bundle;
+    private final RegisterView view = new RegisterView();
     @FXML
     private Label regLabel;
     @FXML
@@ -64,6 +56,17 @@ public class RegisterController implements Initializable {
     private CheckBox confPswCheckBox;
 
     /**
+     * Starts the view.
+     */
+    public void start() {
+        try {
+            this.view.start(new Stage());
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
+    /**
      * Close this window.
      */
     @FXML
@@ -77,13 +80,17 @@ public class RegisterController implements Initializable {
      */
     @FXML
     public void register() {
-        if (!checkPassword()) {
-            System.out.println("Errore");
+        if (usrField.getText().equals("")) {
+            startUsernameError();
             return;
         }
-        final Account account =  AccountImpl.createAccountWithNickname(usrField.getText(), getPassword(), nickField.getText());
+        if (!checkPassword()) {
+            startPasswordError();
+            return;
+        }
+        final Account account = AccountImpl.createAccountWithNickname(usrField.getText(), getPassword(), nickField.getText());
         if (manager.isPresent(account)) {
-            System.out.println("Account già presente");
+            startAccountError();
         } else {
             manager.register(account);
             System.out.println("Account registrato");
@@ -105,27 +112,6 @@ public class RegisterController implements Initializable {
     @FXML
     public void changeConfPswField() {
        togglePasswordVisibility(confPswCheckBox, confPswField, confPswTextField);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
-        bundle = resources;
-        setComponents();
-    }
-
-    private void setComponents() {
-        regLabel.setText(bundle.getString(SIGN_IN_KEY));
-        usrLabel.setText(bundle.getString(USERNAME_KEY));
-        nickLabel.setText(bundle.getString(NICKNAME_KEY));
-        pswLabel.setText(bundle.getString(PASSWORD_KEY));
-        confPswLabel.setText(bundle.getString(CONF_PASSWORD_KEY));
-        closeBtn.setText(bundle.getString(CANCEL_KEY));
-        regBtn.setText(bundle.getString(SIGN_KEY));
-        pswCheckBox.setText(bundle.getString(SHOW_PASSWORD_KEY));
-        confPswCheckBox.setText(bundle.getString(SHOW_PASSWORD_KEY));
     }
 
     private void togglePasswordVisibility(final CheckBox cb, final PasswordField psw, final TextField text) {
@@ -154,4 +140,30 @@ public class RegisterController implements Initializable {
         return pswCheckBox.isSelected() ? pswTextField.getText() : pswField.getText();
     }
 
+    private void startPasswordError() {
+        try {
+            new ErrorController().start(ErrorType.REGISTER_PASSWORD);
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
+
+    private void startAccountError() {
+        try {
+            new ErrorController().start(ErrorType.REGISTER_ACCOUNT);
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
+
+    private void startUsernameError() {
+        try {
+            new ErrorController().start(ErrorType.REGISTER_USERNAME);
+        } catch (Exception e) {
+            System.out.println(StringUtils.ERROR_MESSAGE);
+            Platform.exit();
+        }
+    }
 }

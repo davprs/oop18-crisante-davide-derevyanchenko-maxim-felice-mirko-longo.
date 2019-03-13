@@ -1,11 +1,9 @@
 package controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -15,24 +13,17 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
+import utilities.ErrorType;
+import utilities.FileUtils;
 import utilities.StringUtils;
-import view.AccountErrorView;
-import view.MenuView;
-import view.PasswordErrorView;
-import view.RegisterView;
+import view.login.LoginView;
+
 /**
  * This class controls the login before starting the game.
  *
  */
-public class LoginController implements Initializable {
+public class LoginController {
 
-    private static final String LOGIN_KEY = "login";
-    private static final String USERNAME_KEY = "username";
-    private static final String PASSWORD_KEY = "password";
-    private static final String REGISTER_KEY = "register";
-    private static final String LOGIN_BTN_KEY = "LOGIN";
-    private static final String EXIT_KEY = "exit";
-    private ResourceBundle bundle;
     @FXML
     private Label login;
     @FXML
@@ -55,7 +46,7 @@ public class LoginController implements Initializable {
      */
     @FXML
     public void register() {
-        startRegister();
+        new RegisterController().start();
     }
 
     /**
@@ -67,7 +58,12 @@ public class LoginController implements Initializable {
         final AccountManager accManager = new AccountManagerImpl();
         if (accManager.isPresent(account)) {
             if (accManager.checkPassword(account)) {
-                startMenu();
+                try {
+                    startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
+                } catch (IOException e) {
+                    System.out.println(StringUtils.ERROR_MESSAGE);
+                    System.exit(0);
+                }
             } else {
                 startPasswordError();
             }
@@ -84,29 +80,11 @@ public class LoginController implements Initializable {
         Platform.exit();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
-        bundle = resources;
-        setComponents();
-    }
-
-    private void setComponents() {
-        login.setText(bundle.getString(LOGIN_KEY));
-        username.setText(bundle.getString(USERNAME_KEY));
-        password.setText(bundle.getString(PASSWORD_KEY));
-        regBtn.setText(bundle.getString(REGISTER_KEY));
-        loginBtn.setText(bundle.getString(LOGIN_BTN_KEY));
-        exitBtn.setText(bundle.getString(EXIT_KEY));
-    }
-
-    private void startMenu() {
+    private void startMenu(final Account account) {
         try {
             final Stage stage = (Stage) loginBtn.getScene().getWindow();
             stage.close();
-            new MenuView(bundle.getLocale().getLanguage()).start(new Stage());
+            new MenuController();
         } catch (Exception e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
@@ -115,7 +93,7 @@ public class LoginController implements Initializable {
 
     private void startAccountError() {
         try {
-            new AccountErrorView(bundle.getLocale().getLanguage()).start(new Stage());
+            new ErrorController().start(ErrorType.lOGIN_USERNAME);
         } catch (Exception e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
@@ -124,19 +102,18 @@ public class LoginController implements Initializable {
 
     private void startPasswordError() {
         try {
-            new PasswordErrorView(bundle.getLocale().getLanguage()).start(new Stage());
+            new ErrorController().start(ErrorType.LOGIN_PASSWORD);
         } catch (Exception e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
         }
     }
 
-    private void startRegister() {
-        try {
-            new RegisterView(bundle.getLocale().getLanguage()).start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
+    /**
+     * Main method.
+     * @param args ignored.
+     */
+    public static void main(final String[] args) {
+        LoginView.initialize();
     }
 }
