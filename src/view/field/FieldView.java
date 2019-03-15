@@ -10,12 +10,11 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 /**
@@ -63,11 +62,12 @@ public class FieldView extends Application {
      * @param boundary the rectangle in which the entity should be drawn
      */
     public void drawEntity(final ImageView image, final double angle, final Rectangle2D boundary) {
-        image.setRotate(angle + 90);
-        final SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        final Image rotatedImage = image.snapshot(params, null);
-        gc.drawImage(rotatedImage, boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
+        final double modifiedAngle = angle + 90;
+        final Rotate r = new Rotate(modifiedAngle, boundary.getMinX() + boundary.getWidth() / 2, boundary.getMinY() + boundary.getHeight() / 2);
+        gc.save();
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+        gc.drawImage(image.getImage(), boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
+        gc.restore();
     }
 
     /**
