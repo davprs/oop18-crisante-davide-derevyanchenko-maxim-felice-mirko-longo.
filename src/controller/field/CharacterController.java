@@ -12,7 +12,7 @@ import view.field.FieldView;
  * Class that controls the character ship moves.
  *
  */
-public class CharacterController {
+public class CharacterController implements EntityController {
 
     private static final Image SHIP_IMAGE = new Image("spaceship.png");
     private final CharacterShip ship;
