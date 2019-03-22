@@ -1,16 +1,30 @@
 package model;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.ImageView;
+
 /**
- * an interface that represents an Entity.
+ * An interface that represents an Entity.
  */
 public interface Entity {
 
     /**
-     * method to move an Entity.
      * 
-     * @param x the horizontal position.
-     * @param y the vertical position.
-     * 
+     * @return the rectangle that represents the boundary of the entity
      */
-    void move(int x, int y);
+    Rectangle2D getBoundary();
+
+    /**
+     * 
+     * @param entity the entity which should be checked the intersection with
+     * 
+     * @return true if the entity is intersected, false otherwise
+     */
+    boolean intersects(Entity entity);
+
+    /**
+     * 
+     * @return the ImageView that represents that entity
+     */
+    ImageView getImageView();
 }
