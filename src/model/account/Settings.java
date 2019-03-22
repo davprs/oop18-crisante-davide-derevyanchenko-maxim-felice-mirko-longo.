@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javafx.geometry.Dimension2D;
-import javafx.scene.image.Image;
 
 /**
  * This class represents all the Settings an Account can set.
@@ -14,18 +13,18 @@ public final class Settings {
 
     private static final Dimension RES = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Dimension2D RES_DEFAULT = new Dimension2D(RES.getWidth(), RES.getHeight());
-    private static final Image IMG_DEFAULT = null;
+    private static final String IMG_DEFAULT = null;
     private boolean sound;
     private Dimension2D resolution;
-    private Image image;
+    private String urlImage;
     /**
      * Default Settings configuration. 
      */
     public static final Settings DEFAULT = new Settings(RES_DEFAULT, IMG_DEFAULT, false);
 
-    private Settings(final Dimension2D res, final Image img, final boolean value) {
+    private Settings(final Dimension2D res, final String urlImg, final boolean value) {
         this.resolution = res;
-        this.image = img;
+        this.urlImage = urlImg;
         this.sound = value;
     }
 
@@ -35,7 +34,7 @@ public final class Settings {
      */
     public static class Builder {
         private Dimension2D res = RES_DEFAULT;
-        private Image img = IMG_DEFAULT;
+        private String urlImg = IMG_DEFAULT;
         private boolean soundOn;
 
         /**
@@ -50,11 +49,11 @@ public final class Settings {
 
         /**
          * Set the image.
-         * @param image the image to set.
+         * @param ulrImage the image to set.
          * @return the Builder.
          */
-        public Builder image(final Image image) {
-            this.img = image;
+        public Builder image(final String ulrImage) {
+            this.urlImg = ulrImage;
             return this;
         }
 
@@ -73,11 +72,10 @@ public final class Settings {
          * @return a Settings.
          */
         public Settings build() {
- //           if (this.res == null || this.img == null) {
-            if (this.res == null){
+            if (this.res == null || this.urlImg == null || this.urlImg.equals("null") || this.urlImg.equals("")) {
                 throw new IllegalArgumentException();
             }
-            return new Settings(this.res, this.img, this.soundOn);
+            return new Settings(this.res, this.urlImg, this.soundOn);
         }
     }
 
@@ -98,11 +96,11 @@ public final class Settings {
     }
 
     /**
-     * Get the image.
-     * @return the image
+     * Get the URL Image.
+     * @return the URL Image
      */
-    public Image getImage() {
-        return this.image;
+    public String getURLImage() {
+        return this.urlImage;
     }
 
     /**
@@ -123,10 +121,10 @@ public final class Settings {
 
     /**
      * Set the image.
-     * @param image the image to set
+     * @param ulrImage the image to set
      */
-    public void setImage(final Image image) {
-        this.image = image;
+    public void setImage(final String ulrImage) {
+        this.urlImage = ulrImage;
     }
 
 }

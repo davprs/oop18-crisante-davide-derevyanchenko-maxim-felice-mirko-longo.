@@ -49,7 +49,7 @@ public final class FileUtils {
             ps.println(account.getBestScore());
             ps.println(account.getSettings().getResolution().getWidth());
             ps.println(account.getSettings().getResolution().getHeight());
-            ps.println(account.getSettings().getImage());
+            ps.println(account.getSettings().getURLImage());
             ps.println(account.getSettings().isSoundOn());
         }
     }
@@ -74,6 +74,8 @@ public final class FileUtils {
                                 Integer.parseInt(iterator.next()), 
                                 new Settings.Builder()
                                             .resolution(new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())))
+                                            .image(iterator.next())
+                                            .sound(Boolean.parseBoolean(iterator.next()))
                                             .build());
                     } catch (IOException e) {
                         System.out.println(StringUtils.ERROR_MESSAGE);
@@ -134,7 +136,10 @@ public final class FileUtils {
         Map<String, Integer> scores = getTopScores();
         if (account.getBestScore() < value) {
             scores.put(account.getUsername(), value);
-            scores = scores.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            scores = scores.entrySet()
+                           .stream()
+                           .sorted(Map.Entry.comparingByValue())
+                           .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
             try (PrintStream ps = new PrintStream(new File(TOP_SCORE_PATH))) {
                 scores.forEach((u, i) -> ps.println(u + " " + i));
             }
