@@ -6,6 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Entity;
+import model.bullet.Bullet;
 
 /**
  * Class that represents the character ship.
@@ -60,11 +61,6 @@ public class CharacterShipImpl implements CharacterShip {
         return entity.getBoundary().intersects(this.getBoundary());
     }
 
-    @Override
-    public void shoot() {
-
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -79,5 +75,13 @@ public class CharacterShipImpl implements CharacterShip {
     @Override
     public void changeMoving() {
         this.isMoving = !this.isMoving;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Bullet shoot(final Point2D target) {
+        return null;
     }
 }
