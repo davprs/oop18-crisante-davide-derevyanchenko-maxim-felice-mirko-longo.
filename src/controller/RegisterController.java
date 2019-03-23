@@ -1,12 +1,19 @@
 package controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.account.Account;
 import model.account.AccountImpl;
@@ -20,7 +27,7 @@ import view.register.RegisterView;
  * This class controls the signing in of new accounts.
  *
  */
-public class RegisterController {
+public class RegisterController implements Initializable {
 
     private final AccountManager manager = new AccountManagerImpl();
     private final RegisterView view = new RegisterView();
@@ -54,6 +61,38 @@ public class RegisterController {
     private CheckBox pswCheckBox;
     @FXML
     private CheckBox confPswCheckBox;
+    private final EventHandler<KeyEvent> registerHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(final KeyEvent event) {
+            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                regBtn.fire();
+            } 
+        }
+    };
+    private final EventHandler<KeyEvent> cancelHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(final KeyEvent event) {
+            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                closeBtn.fire();
+            } 
+        }
+    };
+    private final EventHandler<KeyEvent> checkHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(final KeyEvent event) {
+            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                pswCheckBox.fire();
+            } 
+        }
+    };
+    private final EventHandler<KeyEvent> confCheckHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(final KeyEvent event) {
+            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                confPswCheckBox.fire();
+            } 
+        }
+    };
 
     /**
      * Starts the view.
@@ -114,6 +153,14 @@ public class RegisterController {
        togglePasswordVisibility(confPswCheckBox, confPswField, confPswTextField);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize(final URL location, final ResourceBundle resources) {
+       setHandlers();
+    }
+
     private void togglePasswordVisibility(final CheckBox cb, final PasswordField psw, final TextField text) {
         if (cb.isSelected()) {
             text.setText(psw.getText());
@@ -165,5 +212,15 @@ public class RegisterController {
             System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
         }
+    }
+
+    private void setHandlers() {
+        this.regBtn.setOnKeyPressed(registerHandler);
+        this.usrField.setOnKeyPressed(registerHandler);
+        this.nickField.setOnKeyPressed(registerHandler);
+        this.pswField.setOnKeyPressed(registerHandler);
+        this.closeBtn.setOnKeyPressed(cancelHandler);
+        this.pswCheckBox.setOnKeyPressed(checkHandler);
+        this.confPswCheckBox.setOnKeyPressed(confCheckHandler);
     }
 }

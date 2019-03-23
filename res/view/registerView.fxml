@@ -26,22 +26,22 @@
       <Label fx:id="pswLabel" text="Enter your password:" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <Label fx:id="confPswLabel" text="Confirm your password:" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       <Label fx:id="nickLabel" text="Nickname:" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Button fx:id="closeBtn" mnemonicParsing="false" onMouseClicked="#close" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+      <Button fx:id="regBtn" mnemonicParsing="false" onAction="#register" text="Sign" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <Button fx:id="closeBtn" mnemonicParsing="false" onAction="#close" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="50.0" />
          </GridPane.margin></Button>
-      <Button fx:id="regBtn" mnemonicParsing="false" onMouseClicked="#register" text="Sign" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-      <Label fx:id="regLabel" text="SIGN IN" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="regLabel" text="SIGN IN" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
+      <Label fx:id="usrLabel" text="Username:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />  
+      <TextField fx:id="usrField" GridPane.columnIndex="1" GridPane.rowIndex="1" />  
       <TextField fx:id="nickField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField fx:id="usrField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <PasswordField fx:id="confPswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label fx:id="usrLabel" text="Username:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <CheckBox fx:id="pswCheckBox" mnemonicParsing="false" onMouseClicked="#changePswField" text="Show password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <CheckBox fx:id="confPswCheckBox" mnemonicParsing="false" onMouseClicked="#changeConfPswField" text="Show password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <CheckBox fx:id="pswCheckBox" mnemonicParsing="false" onAction="#changePswField" text="Show password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <PasswordField fx:id="confPswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <CheckBox fx:id="confPswCheckBox" mnemonicParsing="false" onAction="#changeConfPswField" text="Show password" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
       <TextField fx:id="pswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       <TextField fx:id="confPswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
    </children>

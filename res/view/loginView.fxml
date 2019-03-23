@@ -22,15 +22,15 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="loginBtn" mnemonicParsing="false" onMouseClicked="#tryLogin" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+      <Button fx:id="loginBtn" mnemonicParsing="false" onAction="#tryLogin" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font name="System Italic" size="13.0" />
          </font></Button>
-      <Button fx:id="regBtn" mnemonicParsing="false" onMouseClicked="#register" text="Register" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      <Button fx:id="regBtn" mnemonicParsing="false" onAction="#register" text="Register" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
          <font>
             <Font size="13.0" />
          </font></Button>
-      <Button fx:id="exitBtn" mnemonicParsing="false" onMouseClicked="#exit" text="Exit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#exit" text="Exit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
          <font>
             <Font size="13.0" />
          </font></Button>
@@ -46,8 +46,8 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <TextField fx:id="usrField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />

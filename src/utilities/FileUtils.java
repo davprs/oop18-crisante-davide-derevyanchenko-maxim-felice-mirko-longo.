@@ -72,11 +72,9 @@ public final class FileUtils {
                                 iterator.next(),
                                 iterator.next(),
                                 Integer.parseInt(iterator.next()), 
-                                new Settings.Builder()
-                                            .resolution(new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())))
-                                            .image(iterator.next())
-                                            .sound(Boolean.parseBoolean(iterator.next()))
-                                            .build());
+                                new Settings(new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
+                                        iterator.next(),
+                                        Boolean.parseBoolean(iterator.next())));
                     } catch (IOException e) {
                         System.out.println(StringUtils.ERROR_MESSAGE);
                         System.exit(0);

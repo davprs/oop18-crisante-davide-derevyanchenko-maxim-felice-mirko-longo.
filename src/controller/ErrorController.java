@@ -2,9 +2,14 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import utilities.ErrorType;
 import utilities.StringUtils;
@@ -31,6 +36,16 @@ public class ErrorController implements Initializable {
     private Label errorLabel;
     @FXML
     private Label hintLabel;
+    @FXML
+    private Button okBtn;
+    private final EventHandler<KeyEvent> exitHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(final KeyEvent event) {
+            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                okBtn.fire();
+            } 
+        }
+    };
 
     /**
      * Starts the view, according to the ErrorType.
@@ -70,7 +85,7 @@ public class ErrorController implements Initializable {
      */
     @FXML
     public void close() {
-        final Stage stage = (Stage) warningLabel.getScene().getWindow();
+        final Stage stage = (Stage) this.warningLabel.getScene().getWindow();
         stage.close();
     }
 
@@ -79,13 +94,14 @@ public class ErrorController implements Initializable {
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        bundle = resources;
+        this.bundle = resources;
         setComponents();
+        this.okBtn.setOnKeyPressed(exitHandler);
     }
 
     private void setComponents() {
-        warningLabel.setText(bundle.getString(WARNING_KEY));
-        errorLabel.setText(bundle.getString(ERROR_KEY));
-        hintLabel.setText(bundle.getString(HINT_KEY));
+        this.warningLabel.setText(bundle.getString(WARNING_KEY));
+        this.errorLabel.setText(bundle.getString(ERROR_KEY));
+        this.hintLabel.setText(bundle.getString(HINT_KEY));
     }
 }
