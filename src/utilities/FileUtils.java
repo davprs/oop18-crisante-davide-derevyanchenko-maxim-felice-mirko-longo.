@@ -74,7 +74,8 @@ public final class FileUtils {
                                 Integer.parseInt(iterator.next()), 
                                 new Settings(new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
                                         iterator.next(),
-                                        Boolean.parseBoolean(iterator.next())));
+                                        Boolean.parseBoolean(iterator.next()),
+                                        iterator.next()));
                     } catch (IOException e) {
                         System.out.println(StringUtils.ERROR_MESSAGE);
                         System.exit(0);

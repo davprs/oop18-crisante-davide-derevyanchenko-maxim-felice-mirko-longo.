@@ -219,6 +219,9 @@ public class RegisterController implements Initializable {
         this.usrField.setOnKeyPressed(registerHandler);
         this.nickField.setOnKeyPressed(registerHandler);
         this.pswField.setOnKeyPressed(registerHandler);
+        this.confPswField.setOnKeyPressed(registerHandler);
+        this.pswTextField.setOnKeyPressed(registerHandler);
+        this.confPswTextField.setOnKeyPressed(registerHandler);
         this.closeBtn.setOnKeyPressed(cancelHandler);
         this.pswCheckBox.setOnKeyPressed(checkHandler);
         this.confPswCheckBox.setOnKeyPressed(confCheckHandler);
