@@ -29,8 +29,14 @@ public interface Life {
     void loseLife();
 
     /**
-     * Return true only if the entity is alive.
-     * @return true if is alive.
+     * 
+     * @return the amount of health left to the life
      */
-    boolean isAlive();
+    int getHealth();
+
+    /**
+     * 
+     * @return the amount of lives left
+     */
+    int getLives();
 }

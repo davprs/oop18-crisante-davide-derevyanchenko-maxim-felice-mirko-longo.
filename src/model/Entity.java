@@ -27,4 +27,9 @@ public interface Entity {
      * @return the ImageView that represents that entity
      */
     ImageView getImageView();
+
+    /**
+     * @return true if the entity is still alive, false otherwise
+     */
+    boolean isAlive();
 }

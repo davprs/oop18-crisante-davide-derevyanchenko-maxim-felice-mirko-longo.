@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import model.Entity;
 import model.ship.CharacterShip;
 import model.ship.CharacterShipImpl;
 import view.field.FieldView;
@@ -66,8 +67,9 @@ public class CharacterController implements EntityController {
     }
 
     /**
-     *  Method that orders to draw the character ship to the view.
+     * {@inheritDoc}
      */
+    @Override
     public void draw() {
         //this.view.drawEntity(this.ship.getImageView().getImage(), this.ship.getBoundary());
         final Point2D camUpdate = camController.getCamUpdate();
@@ -76,8 +78,9 @@ public class CharacterController implements EntityController {
     }
 
     /**
-     *  Method that updates the position of the character ship.
+     * {@inheritDoc}
      */
+    @Override
     public void update() {
         final Point2D updatedPosition = getUpdatedPosition();
         this.ship.update(updatedPosition.getX(), updatedPosition.getY());
@@ -96,5 +99,29 @@ public class CharacterController implements EntityController {
      */
     public void changeImmunity() {
         this.immunity = !this.immunity;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean intersects(final EntityController entityController) {
+        return this.ship.intersects(entityController.getEntity());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entity getEntity() {
+        return this.ship;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAlive() {
+        return this.ship.isAlive();
     }
 }

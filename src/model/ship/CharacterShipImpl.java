@@ -6,6 +6,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Entity;
+import model.Life;
+import model.LifeImpl;
 import model.bullet.Bullet;
 
 /**
@@ -14,6 +16,8 @@ import model.bullet.Bullet;
  */
 public class CharacterShipImpl implements CharacterShip {
 
+    private static final int STARTING_LIVES = 3;
+    private static final int STARTING_HEALTH = 1000;
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
     private static final double START_X = 10;
@@ -22,12 +26,14 @@ public class CharacterShipImpl implements CharacterShip {
     private Point2D position;
     private final Dimension2D dimension;
     private boolean isMoving;
+    private final Life life;
 
     /**
      * 
      * @param image the skin of the ship
      */
     public CharacterShipImpl(final Image image) {
+        this.life = LifeImpl.createCustomizedLife(STARTING_LIVES, STARTING_HEALTH);
         this.image = new ImageView();
         this.image.setImage(image);
         this.dimension = new Dimension2D(WIDTH, HEIGHT);
@@ -83,5 +89,13 @@ public class CharacterShipImpl implements CharacterShip {
     @Override
     public Bullet shoot(final Point2D target) {
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAlive() {
+        return (this.life.getHealth() <= 0 && this.life.getLives() <= 0);
     }
 }

@@ -100,9 +100,14 @@ public final class LifeImpl implements Life {
     /**
      * {@inheritDoc}
      */
-    @Override
-    public boolean isAlive() {
-        return this.lives > 0 && this.currentHealth > 0;
+    public int getHealth() {
+        return health;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public int getLives() {
+        return lives;
+    }
 }
