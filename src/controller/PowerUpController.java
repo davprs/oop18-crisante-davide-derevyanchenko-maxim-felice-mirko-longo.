@@ -1,37 +1,40 @@
 package controller;
 
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import model.powerup.PowerUp;
 
 /**
  * This class create a PowerUp to the game.
- * @param <T> type of PowerUp
  */
-public class PowerUpController<T> {
+public class PowerUpController {
 
-    private Consumer<T> currentPowerUp;
+    private static final int POWER_UP_RATE = 1000;
+    private final List<PowerUp> powerUps;
+    private int counter;
 
     /**
      * Build a powerUpController.
-     * @param powerUp consumer
      */
-    public PowerUpController(final Consumer<T> powerUp) {
-        this.currentPowerUp = powerUp;
+    public PowerUpController() {
+        this.powerUps = new ArrayList<>();
+        this.counter = 1;
     }
 
     /**
-     * accept the current PowerUp.
-     * @param current argument to accept
+     * Active a random PowerUp.
+     * @param score the current score
      */
-    public void accept(final T current) {
-        this.currentPowerUp.accept(current);
+    public void active(final int score) {
+        if (checkScore(score)) {
+            this.powerUps.get((new Random().nextInt(this.powerUps.size()))).run();
+            this.counter++;
+        }
     }
 
-    /**
-     * Set currentConsumer.
-     * @param powerUp the new consumer
-     */
-    public void setConsumer(final Consumer<T> powerUp) {
-        this.currentPowerUp = powerUp;
+    private boolean checkScore(final int score) {
+        return score >= POWER_UP_RATE * counter;
     }
-
 }

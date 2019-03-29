@@ -19,6 +19,8 @@ public class CharacterController implements EntityController {
     private final FieldView view;
     private final CameraController camController;
     private boolean camMoving;
+    private boolean immunity;
+
 
     /**
      * 
@@ -29,6 +31,7 @@ public class CharacterController implements EntityController {
         this.ship = new CharacterShipImpl(SHIP_IMAGE);
         this.view = view;
         this.camController = camController;
+        this.immunity = false;
         final EventHandler<Event> eh = new EventHandler<Event>() {
             @Override
             public void handle(final Event event) {
@@ -86,5 +89,12 @@ public class CharacterController implements EntityController {
      */
     public boolean isCamMoving() {
         return this.camMoving;
+    }
+
+    /**
+     * change the value of immunity. 
+     */
+    public void changeImmunity() {
+        this.immunity = !this.immunity;
     }
 }

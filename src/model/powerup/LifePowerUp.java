@@ -1,17 +1,28 @@
 package model.powerup;
 
-import java.util.function.Consumer;
-
 import model.Life;
+
 /**
  *  adds a life powerup.
- *  
  */
-public class LifePowerUp implements Consumer<Life> {
+public class LifePowerUp implements PowerUp {
 
+    private final Life life;
+
+    /**
+     * Build a LifePowerUp.
+     * @param life is the Life of the CharacterShip.
+     */
+    public LifePowerUp(final Life life) {
+        this.life = life;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void accept(Life life) {
-        life.addLife();
+    public void run() {
+        this.life.addLife();
     }
 
 }

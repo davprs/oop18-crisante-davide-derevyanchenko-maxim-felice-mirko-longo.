@@ -14,6 +14,7 @@ public class EnemyController {
     private final CharacterShip character;
     private final FieldView view;
     private final EnemyShip enemy;
+    private boolean freeze;
 
     /**
      * Build a new EnemyController.
@@ -25,6 +26,7 @@ public class EnemyController {
         this.view = view;
         this.enemy = enemy;
         this.character = character;
+        this.freeze = false;
     }
 
     /**
@@ -74,6 +76,14 @@ public class EnemyController {
         enemy.update(new Point2D(movX, movY));
 
     }
+
+    /**
+     * Method that changes the value of the freeze enemies. 
+     */
+    public void changeFreeze() {
+        this.freeze = !this.freeze;
+    }
+
     //fare metodo di shoot.
 
 }
