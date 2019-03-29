@@ -1,12 +1,12 @@
-package controller;
+package controller.login;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
+import controller.FXMLController;
+import controller.StageController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -14,23 +14,21 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
-import utilities.ErrorType;
-import utilities.StringUtils;
-import view.register.RegisterView;
+import utilities.AlertUtils;
+import view.login.RegisterView;
 
 /**
  * This class controls the signing in of new accounts.
  *
  */
-public class RegisterController implements Initializable {
+public class RegisterController implements FXMLController {
 
     private final AccountManager manager = new AccountManagerImpl();
-    private final RegisterView view = new RegisterView();
+    private final StageController stageController;
     @FXML
     private Label regLabel;
     @FXML
@@ -95,23 +93,27 @@ public class RegisterController implements Initializable {
     };
 
     /**
-     * Starts the view.
+     * Build the RegisterController.
+     * @param stageController the StageController
      */
-    public void start() {
-        try {
-            this.view.start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
+    public RegisterController(final StageController stageController) {
+        this.stageController = stageController;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start() {
+        this.stageController.setScene(new RegisterView(this).getScene());
+    }
+
     /**
      * Close this window.
      */
     @FXML
     public void close() {
-        final Stage stage = (Stage) closeBtn.getScene().getWindow();
-        stage.close();
+        new LoginController(this.stageController).start();
     }
 
     /**
@@ -120,19 +122,19 @@ public class RegisterController implements Initializable {
     @FXML
     public void register() {
         if (usrField.getText().equals("")) {
-            startUsernameError();
+            AlertUtils.createRegisterUsernameError();
             return;
         }
         if (!checkPassword()) {
-            startPasswordError();
+            AlertUtils.createRegisterPasswordError();
             return;
         }
         final Account account = AccountImpl.createAccountWithNickname(usrField.getText(), getPassword(), nickField.getText());
         if (manager.isPresent(account)) {
-            startAccountError();
+            AlertUtils.createRegisterAccountError();
         } else {
             manager.register(account);
-            System.out.println("Account registrato");
+            AlertUtils.createRegisterAccountDialog();
             close();
         }
     }
@@ -185,33 +187,6 @@ public class RegisterController implements Initializable {
 
     private String getPassword() {
         return pswCheckBox.isSelected() ? pswTextField.getText() : pswField.getText();
-    }
-
-    private void startPasswordError() {
-        try {
-            new ErrorController().start(ErrorType.REGISTER_PASSWORD);
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
-    }
-
-    private void startAccountError() {
-        try {
-            new ErrorController().start(ErrorType.REGISTER_ACCOUNT);
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
-    }
-
-    private void startUsernameError() {
-        try {
-            new ErrorController().start(ErrorType.REGISTER_USERNAME);
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
     }
 
     private void setHandlers() {
