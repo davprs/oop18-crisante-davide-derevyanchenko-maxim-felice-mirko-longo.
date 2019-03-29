@@ -5,22 +5,19 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import model.account.Account;
 import view.menu.OptionsView;
-import utilities.StringUtils;
 /**
  * 
  * This class controls the Options view.
  *
  */
-public class OptionsController implements Initializable {
+public class OptionsController implements FXMLController {
 
     private static final String BACK_KEY = "back";
     private static final String FIRST_CHOICE_CB1 = "720x480";
@@ -37,10 +34,10 @@ public class OptionsController implements Initializable {
     private static final String NO_KEY = "no";
     private static final String CHANGE_SHIP_KEY = "change_ship";
     private final Account account;
-    private final OptionsView view;
     private ResourceBundle bundle;
     private final ObservableList<String> resolutionlist = FXCollections.observableArrayList(FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1, FOURTH_CHOICE_CB1);
     private final ObservableList<String> languagelist = FXCollections.observableArrayList(FIRST_CHOICE_CB2, SECOND_CHOICE_CB2, THIRD_CHOICE_CB2);
+    private final StageController stageController;
     @FXML
     private Button back;
     @FXML
@@ -63,12 +60,13 @@ public class OptionsController implements Initializable {
     private ToggleGroup choice;
 
     /**
-     * 
-     * @param account 
+     * Build the OptionsController.
+     * @param account the game account
+     * @param stageController the stage controller 
      */
-    public OptionsController(final Account account) {
+    public OptionsController(final Account account, final StageController stageController) {
         this.account = account;
-        this.view = new OptionsView(account.getSettings().getLanguage(), this);
+        this.stageController = stageController;
     }
 
     /**
@@ -84,25 +82,10 @@ public class OptionsController implements Initializable {
     }
 
     /**
-     * Method to set the language.
-     */
-    private void setLanguage() {
-        this.back.setText(bundle.getString(BACK_KEY));
-        this.resolutionLb.setText(bundle.getString(RESOLUTION_KEY));
-        this.languageLb.setText(bundle.getString(LANGUAGE_KEY));
-        this.soundLb.setText(bundle.getString(SOUND_KEY));
-        this.yesRb.setText(bundle.getString(YES_KEY));
-        this.noRb.setText(bundle.getString(NO_KEY));
-        this.changeShipLb.setText(bundle.getString(CHANGE_SHIP_KEY));
-    }
-
-    /**
      * Method to go back to the menu.
      */
     public void goBack() {
-        final Stage stage = (Stage) this.back.getScene().getWindow();
-        stage.close();
-        new MenuController(account).start();
+        new MenuController(this.account, this.stageController).start();
     }
 
     /**
@@ -112,15 +95,20 @@ public class OptionsController implements Initializable {
     }
 
     /**
-     * Start method to load the view.
+     * {@inheritDoc}
      */
+    @Override
     public void start() {
-        try {
-            this.view.start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            System.exit(0);
-        }
+        this.stageController.setScene(new OptionsView(this.account, this).getScene());
     }
 
+    private void setLanguage() {
+        this.back.setText(bundle.getString(BACK_KEY));
+        this.resolutionLb.setText(bundle.getString(RESOLUTION_KEY));
+        this.languageLb.setText(bundle.getString(LANGUAGE_KEY));
+        this.soundLb.setText(bundle.getString(SOUND_KEY));
+        this.yesRb.setText(bundle.getString(YES_KEY));
+        this.noRb.setText(bundle.getString(NO_KEY));
+        this.changeShipLb.setText(bundle.getString(CHANGE_SHIP_KEY));
+    }
 }

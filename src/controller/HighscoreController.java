@@ -3,25 +3,23 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import model.account.Account;
-import utilities.StringUtils;
 import view.menu.HighscoreView;
+
 /**
  * 
  * This class controls the highscore view.
  *
  */
-public class HighscoreController implements Initializable {
+public class HighscoreController implements FXMLController {
 
     private static final String BACK_KEY = "back";
     private static final String LABEL_KEY = "highscore";
     private ResourceBundle bundle;
     private final Account account;
-    private final HighscoreView view;
+    private final StageController stageController;
     @FXML
     private Button back;
     @FXML
@@ -29,10 +27,11 @@ public class HighscoreController implements Initializable {
     /**
      * 
      * @param account is an account.
+     * @param stageController 
      */
-    public HighscoreController(final Account account) {
+    public HighscoreController(final Account account, final StageController stageController) {
         this.account = account;
-        this.view = new HighscoreView(account.getSettings().getLanguage(), this);
+        this.stageController =  stageController;
     }
 
     /**
@@ -47,9 +46,7 @@ public class HighscoreController implements Initializable {
      * Method to go back to the menu.
      */
     public void goBack() {
-        final Stage stage = (Stage) this.back.getScene().getWindow();
-        stage.close();
-        new MenuController(this.account).start();
+        new MenuController(this.account, this.stageController).start();
     }
     /**
      * 
@@ -59,15 +56,11 @@ public class HighscoreController implements Initializable {
         this.label.setText(this.bundle.getString(LABEL_KEY));
     }
     /**
-     * Start method to load the view.
+     * {@inheritDoc}
      */
+    @Override
     public void start() {
-        try {
-            this.view.start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            System.exit(0);
-        }
+        this.stageController.setScene(new HighscoreView(this.account, this).getScene());
     }
 
 }

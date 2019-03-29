@@ -2,10 +2,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import utilities.StringUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.account.Account;
@@ -15,15 +13,15 @@ import view.field.FieldView;
 /**
  * class MenuController that controls the menu.
  */
-public class MenuController implements Initializable {
+public class MenuController implements FXMLController {
 
     private static final String PLAY_KEY = "play";
     private static final String HIGHSCORES_KEY = "highscore";
     private static final String OPTIONS_KEY = "options";
     private static final String EXIT_KEY = "exit";
-    private final MenuView view;
     private final Account account;
     private ResourceBundle bundle;
+    private final StageController stageController;
     @FXML
     private Button playBtn;
     @FXML
@@ -36,11 +34,21 @@ public class MenuController implements Initializable {
     /**
      * 
      * @param account 
+     * @param stageController 
      */
-    public MenuController(final Account account) {
+    public MenuController(final Account account, final StageController stageController) {
         this.account = account;
-        this.view = new MenuView(account.getSettings().getLanguage(), this);
+        this.stageController = stageController;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start() {
+        this.stageController.setScene(new MenuView(this.account, this).getScene());
+    }
+
     /**
      * 
      */
@@ -60,9 +68,7 @@ public class MenuController implements Initializable {
      */
     @FXML
     public void checkHighscore() {
-        final Stage stage = (Stage) this.playBtn.getScene().getWindow();
-        stage.close();
-        new HighscoreController(account).start();
+        new HighscoreController(this.account, this.stageController).start();
     }
 
     /**
@@ -70,9 +76,7 @@ public class MenuController implements Initializable {
      */
     @FXML
     public void enterOptions() {
-        final Stage stage = (Stage) this.playBtn.getScene().getWindow();
-        stage.close();
-        new OptionsController(account).start();
+        new OptionsController(this.account, this.stageController).start();
     }
 
     /**
@@ -97,18 +101,6 @@ public class MenuController implements Initializable {
         this.highscoreBtn.setText(bundle.getString(HIGHSCORES_KEY));
         this.optionsBtn.setText(bundle.getString(OPTIONS_KEY));
         this.exitBtn.setText(bundle.getString(EXIT_KEY));
-    }
-
-    /**
-     * 
-     */
-    public void start() {
-        try {
-            this.view.start(new Stage());
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            System.exit(0);
-        }
     }
 
 }
