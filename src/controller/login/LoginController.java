@@ -16,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
@@ -90,6 +89,7 @@ public class LoginController implements FXMLController {
     public void start() {
         this.stageController.setScene(new LoginView(this).getScene());
     }
+
     /**
      * Register a new account.
      */
@@ -137,14 +137,7 @@ public class LoginController implements FXMLController {
     }
 
     private void startMenu(final Account account) {
-        try {
-            final Stage stage = (Stage) loginBtn.getScene().getWindow();
-            stage.close();
-            new MenuController();
-        } catch (Exception e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
-            Platform.exit();
-        }
+        new MenuController(account, stageController).start();
     }
 
     private void setHandlers() {
