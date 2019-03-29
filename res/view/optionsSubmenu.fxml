@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="402.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="251.6666717529297" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="351.3333282470703" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="63.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="75.0" minHeight="3.6666641235351562" prefHeight="73.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" prefHeight="30.0" prefWidth="70.0" text="Back" translateX="5.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="resolutionLb" prefHeight="57.0" prefWidth="249.0" text="      Resolution" GridPane.rowIndex="1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="languageLb" prefHeight="57.0" prefWidth="244.0" text="      Language" GridPane.rowIndex="2">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="soundLb" prefHeight="57.0" prefWidth="249.0" text="      Sound" GridPane.rowIndex="3">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="changeShipLb" prefHeight="57.0" prefWidth="244.0" text="      Change Ship" GridPane.rowIndex="4">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="resolution" prefHeight="39.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <RadioButton fx:id="yesRb" mnemonicParsing="false" prefHeight="44.0" prefWidth="82.0" text="Yes" translateX="60.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="choice" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="noRb" mnemonicParsing="false" prefHeight="42.0" prefWidth="93.0" text="No" toggleGroup="$choice" translateX="110.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </RadioButton>
+      <ChoiceBox fx:id="language" prefHeight="39.0" prefWidth="238.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+   </children>
+</GridPane>

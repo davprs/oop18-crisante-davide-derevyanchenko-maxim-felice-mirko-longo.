@@ -140,7 +140,7 @@ public class LoginController implements FXMLController {
         try {
             final Stage stage = (Stage) loginBtn.getScene().getWindow();
             stage.close();
-            new MenuController();
+            new MenuController(account).start();
         } catch (Exception e) {
             System.out.println(StringUtils.ERROR_MESSAGE);
             Platform.exit();
