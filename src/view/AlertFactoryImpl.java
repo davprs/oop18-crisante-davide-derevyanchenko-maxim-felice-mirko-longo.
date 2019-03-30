@@ -9,12 +9,14 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class AlertFactoryImpl implements AlertFactory {
 
+    private static final String ERROR = "Error";
     /**
      * {@inheritDoc}
      */
     @Override
     public Alert getLoginUsernameError() {
         final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(ERROR);
         alert.setHeaderText("This username does NOT exist!");
         alert.setContentText("Please, digit again your username.");
         return alert;
@@ -26,6 +28,7 @@ public class AlertFactoryImpl implements AlertFactory {
     @Override
     public Alert getLoginPasswordError() {
         final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(ERROR);
         alert.setHeaderText("Your password is NOT correct!");
         alert.setContentText("Please, digit again your password.");
         return alert;
@@ -37,6 +40,7 @@ public class AlertFactoryImpl implements AlertFactory {
     @Override
     public Alert getRegisterAccountError() {
         final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(ERROR);
         alert.setHeaderText("This account is already signed!");
         alert.setContentText("Please, change your username to sign.");
         return alert;
@@ -48,6 +52,7 @@ public class AlertFactoryImpl implements AlertFactory {
     @Override
     public Alert getRegisterUsernameError() {
         final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(ERROR);
         alert.setHeaderText("Your username is empty!");
         alert.setContentText("Please, digit your username to sign.");
         return alert;
@@ -59,6 +64,7 @@ public class AlertFactoryImpl implements AlertFactory {
     @Override
     public Alert getRegisterPasswordError() {
         final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(ERROR);
         alert.setHeaderText("Your passwords do NOT match!");
         alert.setContentText("Please, digit again your password to match.");
         return alert;
@@ -70,8 +76,9 @@ public class AlertFactoryImpl implements AlertFactory {
     @Override
     public Alert getRegisterAccountDialog() {
         final Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setHeaderText("cai");
-        alert.setContentText("aFafsd");
+        alert.setTitle("Information");
+        alert.setHeaderText("Congratulations!");
+        alert.setContentText("Account registered.");
         return alert;
     }
 

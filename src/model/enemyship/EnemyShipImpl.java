@@ -130,4 +130,10 @@ public class EnemyShipImpl implements EnemyShip {
         return this.speed;
     }
 
+    @Override
+    public boolean isAlive() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

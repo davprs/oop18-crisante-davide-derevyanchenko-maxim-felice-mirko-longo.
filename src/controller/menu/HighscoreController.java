@@ -1,7 +1,10 @@
-package controller;
+package controller.menu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import controller.FXMLController;
+import controller.StageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

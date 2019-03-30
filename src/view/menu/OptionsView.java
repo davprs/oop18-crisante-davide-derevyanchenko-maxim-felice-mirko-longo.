@@ -3,7 +3,7 @@ package view.menu;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-import controller.OptionsController;
+import controller.menu.OptionsController;
 import model.account.Account;
 import utilities.BundleUtils;
 import view.AbstractView;
@@ -28,21 +28,20 @@ public class OptionsView extends AbstractView {
      * @param optionsController the controller of this view
      */
     public OptionsView(final Account account, final OptionsController optionsController) {
-        super();
         this.prefWidth = account.getSettings().getResolution().getWidth();
         this.prefHeight = account.getSettings().getResolution().getHeight();
         BundleUtils.setLocale(account.getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(OPTIONS_VIEW), ResourceBundle.getBundle(OPTIONS_BUNDLE));
         this.loader.setController(optionsController);
+        super.init();
     }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Parent getRoot() throws IOException {
-        return loader.load();
+        return this.loader.load();
     }
 
     /**

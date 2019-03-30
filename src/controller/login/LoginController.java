@@ -5,8 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import controller.FXMLController;
-import controller.MenuController;
 import controller.StageController;
+import controller.menu.MenuController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

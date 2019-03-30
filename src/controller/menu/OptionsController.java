@@ -1,7 +1,10 @@
-package controller;
+package controller.menu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import controller.FXMLController;
+import controller.StageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

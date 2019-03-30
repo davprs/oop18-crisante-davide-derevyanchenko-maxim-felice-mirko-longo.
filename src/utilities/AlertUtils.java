@@ -52,6 +52,6 @@ public final class AlertUtils {
      * Create a dialog caused by the register password error.
      */
     public static void createRegisterAccountDialog() {
-        FACTORY.getRegisterPasswordError().showAndWait();
+        FACTORY.getRegisterAccountDialog().showAndWait();
     }
 }

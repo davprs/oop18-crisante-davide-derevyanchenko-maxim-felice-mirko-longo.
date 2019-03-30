@@ -5,42 +5,53 @@ import java.io.IOException;
 
 import controller.login.LoginController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.Parent;
+import view.AbstractView;
 
 /**
  * View of Login.
  *
  */
-public class LoginView {
+public class LoginView extends AbstractView {
 
     private static final String LOGIN_VIEW = "loginView.fxml";
     private static final double WIDTH_RELATIONSHIP = 4.8;
     private static final double HEIGHT_RELATIONSHIP = 3.375;
     private static final double PREF_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / WIDTH_RELATIONSHIP;
     private static final double PREF_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / HEIGHT_RELATIONSHIP;
-    private Scene scene;
+    private final FXMLLoader loader;
 
     /**
      * Build the LoginView.
      * @param controller the controller of the view 
      */
     public LoginView(final LoginController controller) {
-        try {
-            final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(LOGIN_VIEW));
-            loader.setController(controller);
-            final GridPane root = loader.load();
-            this.scene = new Scene(root, PREF_WIDTH, PREF_HEIGHT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.loader = new FXMLLoader(ClassLoader.getSystemResource(LOGIN_VIEW));
+        this.loader.setController(controller);
+        super.init();
     }
 
     /**
-     * Get the Scene.
-     * @return the Scene.
+     * {@inheritDoc}
      */
-    public Scene getScene() {
-       return this.scene;
+    @Override
+    public Parent getRoot() throws IOException {
+        return this.loader.load();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected double getWidth() {
+        return PREF_WIDTH;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected double getHeight() {
+        return PREF_HEIGHT;
     }
 }

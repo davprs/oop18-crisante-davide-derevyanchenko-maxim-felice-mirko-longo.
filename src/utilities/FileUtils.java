@@ -30,6 +30,7 @@ public final class FileUtils {
     private static final String ACCOUNT_PATH = RES_PATH + "accounts" + SEPARATOR;
     private static final String TXT_EXTENSION = ".txt";
     private static final String TOP_SCORE_PATH = RES_PATH + "topScore" + SEPARATOR + "topScore.txt";
+    private static final String URL_IMAGE = RES_PATH + "images" + SEPARATOR;
 
     private FileUtils() { }
 
@@ -47,11 +48,13 @@ public final class FileUtils {
             ps.println(account.getPassword());
             ps.println(account.getNickname());
             ps.println(account.getBestScore());
+            ps.println(account.getSettings().isFullScreenOn());
             ps.println(account.getSettings().getResolution().getWidth());
             ps.println(account.getSettings().getResolution().getHeight());
-            ps.println(account.getSettings().getURLImage());
+            ps.println(account.getSettings().getLanguage());
+            ps.println(account.getSettings().getImageName());
             ps.println(account.getSettings().isSoundOn());
-        }
+            }
     }
 
     /**
@@ -72,10 +75,11 @@ public final class FileUtils {
                                 iterator.next(),
                                 iterator.next(),
                                 Integer.parseInt(iterator.next()), 
-                                new Settings(new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
+                                new Settings(Boolean.parseBoolean(iterator.next()),
+                                        new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
                                         iterator.next(),
-                                        Boolean.parseBoolean(iterator.next()),
-                                        iterator.next()));
+                                        URL_IMAGE + iterator.next(),
+                                        Boolean.parseBoolean(iterator.next())));
                     } catch (IOException e) {
                         System.out.println(StringUtils.ERROR_MESSAGE);
                         System.exit(0);

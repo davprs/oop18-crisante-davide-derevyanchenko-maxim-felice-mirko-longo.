@@ -84,4 +84,10 @@ public class BulletImpl implements Entity, Bullet {
         target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));
     }
 
+    @Override
+    public boolean isAlive() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

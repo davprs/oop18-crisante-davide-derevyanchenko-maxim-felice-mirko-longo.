@@ -2,7 +2,8 @@ package view.menu;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
-import controller.HighscoreController;
+
+import controller.menu.HighscoreController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import model.account.Account;
@@ -15,24 +16,24 @@ import view.AbstractView;
  */
 public class HighscoreView extends AbstractView {
 
-    private final double prefWidth;
-    private final double prefHeight;
     private static final String HIGHSCORE_BUNDLE = "menu.Highscorebundle";
     private static final String HIGHSCORE_VIEW = "highscoreSubmenu.fxml";
+    private final double prefWidth;
+    private final double prefHeight;
     private final FXMLLoader loader;
 
     /**
-     * build the HighscoreView.
+     * Build the HighscoreView.
      * @param account the account.
      * @param highscoreController .
      */
     public HighscoreView(final Account account, final HighscoreController highscoreController) {
-        super();
         this.prefWidth = account.getSettings().getResolution().getWidth();
         this.prefHeight = account.getSettings().getResolution().getHeight();
         BundleUtils.setLocale(account.getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(HIGHSCORE_VIEW), ResourceBundle.getBundle(HIGHSCORE_BUNDLE));
         this.loader.setController(highscoreController);
+        super.init();
     }
 
     /**
@@ -40,7 +41,7 @@ public class HighscoreView extends AbstractView {
      */
     @Override
     public Parent getRoot() throws IOException {
-        return loader.load();
+        return this.loader.load();
     }
 
     /**

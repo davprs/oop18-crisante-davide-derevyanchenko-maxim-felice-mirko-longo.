@@ -13,38 +13,41 @@ public final class Settings {
 
     private static final Dimension RES = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Dimension2D RES_DEFAULT = new Dimension2D(RES.getWidth(), RES.getHeight());
-    private static final String IMAGES = "res" + System.getProperty("file.separator") + "images" + System.getProperty("file.separator");
-    private static final String IMG_DEFAULT = IMAGES + "spaceship.png";
+    private static final String IMG_DEFAULT = "spaceship.png";
     private static final String LANGUAGE_DEFAULT = "en";
-    private boolean sound;
+    private boolean isFullScreen;
     private Dimension2D resolution;
-    private String urlImage;
     private String language;
+    private String imageName;
+    private boolean sound;
+
     /**
      * Default Settings configuration. 
      */
-    public static final Settings DEFAULT = new Settings(RES_DEFAULT, IMG_DEFAULT, false, LANGUAGE_DEFAULT);
+    public static final Settings DEFAULT = new Settings(true, RES_DEFAULT, LANGUAGE_DEFAULT, IMG_DEFAULT, false);
 
     /**
      * Build a new Settings.
+     * @param fullScreen the fullScreen value
      * @param res the resolution to set
-     * @param urlImg the URL of the image to set
-     * @param value the boolean value of the sound
      * @param language the String language to set
+     * @param imageName the URL of the image to set
+     * @param value the boolean value of the sound
      */
-    public Settings(final Dimension2D res, final String urlImg, final boolean value, final String language) {
+    public Settings(final boolean fullScreen, final Dimension2D res, final String language, final String imageName, final boolean value) {
+        this.isFullScreen = fullScreen;
         this.resolution = res;
-        this.urlImage = urlImg;
-        this.sound = value;
         this.language = language;
+        this.imageName = imageName;
+        this.sound = value;
     }
 
     /**
-     * Get the sound value.
-     * @return the sound
+     * Get the FullScreen property.
+     * @return the full screen value
      */
-    public boolean isSoundOn() {
-        return this.sound;
+    public boolean isFullScreenOn() {
+        return this.isFullScreen;
     }
 
     /**
@@ -56,26 +59,35 @@ public final class Settings {
     }
 
     /**
-     * Get the URL Image.
-     * @return the URL Image
-     */
-    public String getURLImage() {
-        return this.urlImage;
-    }
-
-    /**
      * Get the language.
      * @return the language
      */
     public String getLanguage() {
         return this.language;
     }
+
     /**
-     * Set the sound.
-     * @param value the sound to set
+     * Get the Image Name.
+     * @return the Image name
      */
-    public void setSound(final boolean value) {
-        this.sound = value;
+    public String getImageName() {
+        return this.imageName;
+    }
+
+    /**
+     * Get the sound value.
+     * @return the sound
+     */
+    public boolean isSoundOn() {
+        return this.sound;
+    }
+
+    /**
+     * Set the value to FullScreen.
+     * @param isFullScreen the value to set
+     */
+    public void setFullScreen(final boolean isFullScreen) {
+        this.isFullScreen = isFullScreen;
     }
 
     /**
@@ -87,18 +99,26 @@ public final class Settings {
     }
 
     /**
-     * Set the image.
-     * @param ulrImage the image to set
-     */
-    public void setImage(final String ulrImage) {
-        this.urlImage = ulrImage;
-    }
-
-    /**
      * Set the language.
      * @param language the language to set
      */
     public void setLanguage(final String language) {
         this.language = language;
+    }
+
+    /**
+     * Set the image.
+     * @param imageName the image to set
+     */
+    public void setImageName(final String imageName) {
+        this.imageName = imageName;
+    }
+
+    /**
+     * Set the sound.
+     * @param value the sound to set
+     */
+    public void setSound(final boolean value) {
+        this.sound = value;
     }
 }

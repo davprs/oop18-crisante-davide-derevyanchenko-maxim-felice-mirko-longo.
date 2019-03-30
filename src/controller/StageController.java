@@ -17,12 +17,21 @@ public class StageController {
     public StageController(final Stage stage) {
         this.stage = stage;
     }
+
     /**
      * Set the new Scene.
      * @param scene the scene to set
      */
     public void setScene(final Scene scene) {
-        stage.setScene(scene);
+        this.stage.setScene(scene);
+        this.stage.centerOnScreen();
     }
 
+    /**
+     * Set the FullScreen.
+     * @param value the value to set
+     */
+    public void setFullScreen(final boolean value) {
+        this.stage.setFullScreen(true);
+    }
 }

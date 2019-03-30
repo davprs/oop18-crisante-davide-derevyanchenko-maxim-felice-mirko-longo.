@@ -123,11 +123,9 @@ public class RegisterController implements FXMLController {
     public void register() {
         if (usrField.getText().equals("")) {
             AlertUtils.createRegisterUsernameError();
-            return;
         }
         if (!checkPassword()) {
             AlertUtils.createRegisterPasswordError();
-            return;
         }
         final Account account = AccountImpl.createAccountWithNickname(usrField.getText(), getPassword(), nickField.getText());
         if (manager.isPresent(account)) {

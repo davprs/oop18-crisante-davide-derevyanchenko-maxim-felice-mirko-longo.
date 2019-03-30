@@ -44,7 +44,11 @@ public final class AccountImpl implements Account {
         if (nickname == null) {
             throw new IllegalArgumentException();
         }
-        return new AccountImpl(username, nickname, password, 0, Settings.DEFAULT);
+        if (nickname.equals("")) {
+            return new AccountImpl(username, username, password, 0, Settings.DEFAULT);
+        } else {
+            return new AccountImpl(username, nickname, password, 0, Settings.DEFAULT);
+        }
     }
 
     /**

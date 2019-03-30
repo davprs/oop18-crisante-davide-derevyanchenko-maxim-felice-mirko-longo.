@@ -2,8 +2,9 @@ mirko
 mirko
 mk
 0
+true
 1920
 1080
-ciao
+it
+spaceship.png
 true
-en

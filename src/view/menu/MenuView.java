@@ -3,24 +3,23 @@ package view.menu;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-import controller.MenuController;
+import controller.menu.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.BundleUtils;
 import view.AbstractView;
 
 /**
- * 
+ *  View of the Menu.
  *
  */
 public class MenuView extends AbstractView {
 
-    private final double prefWidth;
-    private final double prefHeight;
     private static final String MENU_VIEW = "menuView.fxml";
     private static final String MENU_BUNDLE = "menu.MenuBundle";
+    private final double prefWidth;
+    private final double prefHeight;
     private final FXMLLoader loader;
 
     /**
@@ -42,7 +41,7 @@ public class MenuView extends AbstractView {
      */
     @Override
     public Parent getRoot() throws IOException {
-        return (GridPane) loader.load();
+        return this.loader.load();
     }
 
     /**
