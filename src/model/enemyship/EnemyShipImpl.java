@@ -8,6 +8,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Entity;
+import model.Life;
+import model.LifeImpl;
 import model.bullet.Bullet;
 import model.bullet.BulletImpl;
 
@@ -23,10 +25,12 @@ public class EnemyShipImpl implements EnemyShip {
     private Point2D position;
     private final Dimension2D dimension;
     private final double speed;
-    private int framesFromShoot = 0;
+    private int framesFromShoot;
     private int level;
     private int framesToShoot;
-    private boolean canShoot = false;
+    private boolean alive;
+    private final Life life;
+    private boolean shootingAvailable;
 
     /**
      * Build a new EnemyShip.
@@ -36,6 +40,8 @@ public class EnemyShipImpl implements EnemyShip {
      */
     public EnemyShipImpl(final Image image, final int level, final int timeToShoot) {
         this.level = level;
+        this.alive = true;
+        this.life = LifeImpl.createDefaultLife();
         this.speed = level;
         this.framesToShoot = timeToShoot;
         this.image = new ImageView(image);
@@ -73,7 +79,7 @@ public class EnemyShipImpl implements EnemyShip {
      * @return true if the EnemyShip can shoot.
      */
     public boolean canShoot() {
-        return this.canShoot;
+        return this.shootingAvailable;
     }
 
     /**
@@ -98,7 +104,7 @@ public class EnemyShipImpl implements EnemyShip {
     @Override
     public Bullet shoot(final Point2D target) {
         this.framesFromShoot = 0;
-        this.canShoot = false;
+        this.shootingAvailable = false;
         return new BulletImpl(BULLET_IMAGE, this.level, this.position, target);
     }
 
@@ -118,7 +124,7 @@ public class EnemyShipImpl implements EnemyShip {
         this.position.add(addPosition);
         this.framesFromShoot++;
         if (framesFromShoot >= framesToShoot) {
-            this.canShoot = true;
+            this.shootingAvailable = true;
         }
     }
 
@@ -130,10 +136,65 @@ public class EnemyShipImpl implements EnemyShip {
         return this.speed;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAlive() {
         // TODO Auto-generated method stub
-        return false;
+        return this.alive;
+    }
+
+    /**
+     * 
+     * @param health the health to lose
+     */
+    public void loseHealth(final int health) {
+        // TODO Auto-generated method stub
+        this.life.loseHealth(health);
+    }
+
+    /**
+     * 
+     * @param health the health to add
+     */
+    public void addHealth(final int health) {
+        // TODO Auto-generated method stub
+        this.life.addHealth(health);
+    }
+
+    /**
+     * 
+     */
+    public void addLife() {
+        // TODO Auto-generated method stub
+        life.addLife();
+    }
+
+    /**
+     * 
+     */
+    public void loseLife() {
+        // TODO Auto-generated method stub
+        life.loseLife();
+    }
+
+    /**
+     * 
+     * @return enemyShip's healt
+     */
+    public int getHealth() {
+        // TODO Auto-generated method stub
+        return life.getHealth();
+    }
+
+    /**
+     * 
+     * @return enemyShip's number of Lifes
+     */
+    public int getLives() {
+        // TODO Auto-generated method stub
+        return life.getLives();
     }
 
 }

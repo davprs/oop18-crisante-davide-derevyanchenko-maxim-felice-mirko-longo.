@@ -26,7 +26,7 @@ public class BulletController {
      * 
      */
     public void draw() {
-        double angle = Math.toDegrees(this.bullet.getAngle());
+        final double angle = Math.toDegrees(this.bullet.getAngle());
         this.view.drawEntity(this.bullet.getImageView(), angle, this.bullet.getBoundary());
     }
 

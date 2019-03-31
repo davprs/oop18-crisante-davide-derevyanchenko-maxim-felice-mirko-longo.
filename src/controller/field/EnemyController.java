@@ -33,7 +33,7 @@ public class EnemyController {
      * 
      */
     public void draw() {
-        double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - character.getBoundary().getMinX(), enemy.getBoundary().getMinY() - character.getBoundary().getMinY()));
+        final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - character.getBoundary().getMinX(), enemy.getBoundary().getMinY() - character.getBoundary().getMinY()));
         this.view.drawEntity(this.enemy.getImageView(), angle, this.enemy.getBoundary());
     }
 
@@ -41,7 +41,7 @@ public class EnemyController {
      * 
      */
     public void update() {
-        Point2D position = new Point2D(enemy.getBoundary().getMinX(), enemy.getBoundary().getMinY());
+        final Point2D position = new Point2D(enemy.getBoundary().getMinX(), enemy.getBoundary().getMinY());
 //        if(Math.random()*10 < 9) {    //li fa muovere in maniera meno imbecille, non si accorpano come deficienti
 //            if(enemy.getBoundary().getMinX()< character.getBoundary().getMinX() + character.getBoundary().getWidth()/2) {
 //                position = new Point2D(position.getX() + enemyFASTNESS, position.getY());

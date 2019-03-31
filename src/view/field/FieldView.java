@@ -46,6 +46,7 @@ public class FieldView extends Application {
         final Group root = new Group();
         final Scene scene = new Scene(root);
 
+        stage.setFullScreen(true);
         stage.setScene(scene);
         scene.setCamera(this.cam);
 

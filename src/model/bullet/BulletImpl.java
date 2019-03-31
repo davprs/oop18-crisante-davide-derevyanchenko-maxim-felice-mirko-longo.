@@ -1,5 +1,8 @@
 package model.bullet;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -84,10 +87,15 @@ public class BulletImpl implements Entity, Bullet {
         target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAlive() {
         // TODO Auto-generated method stub
-        return false;
+        final Dimension canvasSize = Toolkit.getDefaultToolkit().getScreenSize().getSize();
+        return !(position.getX() > canvasSize.getWidth() || position.getY() > canvasSize.getHeight()
+                || position.getX() < 0 || position.getY() < 0);
     }
 
 }
