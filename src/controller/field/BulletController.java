@@ -1,4 +1,4 @@
-package controller;
+package controller.field;
 
 import model.bullet.Bullet;
 import view.field.FieldView;

@@ -1,4 +1,4 @@
-package controller;
+package controller.field;
 
 import javafx.geometry.Point2D;
 import model.ship.CharacterShip;
