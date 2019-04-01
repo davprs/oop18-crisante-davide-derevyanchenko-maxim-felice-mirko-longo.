@@ -141,59 +141,54 @@ public class EnemyShipImpl implements EnemyShip {
      */
     @Override
     public boolean isAlive() {
-        // TODO Auto-generated method stub
         return this.alive;
     }
 
     /**
-     * 
-     * @param health the health to lose
+     * {@inheritDoc}
      */
+    @Override
     public void loseHealth(final int health) {
-        // TODO Auto-generated method stub
         this.life.loseHealth(health);
     }
 
     /**
-     * 
-     * @param health the health to add
+     * {@inheritDoc}
      */
+    @Override
     public void addHealth(final int health) {
-        // TODO Auto-generated method stub
         this.life.addHealth(health);
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
+    @Override
     public void addLife() {
-        // TODO Auto-generated method stub
         life.addLife();
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
+    @Override
     public void loseLife() {
-        // TODO Auto-generated method stub
         life.loseLife();
     }
 
     /**
-     * 
-     * @return enemyShip's healt
+     * {@inheritDoc}
      */
+    @Override
     public int getHealth() {
-        // TODO Auto-generated method stub
         return life.getHealth();
     }
 
     /**
-     * 
-     * @return enemyShip's number of Lifes
+     * {@inheritDoc}
      */
+    @Override
     public int getLives() {
-        // TODO Auto-generated method stub
         return life.getLives();
     }
 

@@ -2,6 +2,7 @@ package controller.field;
 
 import javafx.geometry.Point2D;
 import model.ship.CharacterShip;
+import model.bullet.Bullet;
 import model.enemyship.EnemyShip;
 import view.field.FieldView;
 
@@ -30,7 +31,7 @@ public class EnemyController {
     }
 
     /**
-     * 
+     * drawn the EnemyShip on canvas.
      */
     public void draw() {
         final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - character.getBoundary().getMinX(), enemy.getBoundary().getMinY() - character.getBoundary().getMinY()));
@@ -38,7 +39,7 @@ public class EnemyController {
     }
 
     /**
-     * 
+     * updates the EnemyShip position according to CharaterShip's position.
      */
     public void update() {
         final Point2D position = new Point2D(enemy.getBoundary().getMinX(), enemy.getBoundary().getMinY());
@@ -84,6 +85,69 @@ public class EnemyController {
         this.freeze = !this.freeze;
     }
 
-    //fare metodo di shoot.
+    /**
+     * 
+     * @return the new Bullet.
+     */
+    public Bullet shoot() {
+        return this.enemy.shoot(new Point2D(character.getBoundary().getMinX(), character.getBoundary().getMinY()));
+    }
+
+    /**
+     * 
+     * @return true if enemy is alive.
+     */
+    public boolean isAlive() {
+        return enemy.isAlive();
+    }
+
+    /**
+     * 
+     * @param health the health to lose.
+     */
+    public void loseHealth(final int health) {
+        // TODO Auto-generated method stub
+        this.enemy.loseHealth(health);
+    }
+
+    /**
+     * 
+     * @param health the health to add.
+     */
+    public void addHealth(final int health) {
+        this.enemy.addHealth(health);
+    }
+
+    /**
+     *  adds a life.
+     */
+    public void addLife() {
+        enemy.addLife();
+    }
+
+    /**
+     * deletes a life.
+     */
+    public void loseLife() {
+        enemy.loseLife();
+    }
+
+    /**
+     * 
+     * @return enemyShip's health.
+     */
+    public int getHealth() {
+        // TODO Auto-generated method stub
+        return enemy.getHealth();
+    }
+
+    /**
+     * 
+     * @return enemyShip's number of Lifes.
+     */
+    public int getLives() {
+        // TODO Auto-generated method stub
+        return enemy.getLives();
+    }
 
 }

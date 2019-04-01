@@ -2,13 +2,14 @@ package model.enemyship;
 
 import javafx.geometry.Point2D;
 import model.Entity;
+import model.Life;
 import model.Shooter;
 
 /**
  * 
  *
  */
-public interface EnemyShip extends Entity, Shooter {
+public interface EnemyShip extends Entity, Shooter, Life {
 
     /**
      * Get the speed.

@@ -92,7 +92,6 @@ public class BulletImpl implements Entity, Bullet {
      */
     @Override
     public boolean isAlive() {
-        // TODO Auto-generated method stub
         final Dimension canvasSize = Toolkit.getDefaultToolkit().getScreenSize().getSize();
         return !(position.getX() > canvasSize.getWidth() || position.getY() > canvasSize.getHeight()
                 || position.getX() < 0 || position.getY() < 0);

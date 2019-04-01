@@ -3,8 +3,7 @@ package controller.field;
 import java.util.LinkedList;
 import java.util.List;
 
-import controller.BulletController;
-import controller.EnemyController;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import view.field.FieldView;
