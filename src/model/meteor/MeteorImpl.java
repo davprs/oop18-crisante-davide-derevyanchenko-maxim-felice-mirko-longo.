@@ -1,7 +1,8 @@
-package model.bullet;
+package model.meteor;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -10,33 +11,32 @@ import javafx.scene.image.ImageView;
 import model.Entity;
 
 /**
- * Implementation of Bullet interface.
+ * Implementation of Meteor interface.
  *
  */
+public class MeteorImpl implements Meteor {
 
-public class BulletImpl implements Entity, Bullet {
-
-    private static final int DAMAGE_UNIT = 400;
+    private static final int DAMAGE_UNIT = 300;
     private final int damage;
-    private final ImageView image; 
+    private final ImageView image;
     private final double speed;
     private Point2D position;
-    private Point2D target;
+    private final double angle;
     private double movX;
     private double movY;
-    private final double angle;
+    private Point2D target;
 
     /**
-     * Build a new Bullet.
-     * @param image The image to be printed in different modes
-     * @param level defines the speed.
-     * @param src the starting position of the Bullet.
+     * Build a new Meteor.
+     * @param image The image to be printed.
+     * @param level defines the speed and power.
+     * @param src the starting position of the Meteor.
      * @param target the target position.
      */
-    public BulletImpl(final Image image, final int level, final Point2D src, final Point2D target) {
+    public MeteorImpl(final Image image, final int level, final Point2D src, final Point2D target) {
         this.image = new ImageView(image);
-        this.speed = level * 2;
-        this.damage = level * BulletImpl.DAMAGE_UNIT;
+        this.speed = level * 3;
+        this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.position = src;
         this.angle = Math.atan2(Math.max(src.getX(), target.getX()) - Math.min(src.getX(), target.getX()), Math.max(src.getY(), target.getY()) - Math.min(src.getY(), target.getY()));
         this.movY = Math.abs(-Math.pow(Math.sin(angle), 2) + 1);

@@ -19,4 +19,10 @@ public interface Bullet extends Entity {
      */
     double getAngle();
 
+    /**
+     * Get the damage the Bullet provokes when impacts with an enemy.
+     * @return the health-points it subtracts to the enemy it hits.
+     */
+    int getDamage();
+
 }

@@ -8,7 +8,7 @@ import view.field.FieldView;
  * Controller class of Bullet.
  *
  */
-public class BulletController {
+public class BulletController implements EntityController {
 
     private final FieldView view;
     private final Bullet bullet;
@@ -24,25 +24,25 @@ public class BulletController {
     }
 
     /**
-     * draws the bullet on canvas.
+     * Get the damage the Bullet provokes when impacts with an enemy.
+     * @return the health-points it subtracts to the enemy it hits.
      */
+    public int getDamage() {
+        return this.bullet.getDamage();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void draw() {
         final double angle = Math.toDegrees(this.bullet.getAngle());
         this.view.drawEntity(this.bullet.getImageView(), angle, this.bullet.getBoundary());
     }
 
     /**
-     * 
-     * @param entity is the entity to check for intersection with bullet.
-     * @return true if the bullet boundary intersects entity.
+     * {@inheritDoc}
      */
-    public boolean intersects(final Entity entity) {
-        return entity.getBoundary().intersects(bullet.getBoundary());
-    }
-
-    /**
-     * updates the bullet position (if the bullet has to be shown or if it's visible).
-     */
+    @Override
     public void update() {
         if (isAlive()) {
             this.bullet.update();
@@ -50,10 +50,27 @@ public class BulletController {
     }
 
     /**
-     * 
-     * @return true if the bullet is alive (has to be shown).
+     * {@inheritDoc}
      */
-    private boolean isAlive() {
+    @Override
+    public  boolean isAlive() {
         return this.bullet.isAlive();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean intersects(final EntityController entityController) {
+        return this.bullet.intersects(entityController.getEntity());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entity getEntity() {
+        return this.bullet;
+    }
+
 }

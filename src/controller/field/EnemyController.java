@@ -2,6 +2,7 @@ package controller.field;
 
 import javafx.geometry.Point2D;
 import model.ship.CharacterShip;
+import model.Entity;
 import model.bullet.Bullet;
 import model.enemyship.EnemyShip;
 import view.field.FieldView;
@@ -10,9 +11,9 @@ import view.field.FieldView;
  * Controller class of EnemyShip.
  *
  */
-public class EnemyController {
+public class EnemyController implements EntityController {
 
-    private final CharacterShip character;
+    private final CharacterShip character;      //HAS TO BE CHANGED IN CharacterController.
     private final FieldView view;
     private final EnemyShip enemy;
     private boolean freeze;
@@ -31,16 +32,18 @@ public class EnemyController {
     }
 
     /**
-     * drawn the EnemyShip on canvas.
+     * {@inheritDoc}
      */
+    @Override
     public void draw() {
         final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - character.getBoundary().getMinX(), enemy.getBoundary().getMinY() - character.getBoundary().getMinY()));
         this.view.drawEntity(this.enemy.getImageView(), angle, this.enemy.getBoundary());
     }
 
     /**
-     * updates the EnemyShip position according to CharaterShip's position.
+     * {@inheritDoc}
      */
+    @Override
     public void update() {
         final Point2D position = new Point2D(enemy.getBoundary().getMinX(), enemy.getBoundary().getMinY());
 //        if(Math.random()*10 < 9) {    //li fa muovere in maniera meno imbecille, non si accorpano come deficienti
@@ -95,8 +98,9 @@ public class EnemyController {
 
     /**
      * 
-     * @return true if enemy is alive.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isAlive() {
         return enemy.isAlive();
     }
@@ -148,6 +152,24 @@ public class EnemyController {
     public int getLives() {
         // TODO Auto-generated method stub
         return enemy.getLives();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean intersects(final EntityController entityController) {
+        // TODO Auto-generated method stub
+        return enemy.intersects(entityController.getEntity());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Entity getEntity() {
+        // TODO Auto-generated method stub
+        return enemy;
     }
 
 }
