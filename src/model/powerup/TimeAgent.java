@@ -3,8 +3,8 @@ package model.powerup;
  * this class implements the agent that is active for a time.
  */
 public class TimeAgent extends Thread {
-    private long waitingTime;
-    private TemporaryPowerUp powerUp;
+    private final long waitingTime;
+    private final TemporaryPowerUp powerUp;
     /**
      * 
      * @param powerUp active power up

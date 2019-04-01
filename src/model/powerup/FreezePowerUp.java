@@ -3,7 +3,7 @@ package model.powerup;
 import java.util.LinkedList;
 import java.util.List;
 
-import controller.EnemyController;
+import controller.field.EnemyController;
 import controller.field.FieldController;
 
 /**
