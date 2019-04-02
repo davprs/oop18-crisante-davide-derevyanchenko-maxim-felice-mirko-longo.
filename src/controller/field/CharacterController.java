@@ -1,5 +1,6 @@
 package controller.field;
 
+import controller.StageController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -21,14 +22,15 @@ public class CharacterController implements EntityController {
     private final CameraController camController;
     private boolean camMoving;
     private boolean immunity;
-
+    private final StageController stageController;
 
     /**
      * 
      * @param view  the view in which the ship is moving
      * @param camController  the camera controller of the view
+     * @param stageController the controller of the stage
      */
-    public CharacterController(final FieldView view, final CameraController camController) {
+    public CharacterController(final FieldView view, final CameraController camController, final StageController stageController) {
         this.ship = new CharacterShipImpl(SHIP_IMAGE);
         this.view = view;
         this.camController = camController;
@@ -40,14 +42,15 @@ public class CharacterController implements EntityController {
                 camMoving = !camMoving;
             }
         };
-        this.view.getStage().getScene().setOnMouseEntered(eh);
-        this.view.getStage().getScene().setOnMouseExited(eh);
+        this.stageController = stageController;
+        this.stageController.getScene().setOnMouseEntered(eh);
+        this.stageController.getScene().setOnMouseExited(eh);
     }
 
     private Point2D getUpdatedPosition() {
         final Point2D camUpdate = camController.getCamUpdate();
-        double shipUpdateX = this.camController.getCameraTranslationX() + this.view.getStage().getWidth() / 2 - this.ship.getBoundary().getWidth() / 2;
-        double shipUpdateY = this.camController.getCameraTranslationY() + this.view.getStage().getHeight() / 2 - this.ship.getBoundary().getHeight() / 2;
+        double shipUpdateX = this.camController.getCameraTranslationX() + this.stageController.getWidth() / 2 - this.ship.getBoundary().getWidth() / 2;
+        double shipUpdateY = this.camController.getCameraTranslationY() + this.stageController.getHeight() / 2 - this.ship.getBoundary().getHeight() / 2;
 
         if (ship.getBoundary().getMinX() <= view.getCanvas().getLayoutX() && camUpdate.getX() <= 0) {
             shipUpdateX = view.getCanvas().getLayoutX();
@@ -71,7 +74,6 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void draw() {
-        //this.view.drawEntity(this.ship.getImageView().getImage(), this.ship.getBoundary());
         final Point2D camUpdate = camController.getCamUpdate();
         final double angle = Math.toDegrees(Math.atan2(camUpdate.getY(), camUpdate.getX()));
         this.view.drawEntity(this.ship.getImageView(), angle, this.ship.getBoundary());

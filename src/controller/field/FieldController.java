@@ -3,10 +3,13 @@ package controller.field;
 import java.util.LinkedList;
 import java.util.List;
 
-
+import controller.StageController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import model.account.Account;
 import view.field.FieldView;
+import view.field.OverlayView;
 
 /**
  * The field controller's class.
@@ -22,22 +25,30 @@ public class FieldController {
     private final List<BulletController> characterBullets;
 
     /**
-     * Method that initialize the field controller.
      * 
-     * @param view the view of the field
+     * @param account 
+     * @param stageController 
      */
-    public FieldController(final FieldView view) {
+    public FieldController(final Account account, final StageController stageController) {
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();
-        this.camController = new CameraController(view.getStage(), view.getCamera());
-        this.shipController = new CharacterController(view, camController);
+        final FieldView fieldView = new FieldView();
+        stageController.setScene(fieldView.getScene());
+        try {
+            new OverlayView(stageController).start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        stageController.setFullScreen(account.getSettings().isFullScreenOn());
+        this.camController = new CameraController(stageController, fieldView.getCamera());
+        this.shipController = new CharacterController(fieldView, this.camController, stageController);
         this.shipController.draw();
         final AnimationTimer loop =  new AnimationTimer() {
 
             public void handle(final long currentNanoTime) {
 
-                view.drawBackground(SPACE_IMAGE);
+                fieldView.drawBackground(SPACE_IMAGE);
                 if (shipController.isCamMoving()) {
                     shipController.update();
                     camController.update();

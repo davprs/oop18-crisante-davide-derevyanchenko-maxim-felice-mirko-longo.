@@ -2,9 +2,9 @@ package controller.field;
 
 import java.awt.MouseInfo;
 
+import controller.StageController;
 import javafx.geometry.Point2D;
 import javafx.scene.Camera;
-import javafx.stage.Stage;
 
 /**
  * Class that controls the camera.
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class CameraController {
 
     private static final int SPEED_SCALING = 100;
-    private final Stage stage;
+    private final StageController stageController;
     private final Camera camera;
     private double cameraX;
     private double cameraY;
@@ -22,11 +22,11 @@ public class CameraController {
 
     /**
      * 
-     * @param stage the stage in which the camera is used
+     * @param stageController the stageController of the stage in which the camera is used
      * @param camera the camera to control
      */
-    public CameraController(final Stage stage, final Camera camera) {
-        this.stage = stage;
+    public CameraController(final StageController stageController, final Camera camera) {
+        this.stageController = stageController;
         this.camera = camera;
         this.cameraX = 0;
         this.cameraY = 0;
@@ -72,9 +72,9 @@ public class CameraController {
      */
     public final Point2D getCamUpdate() {
         final Point2D mousePosition = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
-        final Point2D mouseWindowPosition = new Point2D(mousePosition.getX() - this.stage.getX() - this.stage.getScene().getX(), mousePosition.getY() - this.stage.getY() - this.stage.getScene().getY());
-        this.camUpdateX = (mouseWindowPosition.getX() - this.stage.getWidth() / 2) / SPEED_SCALING;
-        this.camUpdateY = (mouseWindowPosition.getY() - this.stage.getHeight() / 2) / SPEED_SCALING;
+        final Point2D mouseWindowPosition = new Point2D(mousePosition.getX() - this.stageController.getX() - this.stageController.getScene().getX(), mousePosition.getY() - this.stageController.getY() - this.stageController.getScene().getY());
+        this.camUpdateX = (mouseWindowPosition.getX() - this.stageController.getWidth() / 2) / SPEED_SCALING;
+        this.camUpdateY = (mouseWindowPosition.getY() - this.stageController.getHeight() / 2) / SPEED_SCALING;
         return new Point2D(camUpdateX, camUpdateY);
     }
 

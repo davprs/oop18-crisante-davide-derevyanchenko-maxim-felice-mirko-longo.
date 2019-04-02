@@ -2,9 +2,6 @@ package view.field;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
-import controller.field.FieldController;
-import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -14,46 +11,50 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 
 /**
  * The class that represents the view of the whole field.
  *
  */
-public class FieldView extends Application {
+public class FieldView {
 
     private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
     private final Camera cam = new PerspectiveCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
     private final GraphicsContext gc = canvas.getGraphicsContext2D();
-    private Stage stage;
+    private final Scene scene;
+    private final Group root;
 
     /**
-     * 
-     * @return the camera of the scene
+     * Build the MenuView.
      */
-    public Camera getCamera() {
-        return this.cam;
+    public FieldView() {
+        this.root = new Group();
+        this.scene = new Scene(root, Color.BLACK);
+        this.scene.setCamera(this.cam);
+        this.root.getChildren().add(this.canvas);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void start(final Stage stage) throws Exception {
-        this.stage = stage;
-        final Group root = new Group();
-        final Scene scene = new Scene(root);
-
-        stage.setFullScreen(true);
-        stage.setScene(scene);
-        scene.setCamera(this.cam);
-
-        root.getChildren().add(this.canvas);
-        this.stage.show();
-        new FieldController(this);
-    }
+//    @Override
+//    public void start(final Stage stage) throws Exception {
+//        this.stage = stage;
+//        final Group root = new Group();
+//        final Scene scene = new Scene(root);
+//        root.getChildren().add(new OverlayView(null, null).get);
+//
+//        stage.setFullScreen(true);
+//        stage.setScene(scene);
+//        scene.setCamera(this.cam);
+//
+//        root.getChildren().add(this.canvas);
+//        this.stage.show();
+//        new FieldController(this);
+//    }
 
     /**
      * Method that draws an entity on the battle field.
@@ -90,16 +91,25 @@ public class FieldView extends Application {
 
     /**
      * 
-     * @return the stage of the window
+     * @return the camera of the scene
      */
-    public Stage getStage() {
-        return this.stage;
+    public Camera getCamera() {
+        return this.cam;
     }
 
     /**
-     * main method.
+     * 
+     * @return the scene
      */
-    public static void main() {
-        launch();
+    public Scene getScene() {
+        return this.scene;
+    }
+
+    /**
+     * 
+     * @return the root
+     */
+    public Group getRoot() {
+        return this.root;
     }
 }

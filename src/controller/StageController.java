@@ -1,5 +1,6 @@
 package controller;
 
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -16,6 +17,54 @@ public class StageController {
      */
     public StageController(final Stage stage) {
         this.stage = stage;
+    }
+
+    /**
+     * 
+     * @return the width of the stage
+     */
+    public double getWidth() {
+        return this.stage.getWidth();
+    }
+
+    /**
+     * 
+     * @return the height of the stage
+     */
+    public double getHeight() {
+        return this.stage.getHeight();
+    }
+
+    /**
+     * 
+     * @return the current scene of the stage
+     */
+    public Scene getScene() {
+        return this.stage.getScene();
+    }
+
+    /**
+     * 
+     * @return the horizontal location of the Stage on the screen
+     */
+    public double getX() {
+        return this.stage.getX();
+    }
+
+    /**
+     * 
+     * @return the vertical location of the Stage on the screen
+     */
+    public double getY() {
+        return this.stage.getY();
+    }
+
+    /**
+     * 
+     * @param stage the stage in which set the owner
+     */
+    public void setOwner(final Stage stage) {
+        stage.initOwner(this.stage);
     }
 
     /**

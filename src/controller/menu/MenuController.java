@@ -5,13 +5,12 @@ import java.util.ResourceBundle;
 
 import controller.FXMLController;
 import controller.StageController;
+import controller.field.FieldController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import model.account.Account;
 import view.menu.MenuView;
-import view.field.FieldView;
 
 /**
  * class MenuController that controls the menu.
@@ -57,13 +56,7 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void playTheGame() {
-        final Stage stage = (Stage) this.playBtn.getScene().getWindow();
-        stage.close();
-        try {
-            new FieldView().start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        new FieldController(this.account, this.stageController);
     }
 
     /**
