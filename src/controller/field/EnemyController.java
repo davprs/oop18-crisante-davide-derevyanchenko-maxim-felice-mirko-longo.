@@ -110,7 +110,6 @@ public class EnemyController implements EntityController {
      * @param health the health to lose.
      */
     public void loseHealth(final int health) {
-        // TODO Auto-generated method stub
         this.enemy.loseHealth(health);
     }
 
@@ -141,7 +140,6 @@ public class EnemyController implements EntityController {
      * @return enemyShip's health.
      */
     public int getHealth() {
-        // TODO Auto-generated method stub
         return enemy.getHealth();
     }
 
@@ -150,7 +148,6 @@ public class EnemyController implements EntityController {
      * @return enemyShip's number of Lifes.
      */
     public int getLives() {
-        // TODO Auto-generated method stub
         return enemy.getLives();
     }
 
@@ -159,7 +156,6 @@ public class EnemyController implements EntityController {
      */
     @Override
     public boolean intersects(final EntityController entityController) {
-        // TODO Auto-generated method stub
         return enemy.intersects(entityController.getEntity());
     }
 
@@ -168,7 +164,6 @@ public class EnemyController implements EntityController {
      */
     @Override
     public Entity getEntity() {
-        // TODO Auto-generated method stub
         return enemy;
     }
 

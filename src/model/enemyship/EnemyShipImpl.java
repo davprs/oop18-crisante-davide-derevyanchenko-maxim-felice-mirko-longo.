@@ -5,7 +5,6 @@ import java.awt.Toolkit;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Entity;
 import model.Life;
@@ -20,7 +19,6 @@ import model.bullet.BulletImpl;
 public class EnemyShipImpl implements EnemyShip {
 
     private static final int DELAY = (int) (Math.random() * 800 + 200);
-    private static final Image BULLET_IMAGE = new Image("res" + System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "bullet.png", 30, 30, true, true);
     private final ImageView image;
     private Point2D position;
     private final Dimension2D dimension;
@@ -34,36 +32,33 @@ public class EnemyShipImpl implements EnemyShip {
 
     /**
      * Build a new EnemyShip.
-     * @param image is the image of the ship
      * @param level is the level (fastness, power of bullets)
      * @param timeToShoot frames passing from one bullet-shot to the next one
      */
-    public EnemyShipImpl(final Image image, final int level, final int timeToShoot) {
+    public EnemyShipImpl(final int level, final int timeToShoot) {
+        this.image = new ImageView(utilities.EntitiesImageUtils.getEnemyShipImage(level));
         this.level = level;
         this.alive = true;
         this.life = LifeImpl.createDefaultLife();
         this.speed = level;
         this.framesToShoot = timeToShoot;
-        this.image = new ImageView(image);
-        this.dimension = new Dimension2D(image.getWidth(), image.getHeight());
+        this.dimension = new Dimension2D(image.getImage().getWidth(), image.getImage().getHeight());
         this.position = new Point2D(Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth());
     }
 
     /**
      * Build a customizable level Bullet.
-     * @param image is the image of the ship
      * @param level is the level (fastness, power of bullets)
      */
-    public EnemyShipImpl(final Image image, final int level) {
-        this(image, level, DELAY);
+    public EnemyShipImpl(final int level) {
+        this(level, DELAY);
     }
 
     /**
      * Build a simple EnemyShip.
-     * @param image is the image of the ship
      */
-    public EnemyShipImpl(final Image image) {
-        this(image, 1);
+    public EnemyShipImpl() {
+        this(1);
     }
 
     /**
@@ -105,7 +100,7 @@ public class EnemyShipImpl implements EnemyShip {
     public Bullet shoot(final Point2D target) {
         this.framesFromShoot = 0;
         this.shootingAvailable = false;
-        return new BulletImpl(BULLET_IMAGE, this.level, this.position, target);
+        return new BulletImpl(this.level, this.position, target);
     }
 
     /**
