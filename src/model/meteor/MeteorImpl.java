@@ -6,7 +6,6 @@ import java.awt.Toolkit;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Entity;
 
@@ -28,13 +27,12 @@ public class MeteorImpl implements Meteor {
 
     /**
      * Build a new Meteor.
-     * @param image The image to be printed.
      * @param level defines the speed and power.
      * @param src the starting position of the Meteor.
      * @param target the target position.
      */
-    public MeteorImpl(final Image image, final int level, final Point2D src, final Point2D target) {
-        this.image = new ImageView(image);
+    public MeteorImpl(final int level, final Point2D src, final Point2D target) {
+        this.image = new ImageView(utilities.EntitiesImageUtils.getMeteorImage(level));
         this.speed = level * 3;
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.position = src;

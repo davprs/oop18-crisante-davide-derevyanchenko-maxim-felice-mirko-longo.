@@ -10,13 +10,20 @@ import javafx.scene.image.Image;
 public final class EntitiesImageUtils {
 
     private static final String SEPARATOR = System.getProperty("file.separator");
-
+    private static final String RES = "res";
     private static final List<Image> BULLET_IMAGES = Arrays.asList(
-            new Image("res" + SEPARATOR + "bullet.png"));
+            new Image(RES + SEPARATOR + "bulletGreen.png"),
+            new Image(RES + SEPARATOR + "bulletYellow.png"),
+            new Image(RES + SEPARATOR + "bulletRed.png"),
+            new Image(RES + SEPARATOR + "bulletPower.png"));
     private static final List<Image> METEOR_IMAGES = Arrays.asList(
-            new Image("res" + SEPARATOR + "meteor.png"));
+            new Image(RES + SEPARATOR + "meteorGreen.png"),
+            new Image(RES + SEPARATOR + "meteorYellow.png"),
+            new Image(RES + SEPARATOR + "meteorRed.png"));
     private static final List<Image> ENEMYSHIP_IMAGES = Arrays.asList(
-            new Image("res" + SEPARATOR + "spaceship.png"));
+            new Image(RES + SEPARATOR + "spaceship1.png"),
+            new Image(RES + SEPARATOR + "spaceship2.png"),
+            new Image(RES + SEPARATOR + "spaceship3.png"));
 
     private EntitiesImageUtils() { }
 
@@ -26,7 +33,7 @@ public final class EntitiesImageUtils {
      * @return the image to print.
      */
     public static Image getBulletImage(final int level) {
-        return BULLET_IMAGES.get(level - 1);
+        return BULLET_IMAGES.get((level - 1) % BULLET_IMAGES.size());
     }
 
     /**
@@ -35,7 +42,7 @@ public final class EntitiesImageUtils {
      * @return the image to print.
      */
     public static Image getMeteorImage(final int level) {
-        return METEOR_IMAGES.get(level - 1);
+        return METEOR_IMAGES.get((level - 1) % METEOR_IMAGES.size());
     }
 
     /**
@@ -44,6 +51,6 @@ public final class EntitiesImageUtils {
      * @return the image to print.
      */
     public static Image getEnemyShipImage(final int level) {
-        return ENEMYSHIP_IMAGES.get(level - 1);
+        return ENEMYSHIP_IMAGES.get((level - 1) % ENEMYSHIP_IMAGES.size());
     }
 }
