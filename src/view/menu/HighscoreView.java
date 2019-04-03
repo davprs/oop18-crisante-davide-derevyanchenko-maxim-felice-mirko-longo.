@@ -16,7 +16,7 @@ import view.AbstractView;
  */
 public class HighscoreView extends AbstractView {
 
-    private static final String HIGHSCORE_BUNDLE = "menu.Highscorebundle";
+    private static final String HIGHSCORE_BUNDLE = "menu.HighscoreBundle";
     private static final String HIGHSCORE_VIEW = "highscoreSubmenu.fxml";
     private final double prefWidth;
     private final double prefHeight;
