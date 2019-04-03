@@ -10,8 +10,8 @@
 }
 
 .button:hover {
-    -fx-background-color: rgba(245, 240, 240, 0.692);
-   -fx-font-size: 35pt;
+   -fx-background-color: rgba(245, 240, 240, 0.692);
+   -fx-font-size: 30pt;
    -fx-text-fill: #000000;
    -fx-font-weight: bold;
 }
@@ -51,7 +51,7 @@
 #exitBtn:hover {
      -fx-background-color: rgb(248, 4, 4);
     -fx-text-fill: #ffffff;
-    -fx-font-size: 35pt;
+    -fx-font-size: 30pt;
     -fx-font-weight: bold;
 }
 
