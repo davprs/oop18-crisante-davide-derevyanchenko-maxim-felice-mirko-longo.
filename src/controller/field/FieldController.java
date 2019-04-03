@@ -30,6 +30,7 @@ public class FieldController {
      * @param stageController 
      */
     public FieldController(final Account account, final StageController stageController) {
+
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();

@@ -18,6 +18,8 @@ public class AlertFactoryImpl implements AlertFactory {
     private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_ALERT);
     private static final String DIALOG_CONTEXT_KEY = "dialogContentText";
     private static final String DIALOG_HEADER_KEY = "dialogHeaderText";
+    private static final String URL_CSS = "/css/alertStyle.css";
+    private static final String CSS_ID_DIALOG = "myDialog"; 
     /**
      * {@inheritDoc}
      */
@@ -99,8 +101,8 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setHeaderText(BUNDLE.getString(DIALOG_HEADER_KEY));
         final DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
-                getClass().getResource("/css/alertStyle.css").toExternalForm());
-        dialogPane.getStyleClass().add("myDialog");
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 
