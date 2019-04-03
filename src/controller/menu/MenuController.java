@@ -1,6 +1,7 @@
 package controller.menu;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.FXMLController;
@@ -9,7 +10,9 @@ import controller.field.FieldController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import model.account.Account;
+import utilities.AlertUtils;
 import view.menu.MenuView;
 
 /**
@@ -24,6 +27,7 @@ public class MenuController implements FXMLController {
     private final Account account;
     private ResourceBundle bundle;
     private final StageController stageController;
+
     @FXML
     private Button playBtn;
     @FXML
@@ -79,9 +83,13 @@ public class MenuController implements FXMLController {
      * 
      */
     @FXML
-    public void exitGame() {
-        Platform.exit();
+    public void exitGame() { 
+       final  Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
+        if (exit.get() == ButtonType.YES) {
+            Platform.exit();
+        }
     }
+
 
     /**
      * {@inheritDoc}
