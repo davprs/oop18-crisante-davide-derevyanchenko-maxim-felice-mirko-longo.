@@ -1,5 +1,6 @@
 package utilities;
 
+import javafx.scene.control.Alert;
 import view.AlertFactory;
 import view.AlertFactoryImpl;
 
@@ -53,5 +54,13 @@ public final class AlertUtils {
      */
     public static void createRegisterAccountDialog() {
         FACTORY.getRegisterAccountDialog().showAndWait();
+    }
+
+    /**
+     * Create a dialog to confirm exit game.
+     * @return alert
+     */
+    public static Alert createExitConfirmationDialog() {
+        return FACTORY.getExitConfirmationDialog();
     }
 }

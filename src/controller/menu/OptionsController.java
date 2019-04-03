@@ -13,6 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
 import model.account.Account;
 import view.menu.OptionsView;
 /**
@@ -41,6 +42,8 @@ public class OptionsController implements FXMLController {
     private final ObservableList<String> resolutionlist = FXCollections.observableArrayList(FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1, FOURTH_CHOICE_CB1);
     private final ObservableList<String> languagelist = FXCollections.observableArrayList(FIRST_CHOICE_CB2, SECOND_CHOICE_CB2, THIRD_CHOICE_CB2);
     private final StageController stageController;
+    @FXML
+    private GridPane grid;
     @FXML
     private Button back;
     @FXML

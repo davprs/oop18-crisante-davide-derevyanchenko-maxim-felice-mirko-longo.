@@ -1,6 +1,10 @@
 package view;
 
+import java.util.ResourceBundle;
+
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Alert.AlertType;
 
 /**
@@ -10,6 +14,10 @@ import javafx.scene.control.Alert.AlertType;
 public class AlertFactoryImpl implements AlertFactory {
 
     private static final String ERROR = "Error";
+    private static final String BUNDLE_ALERT = "menu.DialogBundle";
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_ALERT);
+    private static final String DIALOG_CONTEXT_KEY = "dialogContentText";
+    private static final String DIALOG_HEADER_KEY = "dialogHeaderText";
     /**
      * {@inheritDoc}
      */
@@ -79,6 +87,20 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle("Information");
         alert.setHeaderText("Congratulations!");
         alert.setContentText("Account registered.");
+        return alert;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Alert getExitConfirmationDialog() {
+        final Alert alert = new Alert(AlertType.CONFIRMATION, BUNDLE.getString(DIALOG_CONTEXT_KEY), ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText(BUNDLE.getString(DIALOG_HEADER_KEY));
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("/css/alertStyle.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
         return alert;
     }
 

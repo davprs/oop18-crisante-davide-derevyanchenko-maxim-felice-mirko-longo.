@@ -1,0 +1,10 @@
+sergiu
+oro
+sergiu
+0
+true
+1920.0
+1080.0
+en
+spaceship.png
+false

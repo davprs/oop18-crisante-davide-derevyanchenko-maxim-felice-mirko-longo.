@@ -43,4 +43,10 @@ public interface AlertFactory {
      * @return the Alert.
      */
     Alert getRegisterAccountDialog();
+
+    /**
+     * Get the Alert representing the exit dialog.
+     * @return the Alert;
+     */
+    Alert getExitConfirmationDialog();
 }
