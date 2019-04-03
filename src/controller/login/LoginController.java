@@ -20,7 +20,7 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
-import model.sounds.Sound;
+import model.sounds.SoundUtils;
 import utilities.AlertUtils;
 import utilities.FileUtils;
 import utilities.StringUtils;
@@ -109,7 +109,7 @@ public class LoginController implements FXMLController {
             if (accManager.checkPassword(account)) {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
-                    Sound.MAIN_THEME.loop();
+                    SoundUtils.MAIN_THEME.loop();
                 } catch (IOException e) {
                     System.out.println(StringUtils.ERROR_MESSAGE);
                     System.exit(0);

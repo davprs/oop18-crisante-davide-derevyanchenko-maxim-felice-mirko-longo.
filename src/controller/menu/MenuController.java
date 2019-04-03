@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import model.account.Account;
-import model.sounds.Sound;
+import model.sounds.SoundUtils;
 import utilities.AlertUtils;
 import view.menu.MenuView;
 
@@ -62,10 +62,10 @@ public class MenuController implements FXMLController {
     @FXML
     public void playTheGame() {
         new FieldController(this.account, this.stageController);
-        Sound.BUTTON_CLIKED.play();
-        Sound.MAIN_THEME.stop();
+        SoundUtils.BUTTON_CLIKED.play();
+        SoundUtils.MAIN_THEME.stop();
         //Sound.GAMEPLAY_MUSIC.play();
-        Sound.GAMEPLAY_MUSIC.play();
+        SoundUtils.GAMEPLAY_MUSIC.play();
     }
 
     /**
@@ -74,7 +74,7 @@ public class MenuController implements FXMLController {
     @FXML
     public void checkHighscore() {
         new HighscoreController(this.account, this.stageController).start();
-        Sound.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLIKED.play();
     }
 
     /**
@@ -83,7 +83,7 @@ public class MenuController implements FXMLController {
     @FXML
     public void enterOptions() {
         new OptionsController(this.account, this.stageController).start();
-        Sound.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLIKED.play();
     }
 
     /**
@@ -91,11 +91,14 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void exitGame() { 
-        Sound.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLIKED.play();
        final  Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
             Platform.exit();
-            Sound.MAIN_THEME.stop();
+            SoundUtils.BUTTON_CLIKED.play();
+            SoundUtils.MAIN_THEME.stop();
+        } else {
+            SoundUtils.BUTTON_CLIKED.play();
         }
     }
 
