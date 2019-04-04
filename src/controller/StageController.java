@@ -81,6 +81,6 @@ public class StageController {
      * @param value the value to set
      */
     public void setFullScreen(final boolean value) {
-        this.stage.setFullScreen(true);
+        this.stage.setFullScreen(value);
     }
 }

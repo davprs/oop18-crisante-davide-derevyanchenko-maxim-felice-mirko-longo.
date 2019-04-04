@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.account.Account;
-import model.account.AccountImpl;
+import model.account.ABCAccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
 import utilities.AlertUtils;
@@ -27,7 +27,7 @@ import view.login.RegisterView;
  */
 public class RegisterController implements FXMLController {
 
-    private final AccountManager manager = new AccountManagerImpl();
+    private final AccountManager accManager = new AccountManagerImpl();
     private final StageController stageController;
     @FXML
     private Label regLabel;
@@ -121,19 +121,20 @@ public class RegisterController implements FXMLController {
      */
     @FXML
     public void register() {
-        if (usrField.getText().equals("")) {
+        if (!checkUserField()) {
             AlertUtils.createRegisterUsernameError();
-        }
-        if (!checkPassword()) {
+        } else if (!checkPassword()) {
             AlertUtils.createRegisterPasswordError();
         }
-        final Account account = AccountImpl.createAccountWithNickname(usrField.getText(), getPassword(), nickField.getText());
-        if (manager.isPresent(account)) {
-            AlertUtils.createRegisterAccountError();
-        } else {
-            manager.register(account);
-            AlertUtils.createRegisterAccountDialog();
-            close();
+        if (checkFields()) {
+            final Account account = ABCAccountImpl.createAccountWithNickname(this.usrField.getText(), getPassword(), this.nickField.getText());
+            if (this.accManager.isPresent(account)) {
+                AlertUtils.createRegisterAccountError();
+            } else {
+                this.accManager.register(account);
+                AlertUtils.createRegisterAccountDialog();
+                close();
+            }
         }
     }
 
@@ -142,7 +143,7 @@ public class RegisterController implements FXMLController {
      */
     @FXML
     public void changePswField() {
-        togglePasswordVisibility(pswCheckBox, pswField, pswTextField);
+        togglePasswordVisibility(this.pswCheckBox, this.pswField, this.pswTextField);
     }
 
     /**
@@ -150,7 +151,7 @@ public class RegisterController implements FXMLController {
      */
     @FXML
     public void changeConfPswField() {
-       togglePasswordVisibility(confPswCheckBox, confPswField, confPswTextField);
+       togglePasswordVisibility(this.confPswCheckBox, this.confPswField, this.confPswTextField);
     }
 
     /**
@@ -174,17 +175,25 @@ public class RegisterController implements FXMLController {
     }
 
     private boolean checkPassword() {
-        if (pswField.getText().equals(confPswField.getText())) {
-            return !pswField.getText().equals("");
+        if (this.pswField.getText().equals(this.confPswField.getText())) {
+            return !this.pswField.getText().equals("");
         }
-        if (pswTextField.getText().equals(confPswTextField.getText())) {
-            return !pswTextField.getText().equals("");
+        if (this.pswTextField.getText().equals(this.confPswTextField.getText())) {
+            return !this.pswTextField.getText().equals("");
         }
         return false;
     }
 
+    private boolean checkUserField() {
+        return !this.usrField.getText().equals("");
+    }
+
+    private boolean checkFields() {
+        return this.checkPassword() && this.checkUserField();
+    }
+
     private String getPassword() {
-        return pswCheckBox.isSelected() ? pswTextField.getText() : pswField.getText();
+        return this.pswCheckBox.isSelected() ? this.pswTextField.getText() : this.pswField.getText();
     }
 
     private void setHandlers() {

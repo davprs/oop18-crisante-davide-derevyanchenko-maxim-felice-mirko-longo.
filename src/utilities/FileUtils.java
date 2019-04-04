@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import javafx.geometry.Dimension2D;
 import model.account.Account;
 import model.account.AccountImpl;
-import model.account.Settings;
+import model.account.SettingsImpl;
 
 /**
  * This class is created only to give File utilities.
@@ -66,27 +66,26 @@ public final class FileUtils {
     public static Set<Account> getAccounts() throws IOException {
         final Set<Account> set = new HashSet<>();
         try (Stream<Path> paths = Files.walk(Paths.get(ACCOUNT_PATH))) {
-            paths
-                .filter(Files::isRegularFile)
-                .map(p -> {
-                    try {
-                        final Iterator<String> iterator = Files.readAllLines(p).iterator();
-                        return AccountImpl.createCompleteAccount(iterator.next(),
-                                iterator.next(),
-                                iterator.next(),
-                                Integer.parseInt(iterator.next()), 
-                                new Settings(Boolean.parseBoolean(iterator.next()),
-                                        new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
-                                        iterator.next(),
-                                        URL_IMAGE + iterator.next(),
-                                        Boolean.parseBoolean(iterator.next())));
+            paths.filter(Files::isRegularFile)
+                 .map(p -> {
+                     try {
+                         final Iterator<String> iterator = Files.readAllLines(p).iterator();
+                         return new AccountImpl.Builder(iterator.next(), iterator.next())
+                                              .withNickname(iterator.next())
+                                              .bestScore(Integer.parseInt(iterator.next()))
+                                              .addMySettings(new SettingsImpl(Boolean.parseBoolean(iterator.next()),
+                                                      new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
+                                                      iterator.next(),
+                                                      URL_IMAGE + iterator.next(),
+                                                      Boolean.parseBoolean(iterator.next())))
+                                              .build();
                     } catch (IOException e) {
-                        System.out.println(StringUtils.ERROR_MESSAGE);
+                        ErrorLog.getLog().printError();
                         System.exit(0);
                     }
                     return null;
-                })
-                .forEach(set::add);
+                 })
+                 .forEach(set::add);
         } 
         return set;
     }
