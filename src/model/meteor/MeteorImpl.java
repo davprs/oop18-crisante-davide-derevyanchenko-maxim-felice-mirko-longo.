@@ -84,14 +84,6 @@ public class MeteorImpl implements Meteor {
      * {@inheritDoc}
      */
     @Override
-    public ImageView getImageView() {
-        return this.image;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void update() {
         position = new Point2D(position.getX() + (movX * speed), position.getY() + (movY * speed));
         target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));

@@ -1,5 +1,6 @@
 package controller.field;
 
+import javafx.scene.image.Image;
 import model.Entity;
 import model.meteor.Meteor;
 import view.field.FieldView;
@@ -10,6 +11,7 @@ import view.field.FieldView;
  */
 public class MeteorController implements EntityController {
 
+    private static final Image IMAGE = new Image("meteor.png");
     private final FieldView view;
     private final Meteor meteor;
 
@@ -36,7 +38,7 @@ public class MeteorController implements EntityController {
     @Override
     public void draw() {
         final double angle = Math.toDegrees(this.meteor.getAngle());
-        this.view.drawEntity(this.meteor.getImageView(), angle, this.meteor.getBoundary());
+        this.view.drawEntity(IMAGE, angle, this.meteor.getBoundary());
     }
 
     /**

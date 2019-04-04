@@ -31,7 +31,7 @@ public class CharacterController implements EntityController {
      * @param stageController the controller of the stage
      */
     public CharacterController(final FieldView view, final CameraController camController, final StageController stageController) {
-        this.ship = new CharacterShipImpl(SHIP_IMAGE);
+        this.ship = new CharacterShipImpl();
         this.view = view;
         this.camController = camController;
         this.immunity = false;
@@ -76,7 +76,7 @@ public class CharacterController implements EntityController {
     public void draw() {
         final Point2D camUpdate = camController.getCamUpdate();
         final double angle = Math.toDegrees(Math.atan2(camUpdate.getY(), camUpdate.getX()));
-        this.view.drawEntity(this.ship.getImageView(), angle, this.ship.getBoundary());
+        this.view.drawEntity(SHIP_IMAGE, angle, this.ship.getBoundary());
     }
 
     /**

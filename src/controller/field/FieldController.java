@@ -64,7 +64,7 @@ public class FieldController {
      * 
      * @return the ship controller
      */
-    public CharacterController getShipController() {
+    public CharacterController getCharacter() {
         return this.shipController;
     }
 

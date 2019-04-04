@@ -1,7 +1,6 @@
 package model;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.ImageView;
 
 /**
  * An interface that represents an Entity.
@@ -9,12 +8,14 @@ import javafx.scene.image.ImageView;
 public interface Entity {
 
     /**
+     * Method that gets the boundary of this entity.
      * 
      * @return the rectangle that represents the boundary of the entity
      */
     Rectangle2D getBoundary();
 
     /**
+     * Method that checks the intersection between this entity and the entity received as parameter.
      * 
      * @param entity the entity which should be checked the intersection with
      * 
@@ -23,12 +24,8 @@ public interface Entity {
     boolean intersects(Entity entity);
 
     /**
+     * Method that says if this entity is still alive or not.
      * 
-     * @return the ImageView that represents that entity
-     */
-    ImageView getImageView();
-
-    /**
      * @return true if the entity is still alive, false otherwise
      */
     boolean isAlive();

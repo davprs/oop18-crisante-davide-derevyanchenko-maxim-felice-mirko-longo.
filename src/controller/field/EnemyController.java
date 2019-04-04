@@ -1,6 +1,7 @@
 package controller.field;
 
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import model.ship.CharacterShip;
 import model.Entity;
 import model.bullet.Bullet;
@@ -13,6 +14,7 @@ import view.field.FieldView;
  */
 public class EnemyController implements EntityController {
 
+    private static final Image IMAGE = new Image("enemyShpi1.png");
     private final CharacterShip character;      //HAS TO BE CHANGED IN CharacterController.
     private final FieldView view;
     private final EnemyShip enemy;
@@ -37,7 +39,7 @@ public class EnemyController implements EntityController {
     @Override
     public void draw() {
         final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - character.getBoundary().getMinX(), enemy.getBoundary().getMinY() - character.getBoundary().getMinY()));
-        this.view.drawEntity(this.enemy.getImageView(), angle, this.enemy.getBoundary());
+        this.view.drawEntity(IMAGE, angle, this.enemy.getBoundary());
     }
 
     /**
@@ -103,52 +105,6 @@ public class EnemyController implements EntityController {
     @Override
     public boolean isAlive() {
         return enemy.isAlive();
-    }
-
-    /**
-     * 
-     * @param health the health to lose.
-     */
-    public void loseHealth(final int health) {
-        this.enemy.loseHealth(health);
-    }
-
-    /**
-     * 
-     * @param health the health to add.
-     */
-    public void addHealth(final int health) {
-        this.enemy.addHealth(health);
-    }
-
-    /**
-     *  adds a life.
-     */
-    public void addLife() {
-        enemy.addLife();
-    }
-
-    /**
-     * deletes a life.
-     */
-    public void loseLife() {
-        enemy.loseLife();
-    }
-
-    /**
-     * 
-     * @return enemyShip's health.
-     */
-    public int getHealth() {
-        return enemy.getHealth();
-    }
-
-    /**
-     * 
-     * @return enemyShip's number of Lifes.
-     */
-    public int getLives() {
-        return enemy.getLives();
     }
 
     /**

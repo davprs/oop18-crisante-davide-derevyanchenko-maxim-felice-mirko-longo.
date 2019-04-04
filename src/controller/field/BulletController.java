@@ -1,5 +1,6 @@
 package controller.field;
 
+import javafx.scene.image.Image;
 import model.Entity;
 import model.bullet.Bullet;
 import view.field.FieldView;
@@ -10,6 +11,7 @@ import view.field.FieldView;
  */
 public class BulletController implements EntityController {
 
+    private static final Image IMAGE = new Image("bullet.png");
     private final FieldView view;
     private final Bullet bullet;
 
@@ -36,7 +38,7 @@ public class BulletController implements EntityController {
     @Override
     public void draw() {
         final double angle = Math.toDegrees(this.bullet.getAngle());
-        this.view.drawEntity(this.bullet.getImageView(), angle, this.bullet.getBoundary());
+        this.view.drawEntity(IMAGE, angle, this.bullet.getBoundary());
     }
 
     /**
