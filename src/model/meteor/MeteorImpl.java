@@ -3,10 +3,9 @@ package model.meteor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.ImageView;
 import model.Entity;
 
 /**
@@ -17,25 +16,26 @@ public class MeteorImpl implements Meteor {
 
     private static final int DAMAGE_UNIT = 300;
     private final int damage;
-    private final ImageView image;
     private final double speed;
     private Point2D position;
     private final double angle;
     private double movX;
     private double movY;
     private Point2D target;
+    private final Dimension2D imageDimension;
 
     /**
      * Build a new Meteor.
      * @param level defines the speed and power.
      * @param src the starting position of the Meteor.
      * @param target the target position.
+     * @param imageDimension the width and height of the image on screen.
      */
-    public MeteorImpl(final int level, final Point2D src, final Point2D target) {
-        this.image = new ImageView(utilities.EntitiesImageUtils.getMeteorImage(level));
+    public MeteorImpl(final int level, final Point2D src, final Point2D target, final Dimension2D imageDimension) {
         this.speed = level * 3;
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.position = src;
+        this.imageDimension = imageDimension;
         this.angle = Math.atan2(Math.max(src.getX(), target.getX()) - Math.min(src.getX(), target.getX()), Math.max(src.getY(), target.getY()) - Math.min(src.getY(), target.getY()));
         this.movY = Math.abs(-Math.pow(Math.sin(angle), 2) + 1);
         this.movX = Math.abs(-Math.pow(Math.cos(angle), 2) + 1);
@@ -69,7 +69,7 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), image.getImage().getWidth(), image.getImage().getHeight());
+        return new Rectangle2D(position.getX(), position.getY(), imageDimension.getWidth(), imageDimension.getHeight());
     }
 
     /**

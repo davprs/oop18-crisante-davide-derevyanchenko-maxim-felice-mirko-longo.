@@ -2,10 +2,9 @@ package controller.field;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import model.ship.CharacterShip;
 import model.Entity;
-import model.bullet.Bullet;
 import model.enemyship.EnemyShip;
+import model.enemyship.EnemyShipImpl;
 import view.field.FieldView;
 
 /**
@@ -14,23 +13,33 @@ import view.field.FieldView;
  */
 public class EnemyController implements EntityController {
 
-    private static final Image IMAGE = new Image("enemyShpi1.png");
-    private final CharacterShip character;      //HAS TO BE CHANGED IN CharacterController.
+    private final Image image;
+    private final CharacterController characterController;      //HAS TO BE CHANGED IN CharacterController.
     private final FieldView view;
     private final EnemyShip enemy;
     private boolean freeze;
 
     /**
-     * Build a new EnemyController.
+     * Build a new EnemyController and his EnemyShip.
      * @param view the fieldView
-     * @param enemy the entity representing the Enemy.
-     * @param character the entity representing the CharacterShip.
+     * @param level the level of the new created Enemy.
+     * @param characterController the entity representing the CharacterShip.
      */
-    public EnemyController(final FieldView view, final EnemyShip enemy, final CharacterShip character) {
+    public EnemyController(final FieldView view, final int level, final CharacterController characterController) {
+        this.image = utilities.EntitiesImageUtils.getEnemyShipImage(level);
+        this.enemy = new EnemyShipImpl(level);
         this.view = view;
-        this.enemy = enemy;
-        this.character = character;
+        this.characterController = characterController;
         this.freeze = false;
+    }
+
+    /**
+     * Build a new EnemyController and his easy-level EnemyShip.
+     * @param view the fieldView
+     * @param characterController the entity representing the CharacterShip.
+     */
+    public EnemyController(final FieldView view, final CharacterController characterController) {
+        this(view, 1, characterController);
     }
 
     /**
@@ -38,8 +47,8 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void draw() {
-        final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - character.getBoundary().getMinX(), enemy.getBoundary().getMinY() - character.getBoundary().getMinY()));
-        this.view.drawEntity(IMAGE, angle, this.enemy.getBoundary());
+        final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - characterController.getEntity().getBoundary().getMinX(), enemy.getBoundary().getMinY() - characterController.getEntity().getBoundary().getMinY()));
+        this.view.drawEntity(image, angle, this.enemy.getBoundary());
     }
 
     /**
@@ -74,7 +83,7 @@ public class EnemyController implements EntityController {
         double rad;
         double movY, movX;
 //        rad=Math.atan2(Math.max(position.getX(), character.getBoundary().getMinX()) - Math.min(position.getX(), character.getBoundary().getMinX()) , Math.max(position.getY(), character.getBoundary().getMinY()) - Math.min(position.getY(), character.getBoundary().getMinY()));
-        rad = Math.atan2(character.getBoundary().getMinY() - position.getY(), character.getBoundary().getMinX() - position.getX());
+        rad = Math.atan2(characterController.getEntity().getBoundary().getMinY() - position.getY(), characterController.getEntity().getBoundary().getMinX() - position.getX());
 //        movY=Math.abs(- Math.pow(Math.sin(rad), 2) + 1);
 //        movX=Math.abs(- Math.pow(Math.cos(rad), 2) + 1);
         movY = enemy.getSpeed() * Math.sin(rad);
@@ -94,8 +103,10 @@ public class EnemyController implements EntityController {
      * 
      * @return the new Bullet.
      */
-    public Bullet shoot() {
-        return this.enemy.shoot(new Point2D(character.getBoundary().getMinX(), character.getBoundary().getMinY()));
+    public BulletController shoot() {
+        return new BulletController(this.view, this.enemy.getLevel(), this.enemy.shoot(), 
+                new Point2D(this.characterController.getEntity().getBoundary().getMinX(),
+                    this.characterController.getEntity().getBoundary().getMinY()));
     }
 
     /**

@@ -6,7 +6,6 @@ import javafx.geometry.Rectangle2D;
 import model.Entity;
 import model.Life;
 import model.LifeImpl;
-import model.bullet.Bullet;
 
 /**
  * Class that represents the character ship.
@@ -73,7 +72,7 @@ public class CharacterShipImpl implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public Bullet shoot(final Point2D target) {
+    public Point2D shoot() {
         return null;
     }
 

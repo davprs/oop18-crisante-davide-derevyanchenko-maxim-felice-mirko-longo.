@@ -3,9 +3,9 @@ package model.bullet;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.ImageView;
 import model.Entity;
 
 /**
@@ -17,22 +17,23 @@ public class BulletImpl implements Entity, Bullet {
 
     private static final int DAMAGE_UNIT = 400;
     private final int damage;
-    private final ImageView image; 
     private final double speed;
     private Point2D position;
     private Point2D target;
     private double movX;
     private double movY;
     private final double angle;
+    private final Dimension2D imageDimension;
 
     /**
      * Build a new Bullet.
      * @param level defines the speed.
      * @param src the starting position of the Bullet.
      * @param target the target position.
+     * @param imageDimension the width and height of the image on screen. 
      */
-    public BulletImpl(final int level, final Point2D src, final Point2D target) {
-        this.image = new ImageView(utilities.EntitiesImageUtils.getBulletImage(level));
+    public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D imageDimension) {
+        this.imageDimension = imageDimension;
         this.speed = level * 2;
         this.damage = level * BulletImpl.DAMAGE_UNIT;
         this.position = src;
@@ -69,7 +70,7 @@ public class BulletImpl implements Entity, Bullet {
      */
     @Override
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), image.getImage().getWidth(), image.getImage().getHeight());
+        return new Rectangle2D(position.getX(), position.getY(), imageDimension.getWidth(), imageDimension.getHeight());
     }
 
     /**

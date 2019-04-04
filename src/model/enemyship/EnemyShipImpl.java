@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import model.Entity;
 import model.Life;
 import model.LifeImpl;
-import model.bullet.Bullet;
-import model.bullet.BulletImpl;
 
 /**
  * Implementation of EnemyShip interface.
@@ -94,10 +92,10 @@ public class EnemyShipImpl implements EnemyShip {
     * {@inheritDoc}
     */
     @Override
-    public Bullet shoot(final Point2D target) {
+    public Point2D shoot() {
         this.framesFromShoot = 0;
         this.shootingAvailable = false;
-        return new BulletImpl(this.level, this.position, target);
+        return this.position;
     }
 
     /**

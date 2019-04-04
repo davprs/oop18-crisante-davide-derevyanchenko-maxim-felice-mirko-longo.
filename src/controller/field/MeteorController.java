@@ -1,8 +1,11 @@
 package controller.field;
 
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
 import model.meteor.Meteor;
+import model.meteor.MeteorImpl;
 import view.field.FieldView;
 
 /**
@@ -11,18 +14,31 @@ import view.field.FieldView;
  */
 public class MeteorController implements EntityController {
 
-    private static final Image IMAGE = new Image("meteor.png");
+    private final Image image;
     private final FieldView view;
     private final Meteor meteor;
 
     /**
-     * Build a MeteorController.
-     * @param view the fieldView
-     * @param meteor the controlled Meteor.
+     * Build a MeteorController and his Meteor.
+     * @param view the fieldView.
+     * @param level the level of the Meteor.
+     * @param src the starting point of the Meteor.
+     * @param target Meteor's target.
      */
-    public MeteorController(final FieldView view, final Meteor meteor) {
+    public MeteorController(final FieldView view, final int level, final Point2D src, final Point2D target) {
+        this.image = utilities.EntitiesImageUtils.getMeteorImage(level);
+        this.meteor = new MeteorImpl(level, src, target, new Dimension2D(this.image.getWidth(), this.image.getHeight()));
         this.view = view;
-        this.meteor = meteor;
+    }
+
+    /**
+     * Build a MeteorController and his easy-level Meteor.
+     * @param view the fieldView.
+     * @param src the starting point of the Meteor.
+     * @param target Meteor's target.
+     */
+    public MeteorController(final FieldView view, final Point2D src, final Point2D target) {
+        this(view, 1, src, target);
     }
 
     /**
@@ -38,7 +54,7 @@ public class MeteorController implements EntityController {
     @Override
     public void draw() {
         final double angle = Math.toDegrees(this.meteor.getAngle());
-        this.view.drawEntity(IMAGE, angle, this.meteor.getBoundary());
+        this.view.drawEntity(image, angle, this.meteor.getBoundary());
     }
 
     /**

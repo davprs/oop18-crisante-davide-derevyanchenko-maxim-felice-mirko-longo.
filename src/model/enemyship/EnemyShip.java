@@ -16,6 +16,12 @@ public interface EnemyShip extends Ship {
     double getSpeed();
 
     /**
+     * Get the enemy level.
+     * @return the enemy level.
+     */
+    int getLevel();
+
+    /**
      * Update the Enemy position.
      * @param addPosition the position to add at the current position.
      */
