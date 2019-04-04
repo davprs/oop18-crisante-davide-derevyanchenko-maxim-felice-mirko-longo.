@@ -21,6 +21,7 @@ public class CameraController {
     private double camUpdateY;
 
     /**
+     * Constructor of the CameraController.
      * 
      * @param stageController the stageController of the stage in which the camera is used
      * @param camera the camera to control
@@ -54,6 +55,8 @@ public class CameraController {
     }
 
     /**
+     * Gets the camera X translation value to get to the next position.
+     * 
      * @return camera translation X value
      */
     public double getCameraTranslationX() {
@@ -61,6 +64,8 @@ public class CameraController {
     }
 
     /**
+     * Gets the camera Y translation value to get to the next position.
+     * 
      * @return camera translation Y value
      */
     public double getCameraTranslationY() {
@@ -68,6 +73,8 @@ public class CameraController {
     }
 
     /**
+     * Gets the point of the next move of the camera.
+     * 
      * @return updated position of the next move of the camera
      */
     public final Point2D getCamUpdate() {
@@ -75,7 +82,7 @@ public class CameraController {
         final Point2D mouseWindowPosition = new Point2D(mousePosition.getX() - this.stageController.getX() - this.stageController.getScene().getX(), mousePosition.getY() - this.stageController.getY() - this.stageController.getScene().getY());
         this.camUpdateX = (mouseWindowPosition.getX() - this.stageController.getWidth() / 2) / SPEED_SCALING;
         this.camUpdateY = (mouseWindowPosition.getY() - this.stageController.getHeight() / 2) / SPEED_SCALING;
-        return new Point2D(camUpdateX, camUpdateY);
+        return new Point2D(this.camUpdateX, this.camUpdateY);
     }
 
     /**

@@ -8,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.account.Account;
+import utilities.ErrorLog;
 import view.field.FieldView;
 import view.field.OverlayView;
 
@@ -23,23 +24,26 @@ public class FieldController {
     private final List<EnemyController> enemies;
     private final List<BulletController> enemyBullets;
     private final List<BulletController> characterBullets;
+    private final List<MeteorController> meteors;
 
     /**
+     * Constructor of the FieldController.
      * 
      * @param account 
      * @param stageController 
      */
     public FieldController(final Account account, final StageController stageController) {
-
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();
+        this.meteors = new LinkedList<>();
         final FieldView fieldView = new FieldView();
         stageController.setScene(fieldView.getScene());
         try {
             new OverlayView(stageController).start(new Stage());
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorLog.getLog().printError();
+            System.exit(0);
         }
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
         this.camController = new CameraController(stageController, fieldView.getCamera());
@@ -61,6 +65,7 @@ public class FieldController {
     }
 
     /**
+     * Gets the ShipController.
      * 
      * @return the ship controller
      */
@@ -69,6 +74,7 @@ public class FieldController {
     }
 
     /**
+     * Gets the list of the EnemyControllers that are in the field.
      * 
      * @return the list of all enemy controllers
      */
@@ -77,6 +83,7 @@ public class FieldController {
     }
 
     /**
+     * Gets the list of the EnemyBulletControllers that are in the field.
      * 
      * @return the list of all enemy bullet controllers
      */
@@ -85,14 +92,25 @@ public class FieldController {
     }
 
     /**
+     * Gets the list of the CharacterBulletControllers that are in the field.
      * 
      * @return the list of all character bullet controllers
      */
-    public List<BulletController> getAllyBullets() {
+    public List<BulletController> getCharacterBullets() {
         return this.characterBullets;
     }
 
     /**
+     * Gets the list of the MeteorControllers that are in the field.
+     * 
+     * @return the list of all meteor controllers
+     */
+    public List<MeteorController> getMeteors() {
+        return this.meteors;
+    }
+
+    /**
+     * Adds the enemy to the list of the EnemyControllers.
      * 
      * @param enemy the enemy to be added
      */
@@ -101,6 +119,7 @@ public class FieldController {
     }
 
     /**
+     * Adds the Bullet to the list of the EnemyBulletControllers.
      * 
      * @param enemyBullet the enemy bullet to be added
      */
@@ -109,10 +128,20 @@ public class FieldController {
     }
 
     /**
+     * Adds the bullet to the list of the CharacterBulletControllers.
      * 
      * @param characterBullet the character bullet to be added
      */
     public void addCharacterBullet(final BulletController characterBullet) {
         this.characterBullets.add(characterBullet);
+    }
+
+    /**
+     * Adds the meteor to the list of the MeteorControllers.
+     * 
+     * @param meteor the meteor to be added
+     */
+    public void addMeteor(final MeteorController meteor) {
+        this.meteors.add(meteor);
     }
 }

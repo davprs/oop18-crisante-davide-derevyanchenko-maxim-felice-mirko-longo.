@@ -25,6 +25,7 @@ public class CharacterController implements EntityController {
     private final StageController stageController;
 
     /**
+     * Constructor of the CharacterController.
      * 
      * @param view  the view in which the ship is moving
      * @param camController  the camera controller of the view
@@ -89,6 +90,7 @@ public class CharacterController implements EntityController {
     }
 
     /**
+     * The method that observes if the camera must move or not.
      * 
      * @return isCamMoving value
      */
@@ -97,7 +99,7 @@ public class CharacterController implements EntityController {
     }
 
     /**
-     * change the value of immunity. 
+     * Method that changes the value of immunity. 
      */
     public void changeImmunity() {
         this.immunity = !this.immunity;
