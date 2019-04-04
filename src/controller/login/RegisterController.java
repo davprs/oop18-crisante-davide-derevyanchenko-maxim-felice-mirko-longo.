@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.account.Account;
-import model.account.ABCAccountImpl;
+import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
 import utilities.AlertUtils;
@@ -127,7 +127,9 @@ public class RegisterController implements FXMLController {
             AlertUtils.createRegisterPasswordError();
         }
         if (checkFields()) {
-            final Account account = ABCAccountImpl.createAccountWithNickname(this.usrField.getText(), getPassword(), this.nickField.getText());
+            final Account account = new AccountImpl.Builder(this.usrField.getText(), getPassword())
+                                                   .withNickname(this.nickField.getText())
+                                                   .build();
             if (this.accManager.isPresent(account)) {
                 AlertUtils.createRegisterAccountError();
             } else {
