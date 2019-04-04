@@ -12,7 +12,6 @@ import model.LifeImpl;
 
 /**
  * Implementation of EnemyShip interface.
- *
  */
 public class EnemyShipImpl implements EnemyShip {
 

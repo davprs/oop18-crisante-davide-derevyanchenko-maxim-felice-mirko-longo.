@@ -9,7 +9,6 @@ import view.field.FieldView;
 
 /**
  * Controller class of EnemyShip.
- *
  */
 public class EnemyController implements EntityController {
 

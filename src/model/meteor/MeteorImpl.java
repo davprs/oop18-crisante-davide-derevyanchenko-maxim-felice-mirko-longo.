@@ -10,7 +10,6 @@ import model.Entity;
 
 /**
  * Implementation of Meteor interface.
- *
  */
 public class MeteorImpl implements Meteor {
 

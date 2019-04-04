@@ -10,7 +10,6 @@ import view.field.FieldView;
 
 /**
  * Controller class of Meteor.
- *
  */
 public class MeteorController implements EntityController {
 

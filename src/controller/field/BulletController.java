@@ -9,7 +9,6 @@ import view.field.FieldView;
 
 /**
  * Controller class of Bullet.
- *
  */
 public class BulletController implements EntityController {
 

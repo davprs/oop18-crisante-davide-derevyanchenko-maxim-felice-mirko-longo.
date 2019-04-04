@@ -4,7 +4,7 @@ import javafx.geometry.Point2D;
 import model.ship.Ship;
 
 /**
- * 
+ * An interface that represents an EnemyShip.
  *
  */
 public interface EnemyShip extends Ship {

@@ -10,7 +10,6 @@ import model.Entity;
 
 /**
  * Implementation of Bullet interface.
- *
  */
 
 public class BulletImpl implements Entity, Bullet {
