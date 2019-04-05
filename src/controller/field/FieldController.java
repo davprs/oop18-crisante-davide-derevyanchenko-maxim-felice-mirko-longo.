@@ -2,7 +2,6 @@ package controller.field;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import controller.StageController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;

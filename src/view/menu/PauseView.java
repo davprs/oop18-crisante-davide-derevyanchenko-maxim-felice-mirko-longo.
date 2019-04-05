@@ -2,8 +2,7 @@ package view.menu;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
-
-import controller.menu.PauseController;
+import controller.StageController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import model.account.Account;
@@ -26,14 +25,14 @@ public class PauseView extends AbstractView {
     /**
      * 
      * @param account the game account
-     * @param pauseController the controller class
+     * @param stageController the controller class
      */
-    public PauseView(final Account account, final PauseController pauseController) {
+    public PauseView(final Account account, final StageController stageController) {
         this.prefWidth = account.getSettings().getResolution().getWidth();
         this.prefHeight = account.getSettings().getResolution().getHeight();
         BundleUtils.setLocale(account.getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(PAUSE_VIEW), ResourceBundle.getBundle(PAUSE_BUNDLE));
-        this.loader.setController(pauseController);
+        this.loader.setController(stageController);
         super.init();
     }
 

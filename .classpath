@@ -7,6 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res/sounds"/>
 	<classpathentry kind="src" path="res/view"/>
 	<classpathentry kind="src" path="res/bundles"/>
 	<classpathentry kind="src" path="res/images"/>

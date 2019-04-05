@@ -1,8 +1,14 @@
 package controller;
 
-
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import model.sounds.SoundUtils;
 
 /**
  * Controller class of the Stage.
@@ -10,6 +16,21 @@ import javafx.stage.Stage;
 public class StageController {
 
     private final Stage stage;
+    private final EventHandler<KeyEvent> pauseHandler = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(final KeyEvent event) {
+            if (event.getCode().compareTo(KeyCode.ESCAPE) == 0) {
+                System.out.println("funzia");
+            } 
+        }
+    };
+    private final EventHandler<WindowEvent> exitWindow = new EventHandler<WindowEvent>() {
+        @Override
+        public void handle(final WindowEvent event) {
+            SoundUtils.muteAllSounds();
+            Platform.exit();
+        } 
+    };
 
     /**
      * Build the StageController.
@@ -17,6 +38,9 @@ public class StageController {
      */
     public StageController(final Stage stage) {
         this.stage = stage;
+        this.stage.setFullScreenExitKeyCombination(KeyCombination.keyCombination(KeyCode.F11.toString()));
+        this.stage.addEventHandler(KeyEvent.KEY_PRESSED, this.pauseHandler);
+        this.stage.setOnCloseRequest(this.exitWindow);
     }
 
     /**

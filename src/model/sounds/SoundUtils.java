@@ -12,24 +12,24 @@ public final class SoundUtils {
     /**
      * 
      */
-    public static final AudioClip MAIN_THEME = Applet.newAudioClip(SoundUtils.class.getResource("mainTheme.wav"));
+    public static final AudioClip MAIN_THEME = Applet.newAudioClip(ClassLoader.getSystemResource("mainTheme.wav"));
     /**
      * 
      */
-    public static final AudioClip BUTTON_CLIKED = Applet.newAudioClip(SoundUtils.class.getResource("buttonCliked.wav"));
+    public static final AudioClip BUTTON_CLICKED = Applet.newAudioClip(ClassLoader.getSystemResource("buttonCliked.wav"));
     /**
      * 
      */
-    public static final AudioClip GAMEPLAY_MUSIC = Applet.newAudioClip(SoundUtils.class.getResource("low-fi.wav"));
+    public static final AudioClip GAMEPLAY_MUSIC = Applet.newAudioClip(ClassLoader.getSystemResource("low-fi.wav"));
 
-  // private final SoundUtils() { };
+   private SoundUtils() { };
 
     /**
      * Method to mute all the sounds in the game.
      */
-    public void muteAllSounds() {
-        SoundUtils.BUTTON_CLIKED.stop();
-        SoundUtils.GAMEPLAY_MUSIC.stop();
-        SoundUtils.MAIN_THEME.stop();
+    public static void muteAllSounds() {
+        BUTTON_CLICKED.stop();
+        MAIN_THEME.stop();
+        GAMEPLAY_MUSIC.stop();
     }
 }

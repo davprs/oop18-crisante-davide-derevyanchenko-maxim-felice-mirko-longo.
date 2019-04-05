@@ -51,6 +51,7 @@ public class HighscoreController implements FXMLController {
     public void goBack() {
         new MenuController(this.account, this.stageController).start();
     }
+
     /**
      * 
      */
