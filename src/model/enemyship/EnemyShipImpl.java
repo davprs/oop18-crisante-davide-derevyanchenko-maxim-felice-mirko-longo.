@@ -2,10 +2,8 @@ package model.enemyship;
 
 import java.awt.Toolkit;
 
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.ImageView;
 import model.Entity;
 import model.Life;
 import model.LifeImpl;
@@ -16,8 +14,9 @@ import model.LifeImpl;
 public class EnemyShipImpl implements EnemyShip {
 
     private static final int DELAY = (int) (Math.random() * 800 + 200);
+    private static final double WIDTH = 100;
+    private static final double HEIGHT = 100;
     private Point2D position;
-    private final Dimension2D dimension;
     private final double speed;
     private int framesFromShoot;
     private int level;
@@ -31,12 +30,10 @@ public class EnemyShipImpl implements EnemyShip {
      * @param timeToShoot frames passing from one bullet-shot to the next one
      */
     public EnemyShipImpl(final int level, final int timeToShoot) {
-        final ImageView image = new ImageView(utilities.EntitiesImageUtils.getEnemyShipImage(level));
         this.level = level;
         this.life = LifeImpl.createDefaultLife();
         this.speed = level;
         this.framesToShoot = timeToShoot;
-        this.dimension = new Dimension2D(image.getImage().getWidth(), image.getImage().getHeight());
         this.position = new Point2D(Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth());
     }
 
@@ -76,7 +73,7 @@ public class EnemyShipImpl implements EnemyShip {
      */
     @Override
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), dimension.getWidth(), dimension.getHeight());
+        return new Rectangle2D(position.getX(), position.getY(), EnemyShipImpl.WIDTH, EnemyShipImpl.HEIGHT);
     }
 
     /**

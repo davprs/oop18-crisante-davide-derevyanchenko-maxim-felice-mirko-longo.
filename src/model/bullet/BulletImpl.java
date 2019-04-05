@@ -3,7 +3,6 @@ package model.bullet;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import model.Entity;
@@ -12,9 +11,11 @@ import model.Entity;
  * Implementation of Bullet interface.
  */
 
-public class BulletImpl implements Entity, Bullet {
+public class BulletImpl implements Bullet {
 
     private static final int DAMAGE_UNIT = 400;
+    private static final double WIDTH = 100;
+    private static final double HEIGHT = 100;
     private final int damage;
     private final double speed;
     private Point2D position;
@@ -22,17 +23,14 @@ public class BulletImpl implements Entity, Bullet {
     private double movX;
     private double movY;
     private final double angle;
-    private final Dimension2D imageDimension;
 
     /**
      * Build a new Bullet.
      * @param level defines the speed.
      * @param src the starting position of the Bullet.
      * @param target the target position.
-     * @param imageDimension the width and height of the image on screen. 
      */
-    public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D imageDimension) {
-        this.imageDimension = imageDimension;
+    public BulletImpl(final int level, final Point2D src, final Point2D target) {
         this.speed = level * 2;
         this.damage = level * BulletImpl.DAMAGE_UNIT;
         this.position = src;
@@ -69,7 +67,7 @@ public class BulletImpl implements Entity, Bullet {
      */
     @Override
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), imageDimension.getWidth(), imageDimension.getHeight());
+        return new Rectangle2D(position.getX(), position.getY(), BulletImpl.WIDTH, BulletImpl.HEIGHT);
     }
 
     /**

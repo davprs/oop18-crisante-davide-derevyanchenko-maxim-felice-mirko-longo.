@@ -1,6 +1,5 @@
 package controller.field;
 
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
@@ -25,7 +24,7 @@ public class BulletController implements EntityController {
      */
     public BulletController(final FieldView view, final int level, final Point2D src, final Point2D target) {
         this.image = utilities.EntitiesImageUtils.getBulletImage(level);
-        this.bullet = new BulletImpl(level, src, target, new Dimension2D(this.image.getWidth(), this.image.getHeight()));
+        this.bullet = new BulletImpl(level, src, target);
         this.view = view;
     }
 
