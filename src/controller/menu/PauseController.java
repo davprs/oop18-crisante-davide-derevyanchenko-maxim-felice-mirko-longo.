@@ -56,7 +56,7 @@ public class PauseController implements FXMLController {
      */
     @Override
     public void start() {
-        this.stageController.setScene(new PauseView(this.account, this).getScene());
+        this.stageController.setScene(new PauseView(this.account, this.stageController).getScene());
     }
 
     /**

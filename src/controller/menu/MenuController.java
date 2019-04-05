@@ -63,8 +63,6 @@ public class MenuController implements FXMLController {
         SoundUtils.BUTTON_CLICKED.play();
         SoundUtils.MAIN_THEME.stop();
         SoundUtils.GAMEPLAY_MUSIC.play();
-        SoundUtils.muteAllSounds();
-
     }
 
     /**
@@ -74,9 +72,6 @@ public class MenuController implements FXMLController {
     public void checkHighscore() {
         new HighscoreController(this.account, this.stageController).start();
         SoundUtils.BUTTON_CLICKED.play();
-
-
-
     }
 
     /**
@@ -99,7 +94,7 @@ public class MenuController implements FXMLController {
         if (exit.get() == ButtonType.YES) {
             Platform.exit();
             SoundUtils.BUTTON_CLICKED.play();
-            SoundUtils.MAIN_THEME.stop();
+            SoundUtils.muteAllSounds();
         } else {
             SoundUtils.BUTTON_CLICKED.play();
         }
