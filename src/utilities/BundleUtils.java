@@ -27,7 +27,7 @@ public final class BundleUtils {
                 Locale.setDefault(Locale.ENGLISH);
                 break;
             default:
-                System.out.println(StringUtils.ERROR_MESSAGE);
+                ErrorLog.getLog().printError();
                 Platform.exit();
         }
     }

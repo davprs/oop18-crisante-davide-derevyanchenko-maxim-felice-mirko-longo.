@@ -25,13 +25,14 @@ public class CharacterController implements EntityController {
     private final StageController stageController;
 
     /**
+     * Constructor of the CharacterController.
      * 
      * @param view  the view in which the ship is moving
      * @param camController  the camera controller of the view
      * @param stageController the controller of the stage
      */
     public CharacterController(final FieldView view, final CameraController camController, final StageController stageController) {
-        this.ship = new CharacterShipImpl(SHIP_IMAGE);
+        this.ship = new CharacterShipImpl();
         this.view = view;
         this.camController = camController;
         this.immunity = false;
@@ -76,7 +77,7 @@ public class CharacterController implements EntityController {
     public void draw() {
         final Point2D camUpdate = camController.getCamUpdate();
         final double angle = Math.toDegrees(Math.atan2(camUpdate.getY(), camUpdate.getX()));
-        this.view.drawEntity(this.ship.getImageView(), angle, this.ship.getBoundary());
+        this.view.drawEntity(SHIP_IMAGE, angle, this.ship.getBoundary());
     }
 
     /**
@@ -89,6 +90,7 @@ public class CharacterController implements EntityController {
     }
 
     /**
+     * The method that observes if the camera must move or not.
      * 
      * @return isCamMoving value
      */
@@ -97,7 +99,7 @@ public class CharacterController implements EntityController {
     }
 
     /**
-     * change the value of immunity. 
+     * Method that changes the value of immunity. 
      */
     public void changeImmunity() {
         this.immunity = !this.immunity;

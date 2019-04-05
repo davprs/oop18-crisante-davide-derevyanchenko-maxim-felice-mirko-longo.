@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import utilities.ErrorLog;
 
 /**
  * Abstract class of View.
@@ -28,7 +29,8 @@ public abstract class AbstractView {
         try {
             this.scene = new Scene(this.getRoot(), this.getWidth(), this.getHeight());
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLog.getLog().printError();
+            System.exit(0);
         }
     }
 

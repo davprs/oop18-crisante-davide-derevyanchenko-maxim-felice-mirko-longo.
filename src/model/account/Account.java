@@ -35,4 +35,28 @@ public interface Account {
      * @return the Settings.
      */
     Settings getSettings();
+
+    /**
+     * Set the nickname.
+     * @param nickname the nickname to set
+     */
+    void setNickname(String nickname);
+
+    /**
+     * Set the password.
+     * @param password the password to set
+     */
+    void setPassword(String password);
+
+    /**
+     * Set the bestScore.
+     * @param bestScore the bestScore to set
+     */
+    void setBestScore(int bestScore);
+
+    /**
+     * Set the Settings.
+     * @param settings the settings to set
+     */
+    void setSettings(Settings settings);
 }

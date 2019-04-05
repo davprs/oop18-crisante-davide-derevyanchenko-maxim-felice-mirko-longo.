@@ -22,8 +22,8 @@ import model.account.AccountManager;
 import model.account.AccountManagerImpl;
 import model.sounds.SoundUtils;
 import utilities.AlertUtils;
+import utilities.ErrorLog;
 import utilities.FileUtils;
-import utilities.StringUtils;
 import view.login.LoginView;
 
 /**
@@ -105,14 +105,14 @@ public class LoginController implements FXMLController {
      */
     @FXML
     public void tryLogin() {
-        final Account account = AccountImpl.createSimpleAccount(usrField.getText(), pswField.getText());
+        final Account account = new AccountImpl.Builder(usrField.getText(), pswField.getText()).build();
         if (accManager.isPresent(account)) {
             if (accManager.checkPassword(account)) {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
                     SoundUtils.MAIN_THEME.loop();
                 } catch (IOException e) {
-                    System.out.println(StringUtils.ERROR_MESSAGE);
+                    ErrorLog.getLog().printError();
                     System.exit(0);
                 }
             } else {

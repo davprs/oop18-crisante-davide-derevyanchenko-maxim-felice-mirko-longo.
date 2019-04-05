@@ -3,8 +3,8 @@ package model.account;
 import java.io.IOException;
 import java.util.Set;
 
+import utilities.ErrorLog;
 import utilities.FileUtils;
-import utilities.StringUtils;
 
 /**
  * Implementation of AccountManager Interface.
@@ -19,9 +19,9 @@ public class AccountManagerImpl implements AccountManager {
      */
     public AccountManagerImpl() {
        try {
-           accounts = FileUtils.getAccounts();
+           this.accounts = FileUtils.getAccounts();
         } catch (IOException e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
+            ErrorLog.getLog().printError();
             throw new IllegalStateException();
         }
     }
@@ -31,11 +31,11 @@ public class AccountManagerImpl implements AccountManager {
      */
     @Override
     public void register(final Account account) {
-        accounts.add(account);
+        this.accounts.add(account);
         try {
             FileUtils.printAccount(account);
         } catch (IOException e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
+            ErrorLog.getLog().printError();
             System.exit(0);
         }
     }
@@ -45,7 +45,7 @@ public class AccountManagerImpl implements AccountManager {
      */
     @Override
     public boolean isPresent(final Account account) {
-        return accounts.contains(account);
+        return this.accounts.contains(account);
     }
 
     /**
@@ -56,7 +56,7 @@ public class AccountManagerImpl implements AccountManager {
         try {
             return isPresent(account) && account.getPassword().equals(FileUtils.getPassword(account.getUsername()));
         } catch (IOException e) {
-            System.out.println(StringUtils.ERROR_MESSAGE);
+            ErrorLog.getLog().printError();
             System.exit(0);
         }
         return false;

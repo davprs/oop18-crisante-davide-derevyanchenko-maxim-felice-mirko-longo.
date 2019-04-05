@@ -3,12 +3,9 @@ package model.ship;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.Entity;
 import model.Life;
 import model.LifeImpl;
-import model.bullet.Bullet;
 
 /**
  * Class that represents the character ship.
@@ -22,20 +19,16 @@ public class CharacterShipImpl implements CharacterShip {
     private static final double HEIGHT = 100;
     private static final double START_X = 10;
     private static final double START_Y = 10;
-    private final ImageView image;
     private Point2D position;
     private final Dimension2D dimension;
     private boolean isMoving;
     private final Life life;
 
     /**
-     * 
-     * @param image the skin of the ship
+     * Constructor method of the CharacterShipImpl.
      */
-    public CharacterShipImpl(final Image image) {
+    public CharacterShipImpl() {
         this.life = LifeImpl.createCustomizedLife(STARTING_LIVES, STARTING_HEALTH);
-        this.image = new ImageView();
-        this.image.setImage(image);
         this.dimension = new Dimension2D(WIDTH, HEIGHT);
         this.position = new Point2D(START_X, START_Y);
         this.isMoving = false;
@@ -71,14 +64,6 @@ public class CharacterShipImpl implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public ImageView getImageView() {
-        return this.image;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void changeMoving() {
         this.isMoving = !this.isMoving;
     }
@@ -87,7 +72,7 @@ public class CharacterShipImpl implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public Bullet shoot(final Point2D target) {
+    public Point2D shoot() {
         return null;
     }
 

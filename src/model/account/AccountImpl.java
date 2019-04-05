@@ -1,21 +1,20 @@
 package model.account;
 
+import java.util.Optional;
+
 /**
  * Implementation of Account Interface.
  *
  */
-public final class AccountImpl implements Account {
+public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/19 16.39 because is a false positive
 
     private final String username;
-    private String nickname;
     private String password;
-    private final int bestScore;
-    private final Settings settings;
+    private String nickname;
+    private int bestScore;
+    private Settings settings;
 
     private AccountImpl(final String username, final String nickname, final String password, final int bestScore, final Settings settings) {
-        if (username == null || password == null) {
-            throw new IllegalArgumentException();
-        }
         this.username = username;
         this.nickname = nickname;
         this.password = password;
@@ -23,48 +22,83 @@ public final class AccountImpl implements Account {
         this.settings = settings;
     }
 
-    /** 
-     * Create a simple Account.
-     * @param username the account username
-     * @param password the account password
-     * @return the Account
-     */
-    public static Account createSimpleAccount(final String username, final String password) {
-        return new AccountImpl(username, username, password, 0, Settings.DEFAULT);
-    }
-
     /**
-     * Create an Account with nickname.
-     * @param username the account username
-     * @param password the account password
-     * @param nickname the account nickname
-     * @return the Account
+     * Builder class for Account.
+     *
      */
-    public static Account createAccountWithNickname(final String username, final String password, final String nickname) {
-        if (nickname == null) {
-            throw new IllegalArgumentException();
-        }
-        if (nickname.equals("")) {
-            return new AccountImpl(username, username, password, 0, Settings.DEFAULT);
-        } else {
-            return new AccountImpl(username, nickname, password, 0, Settings.DEFAULT);
-        }
-    }
+    public static class Builder {
 
-    /**
-     * Create a complete Account.
-     * @param username the account username
-     * @param password the account password
-     * @param nickname the account nickname
-     * @param bestScore the account topScores
-     * @param settings the account settings
-     * @return the Account
-     */
-    public static Account createCompleteAccount(final String username, final String password, final String nickname, final int bestScore, final Settings settings) {
-        if (nickname == null || bestScore < 0) {
-            throw new IllegalArgumentException();
+        private final String username;
+        private final String password;
+        private Optional<String> nick = Optional.empty();
+        private int score;
+        private Optional<Settings> setting = Optional.empty();
+
+        /**
+         * Build the initial Builder.
+         * @param username the necessary username
+         * @param password the necessary password
+         */
+        public Builder(final String username, final String password) {
+            if (username == null || password == null) {
+                throw new IllegalArgumentException();
+            }
+            this.username = username;
+            this.password = password;
         }
-        return new AccountImpl(username, nickname, password, bestScore, settings);
+
+        /**
+         * Set the nickname.
+         * @param nickname the nickname to set
+         * @return the Builder
+         */
+        public Builder withNickname(final String nickname) {
+            this.nick = Optional.ofNullable(nickname);
+            return this;
+        }
+
+        /**
+         * Set the bestScore.
+         * @param bestScore the bestScore to set
+         * @return the Builder
+         */
+        public Builder bestScore(final int bestScore) {
+            if (bestScore < 0) {
+                throw new IllegalStateException();
+            }
+            this.score = bestScore;
+            return this;
+        }
+
+        /**
+         * Set the settings.
+         * @param settings the settings to set
+         * @return the Builder
+         */
+        public Builder addMySettings(final Settings settings) {
+            this.setting = Optional.ofNullable(settings);
+            return this; 
+        }
+
+        /**
+         * Build the Account.
+         * @return the account
+         */
+        public AccountImpl build() {
+            if (this.nick.isPresent()) {
+                if (!this.setting.isPresent()) {
+                    return new AccountImpl(this.username, this.nick.get(), this.password, this.score, SettingsImpl.DEFAULT);
+                } else {
+                    return new AccountImpl(this.username, this.nick.get(), this.password, this.score, this.setting.get());
+                }
+            } else {
+                if (!this.setting.isPresent()) {
+                    return new AccountImpl(this.username, this.username, this.password, this.score, SettingsImpl.DEFAULT);
+                } else {
+                    return new AccountImpl(this.username, this.username, this.password, this.score, this.setting.get());
+                }
+            }
+        }
     }
 
     /**
@@ -99,12 +133,11 @@ public final class AccountImpl implements Account {
      * {@inheritDoc}
      */
     public Settings getSettings() {
-        return settings;
+        return this.settings;
     }
 
     /**
-     * Set the nickname.
-     * @param nickname the nickname to set
+     * {@inheritDoc}
      */
     public void setNickname(final String nickname) {
         if (nickname == null) {
@@ -114,14 +147,35 @@ public final class AccountImpl implements Account {
     }
 
     /**
-     * Set the password.
-     * @param password the password to set
+     * {@inheritDoc}
      */
     public void setPassword(final String password) {
         if (password == null) {
             throw new IllegalArgumentException();
         }
         this.password = password;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setBestScore(final int bestScore) {
+        if (bestScore < 0 || bestScore < this.bestScore) {
+            throw new IllegalArgumentException();
+        }
+        this.bestScore = bestScore;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setSettings(final Settings settings) {
+        if (settings == null) {
+            throw new IllegalArgumentException();
+        }
+        this.settings = settings;
     }
 
     /**
@@ -158,14 +212,6 @@ public final class AccountImpl implements Account {
             return false;
         }
         return true;
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "AccountImpl [username=" + username + ", nickname=" + nickname + ", password=" + password + "]";
     }
 
 }

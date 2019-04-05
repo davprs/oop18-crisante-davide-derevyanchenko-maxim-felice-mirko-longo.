@@ -1,21 +1,25 @@
 package model.enemyship;
 
 import javafx.geometry.Point2D;
-import model.Entity;
-import model.Life;
-import model.Shooter;
+import model.ship.Ship;
 
 /**
  * 
  *
  */
-public interface EnemyShip extends Entity, Shooter, Life {
+public interface EnemyShip extends Ship {
 
     /**
      * Get the speed.
      * @return the speed.
      */
     double getSpeed();
+
+    /**
+     * Get the enemy level.
+     * @return the enemy level.
+     */
+    int getLevel();
 
     /**
      * Update the Enemy position.

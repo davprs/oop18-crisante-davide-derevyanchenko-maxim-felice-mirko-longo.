@@ -1,7 +1,10 @@
 package controller.field;
 
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import model.Entity;
-import model.bullet.Bullet;
+import model.bullet.BulletImpl;
 import view.field.FieldView;
 
 /**
@@ -10,17 +13,31 @@ import view.field.FieldView;
  */
 public class BulletController implements EntityController {
 
+    private final Image image;
     private final FieldView view;
-    private final Bullet bullet;
+    private final BulletImpl bullet;
 
     /**
-     * Build a BulletController.
+     * Build a BulletController and his Bullet.
      * @param view the fieldView
-     * @param bullet the controlled Bullet.
+     * @param level the level of the Bullet to create.
+     * @param src the starting point of the Bullet to create.
+     * @param target the target point of the Bullet.
      */
-    public BulletController(final FieldView view, final Bullet bullet) {
+    public BulletController(final FieldView view, final int level, final Point2D src, final Point2D target) {
+        this.image = utilities.EntitiesImageUtils.getBulletImage(level);
+        this.bullet = new BulletImpl(level, src, target, new Dimension2D(this.image.getWidth(), this.image.getHeight()));
         this.view = view;
-        this.bullet = bullet;
+    }
+
+    /**
+     * Build a BulletController and his easy-level Bullet.
+     * @param view the fieldView
+     * @param src the starting point of the Bullet to create.
+     * @param target the target point of the Bullet.
+     */
+    public BulletController(final FieldView view, final Point2D src, final Point2D target) {
+        this(view, 1, src, target);
     }
 
     /**
@@ -36,7 +53,7 @@ public class BulletController implements EntityController {
     @Override
     public void draw() {
         final double angle = Math.toDegrees(this.bullet.getAngle());
-        this.view.drawEntity(this.bullet.getImageView(), angle, this.bullet.getBoundary());
+        this.view.drawEntity(image, angle, this.bullet.getBoundary());
     }
 
     /**

@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import model.Entity;
 import model.Life;
 import model.LifeImpl;
-import model.bullet.Bullet;
-import model.bullet.BulletImpl;
 
 /**
  * Implementation of EnemyShip interface.
@@ -19,14 +17,12 @@ import model.bullet.BulletImpl;
 public class EnemyShipImpl implements EnemyShip {
 
     private static final int DELAY = (int) (Math.random() * 800 + 200);
-    private final ImageView image;
     private Point2D position;
     private final Dimension2D dimension;
     private final double speed;
     private int framesFromShoot;
     private int level;
     private int framesToShoot;
-    private boolean alive;
     private final Life life;
     private boolean shootingAvailable;
 
@@ -36,9 +32,8 @@ public class EnemyShipImpl implements EnemyShip {
      * @param timeToShoot frames passing from one bullet-shot to the next one
      */
     public EnemyShipImpl(final int level, final int timeToShoot) {
-        this.image = new ImageView(utilities.EntitiesImageUtils.getEnemyShipImage(level));
+        final ImageView image = new ImageView(utilities.EntitiesImageUtils.getEnemyShipImage(level));
         this.level = level;
-        this.alive = true;
         this.life = LifeImpl.createDefaultLife();
         this.speed = level;
         this.framesToShoot = timeToShoot;
@@ -97,18 +92,10 @@ public class EnemyShipImpl implements EnemyShip {
     * {@inheritDoc}
     */
     @Override
-    public Bullet shoot(final Point2D target) {
+    public Point2D shoot() {
         this.framesFromShoot = 0;
         this.shootingAvailable = false;
-        return new BulletImpl(this.level, this.position, target);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ImageView getImageView() {
-        return this.image;
+        return this.position;
     }
 
     /**
@@ -136,55 +123,6 @@ public class EnemyShipImpl implements EnemyShip {
      */
     @Override
     public boolean isAlive() {
-        return this.alive;
+        return (this.life.getHealth() <= 0 && this.life.getLives() <= 0);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void loseHealth(final int health) {
-        this.life.loseHealth(health);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addHealth(final int health) {
-        this.life.addHealth(health);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addLife() {
-        life.addLife();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void loseLife() {
-        life.loseLife();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getHealth() {
-        return life.getHealth();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getLives() {
-        return life.getLives();
-    }
-
 }

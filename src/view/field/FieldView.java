@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 
@@ -40,37 +39,18 @@ public class FieldView {
     }
 
     /**
-     * {@inheritDoc}
-     */
-//    @Override
-//    public void start(final Stage stage) throws Exception {
-//        this.stage = stage;
-//        final Group root = new Group();
-//        final Scene scene = new Scene(root);
-//        root.getChildren().add(new OverlayView(null, null).get);
-//
-//        stage.setFullScreen(true);
-//        stage.setScene(scene);
-//        scene.setCamera(this.cam);
-//
-//        root.getChildren().add(this.canvas);
-//        this.stage.show();
-//        new FieldController(this);
-//    }
-
-    /**
      * Method that draws an entity on the battle field.
      * 
      * @param image the image to be drawn
      * @param angle the angle by which the entity should be rotated
      * @param boundary the rectangle in which the entity should be drawn
      */
-    public void drawEntity(final ImageView image, final double angle, final Rectangle2D boundary) {
+    public void drawEntity(final Image image, final double angle, final Rectangle2D boundary) {
         final double modifiedAngle = angle + 90;
         final Rotate r = new Rotate(modifiedAngle, boundary.getMinX() + boundary.getWidth() / 2, boundary.getMinY() + boundary.getHeight() / 2);
         gc.save();
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-        gc.drawImage(image.getImage(), boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
+        gc.drawImage(image, boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
         gc.restore();
     }
 

@@ -82,6 +82,6 @@ public class StageController {
      */
     public void setFullScreen(final boolean value) {
         stage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("F11"));
-        this.stage.setFullScreen(true);
+        this.stage.setFullScreen(value);
     }
 }
