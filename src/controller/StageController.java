@@ -1,7 +1,7 @@
 package controller;
 
-
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -81,6 +81,7 @@ public class StageController {
      * @param value the value to set
      */
     public void setFullScreen(final boolean value) {
+        stage.setFullScreenExitKeyCombination(KeyCombination.keyCombination("F11"));
         this.stage.setFullScreen(true);
     }
 }

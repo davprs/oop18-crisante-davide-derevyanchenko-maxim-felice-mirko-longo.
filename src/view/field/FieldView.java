@@ -27,6 +27,8 @@ public class FieldView {
     private final Scene scene;
     private final Group root;
 
+
+
     /**
      * Build the MenuView.
      */

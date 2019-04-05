@@ -3,7 +3,6 @@ package controller.menu;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import controller.FXMLController;
 import controller.StageController;
 import controller.field.FieldController;
@@ -37,7 +36,6 @@ public class MenuController implements FXMLController {
     private Button optionsBtn;
     @FXML
     private Button exitBtn;
-
     /**
      * 
      * @param account 
@@ -62,10 +60,11 @@ public class MenuController implements FXMLController {
     @FXML
     public void playTheGame() {
         new FieldController(this.account, this.stageController);
-        SoundUtils.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLICKED.play();
         SoundUtils.MAIN_THEME.stop();
-        //Sound.GAMEPLAY_MUSIC.play();
         SoundUtils.GAMEPLAY_MUSIC.play();
+        SoundUtils.muteAllSounds();
+
     }
 
     /**
@@ -74,7 +73,10 @@ public class MenuController implements FXMLController {
     @FXML
     public void checkHighscore() {
         new HighscoreController(this.account, this.stageController).start();
-        SoundUtils.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLICKED.play();
+
+
+
     }
 
     /**
@@ -83,7 +85,8 @@ public class MenuController implements FXMLController {
     @FXML
     public void enterOptions() {
         new OptionsController(this.account, this.stageController).start();
-        SoundUtils.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLICKED.play();
+
     }
 
     /**
@@ -91,14 +94,14 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void exitGame() { 
-        SoundUtils.BUTTON_CLIKED.play();
+        SoundUtils.BUTTON_CLICKED.play();
        final  Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
             Platform.exit();
-            SoundUtils.BUTTON_CLIKED.play();
+            SoundUtils.BUTTON_CLICKED.play();
             SoundUtils.MAIN_THEME.stop();
         } else {
-            SoundUtils.BUTTON_CLIKED.play();
+            SoundUtils.BUTTON_CLICKED.play();
         }
     }
 

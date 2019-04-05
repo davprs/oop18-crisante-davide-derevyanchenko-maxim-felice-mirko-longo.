@@ -1,3 +1,9 @@
+
+.bodybg {
+    -fx-background-image: url("/css/menuImages/96044.jpg");
+    -fx-background-size: 100% 100%;
+}
+
 .button {
     -fx-background-color: rgba(0, 0, 0, 0.623);
     -fx-font-size: 20pt;
@@ -6,7 +12,6 @@
     -fx-background-radius: 0;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
-    /*-fx-font-weight: bold;*/
 }
 
 .button:hover {
@@ -24,30 +29,6 @@
     
 }
 
-/*.text-field {
-    -fx-font-size: 45pt;
-    -fx-font-family: "Segoe UI Semibold";
-}*/
-/*
-#playBtn:hover {
-     -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-font-size: 45pt;
-    -fx-text-fill: #f7f2f2;
-    -fx-font-weight: bold;
-}
-#highscoreBtn:hover {
-     -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-text-fill: #f7f2f2;
-    -fx-font-size: 45pt;
-    -fx-font-weight: bold;
-}
-#optionsBtn:hover {
-     -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-text-fill: #f7f2f2;
-    -fx-font-size: 45pt;
-    -fx-font-weight: bold;
-}
-*/
 #exitBtn:hover {
      -fx-background-color: rgb(248, 4, 4);
     -fx-text-fill: #ffffff;
@@ -60,10 +41,5 @@
     -fx-font-size: 25pt;
     -fx-text-fill: #0c0c0c;
     -fx-font-weight: bold;
-}
-
-.bodybg {
-    -fx-background-image: url("/css/menuImages/96044.jpg");
-    -fx-background-size: 100% 100%;
 }
 

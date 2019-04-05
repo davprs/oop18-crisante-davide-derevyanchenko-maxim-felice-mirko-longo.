@@ -48,6 +48,7 @@ public class LoginController implements FXMLController {
     private Button regBtn;
     @FXML
     private Button exitBtn;
+
     private final AccountManager accManager = new AccountManagerImpl();
     private final EventHandler<KeyEvent> loginHandler = new EventHandler<KeyEvent>() {
         @Override

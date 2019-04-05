@@ -2,7 +2,6 @@ package controller.field;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import controller.StageController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
@@ -23,7 +22,6 @@ public class FieldController {
     private final List<EnemyController> enemies;
     private final List<BulletController> enemyBullets;
     private final List<BulletController> characterBullets;
-
     /**
      * 
      * @param account 
