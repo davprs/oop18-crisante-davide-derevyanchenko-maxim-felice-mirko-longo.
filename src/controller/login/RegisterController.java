@@ -1,5 +1,6 @@
 package controller.login;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,6 +20,8 @@ import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
 import utilities.AlertUtils;
+import utilities.ErrorLog;
+import utilities.FileUtils;
 import view.login.RegisterView;
 
 /**
@@ -27,8 +30,6 @@ import view.login.RegisterView;
  */
 public class RegisterController implements FXMLController {
 
-    private final AccountManager accManager = new AccountManagerImpl();
-    private final StageController stageController;
     @FXML
     private Label regLabel;
     @FXML
@@ -59,38 +60,12 @@ public class RegisterController implements FXMLController {
     private CheckBox pswCheckBox;
     @FXML
     private CheckBox confPswCheckBox;
-    private final EventHandler<KeyEvent> registerHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                regBtn.fire();
-            } 
-        }
-    };
-    private final EventHandler<KeyEvent> cancelHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                closeBtn.fire();
-            } 
-        }
-    };
-    private final EventHandler<KeyEvent> checkHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                pswCheckBox.fire();
-            } 
-        }
-    };
-    private final EventHandler<KeyEvent> confCheckHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                confPswCheckBox.fire();
-            } 
-        }
-    };
+    private final AccountManager accManager;
+    private final StageController stageController;
+    private final EventHandler<KeyEvent> registerHandler;
+    private final EventHandler<KeyEvent> cancelHandler;
+    private final EventHandler<KeyEvent> checkHandler;
+    private final EventHandler<KeyEvent> confCheckHandler;
 
     /**
      * Build the RegisterController.
@@ -98,6 +73,39 @@ public class RegisterController implements FXMLController {
      */
     public RegisterController(final StageController stageController) {
         this.stageController = stageController;
+        this.accManager = initAccountManager();
+        this.registerHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    regBtn.fire();
+                } 
+            }
+        };
+        this.cancelHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    closeBtn.fire();
+                } 
+            }
+        };
+        this.checkHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    pswCheckBox.fire();
+                } 
+            }
+        };
+        this.confCheckHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    confPswCheckBox.fire();
+                } 
+            }
+        };
     }
 
     /**
@@ -121,19 +129,20 @@ public class RegisterController implements FXMLController {
      */
     @FXML
     public void register() {
-        if (!checkUserField()) {
-            AlertUtils.createRegisterUsernameError();
-        } else if (!checkPassword()) {
-            AlertUtils.createRegisterPasswordError();
-        }
         if (checkFields()) {
             final Account account = new AccountImpl.Builder(this.usrField.getText(), getPassword())
-                                                   .withNickname(this.nickField.getText())
-                                                   .build();
+                    .withNickname(this.nickField.getText())
+                    .build();
             if (this.accManager.isPresent(account)) {
                 AlertUtils.createRegisterAccountError();
             } else {
                 this.accManager.register(account);
+                try {
+                    FileUtils.printAccount(account);
+                } catch (IOException e) {
+                    ErrorLog.getLog().printError();
+                    System.exit(0);
+                }
                 AlertUtils.createRegisterAccountDialog();
                 close();
             }
@@ -164,6 +173,16 @@ public class RegisterController implements FXMLController {
        setHandlers();
     }
 
+    private AccountManager initAccountManager() {
+        try {
+            return new AccountManagerImpl(FileUtils.getAccounts());
+       } catch (IOException e) {
+           ErrorLog.getLog().printError();
+           System.exit(0);
+       }
+        return null;
+    }
+
     private void togglePasswordVisibility(final CheckBox cb, final PasswordField psw, final TextField text) {
         if (cb.isSelected()) {
             text.setText(psw.getText());
@@ -191,6 +210,11 @@ public class RegisterController implements FXMLController {
     }
 
     private boolean checkFields() {
+        if (!checkUserField()) {
+            AlertUtils.createRegisterUsernameError();
+        } else if (!checkPassword()) {
+            AlertUtils.createRegisterPasswordError();
+        }
         return this.checkPassword() && this.checkUserField();
     }
 
@@ -199,15 +223,15 @@ public class RegisterController implements FXMLController {
     }
 
     private void setHandlers() {
-        this.regBtn.setOnKeyPressed(registerHandler);
-        this.usrField.setOnKeyPressed(registerHandler);
-        this.nickField.setOnKeyPressed(registerHandler);
-        this.pswField.setOnKeyPressed(registerHandler);
-        this.confPswField.setOnKeyPressed(registerHandler);
-        this.pswTextField.setOnKeyPressed(registerHandler);
-        this.confPswTextField.setOnKeyPressed(registerHandler);
-        this.closeBtn.setOnKeyPressed(cancelHandler);
-        this.pswCheckBox.setOnKeyPressed(checkHandler);
-        this.confPswCheckBox.setOnKeyPressed(confCheckHandler);
+        this.regBtn.setOnKeyPressed(this.registerHandler);
+        this.usrField.setOnKeyPressed(this.registerHandler);
+        this.nickField.setOnKeyPressed(this.registerHandler);
+        this.pswField.setOnKeyPressed(this.registerHandler);
+        this.confPswField.setOnKeyPressed(this.registerHandler);
+        this.pswTextField.setOnKeyPressed(this.registerHandler);
+        this.confPswTextField.setOnKeyPressed(this.registerHandler);
+        this.closeBtn.setOnKeyPressed(this.cancelHandler);
+        this.pswCheckBox.setOnKeyPressed(this.checkHandler);
+        this.confPswCheckBox.setOnKeyPressed(this.confCheckHandler);
     }
 }

@@ -15,15 +15,11 @@ public class AccountManagerImpl implements AccountManager {
     private final Set<Account> accounts;
 
     /**
-     * Build an AccountManager, reading accounts already present.
+     * Build an AccountManager to manage the accounts.
+     * @param accounts the accounts to manage
      */
-    public AccountManagerImpl() {
-       try {
-           this.accounts = FileUtils.getAccounts();
-        } catch (IOException e) {
-            ErrorLog.getLog().printError();
-            throw new IllegalStateException();
-        }
+    public AccountManagerImpl(final Set<Account> accounts) {
+        this.accounts = accounts;
     }
 
     /**
@@ -32,12 +28,6 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public void register(final Account account) {
         this.accounts.add(account);
-        try {
-            FileUtils.printAccount(account);
-        } catch (IOException e) {
-            ErrorLog.getLog().printError();
-            System.exit(0);
-        }
     }
 
     /**

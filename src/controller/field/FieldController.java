@@ -1,14 +1,19 @@
 package controller.field;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.util.List;
+
 import controller.StageController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import model.account.Account;
 import utilities.ErrorLog;
 import view.field.FieldView;
+import view.field.GameView;
 import view.field.OverlayView;
 
 /**
@@ -18,6 +23,7 @@ import view.field.OverlayView;
 public class FieldController {
 
     private static final Image SPACE_IMAGE = new Image("space.png");
+    private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private final CharacterController shipController;
     private final CameraController camController;
     private final List<EnemyController> enemies;
@@ -36,20 +42,18 @@ public class FieldController {
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();
         this.meteors = new LinkedList<>();
-        final FieldView fieldView = new FieldView();
-        stageController.setScene(fieldView.getScene());
-        try {
-            new OverlayView(stageController).start(new Stage());
-        } catch (Exception e) {
-            ErrorLog.getLog().printError();
-            System.exit(0);
-        }
+        final GameView overlay = new GameView(stageController);
+        final FieldView fieldView = new FieldView(stageController);
+        final OverlayView ov = new OverlayView(stageController);
+        stageController.setScene(overlay.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
+        overlay.getRoot().getChildren().add(fieldView.getScene());
+        overlay.getRoot().getChildren().add(ov.getSubScene());
         this.camController = new CameraController(stageController, fieldView.getCamera());
         this.shipController = new CharacterController(fieldView, this.camController, stageController);
         this.shipController.draw();
         final AnimationTimer loop =  new AnimationTimer() {
-
+            @Override
             public void handle(final long currentNanoTime) {
 
                 fieldView.drawBackground(SPACE_IMAGE);
@@ -61,6 +65,11 @@ public class FieldController {
             }
         };
         loop.start();
+        try {
+            new Robot().mouseMove((int) RESOLUTION.getWidth() / 2, (int) RESOLUTION.getHeight() / 2);
+        } catch (AWTException e) {
+            ErrorLog.getLog().printError();
+        }
     }
 
     /**

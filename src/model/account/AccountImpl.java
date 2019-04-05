@@ -85,7 +85,7 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
          * @return the account
          */
         public AccountImpl build() {
-            if (this.nick.isPresent()) {
+            if (this.nick.isPresent() && !this.nick.get().equals("")) {
                 if (!this.setting.isPresent()) {
                     return new AccountImpl(this.username, this.nick.get(), this.password, this.score, SettingsImpl.DEFAULT);
                 } else {

@@ -20,10 +20,10 @@ import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
 import model.account.AccountManagerImpl;
-import model.sounds.SoundUtils;
 import utilities.AlertUtils;
 import utilities.ErrorLog;
 import utilities.FileUtils;
+import utilities.SoundUtils;
 import view.login.LoginView;
 
 /**
@@ -48,32 +48,10 @@ public class LoginController implements FXMLController {
     private Button regBtn;
     @FXML
     private Button exitBtn;
-
-    private final AccountManager accManager = new AccountManagerImpl();
-    private final EventHandler<KeyEvent> loginHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                loginBtn.fire();
-            } 
-        }
-    };
-    private final EventHandler<KeyEvent> registerHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                regBtn.fire();
-            } 
-        }
-    };
-    private final EventHandler<KeyEvent> exitHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                exitBtn.fire();
-            } 
-        }
-    };
+    private final AccountManager accManager;
+    private final EventHandler<KeyEvent> loginHandler;
+    private final EventHandler<KeyEvent> registerHandler;
+    private final EventHandler<KeyEvent> exitHandler;
     private final StageController stageController;
 
     /**
@@ -82,6 +60,31 @@ public class LoginController implements FXMLController {
      */
     public LoginController(final StageController stageController) {
         this.stageController = stageController;
+        this.accManager = initAccountManager();
+        this.loginHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    loginBtn.fire();
+                } 
+            }
+        };
+        this.registerHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    regBtn.fire();
+                } 
+            }
+        };
+        this.exitHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    exitBtn.fire();
+                } 
+            }
+        };
     }
 
     /**
@@ -105,9 +108,9 @@ public class LoginController implements FXMLController {
      */
     @FXML
     public void tryLogin() {
-        final Account account = new AccountImpl.Builder(usrField.getText(), pswField.getText()).build();
-        if (accManager.isPresent(account)) {
-            if (accManager.checkPassword(account)) {
+        final Account account = new AccountImpl.Builder(this.usrField.getText(), this.pswField.getText()).build();
+        if (this.accManager.isPresent(account)) {
+            if (this.accManager.checkPassword(account)) {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
                     SoundUtils.MAIN_THEME.loop();
@@ -139,15 +142,25 @@ public class LoginController implements FXMLController {
         setHandlers();
     }
 
+    private AccountManager initAccountManager() {
+        try {
+            return new AccountManagerImpl(FileUtils.getAccounts());
+       } catch (IOException e) {
+           ErrorLog.getLog().printError();
+           System.exit(0);
+       }
+        return null;
+    }
+
     private void startMenu(final Account account) {
-        new MenuController(account, stageController).start();
+        new MenuController(account, this.stageController).start();
     }
 
     private void setHandlers() {
-        this.loginBtn.setOnKeyPressed(loginHandler);
-        this.usrField.setOnKeyPressed(loginHandler);
-        this.pswField.setOnKeyPressed(loginHandler);
-        this.regBtn.setOnKeyPressed(registerHandler);
-        this.exitBtn.setOnKeyPressed(exitHandler);
+        this.loginBtn.setOnKeyPressed(this.loginHandler);
+        this.usrField.setOnKeyPressed(this.loginHandler);
+        this.pswField.setOnKeyPressed(this.loginHandler);
+        this.regBtn.setOnKeyPressed(this.registerHandler);
+        this.exitBtn.setOnKeyPressed(this.exitHandler);
     }
 }

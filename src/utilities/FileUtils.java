@@ -103,6 +103,7 @@ public final class FileUtils {
                 .findFirst()
                 .get();
     }
+
     /**
      * Read the password of the account linked to the username. 
      * 

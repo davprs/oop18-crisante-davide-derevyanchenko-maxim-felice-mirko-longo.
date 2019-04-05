@@ -11,8 +11,8 @@ import javafx.stage.Stage;
  */
 public class Launcher extends Application {
 
-    private static final double MIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 6;
-    private static final double MIN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5.4;
+    private static final double INITIAL_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 6;
+    private static final double INITIAL_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5.4;
     private static final String TITLE = "Space Shooting";
 
     /**
@@ -23,8 +23,8 @@ public class Launcher extends Application {
         final StageController stageController = new StageController(stage);
         new LoginController(stageController).start();
         stage.setTitle(TITLE);
-        stage.setMinHeight(MIN_HEIGHT);
-        stage.setMinWidth(MIN_WIDTH);
+        stage.setMinHeight(INITIAL_HEIGHT);
+        stage.setMinWidth(INITIAL_WIDTH);
         stage.centerOnScreen();
         stage.show();
     }

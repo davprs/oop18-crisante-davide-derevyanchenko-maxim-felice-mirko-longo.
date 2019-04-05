@@ -11,8 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import model.account.Account;
-import model.sounds.SoundUtils;
 import utilities.AlertUtils;
+import utilities.SoundUtils;
 import view.menu.MenuView;
 
 /**
@@ -27,7 +27,6 @@ public class MenuController implements FXMLController {
     private final Account account;
     private ResourceBundle bundle;
     private final StageController stageController;
-
     @FXML
     private Button playBtn;
     @FXML
@@ -36,6 +35,7 @@ public class MenuController implements FXMLController {
     private Button optionsBtn;
     @FXML
     private Button exitBtn;
+
     /**
      * 
      * @param account 
@@ -52,6 +52,8 @@ public class MenuController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new MenuView(this.account, this).getScene());
+        this.stageController.autosize();
+        this.stageController.setFullScreen(this.account.getSettings().isFullScreenOn());
     }
 
     /**

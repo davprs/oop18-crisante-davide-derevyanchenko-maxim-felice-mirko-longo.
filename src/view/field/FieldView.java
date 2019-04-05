@@ -2,11 +2,13 @@ package view.field;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import controller.StageController;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -23,17 +25,17 @@ public class FieldView {
     private final Camera cam = new PerspectiveCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
     private final GraphicsContext gc = canvas.getGraphicsContext2D();
-    private final Scene scene;
+    private final SubScene scene;
     private final Group root;
-
-
 
     /**
      * Build the MenuView.
+     * @param stageController the controller of the stage 
      */
-    public FieldView() {
+    public FieldView(final StageController stageController) {
         this.root = new Group();
-        this.scene = new Scene(root, Color.BLACK);
+        this.scene = new SubScene(this.root, stageController.getWidth(), stageController.getHeight());
+        this.scene.setFill(Color.BLACK);
         this.scene.setCamera(this.cam);
         this.root.getChildren().add(this.canvas);
     }
@@ -83,7 +85,7 @@ public class FieldView {
      * 
      * @return the scene
      */
-    public Scene getScene() {
+    public SubScene getScene() {
         return this.scene;
     }
 

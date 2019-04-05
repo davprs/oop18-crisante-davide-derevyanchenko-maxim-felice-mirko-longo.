@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -8,20 +10,21 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.sounds.SoundUtils;
+import utilities.SoundUtils;
 
 /**
  * Controller class of the Stage.
  */
 public class StageController {
 
+    private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private final Stage stage;
     private final EventHandler<KeyEvent> pauseHandler = new EventHandler<KeyEvent>() {
         @Override
         public void handle(final KeyEvent event) {
             if (event.getCode().compareTo(KeyCode.ESCAPE) == 0) {
                 System.out.println("funzia");
-            } 
+            }
         }
     };
     private final EventHandler<WindowEvent> exitWindow = new EventHandler<WindowEvent>() {
@@ -29,6 +32,7 @@ public class StageController {
         public void handle(final WindowEvent event) {
             SoundUtils.muteAllSounds();
             Platform.exit();
+            System.exit(0);
         } 
     };
 
@@ -38,7 +42,7 @@ public class StageController {
      */
     public StageController(final Stage stage) {
         this.stage = stage;
-        this.stage.setFullScreenExitKeyCombination(KeyCombination.keyCombination(KeyCode.F11.toString()));
+        this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, this.pauseHandler);
         this.stage.setOnCloseRequest(this.exitWindow);
     }
@@ -85,6 +89,14 @@ public class StageController {
 
     /**
      * 
+     */
+    public void autosize() {
+        this.stage.setMinWidth(RESOLUTION.getWidth());
+        this.stage.setMinHeight(RESOLUTION.getHeight());
+    }
+
+    /**
+     * 
      * @param stage the stage in which set the owner
      */
     public void setOwner(final Stage stage) {
@@ -106,5 +118,8 @@ public class StageController {
      */
     public void setFullScreen(final boolean value) {
         this.stage.setFullScreen(value);
+        if (!value) {
+            this.stage.setMaximized(true);
+        }
     }
 }
