@@ -47,11 +47,10 @@ public class FieldController {
         final OverlayView ov = new OverlayView(stageController);
         stageController.setScene(overlay.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
-        overlay.getRoot().getChildren().add(fieldView.getScene());
+        overlay.getRoot().getChildren().add(fieldView.getSubScene());
         overlay.getRoot().getChildren().add(ov.getSubScene());
-        this.camController = new CameraController(stageController, fieldView.getCamera());
+        this.camController = new CameraController(fieldView.getCamera());
         this.shipController = new CharacterController(fieldView, this.camController, stageController);
-        this.shipController.draw();
         final AnimationTimer loop =  new AnimationTimer() {
             @Override
             public void handle(final long currentNanoTime) {

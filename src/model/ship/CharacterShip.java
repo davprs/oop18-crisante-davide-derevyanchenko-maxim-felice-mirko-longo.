@@ -1,5 +1,7 @@
 package model.ship;
 
+import javafx.geometry.Point2D;
+
 /**
  * An interface that represents a Ship.
  *
@@ -18,4 +20,18 @@ public interface CharacterShip extends Ship {
      * When mouse enters or exits the window the moving variable is switched.
      */
     void changeMoving();
+
+    /**
+     * Method that gets the central point of the character ship.
+     * 
+     * @return the central point of the character ship
+     */
+    Point2D getCentralPosition();
+
+    /**
+     * Method that gets the speed of the character ship.
+     * 
+     * @return the speed of the character ship
+     */
+    double getSpeed();
 }

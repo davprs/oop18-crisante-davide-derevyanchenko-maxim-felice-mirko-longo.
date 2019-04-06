@@ -65,7 +65,7 @@ public class MeteorImpl implements Meteor {
      * {@inheritDoc}
      */
     @Override
-    public Rectangle2D getBoundary() {
+    public synchronized Rectangle2D getBoundary() {
         return new Rectangle2D(position.getX(), position.getY(), MeteorImpl.WIDTH, MeteorImpl.HEIGHT);
     }
 
@@ -81,7 +81,7 @@ public class MeteorImpl implements Meteor {
      * {@inheritDoc}
      */
     @Override
-    public void update() {
+    public synchronized void update() {
         position = new Point2D(position.getX() + (movX * speed), position.getY() + (movY * speed));
         target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));
     }

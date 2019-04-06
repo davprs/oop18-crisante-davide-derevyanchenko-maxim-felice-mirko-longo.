@@ -66,7 +66,7 @@ public class BulletImpl implements Bullet {
      * {@inheritDoc}
      */
     @Override
-    public Rectangle2D getBoundary() {
+    public synchronized Rectangle2D getBoundary() {
         return new Rectangle2D(position.getX(), position.getY(), BulletImpl.WIDTH, BulletImpl.HEIGHT);
     }
 
@@ -82,7 +82,7 @@ public class BulletImpl implements Bullet {
      * {@inheritDoc}
      */
     @Override
-    public void update() {
+    public synchronized void update() {
         position = new Point2D(position.getX() + (movX * speed), position.getY() + (movY * speed));
         target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));
     }

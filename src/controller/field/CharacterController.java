@@ -1,5 +1,9 @@
 package controller.field;
 
+import java.awt.Dimension;
+import java.awt.MouseInfo;
+import java.awt.Toolkit;
+
 import controller.StageController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -16,13 +20,14 @@ import view.field.FieldView;
  */
 public class CharacterController implements EntityController {
 
+    private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Image SHIP_IMAGE = new Image("spaceship.png");
     private final CharacterShip ship;
     private final FieldView view;
     private final CameraController camController;
+    private double angle;
     private boolean camMoving;
     private boolean immunity;
-    private final StageController stageController;
 
     /**
      * Constructor of the CharacterController.
@@ -32,7 +37,7 @@ public class CharacterController implements EntityController {
      * @param stageController the controller of the stage
      */
     public CharacterController(final FieldView view, final CameraController camController, final StageController stageController) {
-        this.ship = new CharacterShipImpl();
+        this.ship = new CharacterShipImpl(new Point2D(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2));
         this.view = view;
         this.camController = camController;
         this.immunity = false;
@@ -43,31 +48,38 @@ public class CharacterController implements EntityController {
                 camMoving = !camMoving;
             }
         };
-        this.stageController = stageController;
-        this.stageController.getScene().setOnMouseEntered(eh);
-        this.stageController.getScene().setOnMouseExited(eh);
+        stageController.getScene().setOnMouseEntered(eh);
+        stageController.getScene().setOnMouseExited(eh);
     }
 
     private Point2D getUpdatedPosition() {
-        final Point2D camUpdate = camController.getCamUpdate();
-        double shipUpdateX = this.camController.getCameraTranslationX() + this.stageController.getWidth() / 2 - this.ship.getBoundary().getWidth() / 2;
-        double shipUpdateY = this.camController.getCameraTranslationY() + this.stageController.getHeight() / 2 - this.ship.getBoundary().getHeight() / 2;
-
-        if (ship.getBoundary().getMinX() <= view.getCanvas().getLayoutX() && camUpdate.getX() <= 0) {
-            shipUpdateX = view.getCanvas().getLayoutX();
-            camController.resetCamUpdateX();
-        } else if (ship.getBoundary().getMaxX() >= view.getCanvas().getLayoutX() + view.getCanvas().getWidth() && camUpdate.getX() >= 0) {
-            shipUpdateX = view.getCanvas().getLayoutX() + view.getCanvas().getWidth() - ship.getBoundary().getWidth();
-            camController.resetCamUpdateX();
+        final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
+        final Point2D mousePosition = this.view.getCanvas().screenToLocal(mouseOnScreen);
+        final Point2D vector = mousePosition.subtract(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2);
+        final double rad = Math.atan2(vector.getY(), vector.getX());
+        this.angle = Math.toDegrees(rad);
+        double shipUpdateX = this.ship.getBoundary().getMinX() + (this.ship.getSpeed() * Math.cos(rad));
+        double shipUpdateY = this.ship.getBoundary().getMinY() + (this.ship.getSpeed() * Math.sin(rad));
+        if (shipUpdateX < 0) {
+            shipUpdateX = 0;
+        } else if (shipUpdateX > (this.view.getCanvas().getWidth() - this.ship.getBoundary().getWidth())) {
+            shipUpdateX = this.view.getCanvas().getWidth() - this.ship.getBoundary().getWidth();
         }
-        if (ship.getBoundary().getMinY() <= view.getCanvas().getLayoutY() && camUpdate.getY() <= 0) {
-            shipUpdateY = view.getCanvas().getLayoutY();
-            camController.resetCamUpdateY();
-        } else if (ship.getBoundary().getMaxY() >= view.getCanvas().getLayoutY() + view.getCanvas().getHeight() && camUpdate.getY() >= 0) {
-            shipUpdateY = view.getCanvas().getLayoutY() + view.getCanvas().getHeight() - ship.getBoundary().getHeight();
-            camController.resetCamUpdateY();
+        if (shipUpdateY < 0) {
+            shipUpdateY = 0;
+        } else if (shipUpdateY > (this.view.getCanvas().getHeight() - this.ship.getBoundary().getHeight())) {
+            shipUpdateY = this.view.getCanvas().getHeight() - this.ship.getBoundary().getHeight();
         }
         return new Point2D(shipUpdateX, shipUpdateY);
+    }
+
+    /**
+     * Gets the angle, in degrees, by which the ship is rotated.
+     * 
+     * @return the angle, in degrees, by which the ship is rotated
+     */
+    public double getAngle() {
+        return this.angle;
     }
 
     /**
@@ -75,9 +87,7 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void draw() {
-        final Point2D camUpdate = camController.getCamUpdate();
-        final double angle = Math.toDegrees(Math.atan2(camUpdate.getY(), camUpdate.getX()));
-        this.view.drawEntity(SHIP_IMAGE, angle, this.ship.getBoundary());
+        this.view.drawEntity(SHIP_IMAGE, this.angle, this.ship.getBoundary());
     }
 
     /**
@@ -86,6 +96,7 @@ public class CharacterController implements EntityController {
     @Override
     public void update() {
         final Point2D updatedPosition = getUpdatedPosition();
+        this.camController.setCamUpdate(new Point2D(updatedPosition.getX() - this.ship.getBoundary().getMinX(), updatedPosition.getY() - this.ship.getBoundary().getMinY()));
         this.ship.update(updatedPosition.getX(), updatedPosition.getY());
     }
 

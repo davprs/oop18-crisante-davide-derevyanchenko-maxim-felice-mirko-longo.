@@ -17,8 +17,7 @@ public class CharacterShipImpl implements CharacterShip {
     private static final int STARTING_HEALTH = 1000;
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
-    private static final double START_X = 10;
-    private static final double START_Y = 10;
+    private static final double SPEED = 10;
     private Point2D position;
     private final Dimension2D dimension;
     private boolean isMoving;
@@ -26,11 +25,13 @@ public class CharacterShipImpl implements CharacterShip {
 
     /**
      * Constructor method of the CharacterShipImpl.
+     * 
+     * @param initialPosition the initial position of the character ship
      */
-    public CharacterShipImpl() {
+    public CharacterShipImpl(final Point2D initialPosition) {
         this.life = LifeImpl.createCustomizedLife(STARTING_LIVES, STARTING_HEALTH);
         this.dimension = new Dimension2D(WIDTH, HEIGHT);
-        this.position = new Point2D(START_X, START_Y);
+        this.position = initialPosition.subtract(this.dimension.getWidth() / 2, this.dimension.getHeight() / 2);
         this.isMoving = false;
     }
 
@@ -38,9 +39,9 @@ public class CharacterShipImpl implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public void update(final double x, final double y) {
-        if (isMoving) {
-            position = new Point2D(x, y);
+    public synchronized void update(final double x, final double y) {
+        if (this.isMoving) {
+            this.position = new Point2D(x, y);
         }
     }
 
@@ -48,8 +49,23 @@ public class CharacterShipImpl implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), dimension.getWidth(), dimension.getHeight());
+    public synchronized Rectangle2D getBoundary() {
+        return new Rectangle2D(this.position.getX(), this.position.getY(), this.dimension.getWidth(), this.dimension.getHeight());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Point2D getCentralPosition() {
+        final Point2D maxPos = new Point2D(this.getBoundary().getMaxX(), this.getBoundary().getMaxY());
+        return this.position.midpoint(maxPos);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public double getSpeed() {
+        return SPEED;
     }
 
     /**

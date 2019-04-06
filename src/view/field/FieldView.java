@@ -25,7 +25,7 @@ public class FieldView {
     private final Camera cam = new PerspectiveCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
     private final GraphicsContext gc = canvas.getGraphicsContext2D();
-    private final SubScene scene;
+    private final SubScene subScene;
     private final Group root;
 
     /**
@@ -34,9 +34,9 @@ public class FieldView {
      */
     public FieldView(final StageController stageController) {
         this.root = new Group();
-        this.scene = new SubScene(this.root, stageController.getWidth(), stageController.getHeight());
-        this.scene.setFill(Color.BLACK);
-        this.scene.setCamera(this.cam);
+        this.subScene = new SubScene(this.root, stageController.getWidth(), stageController.getHeight());
+        this.subScene.setFill(Color.BLACK);
+        this.subScene.setCamera(this.cam);
         this.root.getChildren().add(this.canvas);
     }
 
@@ -50,10 +50,10 @@ public class FieldView {
     public void drawEntity(final Image image, final double angle, final Rectangle2D boundary) {
         final double modifiedAngle = angle + 90;
         final Rotate r = new Rotate(modifiedAngle, boundary.getMinX() + boundary.getWidth() / 2, boundary.getMinY() + boundary.getHeight() / 2);
-        gc.save();
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-        gc.drawImage(image, boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
-        gc.restore();
+        this.gc.save();
+        this.gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+        this.gc.drawImage(image, boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
+        this.gc.restore();
     }
 
     /**
@@ -62,10 +62,11 @@ public class FieldView {
      * @param image the background image
      */
     public void drawBackground(final Image image) {
-        gc.drawImage(image, 0, 0);
+        this.gc.drawImage(image, 0, 0);
     }
 
     /**
+     * Method that gets the Canvas that represents the field.
      * 
      * @return the canvas of the window
      */
@@ -74,6 +75,7 @@ public class FieldView {
     }
 
     /**
+     * Method that gets the camera of the battle field scene.
      * 
      * @return the camera of the scene
      */
@@ -82,14 +84,16 @@ public class FieldView {
     }
 
     /**
+     * Method that gets the subscene of the field.
      * 
-     * @return the scene
+     * @return the subscene
      */
-    public SubScene getScene() {
-        return this.scene;
+    public SubScene getSubScene() {
+        return this.subScene;
     }
 
     /**
+     * Method that gets the parent root of the battle field.
      * 
      * @return the root
      */

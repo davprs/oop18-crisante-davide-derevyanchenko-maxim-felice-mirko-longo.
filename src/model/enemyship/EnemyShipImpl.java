@@ -72,7 +72,7 @@ public class EnemyShipImpl implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public Rectangle2D getBoundary() {
+    public synchronized Rectangle2D getBoundary() {
         return new Rectangle2D(position.getX(), position.getY(), EnemyShipImpl.WIDTH, EnemyShipImpl.HEIGHT);
     }
 
@@ -98,7 +98,7 @@ public class EnemyShipImpl implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public void update(final Point2D addPosition) {
+    public synchronized void update(final Point2D addPosition) {
         this.position.add(addPosition);
         this.framesFromShoot++;
         if (framesFromShoot >= framesToShoot) {
