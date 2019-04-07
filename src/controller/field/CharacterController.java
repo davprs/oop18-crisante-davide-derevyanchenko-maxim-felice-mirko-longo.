@@ -28,6 +28,7 @@ public class CharacterController implements EntityController {
     private double angle;
     private boolean camMoving;
     private boolean immunity;
+    private long lastUpdate;
 
     /**
      * Constructor of the CharacterController.
@@ -41,6 +42,7 @@ public class CharacterController implements EntityController {
         this.view = view;
         this.camController = camController;
         this.immunity = false;
+        this.lastUpdate = System.currentTimeMillis();
         final EventHandler<Event> eh = new EventHandler<Event>() {
             @Override
             public void handle(final Event event) {
@@ -56,10 +58,13 @@ public class CharacterController implements EntityController {
         final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
         final Point2D mousePosition = this.view.getCanvas().screenToLocal(mouseOnScreen);
         final Point2D vector = mousePosition.subtract(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2);
+        final long time = System.currentTimeMillis();
+        final long timeFromLastUpdate = time - this.lastUpdate;
+        this.lastUpdate = time;
         final double rad = Math.atan2(vector.getY(), vector.getX());
         this.angle = Math.toDegrees(rad);
-        double shipUpdateX = this.ship.getBoundary().getMinX() + (this.ship.getSpeed() * Math.cos(rad));
-        double shipUpdateY = this.ship.getBoundary().getMinY() + (this.ship.getSpeed() * Math.sin(rad));
+        double shipUpdateX = this.ship.getBoundary().getMinX() + (timeFromLastUpdate * this.ship.getSpeed() * Math.cos(rad));
+        double shipUpdateY = this.ship.getBoundary().getMinY() + (timeFromLastUpdate * this.ship.getSpeed() * Math.sin(rad));
         if (shipUpdateX < 0) {
             shipUpdateX = 0;
         } else if (shipUpdateX > (this.view.getCanvas().getWidth() - this.ship.getBoundary().getWidth())) {
@@ -95,18 +100,11 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void update() {
-        final Point2D updatedPosition = getUpdatedPosition();
-        this.camController.setCamUpdate(new Point2D(updatedPosition.getX() - this.ship.getBoundary().getMinX(), updatedPosition.getY() - this.ship.getBoundary().getMinY()));
-        this.ship.update(updatedPosition.getX(), updatedPosition.getY());
-    }
-
-    /**
-     * The method that observes if the camera must move or not.
-     * 
-     * @return isCamMoving value
-     */
-    public boolean isCamMoving() {
-        return this.camMoving;
+        if (this.camMoving) {
+            final Point2D updatedPosition = getUpdatedPosition();
+            this.camController.setTranslation(new Point2D(updatedPosition.getX() - this.ship.getBoundary().getMinX(), updatedPosition.getY() - this.ship.getBoundary().getMinY()));
+            this.ship.update(updatedPosition.getX(), updatedPosition.getY());
+        }
     }
 
     /**

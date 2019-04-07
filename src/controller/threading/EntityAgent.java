@@ -10,7 +10,7 @@ import utilities.ErrorLog;
  */
 public abstract class EntityAgent extends Thread {
 
-    private static final long WAITING_TIME = 150;
+    private static final long WAITING_TIME = 20;
     private final EntityController entity;
     private final FieldController fieldController;
 
@@ -31,14 +31,15 @@ public abstract class EntityAgent extends Thread {
     public void run() {
         while (this.entity.isAlive()) {
 
-            this.entity.update();
-            this.entity.draw();
-            this.intersectChecker();
-
             try {
+                if (!this.fieldController.isInPause()) {
+                    this.entity.update();
+                    this.intersectChecker();
+                }
                 sleep(WAITING_TIME);
             } catch (InterruptedException e) {
                 ErrorLog.getLog().printError();
+                System.exit(0);
             }
         }
     }

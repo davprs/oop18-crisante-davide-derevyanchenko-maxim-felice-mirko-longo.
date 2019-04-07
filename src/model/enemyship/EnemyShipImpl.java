@@ -119,6 +119,6 @@ public class EnemyShipImpl implements EnemyShip {
      */
     @Override
     public boolean isAlive() {
-        return (this.life.getHealth() <= 0 && this.life.getLives() <= 0);
+        return !(this.life.getHealth() <= 0 && this.life.getLives() <= 0);
     }
 }

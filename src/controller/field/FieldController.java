@@ -8,8 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import controller.StageController;
-import javafx.animation.AnimationTimer;
-import javafx.scene.image.Image;
+import controller.threading.AntagonistsAgent;
+import controller.threading.CharacterAgent;
+import controller.threading.CharacterBulletAgent;
+import controller.threading.DrawAgent;
 import model.account.Account;
 import utilities.ErrorLog;
 import view.field.FieldView;
@@ -22,10 +24,9 @@ import view.field.OverlayView;
  */
 public class FieldController {
 
-    private static final Image SPACE_IMAGE = new Image("space.png");
     private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
-    private final CharacterController shipController;
-    private final CameraController camController;
+    private final CharacterController characterController;
+    private boolean inPause;
     private final List<EnemyController> enemies;
     private final List<BulletController> enemyBullets;
     private final List<BulletController> characterBullets;
@@ -38,6 +39,7 @@ public class FieldController {
      * @param stageController 
      */
     public FieldController(final Account account, final StageController stageController) {
+        this.inPause = false;
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();
@@ -49,25 +51,15 @@ public class FieldController {
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
         overlay.getRoot().getChildren().add(fieldView.getSubScene());
         overlay.getRoot().getChildren().add(ov.getSubScene());
-        this.camController = new CameraController(fieldView.getCamera());
-        this.shipController = new CharacterController(fieldView, this.camController, stageController);
-        final AnimationTimer loop =  new AnimationTimer() {
-            @Override
-            public void handle(final long currentNanoTime) {
-
-                fieldView.drawBackground(SPACE_IMAGE);
-                if (shipController.isCamMoving()) {
-                    shipController.update();
-                    camController.update();
-                }
-                shipController.draw();
-            }
-        };
-        loop.start();
+        final CameraController camController = new CameraController(fieldView.getCamera());
+        this.characterController = new CharacterController(fieldView, camController, stageController);
+        this.startAgent(new CharacterAgent(this.characterController, this));
+        this.startAgent(new DrawAgent(this, fieldView, camController));
         try {
             new Robot().mouseMove((int) RESOLUTION.getWidth() / 2, (int) RESOLUTION.getHeight() / 2);
         } catch (AWTException e) {
             ErrorLog.getLog().printError();
+            System.exit(0);
         }
     }
 
@@ -77,7 +69,7 @@ public class FieldController {
      * @return the ship controller
      */
     public CharacterController getCharacter() {
-        return this.shipController;
+        return this.characterController;
     }
 
     /**
@@ -116,6 +108,9 @@ public class FieldController {
         return this.meteors;
     }
 
+    private void startAgent(final Thread agent) {
+        agent.start();
+    }
     /**
      * Adds the enemy to the list of the EnemyControllers.
      * 
@@ -123,6 +118,7 @@ public class FieldController {
      */
     public void addEnemy(final EnemyController enemy) {
         this.enemies.add(enemy);
+        this.startAgent(new AntagonistsAgent(enemy, this));
     }
 
     /**
@@ -132,6 +128,7 @@ public class FieldController {
      */
     public void addEnemyBullet(final BulletController enemyBullet) {
         this.enemyBullets.add(enemyBullet);
+        this.startAgent(new AntagonistsAgent(enemyBullet, this));
     }
 
     /**
@@ -141,6 +138,7 @@ public class FieldController {
      */
     public void addCharacterBullet(final BulletController characterBullet) {
         this.characterBullets.add(characterBullet);
+        this.startAgent(new CharacterBulletAgent(characterBullet, this));
     }
 
     /**
@@ -150,5 +148,24 @@ public class FieldController {
      */
     public void addMeteor(final MeteorController meteor) {
         this.meteors.add(meteor);
+        this.startAgent(new AntagonistsAgent(meteor, this));
+    }
+
+    /**
+     * Sets the value of the inPause state.
+     * 
+     * @param inPause the value that says if the game is paused or not
+     */
+    public void setInPause(final boolean inPause) {
+        this.inPause = inPause;
+    }
+
+    /**
+     * Method that says if the game is in pause or not.
+     * 
+     * @return true if the game is in pause, false otherwise
+     */
+    public boolean isInPause() {
+        return this.inPause;
     }
 }

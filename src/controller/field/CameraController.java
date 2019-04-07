@@ -12,8 +12,8 @@ public class CameraController {
     private final Camera camera;
     private double cameraX;
     private double cameraY;
-    private double camUpdateX;
-    private double camUpdateY;
+    private double translationX;
+    private double translationY;
 
     /**
      * Constructor of the CameraController.
@@ -24,15 +24,19 @@ public class CameraController {
         this.camera = camera;
         this.cameraX = 0;
         this.cameraY = 0;
-        this.update();
+        this.translationX = 0;
+        this.translationY = 0;
     }
 
     /**
      * Updates next camera position.
+     * 
+     * @param nextMove
      */
     public final void update() {
-        this.cameraX += this.camUpdateX;
-        this.cameraY += this.camUpdateY;
+        this.cameraX += this.translationX;
+        this.cameraY += this.translationY;
+        this.resetTranslation();
         this.camera.setTranslateX(this.cameraX);
         this.camera.setTranslateY(this.cameraY);
     }
@@ -47,31 +51,18 @@ public class CameraController {
         this.camera.setScaleY(scaling);
     }
 
-    /**
-     * Gets the camera X translation value to get to the next position.
-     * 
-     * @return camera translation X value
-     */
-    public double getCameraTranslationX() {
-        return this.camera.getTranslateX();
+    private void resetTranslation() {
+        this.translationX = 0;
+        this.translationY = 0;
     }
 
     /**
-     * Gets the camera Y translation value to get to the next position.
+     * Method that sets the translation vector for the camera.
      * 
-     * @return camera translation Y value
+     * @param translationVector the translation vector of the camera
      */
-    public double getCameraTranslationY() {
-        return this.camera.getTranslateY();
-    }
-
-    /**
-     * Sets the translation values of the camera.
-     * 
-     * @param nextMove the Point2D that represents the next position of the camera
-     */
-    public void setCamUpdate(final Point2D nextMove) {
-        this.camUpdateX = nextMove.getX();
-        this.camUpdateY = nextMove.getY();
+    public final void setTranslation(final Point2D translationVector) {
+        this.translationX += translationVector.getX();
+        this.translationY += translationVector.getY();
     }
 }

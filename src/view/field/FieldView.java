@@ -7,7 +7,7 @@ import controller.StageController;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
-import javafx.scene.PerspectiveCamera;
+import javafx.scene.ParallelCamera;
 import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,8 +21,9 @@ import javafx.scene.transform.Rotate;
  */
 public class FieldView {
 
+    private static final Image SPACE_IMAGE = new Image("space.png");
     private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
-    private final Camera cam = new PerspectiveCamera();
+    private final Camera cam = new ParallelCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
     private final GraphicsContext gc = canvas.getGraphicsContext2D();
     private final SubScene subScene;
@@ -58,11 +59,9 @@ public class FieldView {
 
     /**
      * Method that draws the background of the battlefield.
-     * 
-     * @param image the background image
      */
-    public void drawBackground(final Image image) {
-        this.gc.drawImage(image, 0, 0);
+    public void drawBackground() {
+        this.gc.drawImage(SPACE_IMAGE, 0, 0);
     }
 
     /**

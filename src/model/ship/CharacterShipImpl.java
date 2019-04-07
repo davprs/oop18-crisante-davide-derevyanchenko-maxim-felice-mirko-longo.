@@ -17,7 +17,7 @@ public class CharacterShipImpl implements CharacterShip {
     private static final int STARTING_HEALTH = 1000;
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
-    private static final double SPEED = 10;
+    private static final double SPEED = 0.5;
     private Point2D position;
     private final Dimension2D dimension;
     private boolean isMoving;
@@ -97,6 +97,6 @@ public class CharacterShipImpl implements CharacterShip {
      */
     @Override
     public boolean isAlive() {
-        return (this.life.getHealth() <= 0 && this.life.getLives() <= 0);
+        return !(this.life.getHealth() <= 0 && this.life.getLives() <= 0);
     }
 }
