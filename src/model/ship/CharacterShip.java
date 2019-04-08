@@ -1,6 +1,7 @@
 package model.ship;
 
 import javafx.geometry.Point2D;
+import model.Ship;
 
 /**
  * An interface that represents a Ship.
@@ -34,4 +35,9 @@ public interface CharacterShip extends Ship {
      * @return the speed of the character ship
      */
     double getSpeed();
+
+    /**
+     * Method that puts to zero the health and the lives to 0.
+     */
+    void endGame();
 }

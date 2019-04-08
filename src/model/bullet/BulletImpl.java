@@ -75,7 +75,11 @@ public class BulletImpl implements Bullet {
      */
     @Override
     public boolean intersects(final Entity entity) {
-        return entity.getBoundary().intersects(this.getBoundary());
+        final boolean isIntersected = entity.getBoundary().intersects(this.getBoundary());
+        if (isIntersected) {
+            entity.takeDamage(this.damage);
+        }
+        return isIntersected;
     }
 
     /**
@@ -97,4 +101,17 @@ public class BulletImpl implements Bullet {
                 || position.getX() < 0 || position.getY() < 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void takeDamage(final int damage) { }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.position = new Point2D(-1, -1);
+    }
 }

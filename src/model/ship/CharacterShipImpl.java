@@ -18,10 +18,10 @@ public class CharacterShipImpl implements CharacterShip {
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
     private static final double SPEED = 0.5;
-    private Point2D position;
     private final Dimension2D dimension;
-    private boolean isMoving;
     private final Life life;
+    private Point2D position;
+    private boolean isMoving;
 
     /**
      * Constructor method of the CharacterShipImpl.
@@ -98,5 +98,31 @@ public class CharacterShipImpl implements CharacterShip {
     @Override
     public boolean isAlive() {
         return !(this.life.getHealth() <= 0 && this.life.getLives() <= 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.takeDamage(this.life.getHealth());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void takeDamage(final int damage) {
+        this.life.loseHealth(damage);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void endGame() {
+        for (int i = this.life.getLives(); i > 0; i--) {
+            this.destroy();
+        }
     }
 }

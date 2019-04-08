@@ -74,7 +74,11 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public boolean intersects(final Entity entity) {
-        return entity.getBoundary().intersects(this.getBoundary());
+        final boolean isIntersected = entity.getBoundary().intersects(this.getBoundary());
+        if (isIntersected) {
+            entity.destroy();
+        }
+        return isIntersected;
     }
 
     /**
@@ -91,9 +95,22 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public boolean isAlive() {
-        final Dimension canvasSize = Toolkit.getDefaultToolkit().getScreenSize().getSize();
+        final Dimension canvasSize = Toolkit.getDefaultToolkit().getScreenSize();
         return !(position.getX() > canvasSize.getWidth() || position.getY() > canvasSize.getHeight()
                 || position.getX() < 0 || position.getY() < 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void takeDamage(final int damage) { }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.position = new Point2D(-1, -1);
+    }
 }

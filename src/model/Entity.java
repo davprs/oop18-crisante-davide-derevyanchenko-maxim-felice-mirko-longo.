@@ -29,4 +29,16 @@ public interface Entity {
      * @return true if the entity is still alive, false otherwise
      */
     boolean isAlive();
+
+    /**
+     * Method that damages this entity by damage received as parameter.
+     * 
+     * @param damage the value of the damage taken
+     */
+    void takeDamage(int damage);
+
+    /**
+     * Method that sets the life of this entity to 0.
+     */
+    void destroy();
 }

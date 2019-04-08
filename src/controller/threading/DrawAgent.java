@@ -40,20 +40,22 @@ public class DrawAgent extends Thread {
         while (true) {
             try {
                 synchronized (this.fieldController) {
-                    this.view.drawBackground();
-                    this.cameraController.update();
-                    this.fieldController.getCharacter().draw();
-                    for (final EnemyController enemy : this.fieldController.getEnemies()) {
-                        enemy.draw();
-                    }
-                    for (final BulletController enemyBullet : this.fieldController.getEnemyBullets()) {
-                        enemyBullet.draw();
-                    }
-                    for (final BulletController characterBullet : this.fieldController.getCharacterBullets()) {
-                        characterBullet.draw();
-                    }
-                    for (final MeteorController meteor : this.fieldController.getMeteors()) {
-                        meteor.draw();
+                    if (!this.fieldController.isInPause()) {
+                        this.view.drawBackground();
+                        this.cameraController.update();
+                        this.fieldController.getCharacter().draw();
+                        for (final EnemyController enemy : this.fieldController.getEnemies()) {
+                            enemy.draw();
+                        }
+                        for (final BulletController enemyBullet : this.fieldController.getEnemyBullets()) {
+                            enemyBullet.draw();
+                        }
+                        for (final BulletController characterBullet : this.fieldController.getCharacterBullets()) {
+                            characterBullet.draw();
+                        }
+                        for (final MeteorController meteor : this.fieldController.getMeteors()) {
+                            meteor.draw();
+                        }
                     }
                 }
                 Thread.sleep(WAITING_TIME);

@@ -73,7 +73,7 @@ public class EnemyShipImpl implements EnemyShip {
      */
     @Override
     public synchronized Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), EnemyShipImpl.WIDTH, EnemyShipImpl.HEIGHT);
+        return new Rectangle2D(position.getX(), position.getY(), WIDTH, HEIGHT);
     }
 
     /**
@@ -81,7 +81,11 @@ public class EnemyShipImpl implements EnemyShip {
      */
     @Override
     public boolean intersects(final Entity entity) {
-        return entity.getBoundary().intersects(this.getBoundary());
+        final boolean isIntersected = entity.getBoundary().intersects(this.getBoundary());
+        if (isIntersected) {
+            entity.destroy();
+        }
+        return isIntersected;
     }
 
     /**
@@ -120,5 +124,21 @@ public class EnemyShipImpl implements EnemyShip {
     @Override
     public boolean isAlive() {
         return !(this.life.getHealth() <= 0 && this.life.getLives() <= 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.takeDamage(this.life.getHealth());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void takeDamage(final int damage) {
+        this.life.loseHealth(damage);
     }
 }

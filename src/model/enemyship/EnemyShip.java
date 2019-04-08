@@ -1,7 +1,7 @@
 package model.enemyship;
 
 import javafx.geometry.Point2D;
-import model.ship.Ship;
+import model.Ship;
 
 /**
  * An interface that represents an EnemyShip.
