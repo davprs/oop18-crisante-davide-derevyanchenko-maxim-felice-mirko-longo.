@@ -1,27 +1,27 @@
-package model.enemyship;
+package model.ship.enemyship;
 
 import java.awt.Toolkit;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import model.Entity;
-import model.Life;
-import model.LifeImpl;
+import model.ship.AbstractShip;
 
 /**
  * Implementation of EnemyShip interface.
  */
-public class EnemyShipImpl implements EnemyShip {
+public class EnemyShipImpl extends AbstractShip implements EnemyShip {
 
     private static final int DELAY = (int) (Math.random() * 800 + 200);
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
+    private static final int STARTING_LIVES = 0; // DECIDI TU
+    private static final int STARTING_HEALTH = 0; // DECIDI TU
     private Point2D position;
     private final double speed;
     private int framesFromShoot;
     private int level;
     private int framesToShoot;
-    private final Life life;
     private boolean shootingAvailable;
 
     /**
@@ -30,8 +30,8 @@ public class EnemyShipImpl implements EnemyShip {
      * @param timeToShoot frames passing from one bullet-shot to the next one
      */
     public EnemyShipImpl(final int level, final int timeToShoot) {
+        super(STARTING_LIVES, STARTING_HEALTH);
         this.level = level;
-        this.life = LifeImpl.createDefaultLife();
         this.speed = level;
         this.framesToShoot = timeToShoot;
         this.position = new Point2D(Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth());
@@ -66,14 +66,6 @@ public class EnemyShipImpl implements EnemyShip {
      */
     public boolean canShoot() {
         return this.shootingAvailable;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public synchronized Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), WIDTH, HEIGHT);
     }
 
     /**
@@ -122,23 +114,15 @@ public class EnemyShipImpl implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public boolean isAlive() {
-        return !(this.life.getHealth() <= 0 && this.life.getLives() <= 0);
+    protected Point2D getPosition() {
+        return this.position;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void destroy() {
-        this.takeDamage(this.life.getHealth());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void takeDamage(final int damage) {
-        this.life.loseHealth(damage);
+    protected Dimension2D getDimension() {
+        return new Dimension2D(WIDTH, HEIGHT);
     }
 }

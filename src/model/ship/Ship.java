@@ -1,4 +1,7 @@
-package model;
+package model.ship;
+
+import model.Entity;
+import model.Shooter;
 
 /**
  * 

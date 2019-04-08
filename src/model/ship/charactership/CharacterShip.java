@@ -1,7 +1,7 @@
-package model.ship;
+package model.ship.charactership;
 
 import javafx.geometry.Point2D;
-import model.Ship;
+import model.ship.Ship;
 
 /**
  * An interface that represents a Ship.

@@ -3,8 +3,8 @@ package controller.field;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
-import model.enemyship.EnemyShip;
-import model.enemyship.EnemyShipImpl;
+import model.ship.enemyship.EnemyShip;
+import model.ship.enemyship.EnemyShipImpl;
 import view.field.FieldView;
 
 /**

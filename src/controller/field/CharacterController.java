@@ -10,8 +10,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
-import model.ship.CharacterShip;
-import model.ship.CharacterShipImpl;
+import model.ship.charactership.CharacterShip;
+import model.ship.charactership.CharacterShipImpl;
 import view.field.FieldView;
 
 /**
@@ -48,6 +48,7 @@ public class CharacterController implements EntityController {
             public void handle(final Event event) {
                 ship.changeMoving();
                 camMoving = !camMoving;
+                lastUpdate = System.currentTimeMillis();
             }
         };
         stageController.getScene().setOnMouseEntered(eh);
