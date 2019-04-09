@@ -3,6 +3,7 @@ package controller.threading;
 import controller.field.EntityController;
 import controller.field.FieldController;
 import controller.field.GameController;
+import model.Entity;
 import utilities.ErrorLog;
 
 /**
@@ -12,7 +13,7 @@ import utilities.ErrorLog;
 public abstract class EntityAgent extends Thread {
 
     private static final long WAITING_TIME = 10;
-    private final EntityController entity;
+    private final EntityController entityController;
     private final GameController gameController;
 
     /**
@@ -22,7 +23,7 @@ public abstract class EntityAgent extends Thread {
      * @param gameController the GameController of the game
      */
     public EntityAgent(final EntityController entity, final GameController gameController) {
-        this.entity = entity;
+        this.entityController = entity;
         this.gameController = gameController;
     }
 
@@ -30,11 +31,11 @@ public abstract class EntityAgent extends Thread {
      * {@inheritDoc}
      */
     public void run() {
-        while (this.entity.isAlive()) {
+        while (this.entityController.getEntity().isAlive()) {
 
             try {
                 if (!this.gameController.isInPause()) {
-                    this.entity.update();
+                    this.entityController.update();
                     this.intersectChecker();
                 }
                 sleep(WAITING_TIME);
@@ -50,8 +51,8 @@ public abstract class EntityAgent extends Thread {
      * 
      * @return the EntityController that this thread executes
      */
-    protected EntityController getEntity() {
-        return this.entity;
+    protected Entity getEntity() {
+        return this.entityController.getEntity();
     }
 
     /**

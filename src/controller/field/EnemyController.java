@@ -109,23 +109,6 @@ public class EnemyController implements EntityController {
     }
 
     /**
-     * 
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAlive() {
-        return enemy.isAlive();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean intersects(final EntityController entityController) {
-        return enemy.intersects(entityController.getEntity());
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override

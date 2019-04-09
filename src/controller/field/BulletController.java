@@ -59,25 +59,7 @@ public class BulletController implements EntityController {
      */
     @Override
     public void update() {
-        if (isAlive()) {
-            this.bullet.update();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public  boolean isAlive() {
-        return this.bullet.isAlive();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean intersects(final EntityController entityController) {
-        return this.bullet.intersects(entityController.getEntity());
+        this.bullet.update();
     }
 
     /**

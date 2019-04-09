@@ -102,24 +102,8 @@ public class CharacterController implements EntityController {
      * {@inheritDoc}
      */
     @Override
-    public boolean intersects(final EntityController entityController) {
-        return this.ship.intersects(entityController.getEntity());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Entity getEntity() {
         return this.ship;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAlive() {
-        return this.ship.isAlive();
     }
 
     /**

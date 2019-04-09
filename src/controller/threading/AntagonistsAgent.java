@@ -11,11 +11,11 @@ public class AntagonistsAgent extends EntityAgent {
 
     /**
      * 
-     * @param entity the character controller to be executed
+     * @param entityController the character controller to be executed
      * @param gameController the controller of the game
      */
-    public AntagonistsAgent(final EntityController entity, final GameController gameController) {
-        super(entity, gameController);
+    public AntagonistsAgent(final EntityController entityController, final GameController gameController) {
+        super(entityController, gameController);
     }
 
     /**
@@ -23,7 +23,7 @@ public class AntagonistsAgent extends EntityAgent {
      */
     @Override
     public void intersectChecker() {
-        this.getEntity().intersects(this.getFieldController().getCharacter());
+        this.getEntity().intersects(this.getFieldController().getCharacter().getEntity());
     }
 
 }

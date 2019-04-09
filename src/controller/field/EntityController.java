@@ -19,27 +19,11 @@ public interface EntityController {
     void draw();
 
     /**
-     *  Method that controls if this entity intersects another entity.
-     *
-     *  @param entityController the entity controller which the entity must be controlled with
-     *
-     *  @return true if the entities intersects, false otherwise
-     */
-    boolean intersects(EntityController entityController);
-
-    /**
      *  Method that gives the entity of the controller.
      *
      *  @return the entity of the controller
      */
     Entity getEntity();
-
-    /**
-     * Checks if the entity is still alive or not.
-     * 
-     * @return true if the entity was not destroyed, false otherwise
-     */
-    boolean isAlive();
 
     /**
      * Method that executes the destroying animation and removes this entity from the field.

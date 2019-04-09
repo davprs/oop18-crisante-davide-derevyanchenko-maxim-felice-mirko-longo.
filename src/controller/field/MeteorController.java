@@ -60,25 +60,7 @@ public class MeteorController implements EntityController {
      */
     @Override
     public void update() {
-        if (isAlive()) {
-            this.meteor.update();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public  boolean isAlive() {
-        return this.meteor.isAlive();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean intersects(final EntityController entityController) {
-        return this.meteor.intersects(entityController.getEntity());
+        this.meteor.update();
     }
 
     /**
