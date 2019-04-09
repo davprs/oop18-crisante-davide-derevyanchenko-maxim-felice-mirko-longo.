@@ -122,8 +122,8 @@ public class StageController {
     }
 
     /**
-     * Set the new Scene.
-     * @param scene the scene to set
+     * Set the new Dimension.
+     * @param dimension the dimension to set
      */
     public void setDimension(final Dimension2D dimension) {
         this.stage.setWidth(dimension.getWidth());

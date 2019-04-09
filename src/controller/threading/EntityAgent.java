@@ -2,6 +2,7 @@ package controller.threading;
 
 import controller.field.EntityController;
 import controller.field.FieldController;
+import controller.field.GameController;
 import utilities.ErrorLog;
 
 /**
@@ -12,17 +13,17 @@ public abstract class EntityAgent extends Thread {
 
     private static final long WAITING_TIME = 10;
     private final EntityController entity;
-    private final FieldController fieldController;
+    private final GameController gameController;
 
     /**
      * Constructor of an EntityAgent.
      * 
      * @param entity the character controller to be executed
-     * @param fieldController the FieldController of the game
+     * @param gameController the GameController of the game
      */
-    public EntityAgent(final EntityController entity, final FieldController fieldController) {
+    public EntityAgent(final EntityController entity, final GameController gameController) {
         this.entity = entity;
-        this.fieldController = fieldController;
+        this.gameController = gameController;
     }
 
     /**
@@ -32,7 +33,7 @@ public abstract class EntityAgent extends Thread {
         while (this.entity.isAlive()) {
 
             try {
-                if (!this.fieldController.isInPause()) {
+                if (!this.gameController.isInPause()) {
                     this.entity.update();
                     this.intersectChecker();
                 }
@@ -54,12 +55,12 @@ public abstract class EntityAgent extends Thread {
     }
 
     /**
-     * Method that gets the generator of the entity, that is the opponent to the entity this thread executes.
+     * Method that gets the field of the game.
      * 
-     * @return the generator of an entity, that is the opponent to the entity that this thread executes
+     * @return the field
      */
     protected FieldController getFieldController() {
-        return this.fieldController;
+        return this.gameController.getFieldController();
     }
 
     /**

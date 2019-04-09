@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import controller.FXMLController;
 import controller.StageController;
-import controller.field.FieldController;
+import controller.field.GameController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -67,7 +67,7 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void playTheGame() {
-        new FieldController(this.account, this.stageController);
+        new GameController(this.account, this.stageController);
         SoundUtils.BUTTON_CLICKED.play();
         SoundUtils.MAIN_THEME.stop();
         SoundUtils.GAMEPLAY_MUSIC.play();
