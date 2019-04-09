@@ -1,10 +1,10 @@
 mirko
 mirko
 mk
-0
+25
 false
-1920
-1080
-it
-spaceship.png
-true
+1920.0
+1080.0
+en
+res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\spaceship.png
+false

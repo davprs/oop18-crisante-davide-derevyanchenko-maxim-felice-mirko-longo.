@@ -52,7 +52,8 @@ public class MenuController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new MenuView(this.account, this).getScene());
-        this.stageController.autosize();
+//        this.stageController.autosize();
+        this.stageController.setDimension(this.account.getSettings().getResolution());
         this.stageController.setFullScreen(this.account.getSettings().isFullScreenOn());
     }
 

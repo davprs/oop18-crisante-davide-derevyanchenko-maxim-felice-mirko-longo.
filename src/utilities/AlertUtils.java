@@ -63,4 +63,11 @@ public final class AlertUtils {
     public static Alert createExitConfirmationDialog() {
         return FACTORY.getExitConfirmationDialog();
     }
+    /**
+     * create a dialog to confirm settings.
+     * @return alert
+     */
+    public static Alert createConfirmOptionsDialog() {
+        return FACTORY.getConfirmOptionsDialog();
+    }
 }

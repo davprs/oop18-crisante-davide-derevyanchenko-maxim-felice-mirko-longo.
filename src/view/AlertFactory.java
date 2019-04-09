@@ -49,4 +49,10 @@ public interface AlertFactory {
      * @return the Alert;
      */
     Alert getExitConfirmationDialog();
+
+    /**
+     * Get the Alert representing the confirm options dialog.
+     * @return the Alert
+     */
+    Alert getConfirmOptionsDialog();
 }

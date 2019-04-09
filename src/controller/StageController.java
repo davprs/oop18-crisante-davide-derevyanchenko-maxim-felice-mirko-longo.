@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -118,8 +119,15 @@ public class StageController {
      */
     public void setFullScreen(final boolean value) {
         this.stage.setFullScreen(value);
-        if (!value) {
-            this.stage.setMaximized(true);
-        }
+    }
+
+    /**
+     * Set the new Scene.
+     * @param scene the scene to set
+     */
+    public void setDimension(final Dimension2D dimension) {
+        this.stage.setWidth(dimension.getWidth());
+        this.stage.setHeight(dimension.getHeight());
+        this.stage.centerOnScreen();
     }
 }
