@@ -88,4 +88,10 @@ public class BulletController implements EntityController {
         return this.bullet;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() { }
+
 }
