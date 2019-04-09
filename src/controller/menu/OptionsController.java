@@ -97,6 +97,7 @@ public class OptionsController implements FXMLController {
            final Dimension2D selectedResolution = new Dimension2D(Double.parseDouble(values[0]), Double.parseDouble(values[1]));
             account.getSettings().setResolution(selectedResolution);
             account.getSettings().setLanguage(language.getValue());
+           // account.getSettings().setImageName();
            if (yes.isSelected()) {
               account.getSettings().setSound(true);
            } else if (no.isSelected()) {
@@ -120,6 +121,7 @@ public class OptionsController implements FXMLController {
         this.language.getItems().addAll(FIRST_CHOICE_CB2, SECOND_CHOICE_CB2);
         this.resolution.getItems().addAll(FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1, FOURTH_CHOICE_CB1);
         this.resolution.setValue((int) this.account.getSettings().getResolution().getWidth() + "x" + (int) this.account.getSettings().getResolution().getHeight());
+
         if (this.account.getSettings().isSoundOn()) {
             this.yes.setSelected(true);
         } else {
