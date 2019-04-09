@@ -109,8 +109,6 @@ public class MenuController implements FXMLController {
             SoundUtils.BUTTON_CLICKED.play();
         }
     }
-
-
     /**
      * {@inheritDoc}
      */

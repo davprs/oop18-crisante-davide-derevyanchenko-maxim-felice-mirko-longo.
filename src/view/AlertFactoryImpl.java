@@ -33,6 +33,10 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle(ERROR);
         alert.setHeaderText("This username does NOT exist!");
         alert.setContentText("Please, digit again your username.");
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 
@@ -45,6 +49,10 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle(ERROR);
         alert.setHeaderText("Your password is NOT correct!");
         alert.setContentText("Please, digit again your password.");
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 
@@ -57,6 +65,10 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle(ERROR);
         alert.setHeaderText("This account is already signed!");
         alert.setContentText("Please, change your username to sign.");
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 
@@ -69,6 +81,10 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle(ERROR);
         alert.setHeaderText("Your username is empty!");
         alert.setContentText("Please, digit your username to sign.");
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 
@@ -81,6 +97,10 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle(ERROR);
         alert.setHeaderText("Your passwords do NOT match!");
         alert.setContentText("Please, digit again your password to match.");
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 
@@ -93,6 +113,10 @@ public class AlertFactoryImpl implements AlertFactory {
         alert.setTitle("Information");
         alert.setHeaderText("Congratulations!");
         alert.setContentText("Account registered.");
+        final DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource(URL_CSS).toExternalForm());
+        dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
 

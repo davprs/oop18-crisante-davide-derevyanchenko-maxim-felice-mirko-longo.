@@ -46,6 +46,7 @@ public class StageController {
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, this.pauseHandler);
         this.stage.setOnCloseRequest(this.exitWindow);
+        
     }
 
     /**
