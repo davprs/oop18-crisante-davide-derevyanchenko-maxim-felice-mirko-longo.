@@ -88,4 +88,12 @@ public class MeteorController implements EntityController {
     public Entity getEntity() {
         return this.meteor;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.view.drawExplosion(this.meteor.getBoundary());
+    }
 }

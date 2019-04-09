@@ -133,4 +133,12 @@ public class EnemyController implements EntityController {
         return enemy;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.view.drawExplosion(this.enemy.getBoundary());
+    }
+
 }

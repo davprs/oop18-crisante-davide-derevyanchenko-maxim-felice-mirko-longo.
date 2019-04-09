@@ -40,4 +40,9 @@ public interface EntityController {
      * @return true if the entity was not destroyed, false otherwise
      */
     boolean isAlive();
+
+    /**
+     * Method that executes the destroying animation and removes this entity from the field.
+     */
+    void destroy();
 }

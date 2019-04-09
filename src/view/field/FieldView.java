@@ -22,6 +22,7 @@ import javafx.scene.transform.Rotate;
 public class FieldView {
 
     private static final Image SPACE_IMAGE = new Image("space.png");
+    private static final Image EXPLOSION = new Image("explosion.gif");
     private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
     private final Camera cam = new ParallelCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
@@ -62,6 +63,15 @@ public class FieldView {
      */
     public void drawBackground() {
         this.gc.drawImage(SPACE_IMAGE, 0, 0);
+    }
+
+    /**
+     * Method that create an explosion animation in a specified boundary.
+     * 
+     * @param boundary the boundary in which show the explosion
+     */
+    public void drawExplosion(final Rectangle2D boundary) {
+        this.gc.drawImage(EXPLOSION, boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
     }
 
     /**

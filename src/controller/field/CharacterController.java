@@ -121,4 +121,12 @@ public class CharacterController implements EntityController {
     public boolean isAlive() {
         return this.ship.isAlive();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void destroy() {
+        this.view.drawExplosion(this.ship.getBoundary());
+    }
 }
