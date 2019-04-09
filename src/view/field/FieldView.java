@@ -22,7 +22,7 @@ import javafx.scene.transform.Rotate;
 public class FieldView {
 
     private static final Image SPACE_IMAGE = new Image("space.png");
-    private static final Image EXPLOSION = new Image("explosion.gif");
+    private static final Image EXPLOSION = new Image("spaceship2.png");
     private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
     private final Camera cam = new ParallelCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
