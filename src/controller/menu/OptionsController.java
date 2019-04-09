@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.AlertUtils;
@@ -38,6 +39,8 @@ public class OptionsController implements FXMLController {
     private static final String YES_KEY = "yes";
     private static final String NO_KEY = "no";
     private static final String CHANGE_SHIP_KEY = "change_ship";
+    private static final int BLUR_EFFECT_RANGE = 5;
+    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     private final Account account;
     private ResourceBundle bundle;
    // private final ObservableList<String> resolutionlist = FXCollections.observableArrayList(FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1, FOURTH_CHOICE_CB1);
@@ -91,6 +94,7 @@ public class OptionsController implements FXMLController {
      * Method to go back to the menu.
      */
     public void goBack() {
+        grid.setEffect(blur);
         final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
         if (confirmSettings.get() == ButtonType.YES) {
            final String[] values = resolution.getValue().split("x");
@@ -109,6 +113,7 @@ public class OptionsController implements FXMLController {
                 e.printStackTrace();
             }
         }
+        grid.setEffect(null);
         new MenuController(this.account, this.stageController).start();
         }
 

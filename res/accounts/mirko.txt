@@ -6,5 +6,5 @@ false
 1920.0
 1080.0
 en
-res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\spaceship.png
+res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\res\images\spaceship.png
 false

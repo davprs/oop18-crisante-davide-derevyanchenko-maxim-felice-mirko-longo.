@@ -14,8 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import model.account.Account;
 import model.account.AccountImpl;
 import model.account.AccountManager;
@@ -31,7 +33,8 @@ import view.login.LoginView;
  *
  */
 public class LoginController implements FXMLController {
-
+    private static final int BLUR_EFFECT_RANGE = 3;
+    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     @FXML
     private Label login;
     @FXML
@@ -48,6 +51,8 @@ public class LoginController implements FXMLController {
     private Button regBtn;
     @FXML
     private Button exitBtn;
+    @FXML
+    private GridPane grid;
     private final AccountManager accManager;
     private final EventHandler<KeyEvent> loginHandler;
     private final EventHandler<KeyEvent> registerHandler;
@@ -65,24 +70,30 @@ public class LoginController implements FXMLController {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    grid.setEffect(blur);
                     loginBtn.fire();
-                } 
+                }
+               grid.setEffect(null);
             }
         };
         this.registerHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    grid.setEffect(blur);
                     regBtn.fire();
                 } 
+                grid.setEffect(null);
             }
         };
         this.exitHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+                    grid.setEffect(blur);
                     exitBtn.fire();
-                } 
+                }
+                grid.setEffect(null);
             }
         };
     }

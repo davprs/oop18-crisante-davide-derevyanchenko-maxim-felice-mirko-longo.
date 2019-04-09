@@ -10,6 +10,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.AlertUtils;
 import utilities.SoundUtils;
@@ -24,6 +26,8 @@ public class MenuController implements FXMLController {
     private static final String HIGHSCORES_KEY = "highscore";
     private static final String OPTIONS_KEY = "options";
     private static final String EXIT_KEY = "exit";
+    private static final int BLUR_EFFECT_RANGE = 5;
+    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     private final Account account;
     private ResourceBundle bundle;
     private final StageController stageController;
@@ -35,7 +39,8 @@ public class MenuController implements FXMLController {
     private Button optionsBtn;
     @FXML
     private Button exitBtn;
-
+    @FXML
+    private GridPane grid;
     /**
      * 
      * @param account 
@@ -92,6 +97,7 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void exitGame() { 
+        grid.setEffect(blur);
         SoundUtils.BUTTON_CLICKED.play();
        final  Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
@@ -99,6 +105,7 @@ public class MenuController implements FXMLController {
             SoundUtils.BUTTON_CLICKED.play();
             SoundUtils.muteAllSounds();
         } else {
+            grid.setEffect(null);
             SoundUtils.BUTTON_CLICKED.play();
         }
     }
