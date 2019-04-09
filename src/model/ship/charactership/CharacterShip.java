@@ -18,11 +18,6 @@ public interface CharacterShip extends Ship {
     void update(double x, double y);
 
     /**
-     * When mouse enters or exits the window the moving variable is switched.
-     */
-    void changeMoving();
-
-    /**
      * Method that gets the central point of the character ship.
      * 
      * @return the central point of the character ship

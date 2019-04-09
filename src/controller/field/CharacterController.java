@@ -4,9 +4,6 @@ import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Toolkit;
 
-import controller.StageController;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
@@ -26,7 +23,6 @@ public class CharacterController implements EntityController {
     private final FieldView view;
     private final CameraController camController;
     private double angle;
-    private boolean camMoving;
     private boolean immunity;
     private long lastUpdate;
 
@@ -35,24 +31,13 @@ public class CharacterController implements EntityController {
      * 
      * @param view  the view in which the ship is moving
      * @param camController  the camera controller of the view
-     * @param stageController the controller of the stage
      */
-    public CharacterController(final FieldView view, final CameraController camController, final StageController stageController) {
+    public CharacterController(final FieldView view, final CameraController camController) {
         this.ship = new CharacterShipImpl(new Point2D(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2));
         this.view = view;
         this.camController = camController;
         this.immunity = false;
         this.lastUpdate = System.currentTimeMillis();
-        final EventHandler<Event> eh = new EventHandler<Event>() {
-            @Override
-            public void handle(final Event event) {
-                ship.changeMoving();
-                camMoving = !camMoving;
-                lastUpdate = System.currentTimeMillis();
-            }
-        };
-        stageController.getScene().setOnMouseEntered(eh);
-        stageController.getScene().setOnMouseExited(eh);
     }
 
     private Point2D getUpdatedPosition() {
@@ -101,11 +86,9 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void update() {
-        if (this.camMoving) {
-            final Point2D updatedPosition = getUpdatedPosition();
-            this.camController.setTranslation(new Point2D(updatedPosition.getX() - this.ship.getBoundary().getMinX(), updatedPosition.getY() - this.ship.getBoundary().getMinY()));
-            this.ship.update(updatedPosition.getX(), updatedPosition.getY());
-        }
+        final Point2D updatedPosition = getUpdatedPosition();
+        this.camController.setTranslation(new Point2D(updatedPosition.getX() - this.ship.getBoundary().getMinX(), updatedPosition.getY() - this.ship.getBoundary().getMinY()));
+        this.ship.update(updatedPosition.getX(), updatedPosition.getY());
     }
 
     /**

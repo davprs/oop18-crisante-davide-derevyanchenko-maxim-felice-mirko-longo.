@@ -10,7 +10,7 @@ import utilities.ErrorLog;
  */
 public abstract class EntityAgent extends Thread {
 
-    private static final long WAITING_TIME = 20;
+    private static final long WAITING_TIME = 10;
     private final EntityController entity;
     private final FieldController fieldController;
 

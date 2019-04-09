@@ -30,7 +30,6 @@ public final class FileUtils {
     private static final String ACCOUNT_PATH = RES_PATH + "accounts" + SEPARATOR;
     private static final String TXT_EXTENSION = ".txt";
     private static final String TOP_SCORE_PATH = RES_PATH + "topScore" + SEPARATOR + "topScore.txt";
-    private static final String URL_IMAGE = RES_PATH + "images" + SEPARATOR;
 
     private FileUtils() { }
 
@@ -76,7 +75,7 @@ public final class FileUtils {
                                               .addMySettings(new SettingsImpl(Boolean.parseBoolean(iterator.next()),
                                                       new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
                                                       iterator.next(),
-                                                      URL_IMAGE + iterator.next(),
+                                                      iterator.next(),
                                                       Boolean.parseBoolean(iterator.next())))
                                               .build();
                     } catch (IOException e) {

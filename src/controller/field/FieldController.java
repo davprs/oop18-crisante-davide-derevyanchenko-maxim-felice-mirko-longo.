@@ -52,7 +52,7 @@ public class FieldController {
         overlay.getRoot().getChildren().add(fieldView.getSubScene());
         overlay.getRoot().getChildren().add(ov.getSubScene());
         final CameraController camController = new CameraController(fieldView.getCamera());
-        this.characterController = new CharacterController(fieldView, camController, stageController);
+        this.characterController = new CharacterController(fieldView, camController);
         this.startAgent(new CharacterAgent(this.characterController, this));
         this.startAgent(new DrawAgent(this, fieldView, camController));
         try {
@@ -77,7 +77,7 @@ public class FieldController {
      * 
      * @return the list of all enemy controllers
      */
-    public List<EnemyController> getEnemies() {
+    public synchronized List<EnemyController> getEnemies() {
         return this.enemies;
     }
 
@@ -86,7 +86,7 @@ public class FieldController {
      * 
      * @return the list of all enemy bullet controllers
      */
-    public List<BulletController> getEnemyBullets() {
+    public synchronized List<BulletController> getEnemyBullets() {
         return this.enemyBullets;
     }
 
@@ -95,7 +95,7 @@ public class FieldController {
      * 
      * @return the list of all character bullet controllers
      */
-    public List<BulletController> getCharacterBullets() {
+    public synchronized List<BulletController> getCharacterBullets() {
         return this.characterBullets;
     }
 
@@ -104,7 +104,7 @@ public class FieldController {
      * 
      * @return the list of all meteor controllers
      */
-    public List<MeteorController> getMeteors() {
+    public synchronized List<MeteorController> getMeteors() {
         return this.meteors;
     }
 
@@ -116,7 +116,7 @@ public class FieldController {
      * 
      * @param enemy the enemy to be added
      */
-    public void addEnemy(final EnemyController enemy) {
+    public synchronized void addEnemy(final EnemyController enemy) {
         this.enemies.add(enemy);
         this.startAgent(new AntagonistsAgent(enemy, this));
     }
@@ -126,7 +126,7 @@ public class FieldController {
      * 
      * @param enemyBullet the enemy bullet to be added
      */
-    public void addEnemyBullet(final BulletController enemyBullet) {
+    public synchronized void addEnemyBullet(final BulletController enemyBullet) {
         this.enemyBullets.add(enemyBullet);
         this.startAgent(new AntagonistsAgent(enemyBullet, this));
     }
@@ -136,7 +136,7 @@ public class FieldController {
      * 
      * @param characterBullet the character bullet to be added
      */
-    public void addCharacterBullet(final BulletController characterBullet) {
+    public synchronized void addCharacterBullet(final BulletController characterBullet) {
         this.characterBullets.add(characterBullet);
         this.startAgent(new CharacterBulletAgent(characterBullet, this));
     }
@@ -146,7 +146,7 @@ public class FieldController {
      * 
      * @param meteor the meteor to be added
      */
-    public void addMeteor(final MeteorController meteor) {
+    public synchronized void addMeteor(final MeteorController meteor) {
         this.meteors.add(meteor);
         this.startAgent(new AntagonistsAgent(meteor, this));
     }
@@ -156,7 +156,7 @@ public class FieldController {
      * 
      * @param inPause the value that says if the game is paused or not
      */
-    public void setInPause(final boolean inPause) {
+    public synchronized void setInPause(final boolean inPause) {
         this.inPause = inPause;
     }
 
@@ -165,7 +165,7 @@ public class FieldController {
      * 
      * @return true if the game is in pause, false otherwise
      */
-    public boolean isInPause() {
+    public synchronized boolean isInPause() {
         return this.inPause;
     }
 }

@@ -18,7 +18,6 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
     private static final double SPEED = 0.5;
     private final Dimension2D dimension;
     private Point2D position;
-    private boolean isMoving;
 
     /**
      * Constructor method of the CharacterShipImpl.
@@ -29,7 +28,6 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
         super(STARTING_LIVES, STARTING_HEALTH);
         this.dimension = new Dimension2D(WIDTH, HEIGHT);
         this.position = initialPosition.subtract(this.dimension.getWidth() / 2, this.dimension.getHeight() / 2);
-        this.isMoving = false;
     }
 
     /**
@@ -37,9 +35,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      */
     @Override
     public synchronized void update(final double x, final double y) {
-        if (this.isMoving) {
-            this.position = new Point2D(x, y);
-        }
+        this.position = new Point2D(x, y);
     }
 
     /**
@@ -63,14 +59,6 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
     @Override
     public boolean intersects(final Entity entity) {
         return entity.getBoundary().intersects(this.getBoundary());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void changeMoving() {
-        this.isMoving = !this.isMoving;
     }
 
     /**
