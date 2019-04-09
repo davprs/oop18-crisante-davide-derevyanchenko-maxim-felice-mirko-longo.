@@ -11,11 +11,11 @@ public class CharacterAgent extends EntityAgent {
     /**
      * Constructor of a CharacterAgent.
      * 
-     * @param entity the character controller to be executed
+     * @param entityController the character controller to be executed
      * @param gameController the controller of the game
      */
-    public CharacterAgent(final EntityController entity, final GameController gameController) {
-        super(entity, gameController);
+    public CharacterAgent(final EntityController entityController, final GameController gameController) {
+        super(entityController, gameController);
     }
 
     /**

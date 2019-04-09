@@ -15,11 +15,11 @@ public class CharacterBulletAgent extends EntityAgent {
      * 
      * Constructor of a CharacterBulletAgent.
      * 
-     * @param entity the character controller to be executed
+     * @param entityController the character controller to be executed
      * @param gameController the controller of the game
      */
-    public CharacterBulletAgent(final EntityController entity, final GameController gameController) {
-        super(entity, gameController);
+    public CharacterBulletAgent(final EntityController entityController, final GameController gameController) {
+        super(entityController, gameController);
     }
 
     /**
@@ -27,11 +27,11 @@ public class CharacterBulletAgent extends EntityAgent {
      */
     @Override
     public void intersectChecker() {
-        for (final EnemyController enemy : this.getFieldController().getEnemies()) {
-            this.getEntity().intersects(enemy);
+        for (final EnemyController enemyController : this.getFieldController().getEnemies()) {
+            this.getEntity().intersects(enemyController.getEntity());
         }
-        for (final MeteorController meteor : this.getFieldController().getMeteors()) {
-            this.getEntity().intersects(meteor);
+        for (final MeteorController meteorController : this.getFieldController().getMeteors()) {
+            this.getEntity().intersects(meteorController.getEntity());
         }
     }
 
