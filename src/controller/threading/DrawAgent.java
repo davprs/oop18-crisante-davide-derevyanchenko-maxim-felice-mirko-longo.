@@ -3,7 +3,7 @@ package controller.threading;
 import controller.field.BulletController;
 import controller.field.CameraController;
 import controller.field.EnemyController;
-import controller.field.FieldController;
+import controller.field.GameController;
 import controller.field.MeteorController;
 import javafx.application.Platform;
 import utilities.ErrorLog;
@@ -16,19 +16,19 @@ import view.field.FieldView;
 public class DrawAgent extends Thread {
 
     private static final long WAITING_TIME = 10;
-    private final FieldController fieldController;
+    private final GameController gameController;
     private final FieldView view;
     private final CameraController cameraController;
 
     /**
      *  Constructor for the DrawAgent.
      * 
-     * @param fieldController the field controller of the game
+     * @param gameController the controller of the game
      * @param view the field view of the game
      * @param cameraController the camera of the field
      */
-    public DrawAgent(final FieldController fieldController, final FieldView view, final CameraController cameraController) {
-        this.fieldController = fieldController;
+    public DrawAgent(final GameController gameController, final FieldView view, final CameraController cameraController) {
+        this.gameController = gameController;
         this.view = view;
         this.cameraController = cameraController;
     }
@@ -40,22 +40,22 @@ public class DrawAgent extends Thread {
 
         while (true) {
             try {
-                synchronized (this.fieldController) {
-                    if (!this.fieldController.isInPause()) {
+                synchronized (this.gameController) {
+                    if (!this.gameController.isInPause()) {
                         Platform.runLater(() -> {
                             this.view.drawBackground();
                             this.cameraController.update();
-                            this.fieldController.getCharacter().draw();
-                            for (final EnemyController enemy : this.fieldController.getEnemies()) {
+                            this.gameController.getFieldController().getCharacter().draw();
+                            for (final EnemyController enemy : this.gameController.getFieldController().getEnemies()) {
                                 enemy.draw();
                             }
-                            for (final BulletController enemyBullet : this.fieldController.getEnemyBullets()) {
+                            for (final BulletController enemyBullet : this.gameController.getFieldController().getEnemyBullets()) {
                                 enemyBullet.draw();
                             }
-                            for (final BulletController characterBullet : this.fieldController.getCharacterBullets()) {
+                            for (final BulletController characterBullet : this.gameController.getFieldController().getCharacterBullets()) {
                                 characterBullet.draw();
                             }
-                            for (final MeteorController meteor : this.fieldController.getMeteors()) {
+                            for (final MeteorController meteor : this.gameController.getFieldController().getMeteors()) {
                                 meteor.draw();
                             }
                         });

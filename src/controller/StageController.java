@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.awt.Dimension;
@@ -46,7 +47,6 @@ public class StageController {
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, this.pauseHandler);
         this.stage.setOnCloseRequest(this.exitWindow);
-        
     }
 
     /**
@@ -123,8 +123,8 @@ public class StageController {
     }
 
     /**
-     * Set the new Scene.
-     * @param scene the scene to set
+     * Set the new Dimension.
+     * @param dimension the dimension to set
      */
     public void setDimension(final Dimension2D dimension) {
         this.stage.setWidth(dimension.getWidth());
@@ -132,3 +132,4 @@ public class StageController {
         this.stage.centerOnScreen();
     }
 }
+
