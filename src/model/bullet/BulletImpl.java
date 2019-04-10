@@ -1,8 +1,6 @@
 package model.bullet;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import model.Entity;
@@ -23,16 +21,19 @@ public class BulletImpl implements Bullet {
     private double movX;
     private double movY;
     private final double angle;
+    private Dimension2D fieldSize;
 
     /**
      * Build a new Bullet.
      * @param level defines the speed.
      * @param src the starting position of the Bullet.
      * @param target the target position.
+     * @param fieldSize the field width and height.
      */
-    public BulletImpl(final int level, final Point2D src, final Point2D target) {
+    public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
         this.speed = level * 2;
         this.damage = level * BulletImpl.DAMAGE_UNIT;
+        this.fieldSize = fieldSize;
         this.position = src;
         this.angle = Math.atan2(Math.max(src.getX(), target.getX()) - Math.min(src.getX(), target.getX()), Math.max(src.getY(), target.getY()) - Math.min(src.getY(), target.getY()));
         this.movY = Math.abs(-Math.pow(Math.sin(angle), 2) + 1);
@@ -96,8 +97,7 @@ public class BulletImpl implements Bullet {
      */
     @Override
     public boolean isAlive() {
-        final Dimension canvasSize = Toolkit.getDefaultToolkit().getScreenSize().getSize();
-        return !(position.getX() > canvasSize.getWidth() || position.getY() > canvasSize.getHeight()
+        return !(position.getX() > this.fieldSize.getWidth() || position.getY() > this.fieldSize.getHeight()
                 || position.getX() < 0 || position.getY() < 0);
     }
 

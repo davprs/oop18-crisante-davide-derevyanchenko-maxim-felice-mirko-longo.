@@ -1,6 +1,8 @@
 package controller.field;
 
 import controller.StageController;
+import controller.threading.SpawnAgent;
+import javafx.geometry.Dimension2D;
 import model.account.Account;
 import view.field.FieldView;
 import view.field.GameView;
@@ -14,6 +16,7 @@ public class GameController {
 
     private final FieldController fieldController;
     private boolean inPause;
+    private boolean ended;
 
     /**
      * Constructor of the GameController.
@@ -22,6 +25,7 @@ public class GameController {
      * @param stageController the controller of the Stage
      */
     public GameController(final Account account, final StageController stageController) {
+        this.ended = false;
         final GameView overlay = new GameView(stageController);
         final FieldView fieldView = new FieldView(stageController);
         final OverlayView ov = new OverlayView(stageController);
@@ -30,6 +34,7 @@ public class GameController {
         overlay.getRoot().getChildren().add(fieldView.getSubScene());
         overlay.getRoot().getChildren().add(ov.getSubScene());
         this.fieldController = new FieldController(this, fieldView);
+        new SpawnAgent(this, 1, fieldView, this.fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
     }
 
     /**
@@ -57,5 +62,23 @@ public class GameController {
      */
     public synchronized boolean isInPause() {
         return this.inPause;
+    }
+
+    /**
+     * Sets the value of the ended state.
+     * 
+     * @param ended the value that says if the game is ended or not
+     */
+    public synchronized void setEnded(final boolean ended) {
+        this.ended = ended;
+    }
+
+    /**
+     * Method that says if the game is ended or not.
+     * 
+     * @return true if the game is ended, false otherwise
+     */
+    public synchronized boolean isEnded() {
+        return this.ended;
     }
 }

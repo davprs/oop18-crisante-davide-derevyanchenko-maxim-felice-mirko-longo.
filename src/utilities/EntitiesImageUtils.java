@@ -9,21 +9,19 @@ import javafx.scene.image.Image;
  */
 public final class EntitiesImageUtils {
 
-    private static final String SEPARATOR = System.getProperty("file.separator");
-    private static final String RES = "res";
     private static final List<Image> BULLET_IMAGES = Arrays.asList(
-            new Image(RES + SEPARATOR + "bulletGreen.png"),
-            new Image(RES + SEPARATOR + "bulletYellow.png"),
-            new Image(RES + SEPARATOR + "bulletRed.png"),
-            new Image(RES + SEPARATOR + "bulletPower.png"));
+            new Image("bulletGreen.png"),
+            new Image("bulletYellow.png"),
+            new Image("bulletRed.png"),
+            new Image("bulletPower.png"));
     private static final List<Image> METEOR_IMAGES = Arrays.asList(
-            new Image(RES + SEPARATOR + "meteorGreen.png"),
-            new Image(RES + SEPARATOR + "meteorYellow.png"),
-            new Image(RES + SEPARATOR + "meteorRed.png"));
+            new Image("meteorGreen.png"),
+            new Image("meteorYellow.png"),
+            new Image("meteorRed.png"));
     private static final List<Image> ENEMYSHIP_IMAGES = Arrays.asList(
-            new Image(RES + SEPARATOR + "spaceship1.png"),
-            new Image(RES + SEPARATOR + "spaceship2.png"),
-            new Image(RES + SEPARATOR + "spaceship3.png"));
+            new Image("enemyShip1.png"),
+            new Image("enemyShip2.png"),
+            new Image("enemyShip3.png"));
 
     private EntitiesImageUtils() { }
 

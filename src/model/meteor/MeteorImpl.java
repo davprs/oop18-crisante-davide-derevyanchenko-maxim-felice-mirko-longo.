@@ -1,8 +1,6 @@
 package model.meteor;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import model.Entity;
@@ -22,15 +20,18 @@ public class MeteorImpl implements Meteor {
     private double movX;
     private double movY;
     private Point2D target;
+    private Dimension2D fieldSize;
 
     /**
      * Build a new Meteor.
      * @param level defines the speed and power.
      * @param src the starting position of the Meteor.
      * @param target the target position.
+     * @param fieldSize the field width and height.
      */
-    public MeteorImpl(final int level, final Point2D src, final Point2D target) {
+    public MeteorImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
         this.speed = level * 3;
+        this.fieldSize = fieldSize;
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.position = src;
         this.angle = Math.atan2(Math.max(src.getX(), target.getX()) - Math.min(src.getX(), target.getX()), Math.max(src.getY(), target.getY()) - Math.min(src.getY(), target.getY()));
@@ -95,8 +96,7 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public boolean isAlive() {
-        final Dimension canvasSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return !(position.getX() > canvasSize.getWidth() || position.getY() > canvasSize.getHeight()
+        return !(position.getX() > this.fieldSize.getWidth() || position.getY() > this.fieldSize.getHeight()
                 || position.getX() < 0 || position.getY() < 0);
     }
 

@@ -1,8 +1,10 @@
 package controller.field;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
+import model.bullet.Bullet;
 import model.bullet.BulletImpl;
 import view.field.FieldView;
 
@@ -13,7 +15,7 @@ public class BulletController implements EntityController {
 
     private final Image image;
     private final FieldView view;
-    private final BulletImpl bullet;
+    private final Bullet bullet;
 
     /**
      * Build a BulletController and his Bullet.
@@ -21,10 +23,11 @@ public class BulletController implements EntityController {
      * @param level the level of the Bullet to create.
      * @param src the starting point of the Bullet to create.
      * @param target the target point of the Bullet.
+     * @param fieldSize the field width and height.
      */
-    public BulletController(final FieldView view, final int level, final Point2D src, final Point2D target) {
+    public BulletController(final FieldView view, final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
         this.image = utilities.EntitiesImageUtils.getBulletImage(level);
-        this.bullet = new BulletImpl(level, src, target);
+        this.bullet = new BulletImpl(level, src, target, fieldSize);
         this.view = view;
     }
 
@@ -33,9 +36,10 @@ public class BulletController implements EntityController {
      * @param view the fieldView
      * @param src the starting point of the Bullet to create.
      * @param target the target point of the Bullet.
+     * @param fieldSize the field width and height.
      */
-    public BulletController(final FieldView view, final Point2D src, final Point2D target) {
-        this(view, 1, src, target);
+    public BulletController(final FieldView view, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
+        this(view, 1, src, target, fieldSize);
     }
 
     /**

@@ -28,8 +28,9 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * Build a new EnemyShip.
      * @param level is the level (fastness, power of bullets)
      * @param timeToShoot frames passing from one bullet-shot to the next one
+     * @param fieldSize the field width and height.
      */
-    public EnemyShipImpl(final int level, final int timeToShoot) {
+    public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize) {
         super(STARTING_LIVES, STARTING_HEALTH);
         this.level = level;
         this.speed = level;
@@ -40,16 +41,18 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     /**
      * Build a customizable level Bullet.
      * @param level is the level (fastness, power of bullets)
+     * @param fieldSize the field width and height.
      */
-    public EnemyShipImpl(final int level) {
-        this(level, DELAY);
+    public EnemyShipImpl(final int level, final Dimension2D fieldSize) {
+        this(level, DELAY, fieldSize);
     }
 
     /**
      * Build a simple EnemyShip.
+     * @param fieldSize the field width and height.
      */
-    public EnemyShipImpl() {
-        this(1);
+    public EnemyShipImpl(final Dimension2D fieldSize) {
+        this(1, fieldSize);
     }
 
     /**
@@ -94,8 +97,8 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void update(final Point2D addPosition) {
-        this.position.add(addPosition);
+    public synchronized void update(final Point2D position) {
+        this.position = position;
         this.framesFromShoot++;
         if (framesFromShoot >= framesToShoot) {
             this.shootingAvailable = true;
