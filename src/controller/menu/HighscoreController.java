@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.account.Account;
 import utilities.FileUtils;
+import utilities.SoundUtils;
 import view.menu.HighscoreView;
 
 /**
@@ -67,6 +68,11 @@ public class HighscoreController implements FXMLController {
      * Method to go back to the menu.
      */
     public void goBack() {
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.BUTTON_CLICKED.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
         new MenuController(this.account, this.stageController).start();
     }
 

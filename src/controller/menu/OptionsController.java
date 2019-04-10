@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.AlertUtils;
 import utilities.FileUtils;
+import utilities.SoundUtils;
 import view.menu.OptionsView;
 /**
  * 
@@ -95,6 +96,11 @@ public class OptionsController implements FXMLController {
      */
     public void goBack() {
         grid.setEffect(blur);
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.BUTTON_CLICKED.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
         final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
         if (confirmSettings.get() == ButtonType.YES) {
            final String[] values = resolution.getValue().split("x");
@@ -107,10 +113,21 @@ public class OptionsController implements FXMLController {
            } else if (no.isSelected()) {
                account.getSettings().setSound(false); 
            }
+           if (account.getSettings().isSoundOn()) {
+               SoundUtils.MAIN_THEME.loop();
+           } else {
+               SoundUtils.muteAllSounds();
+           }
             try {
                 FileUtils.printAccount(account);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        } else {
+            if (account.getSettings().isSoundOn()) {
+                SoundUtils.BUTTON_CLICKED.play();
+            } else {
+                SoundUtils.muteAllSounds();
             }
         }
         grid.setEffect(null);

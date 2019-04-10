@@ -2,7 +2,7 @@ sergiu
 oro
 sergiu
 100
-true
+false
 1920.0
 1080.0
 en

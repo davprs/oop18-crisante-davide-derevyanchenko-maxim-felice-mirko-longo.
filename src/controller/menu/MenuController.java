@@ -68,9 +68,13 @@ public class MenuController implements FXMLController {
     @FXML
     public void playTheGame() {
         new GameController(this.account, this.stageController);
-        SoundUtils.BUTTON_CLICKED.play();
-        SoundUtils.MAIN_THEME.stop();
-        SoundUtils.GAMEPLAY_MUSIC.play();
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.BUTTON_CLICKED.play();
+            SoundUtils.MAIN_THEME.stop();
+            SoundUtils.GAMEPLAY_MUSIC.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
     }
 
     /**
@@ -79,7 +83,11 @@ public class MenuController implements FXMLController {
     @FXML
     public void checkHighscore() {
         new HighscoreController(this.account, this.stageController).start();
-        SoundUtils.BUTTON_CLICKED.play();
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.BUTTON_CLICKED.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
     }
 
     /**
@@ -88,8 +96,11 @@ public class MenuController implements FXMLController {
     @FXML
     public void enterOptions() {
         new OptionsController(this.account, this.stageController).start();
-        SoundUtils.BUTTON_CLICKED.play();
-
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.BUTTON_CLICKED.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
     }
 
     /**
@@ -98,15 +109,25 @@ public class MenuController implements FXMLController {
     @FXML
     public void exitGame() { 
         grid.setEffect(blur);
-        SoundUtils.BUTTON_CLICKED.play();
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.BUTTON_CLICKED.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
        final  Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
             Platform.exit();
-            SoundUtils.BUTTON_CLICKED.play();
-            SoundUtils.muteAllSounds();
+            if (account.getSettings().isSoundOn()) {
+                SoundUtils.BUTTON_CLICKED.play();
+                SoundUtils.muteAllSounds();
+            }
         } else {
             grid.setEffect(null);
-            SoundUtils.BUTTON_CLICKED.play();
+            if (account.getSettings().isSoundOn()) {
+                SoundUtils.BUTTON_CLICKED.play();
+            } else {
+                SoundUtils.muteAllSounds();
+            }
         }
     }
     /**

@@ -124,7 +124,6 @@ public class LoginController implements FXMLController {
             if (this.accManager.checkPassword(account)) {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
-                    SoundUtils.MAIN_THEME.loop();
                 } catch (IOException e) {
                     ErrorLog.getLog().printError();
                     System.exit(0);
@@ -165,6 +164,11 @@ public class LoginController implements FXMLController {
 
     private void startMenu(final Account account) {
         new MenuController(account, this.stageController).start();
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.MAIN_THEME.loop();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
     }
 
     private void setHandlers() {
