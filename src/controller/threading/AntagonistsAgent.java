@@ -22,8 +22,7 @@ public class AntagonistsAgent extends EntityAgent {
      * {@inheritDoc}
      */
     @Override
-    public void intersectChecker() {
+    protected void intersectChecker() {
         this.getEntity().intersects(this.getFieldController().getCharacter().getEntity());
     }
-
 }

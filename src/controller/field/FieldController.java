@@ -41,7 +41,7 @@ public class FieldController {
         this.characterBullets = new LinkedList<>();
         this.meteors = new LinkedList<>();
         final CameraController camController = new CameraController(fieldView.getCamera());
-        this.characterController = new CharacterController(fieldView, camController);
+        this.characterController = new CharacterController(this.gameController, camController);
         this.startAgent(new CharacterAgent(this.characterController, this.gameController));
         this.startAgent(new DrawAgent(this.gameController, fieldView, camController));
         try {
@@ -160,7 +160,7 @@ public class FieldController {
      * 
      * @param enemyBullet the enemy's bullet destroyed
      */
-    public void removeEnemyDullet(final BulletController enemyBullet) {
+    public void removeEnemyBullet(final BulletController enemyBullet) {
         this.enemyBullets.remove(enemyBullet);
     }
 

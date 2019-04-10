@@ -3,6 +3,7 @@ package controller.threading;
 import controller.field.EntityController;
 import controller.field.FieldController;
 import controller.field.GameController;
+import javafx.application.Platform;
 import model.Entity;
 import utilities.ErrorLog;
 
@@ -40,10 +41,11 @@ public abstract class EntityAgent extends Thread {
                 }
                 sleep(WAITING_TIME);
             } catch (InterruptedException e) {
-                ErrorLog.getLog().printError(e);
+                ErrorLog.getLog().printError();
                 System.exit(0);
             }
         }
+        Platform.runLater(() -> this.entityController.destroy());
     }
 
     /**
@@ -67,5 +69,5 @@ public abstract class EntityAgent extends Thread {
     /**
      * Method that defines how the intersection between entities should be checked.
      */
-    public abstract void intersectChecker();
+    protected abstract void intersectChecker();
 }

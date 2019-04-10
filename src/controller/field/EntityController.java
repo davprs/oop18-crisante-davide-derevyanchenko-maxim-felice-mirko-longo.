@@ -26,7 +26,7 @@ public interface EntityController {
     Entity getEntity();
 
     /**
-     * Method that executes the destroying animation and removes this entity from the field.
+     * Method that executes the destroying animation.
      */
     void destroy();
 }

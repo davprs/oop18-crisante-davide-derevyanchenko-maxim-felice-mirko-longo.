@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 import model.Entity;
 import model.ship.enemyship.EnemyShip;
 import model.ship.enemyship.EnemyShipImpl;
-import view.field.FieldView;
 
 /**
  * Controller class of EnemyShip.
@@ -15,37 +14,37 @@ public class EnemyController implements EntityController {
 
     private final Image image;
     private final CharacterController characterController;      //HAS TO BE CHANGED IN CharacterController.
-    private final FieldView view;
+    private final GameController gameController;
     private final EnemyShip enemy;
     private boolean freeze;
     private Dimension2D fieldSize;
 
     /**
      * Build a new EnemyController and his EnemyShip.
-     * @param view the fieldView
+     * @param gameController the fieldView
      * @param level the level of the new created Enemy.
      * @param characterController the entity representing the CharacterShip.
      * @param fieldSize the field width and height.
      */
-    public EnemyController(final FieldView view, final int level, final CharacterController characterController, final Dimension2D fieldSize) {
+    public EnemyController(final GameController gameController, final int level, final CharacterController characterController, final Dimension2D fieldSize) {
         System.out.println("lol");
         this.fieldSize = fieldSize;
         this.image = utilities.EntitiesImageUtils.getEnemyShipImage(level);
         System.out.println("then");
         this.enemy = new EnemyShipImpl(level, fieldSize);
-        this.view = view;
+        this.gameController = gameController;
         this.characterController = characterController;
         this.freeze = false;
     }
 
     /**
      * Build a new EnemyController and his easy-level EnemyShip.
-     * @param view the fieldView
+     * @param gameController the gameController.
      * @param characterController the entity representing the CharacterShip.
      * @param fieldSize the field width and height.
      */
-    public EnemyController(final FieldView view, final CharacterController characterController, final Dimension2D fieldSize) {
-        this(view, 1, characterController, fieldSize);
+    public EnemyController(final GameController gameController, final CharacterController characterController, final Dimension2D fieldSize) {
+        this(gameController, 1, characterController, fieldSize);
     }
 
     /**
@@ -54,7 +53,7 @@ public class EnemyController implements EntityController {
     @Override
     public void draw() {
         final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - characterController.getEntity().getBoundary().getMinX(), enemy.getBoundary().getMinY() - characterController.getEntity().getBoundary().getMinY()));
-        this.view.drawEntity(image, angle, this.enemy.getBoundary());
+        this.gameController.getFieldView().drawEntity(image, angle, this.enemy.getBoundary());
     }
 
     /**
@@ -111,7 +110,7 @@ public class EnemyController implements EntityController {
      * @return the new Bullet.
      */
     public BulletController shoot() {
-        return new BulletController(this.view, this.enemy.getLevel(), this.enemy.shoot(), 
+        return new BulletController(this.gameController, this.enemy.getLevel(), this.enemy.shoot(), 
                 new Point2D(this.characterController.getEntity().getBoundary().getMinX(),
                     this.characterController.getEntity().getBoundary().getMinY()), this.fieldSize);
     }
@@ -129,7 +128,8 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void destroy() {
-        this.view.drawExplosion(this.enemy.getBoundary());
+        this.gameController.getFieldView().drawExplosion(this.enemy.getBoundary());
+        this.gameController.getFieldController().removeEnemy(this);
     }
 
 }

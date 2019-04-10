@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import model.Entity;
 import model.ship.charactership.CharacterShip;
 import model.ship.charactership.CharacterShipImpl;
-import view.field.FieldView;
 
 /**
  * Class that controls the character ship moves.
@@ -20,7 +19,7 @@ public class CharacterController implements EntityController {
     private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Image SHIP_IMAGE = new Image("spaceship.png");
     private final CharacterShip ship;
-    private final FieldView view;
+    private final GameController gameController;
     private final CameraController camController;
     private double angle;
     private boolean immunity;
@@ -29,12 +28,12 @@ public class CharacterController implements EntityController {
     /**
      * Constructor of the CharacterController.
      * 
-     * @param view  the view in which the ship is moving
+     * @param gameController  the view in which the ship is moving
      * @param camController  the camera controller of the view
      */
-    public CharacterController(final FieldView view, final CameraController camController) {
+    public CharacterController(final GameController gameController, final CameraController camController) {
         this.ship = new CharacterShipImpl(new Point2D(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2));
-        this.view = view;
+        this.gameController = gameController;
         this.camController = camController;
         this.immunity = false;
         this.lastUpdate = System.currentTimeMillis();
@@ -42,7 +41,7 @@ public class CharacterController implements EntityController {
 
     private Point2D getUpdatedPosition() {
         final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
-        final Point2D mousePosition = this.view.getCanvas().screenToLocal(mouseOnScreen);
+        final Point2D mousePosition = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
         final Point2D vector = mousePosition.subtract(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2);
         final long time = System.currentTimeMillis();
         final long timeFromLastUpdate = time - this.lastUpdate;
@@ -53,13 +52,13 @@ public class CharacterController implements EntityController {
         double shipUpdateY = this.ship.getBoundary().getMinY() + (timeFromLastUpdate * this.ship.getSpeed() * Math.sin(rad));
         if (shipUpdateX < 0) {
             shipUpdateX = 0;
-        } else if (shipUpdateX > (this.view.getCanvas().getWidth() - this.ship.getBoundary().getWidth())) {
-            shipUpdateX = this.view.getCanvas().getWidth() - this.ship.getBoundary().getWidth();
+        } else if (shipUpdateX > (this.gameController.getFieldView().getCanvas().getWidth() - this.ship.getBoundary().getWidth())) {
+            shipUpdateX = this.gameController.getFieldView().getCanvas().getWidth() - this.ship.getBoundary().getWidth();
         }
         if (shipUpdateY < 0) {
             shipUpdateY = 0;
-        } else if (shipUpdateY > (this.view.getCanvas().getHeight() - this.ship.getBoundary().getHeight())) {
-            shipUpdateY = this.view.getCanvas().getHeight() - this.ship.getBoundary().getHeight();
+        } else if (shipUpdateY > (this.gameController.getFieldView().getCanvas().getHeight() - this.ship.getBoundary().getHeight())) {
+            shipUpdateY = this.gameController.getFieldView().getCanvas().getHeight() - this.ship.getBoundary().getHeight();
         }
         return new Point2D(shipUpdateX, shipUpdateY);
     }
@@ -78,7 +77,7 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void draw() {
-        this.view.drawEntity(SHIP_IMAGE, this.angle, this.ship.getBoundary());
+        this.gameController.getFieldView().drawEntity(SHIP_IMAGE, this.angle, this.ship.getBoundary());
     }
 
     /**
@@ -111,6 +110,6 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void destroy() {
-        this.view.drawExplosion(this.ship.getBoundary());
+        this.gameController.getFieldView().drawExplosion(this.ship.getBoundary());
     }
 }

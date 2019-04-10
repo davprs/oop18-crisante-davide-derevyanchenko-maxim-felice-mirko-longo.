@@ -22,5 +22,5 @@ public class CharacterAgent extends EntityAgent {
      * {@inheritDoc}
      */
     @Override
-    public void intersectChecker() { }
+    protected void intersectChecker() { }
 }
