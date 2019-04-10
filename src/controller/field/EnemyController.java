@@ -4,6 +4,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
+import model.ship.charactership.CharacterShipImpl;
 import model.ship.enemyship.EnemyShip;
 import model.ship.enemyship.EnemyShipImpl;
 
@@ -13,11 +14,12 @@ import model.ship.enemyship.EnemyShipImpl;
 public class EnemyController implements EntityController {
 
     private final Image image;
-    private final CharacterController characterController;      //HAS TO BE CHANGED IN CharacterController.
+    private final CharacterController characterController;
     private final GameController gameController;
     private final EnemyShip enemy;
     private boolean freeze;
     private Dimension2D fieldSize;
+    private Point2D centralPosition;
 
     /**
      * Build a new EnemyController and his EnemyShip.
@@ -27,10 +29,8 @@ public class EnemyController implements EntityController {
      * @param fieldSize the field width and height.
      */
     public EnemyController(final GameController gameController, final int level, final CharacterController characterController, final Dimension2D fieldSize) {
-        System.out.println("lol");
         this.fieldSize = fieldSize;
         this.image = utilities.EntitiesImageUtils.getEnemyShipImage(level);
-        System.out.println("then");
         this.enemy = new EnemyShipImpl(level, fieldSize);
         this.gameController = gameController;
         this.characterController = characterController;
@@ -52,7 +52,8 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void draw() {
-        final double angle = -Math.toDegrees(Math.atan2(enemy.getBoundary().getMinX() - characterController.getEntity().getBoundary().getMinX(), enemy.getBoundary().getMinY() - characterController.getEntity().getBoundary().getMinY()));
+        final double angle = Math.toDegrees(Math.atan2(this.centralPosition.getY()- ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(),
+                this.centralPosition.getX() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getX())) + 180;
         this.gameController.getFieldView().drawEntity(image, angle, this.enemy.getBoundary());
     }
 
@@ -61,41 +62,16 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void update() {
-        Point2D position = new Point2D(enemy.getBoundary().getMinX(), enemy.getBoundary().getMinY());
-        if (Math.random() * 10 < 9) {    //li fa muovere in maniera meno imbecille, non si accorpano come deficienti
-            if (enemy.getBoundary().getMinX() < characterController.getEntity().getBoundary().getMinX() + characterController.getEntity().getBoundary().getWidth() / 2) {
-                position = new Point2D(position.getX() + enemy.getSpeed(), position.getY());
-            } else if (enemy.getBoundary().getMinX() > characterController.getEntity().getBoundary().getMinX() + characterController.getEntity().getBoundary().getWidth() / 2) {
-                position = new Point2D(position.getX() - enemy.getSpeed(), position.getY());
-            }
-            if (position.getY() < characterController.getEntity().getBoundary().getMinY() + characterController.getEntity().getBoundary().getHeight() / 2) {
-                position = new Point2D(position.getX(), position.getY() + enemy.getSpeed());
-            } else if (position.getY() > characterController.getEntity().getBoundary().getMinY() + characterController.getEntity().getBoundary().getHeight() / 2) {
-                position = new Point2D(position.getX(), position.getY() - enemy.getSpeed());
-            }
-            } else {
-                if (position.getY() > characterController.getEntity().getBoundary().getMinY() + characterController.getEntity().getBoundary().getHeight() / 2) {
-                    position = new Point2D(position.getX(), position.getY() + enemy.getSpeed());
-                } else if (position.getY() < characterController.getEntity().getBoundary().getMinY() + characterController.getEntity().getBoundary().getHeight() / 2) {
-                    position = new Point2D(position.getX(), position.getY() - enemy.getSpeed());
-                }
-                if (enemy.getBoundary().getMinX() > characterController.getEntity().getBoundary().getMinX() + characterController.getEntity().getBoundary().getWidth() / 2) {
-                    position = new Point2D(position.getX() + enemy.getSpeed(), position.getY());
-                } else if (enemy.getBoundary().getMinX() < characterController.getEntity().getBoundary().getMinX() + characterController.getEntity().getBoundary().getWidth() / 2) {
-                    position = new Point2D(position.getX() - enemy.getSpeed(), position.getY());
-                }
-            }
-        enemy.update(position);
-//        double rad;
-//        double movY, movX;
-////        rad=Math.atan2(Math.max(position.getX(), character.getBoundary().getMinX()) - Math.min(position.getX(), character.getBoundary().getMinX()) , Math.max(position.getY(), character.getBoundary().getMinY()) - Math.min(position.getY(), character.getBoundary().getMinY()));
-//        rad = Math.atan2(characterController.getEntity().getBoundary().getMinY() - position.getY(), characterController.getEntity().getBoundary().getMinX() - position.getX());
-////        movY=Math.abs(- Math.pow(Math.sin(rad), 2) + 1);
-////        movX=Math.abs(- Math.pow(Math.cos(rad), 2) + 1);
-//        movY = enemy.getSpeed() * Math.sin(rad);
-//        movX = enemy.getSpeed() * Math.cos(rad);
-//        enemy.update(new Point2D(movX, movY));
+        double rad;
+        double movY, movX;
+        this.centralPosition = new Point2D((enemy.getBoundary().getMinX() + enemy.getBoundary().getMaxX()) / 2,
+                (enemy.getBoundary().getMinY() + enemy.getBoundary().getMaxY()) / 2);
+        rad = Math.atan2(this.centralPosition.getY() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(), 
+                this.centralPosition.getX() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getX());
 
+        movY = - this.enemy.getSpeed() * Math.sin(rad);
+        movX = - this.enemy.getSpeed() * Math.cos(rad);
+        enemy.update(new Point2D(movX, movY));
     }
 
     /**

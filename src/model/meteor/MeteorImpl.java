@@ -4,7 +4,6 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import model.Entity;
-
 /**
  * Implementation of Meteor interface.
  */
@@ -16,11 +15,12 @@ public class MeteorImpl implements Meteor {
     private final int damage;
     private final double speed;
     private Point2D position;
-    private final double angle;
     private double movX;
     private double movY;
     private Point2D target;
     private Dimension2D fieldSize;
+    private boolean enteredInField;
+    private double angle;
 
     /**
      * Build a new Meteor.
@@ -34,16 +34,14 @@ public class MeteorImpl implements Meteor {
         this.fieldSize = fieldSize;
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.position = src;
-        this.angle = Math.atan2(Math.max(src.getX(), target.getX()) - Math.min(src.getX(), target.getX()), Math.max(src.getY(), target.getY()) - Math.min(src.getY(), target.getY()));
-        this.movY = Math.abs(-Math.pow(Math.sin(angle), 2) + 1);
-        this.movX = Math.abs(-Math.pow(Math.cos(angle), 2) + 1);
-        if (target.getX() < src.getX()) {
-            movX *= -1;
-        }
-        if (target.getY() < src.getY()) {
-            movY *= -1;
-        }
+        Point2D centralPosition = new Point2D(src.getX() + WIDTH / 2, src.getY() + HEIGHT / 2);
+        this.angle = Math.atan2(centralPosition.getY() - target.getY(), 
+                centralPosition.getX() - target.getX());
+
+        this.movY = - speed * Math.sin(angle);
+        this.movX = - speed * Math.cos(angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
+        this.enteredInField = false;
     }
 
     /**
@@ -87,8 +85,11 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public synchronized void update() {
-        position = new Point2D(position.getX() + (movX * speed), position.getY() + (movY * speed));
-        target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));
+        this.position = new Point2D(position.getX() + movX, position.getY() + movY);
+        this.target = new Point2D(target.getX() + movX, target.getY() + movY);
+        if(position.getX() <= fieldSize.getWidth() && position.getX() > 0 && position.getY() <= fieldSize.getHeight() && position.getY() > 0) {
+            this.enteredInField = true;
+        }
     }
 
     /**
@@ -96,8 +97,8 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public boolean isAlive() {
-        return !(position.getX() > this.fieldSize.getWidth() || position.getY() > this.fieldSize.getHeight()
-                || position.getX() < 0 || position.getY() < 0);
+        return !((position.getX() > this.fieldSize.getWidth() || position.getY() > this.fieldSize.getHeight()
+                || position.getX() < 0 || position.getY() < 0) && enteredInField);
     }
 
     /**

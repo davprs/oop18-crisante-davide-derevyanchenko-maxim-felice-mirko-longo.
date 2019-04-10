@@ -52,7 +52,7 @@ public class GameController {
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
         this.gameView.getRoot().getChildren().add(this.overlayView.getSubScene());
         this.fieldController = new FieldController(this, fieldView);
-        new SpawnAgent(this, 1, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
+        new SpawnAgent(this, 1, fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
     }
 
     /**

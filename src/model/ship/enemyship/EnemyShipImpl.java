@@ -13,10 +13,10 @@ import model.ship.AbstractShip;
 public class EnemyShipImpl extends AbstractShip implements EnemyShip {
 
     private static final int DELAY = (int) (Math.random() * 800 + 200);
-    private static final double WIDTH = 100;
-    private static final double HEIGHT = 100;
-    private static final int STARTING_LIVES = 0; // DECIDI TU
-    private static final int STARTING_HEALTH = 0; // DECIDI TU
+    private static final double WIDTH = 80;
+    private static final double HEIGHT = 80;
+    private static final int STARTING_LIVES = 1;
+    private static final int STARTING_HEALTH = 1000;
     private Point2D position;
     private final double speed;
     private int framesFromShoot;
@@ -98,7 +98,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      */
     @Override
     public synchronized void update(final Point2D position) {
-        this.position = position;
+        this.position = this.position.add(position);
         this.framesFromShoot++;
         if (framesFromShoot >= framesToShoot) {
             this.shootingAvailable = true;

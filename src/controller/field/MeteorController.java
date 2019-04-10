@@ -25,7 +25,21 @@ public class MeteorController implements EntityController {
      */
     public MeteorController(final GameController gameController, final int level, final Point2D target, final Dimension2D fieldSize) {
         this.image = utilities.EntitiesImageUtils.getMeteorImage(level);
-        Point2D src = new Point2D(fieldSize.getWidth() + 100, fieldSize.getHeight() + 100); //this will be implemented in the next push, it's for testing only
+        double meteorSpacing = Math.random() * 100;
+        Point2D src;
+        if (Math.random() * 10 < 5) {
+            if (Math.random() * 10 < 5) {
+                src = new Point2D(-meteorSpacing, -meteorSpacing);
+            }else {
+                src = new Point2D(-meteorSpacing, fieldSize.getHeight() + meteorSpacing);
+            }
+        }else {
+            if (Math.random() * 10 < 5) {
+                src = new Point2D(fieldSize.getWidth() + meteorSpacing, fieldSize.getHeight() + meteorSpacing);
+            }else {
+                src = new Point2D(fieldSize.getWidth() + meteorSpacing, -meteorSpacing);
+            }
+        }
         this.meteor = new MeteorImpl(level, src, target, fieldSize);
         this.gameController = gameController;
     }
