@@ -27,6 +27,7 @@ import view.menu.OptionsView;
  */
 public class OptionsController implements FXMLController {
 
+    private static final BoxBlur TRANSPARENT = new BoxBlur(0, 0, 0);
     private static final String BACK_KEY = "back";
     private static final String FIRST_CHOICE_CB1 = "720x480";
     private static final String SECOND_CHOICE_CB1 = "1024x600";
@@ -130,7 +131,7 @@ public class OptionsController implements FXMLController {
                 SoundUtils.muteAllSounds();
             }
         }
-        grid.setEffect(null);
+        grid.setEffect(TRANSPARENT);
         new MenuController(this.account, this.stageController).start();
         }
 

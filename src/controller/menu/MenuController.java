@@ -27,7 +27,7 @@ public class MenuController implements FXMLController {
     private static final String OPTIONS_KEY = "options";
     private static final String EXIT_KEY = "exit";
     private static final int BLUR_EFFECT_RANGE = 5;
-    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
+    private final BoxBlur blur;
     private final Account account;
     private ResourceBundle bundle;
     private final StageController stageController;
@@ -49,6 +49,7 @@ public class MenuController implements FXMLController {
     public MenuController(final Account account, final StageController stageController) {
         this.account = account;
         this.stageController = stageController;
+        this.blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     }
 
     /**
@@ -114,13 +115,13 @@ public class MenuController implements FXMLController {
         } else {
             SoundUtils.muteAllSounds();
         }
-       final  Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
+        final Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
-            Platform.exit();
             if (account.getSettings().isSoundOn()) {
                 SoundUtils.BUTTON_CLICKED.play();
                 SoundUtils.muteAllSounds();
             }
+            Platform.exit();
         } else {
             grid.setEffect(null);
             if (account.getSettings().isSoundOn()) {

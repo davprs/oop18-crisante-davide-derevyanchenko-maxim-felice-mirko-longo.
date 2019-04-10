@@ -29,7 +29,7 @@ public abstract class AbstractView {
         try {
             this.scene = new Scene(this.getRoot(), this.getWidth(), this.getHeight());
         } catch (IOException e) {
-            ErrorLog.getLog().printError();
+            ErrorLog.getLog().printError(e);
             System.exit(0);
         }
     }

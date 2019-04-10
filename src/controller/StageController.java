@@ -7,9 +7,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import utilities.SoundUtils;
@@ -21,14 +19,7 @@ public class StageController {
 
     private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private final Stage stage;
-    private final EventHandler<KeyEvent> pauseHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(final KeyEvent event) {
-            if (event.getCode().compareTo(KeyCode.ESCAPE) == 0) {
-                System.out.println("funzia");
-            }
-        }
-    };
+
     private final EventHandler<WindowEvent> exitWindow = new EventHandler<WindowEvent>() {
         @Override
         public void handle(final WindowEvent event) {
@@ -45,7 +36,6 @@ public class StageController {
     public StageController(final Stage stage) {
         this.stage = stage;
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        this.stage.addEventHandler(KeyEvent.KEY_PRESSED, this.pauseHandler);
         this.stage.setOnCloseRequest(this.exitWindow);
     }
 

@@ -1,8 +1,12 @@
 package controller.field;
 
 import controller.StageController;
+import controller.menu.PauseController;
 import controller.threading.SpawnAgent;
+import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import model.account.Account;
 import view.field.FieldView;
 import view.field.GameView;
@@ -15,6 +19,9 @@ import view.field.OverlayView;
 public class GameController {
 
     private final FieldController fieldController;
+    private final GameView gameView;
+    private final FieldView fieldView;
+    private final OverlayView overlayView;
     private boolean inPause;
     private boolean ended;
 
@@ -26,13 +33,24 @@ public class GameController {
      */
     public GameController(final Account account, final StageController stageController) {
         this.ended = false;
-        final GameView overlay = new GameView(stageController);
-        final FieldView fieldView = new FieldView(stageController);
-        final OverlayView ov = new OverlayView(stageController);
-        stageController.setScene(overlay.getScene());
+        this.gameView = new GameView(stageController);
+        final GameController controller = this;
+        final EventHandler<KeyEvent> exitHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(final KeyEvent event) {
+                if (event.getCode().compareTo(KeyCode.ESCAPE) == 0) {
+                    controller.setInPause(true);
+                    new PauseController(account, stageController, controller).start();
+                }
+            }
+        };
+        this.gameView.getScene().setOnKeyPressed(exitHandler);
+        this.fieldView = new FieldView(stageController);
+        this.overlayView = new OverlayView(stageController);
+        stageController.setScene(this.gameView.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
-        overlay.getRoot().getChildren().add(fieldView.getSubScene());
-        overlay.getRoot().getChildren().add(ov.getSubScene());
+        this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
+        this.gameView.getRoot().getChildren().add(this.overlayView.getSubScene());
         this.fieldController = new FieldController(this, fieldView);
         new SpawnAgent(this, 1, fieldView, this.fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
     }
@@ -80,5 +98,29 @@ public class GameController {
      */
     public synchronized boolean isEnded() {
         return this.ended;
+    }
+
+    /**
+     * Get the game view.
+     * @return the game view
+     */
+    public GameView getView() {
+        return this.gameView;
+    }
+
+    /**
+     * Get the fieldView.
+     * @return the fieldView
+     */
+    public FieldView getFieldView() {
+        return fieldView;
+    }
+
+    /**
+     * Get the overlayView.
+     * @return the overlayView
+     */
+    public OverlayView getOverlayView() {
+        return overlayView;
     }
 }

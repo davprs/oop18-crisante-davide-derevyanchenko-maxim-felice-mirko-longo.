@@ -125,7 +125,7 @@ public class LoginController implements FXMLController {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
                 } catch (IOException e) {
-                    ErrorLog.getLog().printError();
+                    ErrorLog.getLog().printError(e);
                     System.exit(0);
                 }
             } else {
@@ -156,7 +156,7 @@ public class LoginController implements FXMLController {
         try {
             return new AccountManagerImpl(FileUtils.getAccounts());
        } catch (IOException e) {
-           ErrorLog.getLog().printError();
+           ErrorLog.getLog().printError(e);
            System.exit(0);
        }
         return null;

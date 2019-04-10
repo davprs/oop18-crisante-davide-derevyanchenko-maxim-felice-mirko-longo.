@@ -26,7 +26,7 @@ public class OverlayView {
         try {
             this.root = FXMLLoader.load(ClassLoader.getSystemResource(OVERLAY_VIEW));
         } catch (IOException e) {
-            ErrorLog.getLog().printError();
+            ErrorLog.getLog().printError(e);
             System.exit(0);
         }
         this.overlay = new SubScene(this.root, stageController.getScene().getWidth(), stageController.getScene().getHeight());

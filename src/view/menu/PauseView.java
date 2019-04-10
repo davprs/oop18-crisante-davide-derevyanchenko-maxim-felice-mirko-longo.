@@ -3,59 +3,50 @@ package view.menu;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import controller.StageController;
+import controller.menu.PauseController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.SubScene;
 import model.account.Account;
 import utilities.BundleUtils;
-import view.AbstractView;
+import utilities.ErrorLog;
 
 /**
  * 
  * View of the Pause window.
  *
  */
-public class PauseView extends AbstractView {
+public class PauseView {
 
     private static final String PAUSE_VIEW = "pauseView.fxml";
     private static final String PAUSE_BUNDLE = "menu.PauseBundle";
-    private final double prefWidth;
-    private final double prefHeight;
-    private final FXMLLoader loader;
+    private static final double WIDTH = 5.48;
+    private static final double HEIGHT = 3.08;
+    private SubScene subScene;
 
     /**
      * 
      * @param account the game account
-     * @param stageController the controller class
+     * @param stageController the controller class of the stage
+     * @param pauseController the controller of this class
      */
-    public PauseView(final Account account, final StageController stageController) {
-        this.prefWidth = account.getSettings().getResolution().getWidth();
-        this.prefHeight = account.getSettings().getResolution().getHeight();
+    public PauseView(final Account account, final StageController stageController, final PauseController pauseController) {
         BundleUtils.setLocale(account.getSettings().getLanguage());
-        this.loader = new FXMLLoader(ClassLoader.getSystemResource(PAUSE_VIEW), ResourceBundle.getBundle(PAUSE_BUNDLE));
-        this.loader.setController(stageController);
-        super.init();
+        final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PAUSE_VIEW), ResourceBundle.getBundle(PAUSE_BUNDLE));
+        loader.setController(pauseController);
+        try {
+            this.subScene = new SubScene(loader.load(), stageController.getScene().getWidth() / WIDTH, stageController.getScene().getHeight() / HEIGHT);
+        } catch (IOException e) {
+            ErrorLog.getLog().printError();
+            System.exit(0);
+        }
     }
 
     /**
-     * {@inheritDoc}
+     * Get the SubScene.
+     * @return the SubScene
      */
-    @Override
-    public Parent getRoot() throws IOException {
-        return this.loader.load();
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected double getWidth() {
-        return this.prefWidth;
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected double getHeight() {
-        return this.prefHeight;
+    public SubScene getSubScene() {
+        return this.subScene;
     }
 
 }

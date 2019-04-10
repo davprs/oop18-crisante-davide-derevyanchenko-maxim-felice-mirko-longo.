@@ -153,7 +153,7 @@ public class RegisterController implements FXMLController {
                 try {
                     FileUtils.printAccount(account);
                 } catch (IOException e) {
-                    ErrorLog.getLog().printError();
+                    ErrorLog.getLog().printError(e);
                     System.exit(0);
                 }
                 AlertUtils.createRegisterAccountDialog();
@@ -190,7 +190,7 @@ public class RegisterController implements FXMLController {
         try {
             return new AccountManagerImpl(FileUtils.getAccounts());
        } catch (IOException e) {
-           ErrorLog.getLog().printError();
+           ErrorLog.getLog().printError(e);
            System.exit(0);
        }
         return null;

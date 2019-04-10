@@ -15,15 +15,14 @@ public class AlertFactoryImpl implements AlertFactory {
 
     private static final String ERROR = "Error";
     private static final String BUNDLE_ALERT = "menu.DialogBundle";
-    private static final String OPTIONS_BUNDLE_ALERT = "menu.OptionDialogBundle";
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(BUNDLE_ALERT);
-    private static final ResourceBundle OPTIONS_BUNDLE = ResourceBundle.getBundle(OPTIONS_BUNDLE_ALERT);
     private static final String DIALOG_CONTEXT_KEY = "dialogContentText";
     private static final String DIALOG_HEADER_KEY = "dialogHeaderText";
     private static final String OPTIONS_DIALOG_CONTEXT_KEY = "optionsDialogContentText";
     private static final String OPTIONS_DIALOG_HEADER_KEY = "optionsDialogHeaderText";
     private static final String URL_CSS = "/css/alertStyle.css";
-    private static final String CSS_ID_DIALOG = "myDialog"; 
+    private static final String CSS_ID_DIALOG = "myDialog";
+    private ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_ALERT);
+
     /**
      * {@inheritDoc}
      */
@@ -125,21 +124,24 @@ public class AlertFactoryImpl implements AlertFactory {
      */
     @Override
     public Alert getExitConfirmationDialog() {
-        final Alert alert = new Alert(AlertType.CONFIRMATION, BUNDLE.getString(DIALOG_CONTEXT_KEY), ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText(BUNDLE.getString(DIALOG_HEADER_KEY));
+        this.bundle = ResourceBundle.getBundle(BUNDLE_ALERT);
+        final Alert alert = new Alert(AlertType.CONFIRMATION, bundle.getString(DIALOG_CONTEXT_KEY), ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText(bundle.getString(DIALOG_HEADER_KEY));
         final DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
                 getClass().getResource(URL_CSS).toExternalForm());
         dialogPane.getStyleClass().add(CSS_ID_DIALOG);
         return alert;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Alert getConfirmOptionsDialog() {
-        final Alert alert = new Alert(AlertType.CONFIRMATION, OPTIONS_BUNDLE.getString(OPTIONS_DIALOG_CONTEXT_KEY), ButtonType.YES, ButtonType.NO);
-        alert.setHeaderText(OPTIONS_BUNDLE.getString(OPTIONS_DIALOG_HEADER_KEY));
+        this.bundle = ResourceBundle.getBundle(BUNDLE_ALERT);
+        final Alert alert = new Alert(AlertType.CONFIRMATION, bundle.getString(OPTIONS_DIALOG_CONTEXT_KEY), ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText(bundle.getString(OPTIONS_DIALOG_HEADER_KEY));
         final DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(
                 getClass().getResource(URL_CSS).toExternalForm());

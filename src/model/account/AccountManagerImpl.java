@@ -46,7 +46,7 @@ public class AccountManagerImpl implements AccountManager {
         try {
             return isPresent(account) && account.getPassword().equals(FileUtils.getPassword(account.getUsername()));
         } catch (IOException e) {
-            ErrorLog.getLog().printError();
+            ErrorLog.getLog().printError(e);
             System.exit(0);
         }
         return false;

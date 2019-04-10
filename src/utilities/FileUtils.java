@@ -79,7 +79,7 @@ public final class FileUtils {
                                                       Boolean.parseBoolean(iterator.next())))
                                               .build();
                     } catch (IOException e) {
-                        ErrorLog.getLog().printError();
+                        ErrorLog.getLog().printError(e);
                         System.exit(0);
                     }
                     return null;

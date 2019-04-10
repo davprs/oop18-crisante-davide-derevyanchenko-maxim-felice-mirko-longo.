@@ -47,7 +47,7 @@ public class FieldController {
         try {
             new Robot().mouseMove((int) RESOLUTION.getWidth() / 2, (int) RESOLUTION.getHeight() / 2);
         } catch (AWTException e) {
-            ErrorLog.getLog().printError();
+            ErrorLog.getLog().printError(e);
             System.exit(0);
         }
     }
