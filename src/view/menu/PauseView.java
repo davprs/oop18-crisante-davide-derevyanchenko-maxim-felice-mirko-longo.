@@ -18,7 +18,7 @@ import utilities.ErrorLog;
 public class PauseView {
 
     private static final String PAUSE_VIEW = "pauseView.fxml";
-    private static final String PAUSE_BUNDLE = "menu.PauseBundle";
+    private static final String PAUSE_BUNDLE = "game.PauseBundle";
     private static final double WIDTH = 5.48;
     private static final double HEIGHT = 3.08;
     private SubScene subScene;

@@ -5,6 +5,6 @@ mk
 false
 1920.0
 1080.0
-en
-spaceship.png
+it
+enemyShip2
 true

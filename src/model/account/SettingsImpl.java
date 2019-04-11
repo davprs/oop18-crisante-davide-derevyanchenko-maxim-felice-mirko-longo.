@@ -13,7 +13,7 @@ public final class SettingsImpl implements Settings {
 
     private static final Dimension RES = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Dimension2D RES_DEFAULT = new Dimension2D(RES.getWidth(), RES.getHeight());
-    private static final String IMG_DEFAULT = "spaceship.png";
+    private static final String IMG_DEFAULT = "spaceship";
     private static final String LANGUAGE_DEFAULT = "en";
     private boolean isFullScreen;
     private Dimension2D resolution;

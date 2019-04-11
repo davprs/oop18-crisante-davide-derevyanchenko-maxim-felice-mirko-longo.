@@ -8,9 +8,9 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.account.Account;
+import utilities.SoundUtils;
 import view.field.FieldView;
 import view.field.GameView;
-import view.field.OverlayView;
 
 /**
  * Class that represents the controller of the game.
@@ -19,9 +19,9 @@ import view.field.OverlayView;
 public class GameController {
 
     private final FieldController fieldController;
+    private final OverlayController overlayController;
     private final GameView gameView;
     private final FieldView fieldView;
-    private final OverlayView overlayView;
     private boolean inPause;
     private boolean ended;
 
@@ -40,17 +40,21 @@ public class GameController {
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ESCAPE) == 0) {
                     controller.setInPause(true);
+                    SoundUtils.muteAllSounds();
                     new PauseController(account, stageController, controller).start();
                 }
             }
         };
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.GAMEPLAY_MUSIC.loop();
+        }
         this.gameView.getScene().setOnKeyPressed(exitHandler);
         this.fieldView = new FieldView(stageController);
-        this.overlayView = new OverlayView(stageController);
         stageController.setScene(this.gameView.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
-        this.gameView.getRoot().getChildren().add(this.overlayView.getSubScene());
+        this.overlayController = new OverlayController(account, null, stageController, this);
+        this.overlayController.start();
         this.fieldController = new FieldController(this, fieldView);
         new SpawnAgent(this, 1, fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
     }
@@ -117,10 +121,10 @@ public class GameController {
     }
 
     /**
-     * Get the overlayView.
-     * @return the overlayView
+     * Get the overlayController.
+     * @return the overlayController
      */
-    public OverlayView getOverlayView() {
-        return overlayView;
+    public OverlayController getOverlayController() {
+        return this.overlayController;
     }
 }

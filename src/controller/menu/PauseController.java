@@ -1,6 +1,7 @@
 package controller.menu;
 
 import java.net.URL;
+
 import java.util.ResourceBundle;
 import controller.FXMLController;
 import controller.StageController;
@@ -11,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
 import model.account.Account;
+import utilities.SoundUtils;
 import view.menu.PauseView;
+
 /**
  * 
  * the class controls the game when is paused.
@@ -64,7 +67,7 @@ public class PauseController implements FXMLController {
     @Override
     public void start() {
         this.gameController.getFieldView().getRoot().setEffect(BLUR);
-        this.gameController.getOverlayView().getRoot().setEffect(BLUR);
+        this.gameController.getOverlayController().getView().getRoot().setEffect(BLUR);
         this.gameController.getView().getRoot().getChildren().add(pauseView.getSubScene());
     }
 
@@ -74,9 +77,12 @@ public class PauseController implements FXMLController {
     @FXML
     public void resume() {
         this.gameController.getFieldView().getRoot().setEffect(TRANSPARENT);
-        this.gameController.getOverlayView().getRoot().setEffect(TRANSPARENT);
+        this.gameController.getOverlayController().getView().getRoot().setEffect(TRANSPARENT);
         this.gameController.getView().getRoot().getChildren().remove(this.pauseView.getSubScene());
         this.gameController.setInPause(false);
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.GAMEPLAY_MUSIC.loop();
+        }
     }
 
     /**

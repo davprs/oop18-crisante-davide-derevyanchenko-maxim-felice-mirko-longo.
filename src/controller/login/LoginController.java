@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -25,7 +26,6 @@ import model.account.AccountManagerImpl;
 import utilities.AlertUtils;
 import utilities.ErrorLog;
 import utilities.FileUtils;
-import utilities.SoundUtils;
 import view.login.LoginView;
 
 /**
@@ -33,8 +33,16 @@ import view.login.LoginView;
  *
  */
 public class LoginController implements FXMLController {
+
     private static final int BLUR_EFFECT_RANGE = 3;
-    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
+    private final Effect blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
+    private final AccountManager accManager;
+    private final EventHandler<KeyEvent> loginHandler;
+    private final EventHandler<KeyEvent> registerHandler;
+    private final EventHandler<KeyEvent> exitHandler;
+    private final StageController stageController;
+    @FXML
+    private GridPane grid;
     @FXML
     private Label login;
     @FXML
@@ -51,13 +59,6 @@ public class LoginController implements FXMLController {
     private Button regBtn;
     @FXML
     private Button exitBtn;
-    @FXML
-    private GridPane grid;
-    private final AccountManager accManager;
-    private final EventHandler<KeyEvent> loginHandler;
-    private final EventHandler<KeyEvent> registerHandler;
-    private final EventHandler<KeyEvent> exitHandler;
-    private final StageController stageController;
 
     /**
      * Build the LoginController.
@@ -70,30 +71,24 @@ public class LoginController implements FXMLController {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
                     loginBtn.fire();
                 }
-               grid.setEffect(null);
             }
         };
         this.registerHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
                     regBtn.fire();
-                } 
-                grid.setEffect(null);
+                }
             }
         };
         this.exitHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
                     exitBtn.fire();
                 }
-                grid.setEffect(null);
             }
         };
     }
@@ -129,10 +124,14 @@ public class LoginController implements FXMLController {
                     System.exit(0);
                 }
             } else {
+                this.grid.setEffect(blur);
                 AlertUtils.createLoginPasswordError();
+                this.grid.setEffect(null);
             }
         } else {
+            this.grid.setEffect(blur);
             AlertUtils.createLoginUsernameError();
+            this.grid.setEffect(null);
         }
     }
 
@@ -164,11 +163,6 @@ public class LoginController implements FXMLController {
 
     private void startMenu(final Account account) {
         new MenuController(account, this.stageController).start();
-        if (account.getSettings().isSoundOn()) {
-            SoundUtils.MAIN_THEME.loop();
-        } else {
-            SoundUtils.muteAllSounds();
-        }
     }
 
     private void setHandlers() {

@@ -5,21 +5,17 @@ import java.applet.AudioClip;
 
 /**
  * 
- * this class contains all sounds of the game.
+ * This class contains all sounds of the game.
  *
  */
 public final class SoundUtils {
 
     /**
-     * 
+     * Sound of the Menu.
      */
     public static final AudioClip MAIN_THEME = Applet.newAudioClip(ClassLoader.getSystemResource("mainTheme.wav"));
     /**
-     * 
-     */
-    public static final AudioClip BUTTON_CLICKED = Applet.newAudioClip(ClassLoader.getSystemResource("buttonCliked.wav"));
-    /**
-     * 
+     * Main sound of the Game.
      */
     public static final AudioClip GAMEPLAY_MUSIC = Applet.newAudioClip(ClassLoader.getSystemResource("low-fi.wav"));
 
@@ -29,7 +25,6 @@ public final class SoundUtils {
      * Method to mute all the sounds in the game.
      */
     public static void muteAllSounds() {
-        BUTTON_CLICKED.stop();
         MAIN_THEME.stop();
         GAMEPLAY_MUSIC.stop();
     }

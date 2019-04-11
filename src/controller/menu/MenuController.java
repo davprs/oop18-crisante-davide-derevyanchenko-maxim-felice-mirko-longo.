@@ -29,8 +29,10 @@ public class MenuController implements FXMLController {
     private static final int BLUR_EFFECT_RANGE = 5;
     private final BoxBlur blur;
     private final Account account;
-    private ResourceBundle bundle;
     private final StageController stageController;
+    private ResourceBundle bundle;
+    @FXML
+    private GridPane grid;
     @FXML
     private Button playBtn;
     @FXML
@@ -39,12 +41,11 @@ public class MenuController implements FXMLController {
     private Button optionsBtn;
     @FXML
     private Button exitBtn;
-    @FXML
-    private GridPane grid;
+
     /**
-     * 
-     * @param account 
-     * @param stageController 
+     * Build the MenuController.
+     * @param account the account of the player
+     * @param stageController the controller of the stage
      */
     public MenuController(final Account account, final StageController stageController) {
         this.account = account;
@@ -61,6 +62,11 @@ public class MenuController implements FXMLController {
 //        this.stageController.autosize();
         this.stageController.setDimension(this.account.getSettings().getResolution());
         this.stageController.setFullScreen(this.account.getSettings().isFullScreenOn());
+        if (account.getSettings().isSoundOn()) {
+            SoundUtils.MAIN_THEME.play();
+        } else {
+            SoundUtils.muteAllSounds();
+        }
     }
 
     /**
@@ -69,13 +75,6 @@ public class MenuController implements FXMLController {
     @FXML
     public void playTheGame() {
         new GameController(this.account, this.stageController);
-        if (account.getSettings().isSoundOn()) {
-            SoundUtils.BUTTON_CLICKED.play();
-            SoundUtils.MAIN_THEME.stop();
-            SoundUtils.GAMEPLAY_MUSIC.play();
-        } else {
-            SoundUtils.muteAllSounds();
-        }
     }
 
     /**
@@ -84,11 +83,6 @@ public class MenuController implements FXMLController {
     @FXML
     public void checkHighscore() {
         new HighscoreController(this.account, this.stageController).start();
-        if (account.getSettings().isSoundOn()) {
-            SoundUtils.BUTTON_CLICKED.play();
-        } else {
-            SoundUtils.muteAllSounds();
-        }
     }
 
     /**
@@ -97,11 +91,6 @@ public class MenuController implements FXMLController {
     @FXML
     public void enterOptions() {
         new OptionsController(this.account, this.stageController).start();
-        if (account.getSettings().isSoundOn()) {
-            SoundUtils.BUTTON_CLICKED.play();
-        } else {
-            SoundUtils.muteAllSounds();
-        }
     }
 
     /**
@@ -109,26 +98,13 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void exitGame() { 
-        grid.setEffect(blur);
-        if (account.getSettings().isSoundOn()) {
-            SoundUtils.BUTTON_CLICKED.play();
-        } else {
-            SoundUtils.muteAllSounds();
-        }
+        this.grid.setEffect(blur);
         final Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
-            if (account.getSettings().isSoundOn()) {
-                SoundUtils.BUTTON_CLICKED.play();
-                SoundUtils.muteAllSounds();
-            }
+            SoundUtils.muteAllSounds();
             Platform.exit();
         } else {
-            grid.setEffect(null);
-            if (account.getSettings().isSoundOn()) {
-                SoundUtils.BUTTON_CLICKED.play();
-            } else {
-                SoundUtils.muteAllSounds();
-            }
+            this.grid.setEffect(null);
         }
     }
     /**
@@ -141,10 +117,10 @@ public class MenuController implements FXMLController {
     }
 
     private void setLanguage() {
-        this.playBtn.setText(bundle.getString(PLAY_KEY));
-        this.highscoreBtn.setText(bundle.getString(HIGHSCORES_KEY));
-        this.optionsBtn.setText(bundle.getString(OPTIONS_KEY));
-        this.exitBtn.setText(bundle.getString(EXIT_KEY));
+        this.playBtn.setText(this.bundle.getString(PLAY_KEY));
+        this.highscoreBtn.setText(this.bundle.getString(HIGHSCORES_KEY));
+        this.optionsBtn.setText(this.bundle.getString(OPTIONS_KEY));
+        this.exitBtn.setText(this.bundle.getString(EXIT_KEY));
     }
 
 }

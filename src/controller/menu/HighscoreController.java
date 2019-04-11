@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.account.Account;
+import utilities.ErrorLog;
 import utilities.FileUtils;
-import utilities.SoundUtils;
 import view.menu.HighscoreView;
 
 /**
@@ -25,9 +25,11 @@ public class HighscoreController implements FXMLController {
 
     private static final String BACK_KEY = "back";
     private static final String LABEL_KEY = "highscore";
-    private ResourceBundle bundle;
+    private static final String NICKNAME_KEY = "nickname";
+    private static final String HIGHSCORE_KEY = "bestscore";
     private final Account account;
     private final StageController stageController;
+    private ResourceBundle bundle;
     @FXML
     private Button back;
     @FXML
@@ -38,8 +40,9 @@ public class HighscoreController implements FXMLController {
     private TableColumn<Account, String> nickname;
     @FXML
     private TableColumn<Account, String> highscore;
+
     /**
-     * 
+     * Build the HighScoreController.
      * @param account is an account.
      * @param stageController 
      */
@@ -49,40 +52,30 @@ public class HighscoreController implements FXMLController {
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         this.bundle = resources;
         setLanguage();
-        this.nickname.setCellValueFactory(new PropertyValueFactory<>("username"));
+        this.nickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
         this.highscore.setCellValueFactory(new PropertyValueFactory<>("bestScore"));
         try {
             this.table.getItems().addAll(FileUtils.getAccounts());
-            this.table.getSortOrder().add(highscore);
         } catch (IOException e) {
-            e.printStackTrace();
+            ErrorLog.getLog().printError();
+            System.exit(0);
         }
+        this.table.getSortOrder().add(highscore);
     }
+
     /**
      * Method to go back to the menu.
      */
     public void goBack() {
-        if (account.getSettings().isSoundOn()) {
-            SoundUtils.BUTTON_CLICKED.play();
-        } else {
-            SoundUtils.muteAllSounds();
-        }
         new MenuController(this.account, this.stageController).start();
     }
 
-    /**
-     * 
-     */
-    private void setLanguage() {
-        this.back.setText(this.bundle.getString(BACK_KEY));
-        this.label.setText(this.bundle.getString(LABEL_KEY));
-    }
     /**
      * {@inheritDoc}
      */
@@ -91,4 +84,10 @@ public class HighscoreController implements FXMLController {
         this.stageController.setScene(new HighscoreView(this.account, this).getScene());
     }
 
+    private void setLanguage() {
+        this.back.setText(this.bundle.getString(BACK_KEY));
+        this.label.setText(this.bundle.getString(LABEL_KEY));
+        this.nickname.setText(this.bundle.getString(NICKNAME_KEY));
+        this.highscore.setText(this.bundle.getString(HIGHSCORE_KEY));
+    }
 }
