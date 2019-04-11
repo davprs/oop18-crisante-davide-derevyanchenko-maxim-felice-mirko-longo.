@@ -20,6 +20,8 @@ public class EnemyController implements EntityController {
     private boolean freeze;
     private Dimension2D fieldSize;
     private Point2D centralPosition;
+    private double rad;
+
 
     /**
      * Build a new EnemyController and his EnemyShip.
@@ -52,8 +54,7 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void draw() {
-        final double angle = Math.toDegrees(Math.atan2(this.centralPosition.getY()- ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(),
-                this.centralPosition.getX() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getX())) + 180;
+        final double angle = Math.toDegrees(this.rad) + 180;
         this.gameController.getFieldView().drawEntity(image, angle, this.enemy.getBoundary());
     }
 
@@ -62,15 +63,14 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void update() {
-        double rad;
         double movY, movX;
         this.centralPosition = new Point2D((enemy.getBoundary().getMinX() + enemy.getBoundary().getMaxX()) / 2,
                 (enemy.getBoundary().getMinY() + enemy.getBoundary().getMaxY()) / 2);
-        rad = Math.atan2(this.centralPosition.getY() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(), 
+        this.rad = Math.atan2(this.centralPosition.getY() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(), 
                 this.centralPosition.getX() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getX());
 
-        movY = - this.enemy.getSpeed() * Math.sin(rad);
-        movX = - this.enemy.getSpeed() * Math.cos(rad);
+        movY = -this.enemy.getSpeed() * Math.sin(this.rad);
+        movX = -this.enemy.getSpeed() * Math.cos(this.rad);
         enemy.update(new Point2D(movX, movY));
     }
 

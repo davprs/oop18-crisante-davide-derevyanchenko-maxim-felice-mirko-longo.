@@ -21,7 +21,7 @@ public class BulletImpl implements Bullet {
     private double movX;
     private double movY;
     private final double angle;
-    private Dimension2D fieldSize;
+    private final Dimension2D fieldSize;
 
     /**
      * Build a new Bullet.

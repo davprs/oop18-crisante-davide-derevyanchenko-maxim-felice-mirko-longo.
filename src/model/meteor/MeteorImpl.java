@@ -13,14 +13,13 @@ public class MeteorImpl implements Meteor {
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
     private final int damage;
-    private final double speed;
     private Point2D position;
-    private double movX;
-    private double movY;
+    private final double movX;
+    private final double movY;
     private Point2D target;
-    private Dimension2D fieldSize;
+    private final Dimension2D fieldSize;
     private boolean enteredInField;
-    private double angle;
+    private final double angle;
 
     /**
      * Build a new Meteor.
@@ -30,16 +29,16 @@ public class MeteorImpl implements Meteor {
      * @param fieldSize the field width and height.
      */
     public MeteorImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        this.speed = level * 3;
+        final int speed = level * 3;
         this.fieldSize = fieldSize;
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.position = src;
-        Point2D centralPosition = new Point2D(src.getX() + WIDTH / 2, src.getY() + HEIGHT / 2);
+        final Point2D centralPosition = new Point2D(src.getX() + WIDTH / 2, src.getY() + HEIGHT / 2);
         this.angle = Math.atan2(centralPosition.getY() - target.getY(), 
                 centralPosition.getX() - target.getX());
 
-        this.movY = - speed * Math.sin(angle);
-        this.movX = - speed * Math.cos(angle);
+        this.movY = -speed * Math.sin(angle);
+        this.movX = -speed * Math.cos(angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
         this.enteredInField = false;
     }
@@ -87,7 +86,7 @@ public class MeteorImpl implements Meteor {
     public synchronized void update() {
         this.position = new Point2D(position.getX() + movX, position.getY() + movY);
         this.target = new Point2D(target.getX() + movX, target.getY() + movY);
-        if(position.getX() <= fieldSize.getWidth() && position.getX() > 0 && position.getY() <= fieldSize.getHeight() && position.getY() > 0) {
+        if (position.getX() <= fieldSize.getWidth() && position.getX() > 0 && position.getY() <= fieldSize.getHeight() && position.getY() > 0) {
             this.enteredInField = true;
         }
     }

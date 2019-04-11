@@ -1,7 +1,5 @@
 package model.ship.enemyship;
 
-import java.awt.Toolkit;
-
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import model.Entity;
@@ -35,7 +33,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
         this.level = level;
         this.speed = level;
         this.framesToShoot = timeToShoot;
-        this.position = new Point2D(Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth(), Math.random() * Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        this.position = new Point2D(Math.random() * fieldSize.getWidth(), Math.random() * fieldSize.getHeight());
     }
 
     /**
