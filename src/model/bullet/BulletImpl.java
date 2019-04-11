@@ -78,6 +78,7 @@ public class BulletImpl implements Bullet {
     public boolean intersects(final Entity entity) {
         final boolean isIntersected = entity.getBoundary().intersects(this.getBoundary());
         if (isIntersected) {
+            this.destroy();
             entity.takeDamage(this.damage);
         }
         return isIntersected;

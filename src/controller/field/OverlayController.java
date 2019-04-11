@@ -5,10 +5,12 @@ import java.util.ResourceBundle;
 
 import controller.FXMLController;
 import controller.StageController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import model.Life;
 import model.account.Account;
+import utilities.ErrorLog;
 import view.field.OverlayView;
 
 /**
@@ -20,6 +22,7 @@ public class OverlayController implements FXMLController {
     private static final String LIVES = "LIVES";
     private static final String HP = "HP";
     private static final String SCORE = "SCORE";
+    private static final long WAITING_TIME = 20;
     private final Life life;
     private final OverlayView view;
     private final GameController gameController;
@@ -68,10 +71,18 @@ public class OverlayController implements FXMLController {
         new Thread(new Runnable() {
             @Override
             public void run() {
-               while (!gameController.isInPause()) {
-                   numberOfLives.setText(Integer.toString(life.getLives()));
-                   hpNumber.setText(Integer.toString(life.getHealth()));
-               }
+                while (!gameController.isInPause()) {
+                    try {
+                        Platform.runLater(() -> {
+                            numberOfLives.setText(Integer.toString(life.getLives()));
+                            hpNumber.setText(Integer.toString(life.getHealth()));
+                        });
+                        Thread.sleep(WAITING_TIME);
+                    } catch (InterruptedException e) {
+                        ErrorLog.getLog().printError();
+                        System.exit(0);
+                    }
+                }
             }
         }).start();
     }

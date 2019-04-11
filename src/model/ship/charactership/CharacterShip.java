@@ -1,6 +1,7 @@
 package model.ship.charactership;
 
 import javafx.geometry.Point2D;
+import model.Life;
 import model.ship.Ship;
 
 /**
@@ -35,4 +36,11 @@ public interface CharacterShip extends Ship {
      * Method that puts to zero the health and the lives to 0.
      */
     void endGame();
+
+    /**
+     * Method that gets the life of the character ship.
+     * 
+     * @return the Life of the character ship
+     */
+    Life getLife();
 }

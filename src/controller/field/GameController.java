@@ -53,9 +53,9 @@ public class GameController {
         stageController.setScene(this.gameView.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
-        this.overlayController = new OverlayController(account, null, stageController, this);
+        this.fieldController = new FieldController(this);
+        this.overlayController = new OverlayController(account, this.fieldController.getCharacter().getLife(), stageController, this);
         this.overlayController.start();
-        this.fieldController = new FieldController(this, fieldView);
         new SpawnAgent(this, 1, fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
     }
 

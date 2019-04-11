@@ -91,7 +91,6 @@ public class MeteorController implements EntityController {
      */
     @Override
     public void destroy() {
-        this.gameController.getFieldView().drawExplosion(this.meteor.getBoundary());
         this.gameController.getFieldController().removeMeteor(this);
     }
 }

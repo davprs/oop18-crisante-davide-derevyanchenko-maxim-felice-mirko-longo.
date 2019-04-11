@@ -1,12 +1,12 @@
 package controller.field;
 
-import java.awt.Dimension;
 import java.awt.MouseInfo;
-import java.awt.Toolkit;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import model.Entity;
+import model.Life;
 import model.ship.charactership.CharacterShip;
 import model.ship.charactership.CharacterShipImpl;
 
@@ -16,8 +16,8 @@ import model.ship.charactership.CharacterShipImpl;
  */
 public class CharacterController implements EntityController {
 
-    private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private static final Image SHIP_IMAGE = new Image("spaceship.png");
+    private final Dimension2D resolution;
     private final CharacterShip ship;
     private final GameController gameController;
     private final CameraController camController;
@@ -32,8 +32,9 @@ public class CharacterController implements EntityController {
      * @param camController  the camera controller of the view
      */
     public CharacterController(final GameController gameController, final CameraController camController) {
-        this.ship = new CharacterShipImpl(new Point2D(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2));
         this.gameController = gameController;
+        this.resolution = new Dimension2D(this.gameController.getView().getScene().getWidth(), this.gameController.getView().getScene().getHeight());
+        this.ship = new CharacterShipImpl(new Point2D(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2));
         this.camController = camController;
         this.immunity = false;
         this.lastUpdate = System.currentTimeMillis();
@@ -42,7 +43,7 @@ public class CharacterController implements EntityController {
     private Point2D getUpdatedPosition() {
         final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
         final Point2D mousePosition = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
-        final Point2D vector = mousePosition.subtract(RESOLUTION.getWidth() / 2, RESOLUTION.getHeight() / 2);
+        final Point2D vector = mousePosition.subtract(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2);
         final long time = System.currentTimeMillis();
         final long timeFromLastUpdate = time - this.lastUpdate;
         this.lastUpdate = time;
@@ -110,6 +111,24 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void destroy() {
-        this.gameController.getFieldView().drawExplosion(this.ship.getBoundary());
+        this.gameController.setEnded(true);
+    }
+
+    /**
+     * Method that gets the life of the character ship.
+     * 
+     * @return the Life of the character ship
+     */
+    public Life getLife() {
+        return this.ship.getLife();
+    }
+
+    /**
+     * Method that updates the moment time when the character ship was updated. Needed when the game is paused.
+     * 
+     * @param lastUpdate the moment in which the ship has to restart to update
+     */
+    public synchronized void setLastUpdate(final long lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

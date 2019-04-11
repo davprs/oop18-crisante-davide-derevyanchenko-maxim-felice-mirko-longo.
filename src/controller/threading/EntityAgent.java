@@ -3,7 +3,6 @@ package controller.threading;
 import controller.field.EntityController;
 import controller.field.FieldController;
 import controller.field.GameController;
-import javafx.application.Platform;
 import model.Entity;
 import utilities.ErrorLog;
 
@@ -32,7 +31,7 @@ public abstract class EntityAgent extends Thread {
      * {@inheritDoc}
      */
     public void run() {
-        while (this.entityController.getEntity().isAlive()) {
+        while (this.entityController.getEntity().isAlive() && !this.gameController.isEnded()) {
 
             try {
                 if (!this.gameController.isInPause()) {
@@ -45,7 +44,7 @@ public abstract class EntityAgent extends Thread {
                 System.exit(0);
             }
         }
-        Platform.runLater(() -> this.entityController.destroy());
+        this.entityController.destroy();
     }
 
     /**

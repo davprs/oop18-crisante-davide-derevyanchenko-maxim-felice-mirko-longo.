@@ -104,7 +104,6 @@ public class EnemyController implements EntityController {
      */
     @Override
     public void destroy() {
-        this.gameController.getFieldView().drawExplosion(this.enemy.getBoundary());
         this.gameController.getFieldController().removeEnemy(this);
     }
 

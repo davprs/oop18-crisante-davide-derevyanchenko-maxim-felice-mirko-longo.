@@ -12,7 +12,6 @@ import controller.threading.CharacterAgent;
 import controller.threading.CharacterBulletAgent;
 import controller.threading.DrawAgent;
 import utilities.ErrorLog;
-import view.field.FieldView;
 
 /**
  * The field controller's class.
@@ -27,23 +26,24 @@ public class FieldController {
     private final List<BulletController> characterBullets;
     private final List<MeteorController> meteors;
     private final GameController gameController;
+    private final DrawAgent drawAgent;
 
     /**
      * Constructor of the FieldController.
      * 
      * @param gameController the GameController of this session
-     * @param fieldView the view of this field
      */
-    public FieldController(final GameController gameController, final FieldView fieldView) {
+    public FieldController(final GameController gameController) {
         this.gameController = gameController;
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();
         this.meteors = new LinkedList<>();
-        final CameraController camController = new CameraController(fieldView.getCamera());
+        final CameraController camController = new CameraController(this.gameController.getFieldView().getCamera());
         this.characterController = new CharacterController(this.gameController, camController);
         this.startAgent(new CharacterAgent(this.characterController, this.gameController));
-        this.startAgent(new DrawAgent(this.gameController, fieldView, camController));
+        this.drawAgent = new DrawAgent(this.gameController, this, camController);
+        this.startAgent(this.drawAgent);
         try {
             new Robot().mouseMove((int) RESOLUTION.getWidth() / 2, (int) RESOLUTION.getHeight() / 2);
         } catch (AWTException e) {
@@ -151,8 +151,9 @@ public class FieldController {
      * 
      * @param enemy the enemy destroyed
      */
-    public void removeEnemy(final EnemyController enemy) {
+    public synchronized void removeEnemy(final EnemyController enemy) {
         this.enemies.remove(enemy);
+        this.drawAgent.addExplodingEntity(enemy);
     }
 
     /**
@@ -160,7 +161,7 @@ public class FieldController {
      * 
      * @param enemyBullet the enemy's bullet destroyed
      */
-    public void removeEnemyBullet(final BulletController enemyBullet) {
+    public synchronized void removeEnemyBullet(final BulletController enemyBullet) {
         this.enemyBullets.remove(enemyBullet);
     }
 
@@ -169,7 +170,7 @@ public class FieldController {
      * 
      * @param characterBullet the character's bullet destroyed
      */
-    public void removeCharacterBullet(final BulletController characterBullet) {
+    public synchronized void removeCharacterBullet(final BulletController characterBullet) {
         this.characterBullets.remove(characterBullet);
     }
 
@@ -178,8 +179,9 @@ public class FieldController {
      * 
      * @param meteor the meteor destroyed
      */
-    public void removeMeteor(final MeteorController meteor) {
+    public synchronized void removeMeteor(final MeteorController meteor) {
         this.meteors.remove(meteor);
+        this.drawAgent.addExplodingEntity(meteor);
     }
 
     private void startAgent(final Thread agent) {

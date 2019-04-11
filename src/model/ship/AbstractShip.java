@@ -72,7 +72,7 @@ public abstract class AbstractShip implements Ship {
      * Gets the Life.
      * @return the Life
      */
-    protected Life getLife() {
+    public Life getLife() {
         return this.life;
     }
 

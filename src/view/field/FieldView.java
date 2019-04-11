@@ -2,6 +2,8 @@ package view.field;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.LinkedList;
+import java.util.List;
 
 import controller.StageController;
 import javafx.geometry.Rectangle2D;
@@ -22,7 +24,8 @@ import javafx.scene.transform.Rotate;
 public class FieldView {
 
     private static final Image SPACE_IMAGE = new Image("space.png");
-    private static final Image EXPLOSION = new Image("spaceship2.png");
+    private static final List<Image> EXPLOSION = new LinkedList<>();
+    private static final int FRAME_AMOUNT = 10;
     private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
     private final Camera cam = new ParallelCamera();
     private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
@@ -40,6 +43,9 @@ public class FieldView {
         this.subScene.setFill(Color.BLACK);
         this.subScene.setCamera(this.cam);
         this.root.getChildren().add(this.canvas);
+        for (int i = 0; i < FRAME_AMOUNT; i++) {
+            EXPLOSION.add(new Image("explosion" + i + ".png"));
+        }
     }
 
     /**
@@ -69,9 +75,10 @@ public class FieldView {
      * Method that create an explosion animation in a specified boundary.
      * 
      * @param boundary the boundary in which show the explosion
+     * @param frame the frame of the explosion to be drawn
      */
-    public void drawExplosion(final Rectangle2D boundary) {
-        this.gc.drawImage(EXPLOSION, boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
+    public void drawExplosion(final Rectangle2D boundary, final int frame) {
+        this.gc.drawImage(EXPLOSION.get(frame), boundary.getMinX(), boundary.getMinY(), boundary.getWidth(), boundary.getHeight());
     }
 
     /**

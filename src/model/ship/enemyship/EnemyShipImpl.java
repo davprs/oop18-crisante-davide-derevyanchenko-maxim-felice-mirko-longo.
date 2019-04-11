@@ -76,6 +76,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     public boolean intersects(final Entity entity) {
         final boolean isIntersected = entity.getBoundary().intersects(this.getBoundary());
         if (isIntersected) {
+            this.destroy();
             entity.destroy();
         }
         return isIntersected;

@@ -20,6 +20,7 @@ public class MeteorImpl implements Meteor {
     private final Dimension2D fieldSize;
     private boolean enteredInField;
     private final double angle;
+    private boolean isCollided;
 
     /**
      * Build a new Meteor.
@@ -41,6 +42,7 @@ public class MeteorImpl implements Meteor {
         this.movX = -speed * Math.cos(angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
         this.enteredInField = false;
+        this.isCollided = false;
     }
 
     /**
@@ -74,6 +76,7 @@ public class MeteorImpl implements Meteor {
     public boolean intersects(final Entity entity) {
         final boolean isIntersected = entity.getBoundary().intersects(this.getBoundary());
         if (isIntersected) {
+            this.destroy();
             entity.destroy();
         }
         return isIntersected;
@@ -95,9 +98,9 @@ public class MeteorImpl implements Meteor {
      * {@inheritDoc}
      */
     @Override
-    public boolean isAlive() {
+    public synchronized boolean isAlive() {
         return !((position.getX() > this.fieldSize.getWidth() || position.getY() > this.fieldSize.getHeight()
-                || position.getX() < 0 || position.getY() < 0) && enteredInField);
+                || position.getX() < 0 || position.getY() < 0) && enteredInField) && !this.isCollided;
     }
 
     /**
@@ -110,7 +113,7 @@ public class MeteorImpl implements Meteor {
      * {@inheritDoc}
      */
     @Override
-    public void destroy() {
-        this.position = new Point2D(-1, -1);
+    public synchronized void destroy() {
+        this.isCollided = true;
     }
 }

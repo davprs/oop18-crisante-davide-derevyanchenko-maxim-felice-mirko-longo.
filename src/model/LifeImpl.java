@@ -56,7 +56,7 @@ public final class LifeImpl implements Life {
     /**
      * {@inheritDoc}
      */
-    public void loseHealth(final int health) {
+    public synchronized void loseHealth(final int health) {
         if (health < 0) {
             throw new IllegalArgumentException();
         }
@@ -69,7 +69,7 @@ public final class LifeImpl implements Life {
     /**
      * {@inheritDoc}
      */
-    public void addHealth(final int health) {
+    public synchronized void addHealth(final int health) {
         if (health < 0) {
             throw new IllegalArgumentException();
         }
@@ -83,7 +83,7 @@ public final class LifeImpl implements Life {
      * {@inheritDoc}
      */
     @Override
-    public void addLife() {
+    public synchronized void addLife() {
         this.lives++;
         this.currentHealth = this.health;
     }
@@ -92,22 +92,24 @@ public final class LifeImpl implements Life {
      * {@inheritDoc}
      */
     @Override
-    public void loseLife() {
+    public synchronized void loseLife() {
         this.lives--;
-        this.currentHealth = this.health;
+        if (this.lives > 0) {
+            this.currentHealth = this.health;
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    public int getHealth() {
-        return health;
+    public synchronized int getHealth() {
+        return this.currentHealth;
     }
 
     /**
      * {@inheritDoc}
      */
-    public int getLives() {
-        return lives;
+    public synchronized int getLives() {
+        return this.lives;
     }
 }

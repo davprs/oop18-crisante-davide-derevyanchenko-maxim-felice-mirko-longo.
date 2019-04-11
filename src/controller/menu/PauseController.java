@@ -79,6 +79,7 @@ public class PauseController implements FXMLController {
         this.gameController.getFieldView().getRoot().setEffect(TRANSPARENT);
         this.gameController.getOverlayController().getView().getRoot().setEffect(TRANSPARENT);
         this.gameController.getView().getRoot().getChildren().remove(this.pauseView.getSubScene());
+        this.gameController.getFieldController().getCharacter().setLastUpdate(System.currentTimeMillis());
         this.gameController.setInPause(false);
         if (account.getSettings().isSoundOn()) {
             SoundUtils.GAMEPLAY_MUSIC.loop();
