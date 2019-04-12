@@ -14,13 +14,12 @@
   <rowConstraints>
     <RowConstraints maxHeight="125.33332824707031" minHeight="10.0" prefHeight="75.5" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="88.5" minHeight="10.0" prefHeight="69.5" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="83.66665649414062" minHeight="10.0" prefHeight="71.5" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="82.5" minHeight="10.0" prefHeight="72.5" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="49.66667175292969" minHeight="5.66668701171875" prefHeight="19.5" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resume" prefHeight="43.0" prefWidth="213.0" text="RESUME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <Button fx:id="menu" mnemonicParsing="false" onAction="#goBackToMenu" prefHeight="44.0" prefWidth="213.0" text="GO TO MENU" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <Button fx:id="menu" mnemonicParsing="false" onAction="#goBackToMenu" prefHeight="44.0" prefWidth="213.0" text="GO TO MENU" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <Label fx:id="label" text="PAUSED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="41.0" />

@@ -51,6 +51,7 @@ public class GameController {
                 }
             }
         };
+
         final EventHandler<MouseEvent> shootHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(final MouseEvent event) {
