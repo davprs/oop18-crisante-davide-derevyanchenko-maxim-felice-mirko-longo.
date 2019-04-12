@@ -13,7 +13,7 @@ public class BulletImpl implements Bullet {
 
     private static final int DAMAGE_UNIT = 400;
     private static final double WIDTH = 50;
-    private static final double HEIGHT = 50;
+    private static final double HEIGHT = 100;
     private final int damage;
     private final double speed;
     private Point2D position;
@@ -35,15 +35,9 @@ public class BulletImpl implements Bullet {
         this.damage = level * BulletImpl.DAMAGE_UNIT;
         this.fieldSize = fieldSize;
         this.position = src;
-        this.angle = Math.atan2(Math.max(src.getX(), target.getX()) - Math.min(src.getX(), target.getX()), Math.max(src.getY(), target.getY()) - Math.min(src.getY(), target.getY()));
-        this.movY = Math.abs(-Math.pow(Math.sin(angle), 2) + 1);
-        this.movX = Math.abs(-Math.pow(Math.cos(angle), 2) + 1);
-        if (target.getX() < src.getX()) {
-            movX *= -1;
-        }
-        if (target.getY() < src.getY()) {
-            movY *= -1;
-        }
+        this.angle = Math.atan2(src.getY() - target.getY(), src.getX() - target.getX());
+        this.movY = -this.speed * Math.sin(this.angle);
+        this.movX = -this.speed * Math.cos(this.angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
     }
 
