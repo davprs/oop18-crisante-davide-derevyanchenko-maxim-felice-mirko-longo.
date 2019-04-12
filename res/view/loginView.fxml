@@ -24,7 +24,7 @@
   	</rowConstraints>
     <children>
     	<TextField id="textField" fx:id="usrField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      	<PasswordField id="passwordField" fx:id="pswField" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      	<PasswordField id="passwordField" fx:id="pswField" stylesheets="@css/loginStyle.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       	<Button id="loginBtn" fx:id="loginBtn" mnemonicParsing="false" onAction="#tryLogin" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
         	<font>
             	<Font name="System Italic" size="13.0" />
@@ -33,7 +33,7 @@
         	<font>
             	<Font size="13.0" />
          	</font></Button>
-      	<Button fx:id="exitBtn" mnemonicParsing="false" onAction="#exit" text="Exit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+      	<Button id="exitBtn" fx:id="exitBtn" mnemonicParsing="false" onAction="#exit" text="Exit" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
         	<font>
             	<Font size="13.0" />
          	</font></Button>

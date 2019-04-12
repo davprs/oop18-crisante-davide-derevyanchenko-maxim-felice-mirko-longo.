@@ -174,7 +174,7 @@ public class OptionsController implements FXMLController {
         if (this.account.getSettings().isSoundOn()) {
             this.yes.setSelected(true);
         } else {
-            this.no.setSelected(false);
+            this.no.setSelected(true);
         }
     }
 }

@@ -43,3 +43,17 @@
     -fx-font-weight: bold;
 }
 
+#playBtn:hover {
+     -fx-background-color: rgb(9, 218, 37);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 30pt;
+    -fx-font-weight: bold;
+}
+
+#playBtn:hover:pressed {
+    -fx-background-color: rgba(3, 184, 42, 0.651);
+    -fx-font-size: 25pt;
+    -fx-text-fill: #0c0c0c;
+    -fx-font-weight: bold;
+}
+
