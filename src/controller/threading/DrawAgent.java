@@ -20,8 +20,9 @@ import utilities.ErrorLog;
 public class DrawAgent extends Thread {
 
     private static final long WAITING_TIME = 10;
+    private static final int FRAME_AMOUNT = 10;
     private static final int EXPLOSION_ANIMATION_UPDATE_RATIO = 100;
-    private static final int EXPLOSION_DURATION = 1000;
+    private static final int EXPLOSION_DURATION = EXPLOSION_ANIMATION_UPDATE_RATIO * FRAME_AMOUNT;
     private final GameController gameController;
     private final CameraController cameraController;
     private final List<EntityController> explodingEntities;

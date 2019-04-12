@@ -12,8 +12,8 @@ import model.Entity;
 public class BulletImpl implements Bullet {
 
     private static final int DAMAGE_UNIT = 400;
-    private static final double WIDTH = 100;
-    private static final double HEIGHT = 100;
+    private static final double WIDTH = 50;
+    private static final double HEIGHT = 50;
     private final int damage;
     private final double speed;
     private Point2D position;

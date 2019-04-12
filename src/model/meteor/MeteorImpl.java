@@ -110,7 +110,9 @@ public class MeteorImpl implements Meteor {
      * {@inheritDoc}
      */
     @Override
-    public void takeDamage(final int damage) { }
+    public void takeDamage(final int damage) {
+        this.destroy();
+    }
 
     /**
      * {@inheritDoc}

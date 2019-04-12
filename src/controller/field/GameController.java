@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import model.account.Account;
 import model.game.Score;
 import model.game.ScoreImpl;
@@ -50,10 +51,17 @@ public class GameController {
                 }
             }
         };
+        final EventHandler<MouseEvent> shootHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(final MouseEvent event) {
+                fieldController.getCharacter().shoot();
+            }
+        };
         if (account.getSettings().isSoundOn()) {
             GameUtils.GAMEPLAY_MUSIC.loop();
         }
         this.gameView.getScene().setOnKeyPressed(exitHandler);
+        this.gameView.getScene().setOnMouseClicked(shootHandler);
         this.fieldView = new FieldView(stageController);
         stageController.setScene(this.gameView.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());

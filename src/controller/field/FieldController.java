@@ -1,9 +1,7 @@
 package controller.field;
 
 import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +9,7 @@ import controller.threading.AntagonistsAgent;
 import controller.threading.CharacterAgent;
 import controller.threading.CharacterBulletAgent;
 import controller.threading.DrawAgent;
+import javafx.geometry.Dimension2D;
 import utilities.ErrorLog;
 
 /**
@@ -19,7 +18,6 @@ import utilities.ErrorLog;
  */
 public class FieldController {
 
-    private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private final CharacterController characterController;
     private final List<EnemyController> enemies;
     private final List<BulletController> enemyBullets;
@@ -35,17 +33,19 @@ public class FieldController {
      */
     public FieldController(final GameController gameController) {
         this.gameController = gameController;
+        final Dimension2D resolution = new Dimension2D(this.gameController.getView().getScene().getWidth(), this.gameController.getView().getScene().getHeight());
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();
         this.meteors = new LinkedList<>();
         final CameraController camController = new CameraController(this.gameController.getFieldView().getCamera());
+        camController.setCam(0.75, resolution);
         this.characterController = new CharacterController(this.gameController, camController);
         this.startAgent(new CharacterAgent(this.characterController, this.gameController));
         this.drawAgent = new DrawAgent(this.gameController, this, camController);
         this.startAgent(this.drawAgent);
         try {
-            new Robot().mouseMove((int) RESOLUTION.getWidth() / 2, (int) RESOLUTION.getHeight() / 2);
+            new Robot().mouseMove((int) resolution.getWidth() / 2, (int) resolution.getHeight() / 2);
         } catch (AWTException e) {
             ErrorLog.getLog().printError(e);
             System.exit(0);

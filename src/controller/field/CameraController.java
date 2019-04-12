@@ -1,5 +1,6 @@
 package controller.field;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Camera;
 
@@ -45,10 +46,13 @@ public class CameraController {
      * Sets the appropriate distance of the camera from the battle field.
      * 
      * @param scaling  the value by which the camera should be scaled
+     * @param fieldDimension the dimension of the field of the game
      */
-    public void setCam(final double scaling) {
+    public void setCam(final double scaling, final Dimension2D fieldDimension) {
         this.camera.setScaleX(scaling);
         this.camera.setScaleY(scaling);
+        this.camera.setLayoutX(((1 - scaling) * 0.5 * fieldDimension.getWidth()));
+        this.camera.setLayoutY(((1 - scaling) * 0.5 * fieldDimension.getHeight()));
     }
 
     private void resetTranslation() {

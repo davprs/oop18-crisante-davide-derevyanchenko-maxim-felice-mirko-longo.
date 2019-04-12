@@ -131,4 +131,13 @@ public class CharacterController implements EntityController {
     public synchronized void setLastUpdate(final long lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
+    /**
+     * Method that creates a character's bullet.
+     */
+    public synchronized void shoot() {
+        final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
+        final Point2D target = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
+        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, this.ship.getCentralPosition(), target, this.resolution));
+    }
 }

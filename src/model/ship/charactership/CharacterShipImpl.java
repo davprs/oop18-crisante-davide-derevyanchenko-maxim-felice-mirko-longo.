@@ -13,9 +13,9 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
 
     private static final int STARTING_LIVES = 3;
     private static final int STARTING_HEALTH = 1000;
-    private static final double WIDTH = 100;
-    private static final double HEIGHT = 100;
-    private static final double SPEED = 0.5;
+    private static final double WIDTH = 50;
+    private static final double HEIGHT = 50;
+    private static final double SPEED = 0.25;
     private final Dimension2D dimension;
     private Point2D position;
 

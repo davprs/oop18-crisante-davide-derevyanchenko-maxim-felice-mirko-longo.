@@ -24,6 +24,8 @@ import javafx.scene.transform.Rotate;
 public class FieldView {
 
     private static final Image SPACE_IMAGE = new Image("space.png");
+    private static final String EXPLOSION_FILE_NAME = "explosion";
+    private static final String EXTENSION = ".png";
     private static final List<Image> EXPLOSION = new LinkedList<>();
     private static final int FRAME_AMOUNT = 10;
     private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,7 +46,7 @@ public class FieldView {
         this.subScene.setCamera(this.cam);
         this.root.getChildren().add(this.canvas);
         for (int i = 0; i < FRAME_AMOUNT; i++) {
-            EXPLOSION.add(new Image("explosion" + i + ".png"));
+            EXPLOSION.add(new Image(EXPLOSION_FILE_NAME + i + EXTENSION));
         }
     }
 
