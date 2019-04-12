@@ -1,9 +1,11 @@
 package controller.field;
 
 import controller.StageController;
+import controller.menu.GameOverController;
 import controller.menu.PauseController;
 import controller.threading.BulletAgent;
 import controller.threading.SpawnAgent;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.scene.input.KeyCode;
@@ -24,9 +26,11 @@ public class GameController {
 
     private final FieldController fieldController;
     private final OverlayController overlayController;
+    private final StageController stageController;
     private final GameView gameView;
     private final FieldView fieldView;
     private final Score score;
+    private final Account account;
     private boolean inPause;
     private boolean ended;
 
@@ -38,6 +42,8 @@ public class GameController {
      */
     public GameController(final Account account, final StageController stageController) {
         this.ended = false;
+        this.account = account;
+        this.stageController = stageController;
         this.gameView = new GameView(stageController);
         this.score = new ScoreImpl();
         final GameController controller = this;
@@ -116,6 +122,9 @@ public class GameController {
      */
     public synchronized void setEnded(final boolean ended) {
         this.ended = ended;
+        if (!this.fieldController.getCharacter().getEntity().isAlive()) {
+            Platform.runLater(() -> new GameOverController(account, stageController, this).start());
+        }
     }
 
     /**

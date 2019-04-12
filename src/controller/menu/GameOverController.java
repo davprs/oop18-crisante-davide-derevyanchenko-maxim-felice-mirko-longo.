@@ -49,9 +49,8 @@ public class GameOverController implements FXMLController {
      * 
      */
     @FXML
-    public void goBackToMenu() {
+    public void goToMenu() {
         this.gameController.getView().getRoot().setEffect(TRANSPARENT);
-        this.gameController.setEnded(true);
         new MenuController(this.account, this.stageController).start();
     }
 
@@ -74,7 +73,6 @@ public class GameOverController implements FXMLController {
         this.gameController.getOverlayController().getView().getRoot().setEffect(BLUR);
         this.gameController.getView().getRoot().getChildren().add(gameOverView.getSubScene());
     }
-
 
     private void setLanguage() {
         this.gameOver.setText(bundle.getString(LABEL_KEY));

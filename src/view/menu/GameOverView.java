@@ -19,10 +19,9 @@ public class GameOverView {
 
     private static final String PAUSE_VIEW = "gameOverView.fxml";
     private static final String PAUSE_BUNDLE = "game.GameOverBundle";
-    private static final double WIDTH = 5.48;
-    private static final double HEIGHT = 3.08;
+    private static final double WIDTH = 2.4;
+    private static final double HEIGHT = 2.07;
     private SubScene subScene;
-
     /**
      * 
      * @param account account
