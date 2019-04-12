@@ -2,6 +2,7 @@ package controller.field;
 
 import controller.StageController;
 import controller.menu.PauseController;
+import controller.threading.BulletAgent;
 import controller.threading.SpawnAgent;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
@@ -57,6 +58,7 @@ public class GameController {
         this.overlayController = new OverlayController(account, this.fieldController.getCharacter().getLife(), stageController, this);
         this.overlayController.start();
         new SpawnAgent(this, 1, fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
+        new BulletAgent(this, fieldController).start();
     }
 
     /**

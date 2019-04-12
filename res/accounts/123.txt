@@ -5,6 +5,6 @@
 true
 1920.0
 1080.0
-it
-spaceship.png
+en
+enemyShip2
 false

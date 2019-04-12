@@ -26,4 +26,10 @@ public interface EnemyShip extends Ship {
      * @param addPosition the position to add at the current position.
      */
     void update(Point2D addPosition);
+
+    /**
+     * Return true if the EnemyShip can shoot.
+     * @return true if the EnemyShip can shoot.
+     */
+    public boolean canShoot();
 }

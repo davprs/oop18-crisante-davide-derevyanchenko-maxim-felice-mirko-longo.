@@ -26,6 +26,7 @@ public class BulletController implements EntityController {
      */
     public BulletController(final GameController gameController, final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
         this.image = utilities.EntitiesImageUtils.getBulletImage(level);
+        System.out.println("bullet done");
         this.bullet = new BulletImpl(level, src, target, fieldSize);
         this.gameController = gameController;
     }

@@ -62,9 +62,9 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     }
 
     /**
-     * Return true if the EnemyShip can shoot.
-     * @return true if the EnemyShip can shoot.
+     * {@inheritDoc}
      */
+    @Override
     public boolean canShoot() {
         return this.shootingAvailable;
     }
