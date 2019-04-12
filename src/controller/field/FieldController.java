@@ -18,6 +18,7 @@ import utilities.ErrorLog;
  */
 public class FieldController {
 
+    private static final double SCALE_VALUE = 0.75;
     private final CharacterController characterController;
     private final List<EnemyController> enemies;
     private final List<BulletController> enemyBullets;
@@ -39,7 +40,7 @@ public class FieldController {
         this.characterBullets = new LinkedList<>();
         this.meteors = new LinkedList<>();
         final CameraController camController = new CameraController(this.gameController.getFieldView().getCamera());
-        camController.setCam(0.75, resolution);
+        camController.setCam(SCALE_VALUE, resolution);
         this.characterController = new CharacterController(this.gameController, camController);
         this.startAgent(new CharacterAgent(this.characterController, this.gameController));
         this.drawAgent = new DrawAgent(this.gameController, this, camController);

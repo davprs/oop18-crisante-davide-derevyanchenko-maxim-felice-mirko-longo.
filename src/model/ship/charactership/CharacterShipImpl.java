@@ -13,8 +13,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
 
     private static final int STARTING_LIVES = 3;
     private static final int STARTING_HEALTH = 1000;
-    private static final double WIDTH = 50;
-    private static final double HEIGHT = 50;
+    private static final double DIMENSION_PROPORTION = 0.04;
     private static final double SPEED = 0.25;
     private final Dimension2D dimension;
     private Point2D position;
@@ -23,10 +22,12 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      * Constructor method of the CharacterShipImpl.
      * 
      * @param initialPosition the initial position of the character ship
+     * @param fieldDimension the dimension of the field which is considered while giving a dimension to the ship
      */
-    public CharacterShipImpl(final Point2D initialPosition) {
+    public CharacterShipImpl(final Point2D initialPosition, final Dimension2D fieldDimension) {
         super(STARTING_LIVES, STARTING_HEALTH);
-        this.dimension = new Dimension2D(WIDTH, HEIGHT);
+        final double sizeDimension = fieldDimension.getWidth() * DIMENSION_PROPORTION;
+        this.dimension = new Dimension2D(sizeDimension, sizeDimension);
         this.position = initialPosition.subtract(this.dimension.getWidth() / 2, this.dimension.getHeight() / 2);
     }
 
@@ -92,6 +93,6 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      */
     @Override
     public Point2D shoot() {
-        return null;
+        return this.position;
     }
 }

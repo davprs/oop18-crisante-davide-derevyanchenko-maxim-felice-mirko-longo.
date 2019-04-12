@@ -12,11 +12,12 @@ import model.Entity;
 public class BulletImpl implements Bullet {
 
     private static final int DAMAGE_UNIT = 400;
-    private static final double WIDTH = 50;
-    private static final double HEIGHT = 100;
+    private static final double X_DIMENSION_PROPORTION = 0.03;
+    private static final double POPORTION_BETWEEN_SIZES = 0.5;
     private final int damage;
     private final double speed;
     private Point2D position;
+    private Dimension2D shipDimension;
     private Point2D target;
     private double movX;
     private double movY;
@@ -39,6 +40,8 @@ public class BulletImpl implements Bullet {
         this.movY = -this.speed * Math.sin(this.angle);
         this.movX = -this.speed * Math.cos(this.angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
+        final double xSize = fieldSize.getWidth() * X_DIMENSION_PROPORTION;
+        this.shipDimension = new Dimension2D(xSize, xSize * POPORTION_BETWEEN_SIZES);
     }
 
     /**
@@ -62,7 +65,7 @@ public class BulletImpl implements Bullet {
      */
     @Override
     public synchronized Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), BulletImpl.WIDTH, BulletImpl.HEIGHT);
+        return new Rectangle2D(position.getX(), position.getY(), this.shipDimension.getWidth(), this.shipDimension.getHeight());
     }
 
     /**

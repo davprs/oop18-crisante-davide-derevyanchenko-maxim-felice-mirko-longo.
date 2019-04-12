@@ -11,10 +11,10 @@ public class MeteorImpl implements Meteor {
 
     private static final int SCORE_POINTS = 50;
     private static final int DAMAGE_UNIT = 300;
-    private static final double WIDTH = 100;
-    private static final double HEIGHT = 100;
+    private static final double DIMENSION_PROPORTION = 0.04;
     private final int scorePoints;
     private final int damage;
+    private final Dimension2D meteorDimension;
     private Point2D position;
     private final double movX;
     private final double movY;
@@ -37,7 +37,9 @@ public class MeteorImpl implements Meteor {
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
         this.scorePoints = level * SCORE_POINTS;
         this.position = src;
-        final Point2D centralPosition = new Point2D(src.getX() + WIDTH / 2, src.getY() + HEIGHT / 2);
+        final double xSize = this.fieldSize.getWidth() * DIMENSION_PROPORTION;
+        this.meteorDimension = new Dimension2D(xSize, xSize);
+        final Point2D centralPosition = new Point2D(src.getX() + this.meteorDimension.getWidth() / 2, src.getY() + this.meteorDimension.getHeight() / 2);
         this.angle = Math.atan2(centralPosition.getY() - target.getY(), 
                 centralPosition.getX() - target.getX());
 
@@ -69,7 +71,7 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public synchronized Rectangle2D getBoundary() {
-        return new Rectangle2D(position.getX(), position.getY(), MeteorImpl.WIDTH, MeteorImpl.HEIGHT);
+        return new Rectangle2D(position.getX(), position.getY(), this.meteorDimension.getWidth(), this.meteorDimension.getHeight());
     }
 
     /**

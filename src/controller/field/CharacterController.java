@@ -34,7 +34,7 @@ public class CharacterController implements EntityController {
     public CharacterController(final GameController gameController, final CameraController camController) {
         this.gameController = gameController;
         this.resolution = new Dimension2D(this.gameController.getView().getScene().getWidth(), this.gameController.getView().getScene().getHeight());
-        this.ship = new CharacterShipImpl(new Point2D(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2));
+        this.ship = new CharacterShipImpl(new Point2D(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2), this.resolution);
         this.camController = camController;
         this.immunity = false;
         this.lastUpdate = System.currentTimeMillis();
@@ -137,7 +137,8 @@ public class CharacterController implements EntityController {
      */
     public synchronized void shoot() {
         final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
-        final Point2D target = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
-        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, this.ship.getCentralPosition(), target, this.resolution));
+        final Point2D mousePosition = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
+        final Point2D vector = mousePosition.subtract(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2);
+        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, this.ship.getCentralPosition(), this.ship.getCentralPosition().add(vector), this.resolution));
     }
 }

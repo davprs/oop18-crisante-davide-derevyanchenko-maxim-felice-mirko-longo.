@@ -11,12 +11,12 @@ import model.ship.AbstractShip;
 public class EnemyShipImpl extends AbstractShip implements EnemyShip {
 
     private static final int DELAY = (int) (Math.random() * 800 + 200);
-    private static final double WIDTH = 80;
-    private static final double HEIGHT = 80;
+    private static final double DIMENSION_PROPORTION = 0.04;
     private static final int STARTING_LIVES = 1;
     private static final int STARTING_HEALTH = 1000;
     private static final int SCORE_POINTS = 100;
     private Point2D position;
+    private final Dimension2D shipDimension;
     private final double speed;
     private int framesFromShoot;
     private int level;
@@ -35,6 +35,8 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
         this.speed = level;
         this.framesToShoot = timeToShoot;
         this.position = new Point2D(Math.random() * fieldSize.getWidth(), Math.random() * fieldSize.getHeight());
+        final double xSize = fieldSize.getWidth() * DIMENSION_PROPORTION;
+        this.shipDimension = new Dimension2D(xSize, xSize);
     }
 
     /**
@@ -126,7 +128,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      */
     @Override
     protected Dimension2D getDimension() {
-        return new Dimension2D(WIDTH, HEIGHT);
+        return new Dimension2D(this.shipDimension.getWidth(), this.shipDimension.getHeight());
     }
 
     /**
