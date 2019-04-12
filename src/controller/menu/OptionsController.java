@@ -15,7 +15,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -23,6 +22,7 @@ import model.account.Account;
 import utilities.AlertUtils;
 import utilities.ErrorLog;
 import utilities.FileUtils;
+import utilities.GameUtils;
 import view.menu.OptionsView;
 /**
  * 
@@ -31,7 +31,6 @@ import view.menu.OptionsView;
  */
 public class OptionsController implements FXMLController {
 
-    private static final BoxBlur TRANSPARENT = new BoxBlur(0, 0, 0);
     private static final int SLEEP_TIME = 150;
     private static final String BACK_KEY = "back";
     private static final String FIRST_CHOICE_CB1 = "720x480";
@@ -48,13 +47,11 @@ public class OptionsController implements FXMLController {
     private static final String CHANGE_SHIP_KEY = "change_ship";
     private static final String SHIP_1 = "spaceship";
     private static final String SHIP_2 = "enemyShip1";
-    private static final String SHIP_3 = "enemyShip2";
-    private static final int BLUR_EFFECT_RANGE = 5;
+    private static final String SHIP_3 = "GreenEvil";
     private static final ObservableList<String> RESOLUTIONS_LIST = FXCollections.observableArrayList(FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1, FOURTH_CHOICE_CB1);
     private static final ObservableList<String> LANGUAGE_LIST = FXCollections.observableArrayList(FIRST_CHOICE_CB2, SECOND_CHOICE_CB2);
     private static final ObservableList<String> SHIP_LIST = FXCollections.observableArrayList(SHIP_1, SHIP_2, SHIP_3);
     private static final String PNG = ".png";
-    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     private final Account account;
     private final StageController stageController;
     private ResourceBundle bundle;
@@ -124,7 +121,7 @@ public class OptionsController implements FXMLController {
      * Method to go back to the menu.
      */
     public void goBack() {
-        this.grid.setEffect(blur);
+        this.grid.setEffect(GameUtils.getBlurEffect());
         final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
         if (confirmSettings.get() == ButtonType.YES) {
             final String[] values = resolution.getValue().split("x");
@@ -144,7 +141,7 @@ public class OptionsController implements FXMLController {
                 System.exit(0);
             }
         }
-        this.grid.setEffect(TRANSPARENT);
+        this.grid.setEffect(GameUtils.getTransparentEffect());
         this.isInOptions = false;
         new MenuController(this.account, this.stageController).start();
     }

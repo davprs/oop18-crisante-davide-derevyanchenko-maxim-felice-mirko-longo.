@@ -92,5 +92,6 @@ public class MeteorController implements EntityController {
     @Override
     public void destroy() {
         this.gameController.getFieldController().removeMeteor(this);
+        this.gameController.getScore().addScore(this.meteor.getScorePoints());
     }
 }

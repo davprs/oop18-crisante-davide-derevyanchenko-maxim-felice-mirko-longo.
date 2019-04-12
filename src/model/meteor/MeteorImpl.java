@@ -9,9 +9,11 @@ import model.Entity;
  */
 public class MeteorImpl implements Meteor {
 
+    private static final int SCORE_POINTS = 50;
     private static final int DAMAGE_UNIT = 300;
     private static final double WIDTH = 100;
     private static final double HEIGHT = 100;
+    private final int scorePoints;
     private final int damage;
     private Point2D position;
     private final double movX;
@@ -33,6 +35,7 @@ public class MeteorImpl implements Meteor {
         final int speed = level * 3;
         this.fieldSize = fieldSize;
         this.damage = level * MeteorImpl.DAMAGE_UNIT;
+        this.scorePoints = level * SCORE_POINTS;
         this.position = src;
         final Point2D centralPosition = new Point2D(src.getX() + WIDTH / 2, src.getY() + HEIGHT / 2);
         this.angle = Math.atan2(centralPosition.getY() - target.getY(), 
@@ -115,5 +118,13 @@ public class MeteorImpl implements Meteor {
     @Override
     public synchronized void destroy() {
         this.isCollided = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public synchronized int getScorePoints() {
+        return this.scorePoints;
     }
 }

@@ -9,7 +9,9 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.account.Account;
-import utilities.SoundUtils;
+import model.game.Score;
+import model.game.ScoreImpl;
+import utilities.GameUtils;
 import view.field.FieldView;
 import view.field.GameView;
 
@@ -23,6 +25,7 @@ public class GameController {
     private final OverlayController overlayController;
     private final GameView gameView;
     private final FieldView fieldView;
+    private final Score score;
     private boolean inPause;
     private boolean ended;
 
@@ -35,19 +38,20 @@ public class GameController {
     public GameController(final Account account, final StageController stageController) {
         this.ended = false;
         this.gameView = new GameView(stageController);
+        this.score = new ScoreImpl();
         final GameController controller = this;
         final EventHandler<KeyEvent> exitHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ESCAPE) == 0) {
+                if (event.getCode().compareTo(KeyCode.ESCAPE) == 0 && !controller.inPause) {
                     controller.setInPause(true);
-                    SoundUtils.muteAllSounds();
+                    GameUtils.muteAllSounds();
                     new PauseController(account, stageController, controller).start();
                 }
             }
         };
         if (account.getSettings().isSoundOn()) {
-            SoundUtils.GAMEPLAY_MUSIC.loop();
+            GameUtils.GAMEPLAY_MUSIC.loop();
         }
         this.gameView.getScene().setOnKeyPressed(exitHandler);
         this.fieldView = new FieldView(stageController);
@@ -55,10 +59,18 @@ public class GameController {
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
         this.fieldController = new FieldController(this);
-        this.overlayController = new OverlayController(account, this.fieldController.getCharacter().getLife(), stageController, this);
+        this.overlayController = new OverlayController(account, stageController, this);
         this.overlayController.start();
         new SpawnAgent(this, 1, fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())).start();
         new BulletAgent(this, fieldController).start();
+    }
+
+    /**
+     * Get the Score.
+     * @return the score
+     */
+    public Score getScore() {
+        return this.score;
     }
 
     /**

@@ -13,7 +13,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -24,6 +23,7 @@ import model.account.AccountManagerImpl;
 import utilities.AlertUtils;
 import utilities.ErrorLog;
 import utilities.FileUtils;
+import utilities.GameUtils;
 import view.login.RegisterView;
 
 /**
@@ -31,8 +31,14 @@ import view.login.RegisterView;
  *
  */
 public class RegisterController implements FXMLController {
-    private static final int BLUR_EFFECT_RANGE = 3;
-    private final BoxBlur blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
+
+
+    private final AccountManager accManager;
+    private final StageController stageController;
+    private final EventHandler<KeyEvent> registerHandler;
+    private final EventHandler<KeyEvent> cancelHandler;
+    private final EventHandler<KeyEvent> checkHandler;
+    private final EventHandler<KeyEvent> confCheckHandler;
     @FXML
     private Label regLabel;
     @FXML
@@ -65,13 +71,6 @@ public class RegisterController implements FXMLController {
     private CheckBox confPswCheckBox;
     @FXML
     private GridPane grid;
-    private final AccountManager accManager;
-    private final StageController stageController;
-    private final EventHandler<KeyEvent> registerHandler;
-    private final EventHandler<KeyEvent> cancelHandler;
-    private final EventHandler<KeyEvent> checkHandler;
-    private final EventHandler<KeyEvent> confCheckHandler;
-
     /**
      * Build the RegisterController.
      * @param stageController the StageController
@@ -83,40 +82,40 @@ public class RegisterController implements FXMLController {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
+                    grid.setEffect(GameUtils.getBlurEffect());
                     regBtn.fire();
                 } 
-                grid.setEffect(null);
+                grid.setEffect(GameUtils.getTransparentEffect());
             }
         };
         this.cancelHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
+                    grid.setEffect(GameUtils.getTransparentEffect());
                     closeBtn.fire();
                 } 
-                grid.setEffect(null);
+                grid.setEffect(GameUtils.getTransparentEffect());
             }
         };
         this.checkHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
+                    grid.setEffect(GameUtils.getBlurEffect());
                     pswCheckBox.fire();
                 }
-                grid.setEffect(null);
+                grid.setEffect(GameUtils.getTransparentEffect());
             }
         };
         this.confCheckHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(blur);
+                    grid.setEffect(GameUtils.getBlurEffect());
                     confPswCheckBox.fire();
                 }
-                grid.setEffect(null);
+                grid.setEffect(GameUtils.getTransparentEffect());
             }
         };
     }

@@ -15,6 +15,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     private static final double HEIGHT = 80;
     private static final int STARTING_LIVES = 1;
     private static final int STARTING_HEALTH = 1000;
+    private static final int SCORE_POINTS = 100;
     private Point2D position;
     private final double speed;
     private int framesFromShoot;
@@ -126,5 +127,13 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     @Override
     protected Dimension2D getDimension() {
         return new Dimension2D(WIDTH, HEIGHT);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getScorePoints() {
+        return this.level * SCORE_POINTS;
     }
 }

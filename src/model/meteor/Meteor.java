@@ -24,4 +24,10 @@ public interface Meteor extends Entity {
      * @return the health-points it subtracts to the CharacterShip.
      */
     int getDamage();
+
+    /**
+     * Get the Score points after the death.
+     * @return the int points
+     */
+    int getScorePoints();
 }

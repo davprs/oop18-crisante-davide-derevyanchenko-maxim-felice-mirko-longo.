@@ -113,6 +113,7 @@ public class EnemyController implements EntityController {
     @Override
     public void destroy() {
         this.gameController.getFieldController().removeEnemy(this);
+        this.gameController.getScore().addScore(this.enemy.getScorePoints());
     }
 
 }

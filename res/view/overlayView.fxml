@@ -7,8 +7,13 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1409.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="133.6666717529297" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.66666412353516" minWidth="10.0" prefWidth="142.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="650.9999847412109" minWidth="10.0" prefWidth="155.66665649414062" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="668.0000305175781" minWidth="10.0" prefWidth="293.3333435058594" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.3333740234375" minWidth="10.0" prefWidth="289.6666259765625" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.3333740234375" minWidth="10.0" prefWidth="207.3333740234375" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="381.666748046875" minWidth="10.0" prefWidth="181.3333740234375" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -16,34 +21,34 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="lives" mouseTransparent="true" prefHeight="11.0" prefWidth="157.0" text="ciaoooo" translateX="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+      <Label fx:id="lives" mouseTransparent="true" prefHeight="88.0" prefWidth="134.0" text="Label" textFill="#eeeeee" translateX="10.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
          <font>
-            <Font size="42.0" />
+            <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="scoreNumber" prefHeight="36.0" prefWidth="119.0" text="Label" translateX="-20.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+      <Label fx:id="scoreNumber" prefHeight="86.0" prefWidth="170.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
          <font>
-            <Font size="42.0" />
+            <Font name="System Bold Italic" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="score" prefHeight="38.0" prefWidth="142.0" text="Label" translateX="30.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label fx:id="score" prefHeight="83.0" prefWidth="191.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
-            <Font size="42.0" />
+            <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="numberOfLives" prefHeight="37.0" prefWidth="102.0" text="Label" translateX="-60.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label fx:id="numberOfLives" prefHeight="83.0" prefWidth="167.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
-            <Font size="42.0" />
+            <Font name="System Bold Italic" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="hp" prefHeight="49.0" prefWidth="130.0" text="Label" translateX="80.0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label fx:id="hp" prefHeight="82.0" prefWidth="177.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
-            <Font size="42.0" />
+            <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="hpNumber" prefHeight="46.0" prefWidth="119.0" text="Label" translateX="-40.0" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+      <Label fx:id="hpNumber" prefHeight="81.0" prefWidth="159.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
          <font>
-            <Font size="42.0" />
+            <Font name="System Bold Italic" size="42.0" />
          </font>
       </Label>
    </children>

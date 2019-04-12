@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import utilities.SoundUtils;
+import utilities.GameUtils;
 
 /**
  * Controller class of the Stage.
@@ -23,7 +23,7 @@ public class StageController {
     private final EventHandler<WindowEvent> exitWindow = new EventHandler<WindowEvent>() {
         @Override
         public void handle(final WindowEvent event) {
-            SoundUtils.muteAllSounds();
+            GameUtils.muteAllSounds();
             Platform.exit();
             System.exit(0);
         } 

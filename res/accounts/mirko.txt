@@ -6,5 +6,5 @@ false
 1920.0
 1080.0
 it
-enemyShip2
+GreenEvil
 true

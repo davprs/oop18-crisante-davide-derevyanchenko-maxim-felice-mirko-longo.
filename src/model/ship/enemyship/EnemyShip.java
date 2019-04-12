@@ -32,4 +32,10 @@ public interface EnemyShip extends Ship {
      * @return true if the EnemyShip can shoot.
      */
     public boolean canShoot();
+    
+    /**
+     * Get the Score points after the death.
+     * @return the int points
+     */
+    int getScorePoints();
 }

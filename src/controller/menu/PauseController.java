@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
 import model.account.Account;
-import utilities.SoundUtils;
+import utilities.GameUtils;
 import view.menu.PauseView;
 
 /**
@@ -82,7 +82,7 @@ public class PauseController implements FXMLController {
         this.gameController.getFieldController().getCharacter().setLastUpdate(System.currentTimeMillis());
         this.gameController.setInPause(false);
         if (account.getSettings().isSoundOn()) {
-            SoundUtils.GAMEPLAY_MUSIC.loop();
+            GameUtils.GAMEPLAY_MUSIC.loop();
         }
     }
 

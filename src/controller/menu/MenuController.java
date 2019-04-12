@@ -10,11 +10,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.AlertUtils;
-import utilities.SoundUtils;
+import utilities.GameUtils;
 import view.menu.MenuView;
 
 /**
@@ -26,8 +25,6 @@ public class MenuController implements FXMLController {
     private static final String HIGHSCORES_KEY = "highscore";
     private static final String OPTIONS_KEY = "options";
     private static final String EXIT_KEY = "exit";
-    private static final int BLUR_EFFECT_RANGE = 5;
-    private final BoxBlur blur;
     private final Account account;
     private final StageController stageController;
     private ResourceBundle bundle;
@@ -50,7 +47,6 @@ public class MenuController implements FXMLController {
     public MenuController(final Account account, final StageController stageController) {
         this.account = account;
         this.stageController = stageController;
-        this.blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     }
 
     /**
@@ -63,9 +59,9 @@ public class MenuController implements FXMLController {
         this.stageController.setDimension(this.account.getSettings().getResolution());
         this.stageController.setFullScreen(this.account.getSettings().isFullScreenOn());
         if (account.getSettings().isSoundOn()) {
-            SoundUtils.MAIN_THEME.play();
+            GameUtils.MAIN_THEME.play();
         } else {
-            SoundUtils.muteAllSounds();
+            GameUtils.muteAllSounds();
         }
     }
 
@@ -98,13 +94,13 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void exitGame() { 
-        this.grid.setEffect(blur);
+        this.grid.setEffect(GameUtils.getBlurEffect());
         final Optional<ButtonType> exit = AlertUtils.createExitConfirmationDialog().showAndWait();
         if (exit.get() == ButtonType.YES) {
-            SoundUtils.muteAllSounds();
+            GameUtils.muteAllSounds();
             Platform.exit();
         } else {
-            this.grid.setEffect(null);
+            this.grid.setEffect(GameUtils.getTransparentEffect());
         }
     }
     /**

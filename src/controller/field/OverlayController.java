@@ -8,7 +8,6 @@ import controller.StageController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import model.Life;
 import model.account.Account;
 import utilities.ErrorLog;
 import view.field.OverlayView;
@@ -23,7 +22,6 @@ public class OverlayController implements FXMLController {
     private static final String HP = "HP";
     private static final String SCORE = "SCORE";
     private static final long WAITING_TIME = 20;
-    private final Life life;
     private final OverlayView view;
     private final GameController gameController;
     @FXML
@@ -42,12 +40,10 @@ public class OverlayController implements FXMLController {
     /**
      * Build the OverlayController.
      * @param account the account of the player
-     * @param life the life of the characterShip
      * @param stageController the controller of the stage
      * @param gameController the controller of the game
      */
-    public OverlayController(final Account account, final Life life, final StageController stageController, final GameController gameController) {
-        this.life = life;
+    public OverlayController(final Account account, final StageController stageController, final GameController gameController) {
         this.gameController = gameController;
         this.view = new OverlayView(account, stageController, this);
     }
@@ -74,8 +70,9 @@ public class OverlayController implements FXMLController {
                 while (!gameController.isInPause()) {
                     try {
                         Platform.runLater(() -> {
-                            numberOfLives.setText(Integer.toString(life.getLives()));
-                            hpNumber.setText(Integer.toString(life.getHealth()));
+                            numberOfLives.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getLives()));
+                            hpNumber.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getHealth()));
+                            scoreNumber.setText(Integer.toString(gameController.getScore().getScorePoints()));
                         });
                         Thread.sleep(WAITING_TIME);
                     } catch (InterruptedException e) {

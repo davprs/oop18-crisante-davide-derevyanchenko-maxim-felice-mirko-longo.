@@ -14,8 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -26,6 +24,7 @@ import model.account.AccountManagerImpl;
 import utilities.AlertUtils;
 import utilities.ErrorLog;
 import utilities.FileUtils;
+import utilities.GameUtils;
 import view.login.LoginView;
 
 /**
@@ -34,8 +33,6 @@ import view.login.LoginView;
  */
 public class LoginController implements FXMLController {
 
-    private static final int BLUR_EFFECT_RANGE = 3;
-    private final Effect blur = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
     private final AccountManager accManager;
     private final EventHandler<KeyEvent> loginHandler;
     private final EventHandler<KeyEvent> registerHandler;
@@ -124,14 +121,14 @@ public class LoginController implements FXMLController {
                     System.exit(0);
                 }
             } else {
-                this.grid.setEffect(blur);
+                this.grid.setEffect(GameUtils.getBlurEffect());
                 AlertUtils.createLoginPasswordError();
-                this.grid.setEffect(null);
+                this.grid.setEffect(GameUtils.getTransparentEffect());
             }
         } else {
-            this.grid.setEffect(blur);
+            this.grid.setEffect(GameUtils.getBlurEffect());
             AlertUtils.createLoginUsernameError();
-            this.grid.setEffect(null);
+            this.grid.setEffect(GameUtils.getTransparentEffect());
         }
     }
 
