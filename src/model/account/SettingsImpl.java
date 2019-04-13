@@ -88,8 +88,11 @@ public final class SettingsImpl implements Settings {
      * {@inheritDoc}
      */
     @Override
-    public void setFullScreen(final boolean isFullScreen) {
-        this.isFullScreen = isFullScreen;
+    public void setFullScreen(final boolean value) {
+        if (this.resolution.equals(RES_DEFAULT)) {
+            this.isFullScreen = value;
+        }
+        this.isFullScreen = false;
     }
 
     /**

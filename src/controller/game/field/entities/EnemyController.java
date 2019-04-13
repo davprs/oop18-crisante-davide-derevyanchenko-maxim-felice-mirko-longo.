@@ -19,7 +19,6 @@ public class EnemyController implements EntityController {
     private final EnemyShip enemy;
     private boolean freeze;
     private Dimension2D fieldSize;
-    private Point2D centralPosition;
     private double rad;
 
 
@@ -64,10 +63,10 @@ public class EnemyController implements EntityController {
     @Override
     public void update() {
         double movY, movX;
-        this.centralPosition = new Point2D((enemy.getBoundary().getMinX() + enemy.getBoundary().getMaxX()) / 2,
+        final Point2D centralPosition = new Point2D((enemy.getBoundary().getMinX() + enemy.getBoundary().getMaxX()) / 2,
                 (enemy.getBoundary().getMinY() + enemy.getBoundary().getMaxY()) / 2);
-        this.rad = Math.atan2(this.centralPosition.getY() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(), 
-                this.centralPosition.getX() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getX());
+        this.rad = Math.atan2(centralPosition.getY() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getY(), 
+                centralPosition.getX() - ((CharacterShipImpl) (characterController.getEntity())).getCentralPosition().getX());
 
         movY = -this.enemy.getSpeed() * Math.sin(this.rad);
         movX = -this.enemy.getSpeed() * Math.cos(this.rad);

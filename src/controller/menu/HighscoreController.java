@@ -68,11 +68,11 @@ public class HighscoreController implements FXMLController {
         }
         this.table.getSortOrder().add(highscore);
     }
-    
-    @FXML
+
     /**
      * Method to go back to the menu.
      */
+    @FXML
     public void goBack() {
         new MenuController(this.account, this.stageController).start();
     }

@@ -27,8 +27,12 @@ public class StageController {
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     }
 
-    public void setHandler(final EventHandler<WindowEvent> exitWindow) {
-        this.stage.setOnCloseRequest(exitWindow);
+    /**
+     * Set a window Handler.
+     * @param windowHandler the window handler to set
+     */
+    public void setHandler(final EventHandler<WindowEvent> windowHandler) {
+        this.stage.setOnCloseRequest(windowHandler);
     }
     /**
      * 

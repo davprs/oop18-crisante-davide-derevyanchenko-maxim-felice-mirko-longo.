@@ -17,10 +17,10 @@ public class BulletImpl implements Bullet {
     private final int damage;
     private final double speed;
     private Point2D position;
-    private Dimension2D shipDimension;
+    private final Dimension2D shipDimension;
     private Point2D target;
-    private double movX;
-    private double movY;
+    private final double movX;
+    private final double movY;
     private final double angle;
     private final Dimension2D fieldSize;
 

@@ -99,8 +99,8 @@ public class GameController {
         this.fieldController = new FieldController(this);
         this.overlayController = new OverlayController(account, stageController, this);
         this.overlayController.start();
-        this.startAgent(new SpawnAgent(this, 1, fieldController, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())));
-        this.startAgent(new BulletAgent(this, fieldController));
+        this.startAgent(new SpawnAgent(this, 1, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())));
+        this.startAgent(new BulletAgent(this));
         this.startAgent(new PowerUpAgent(this));
     }
 

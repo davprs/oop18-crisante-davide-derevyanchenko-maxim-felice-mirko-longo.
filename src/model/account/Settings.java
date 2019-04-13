@@ -40,9 +40,9 @@ public interface Settings {
 
     /**
      * Set the value to FullScreen.
-     * @param isFullScreen the value to set
+     * @param value the value to set
      */
-    void setFullScreen(boolean isFullScreen);
+    void setFullScreen(boolean value);
 
     /**
      * Set the resolution.

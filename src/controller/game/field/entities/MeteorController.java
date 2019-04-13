@@ -13,6 +13,7 @@ import model.entity.meteor.MeteorImpl;
  */
 public class MeteorController implements EntityController {
 
+    private static final int RANGE = 5;
     private final Image image;
     private final GameController gameController;
     private final Meteor meteor;
@@ -28,14 +29,14 @@ public class MeteorController implements EntityController {
         this.image = utilities.EntitiesImageUtils.getMeteorImage(level);
         final double meteorSpacing = Math.random() * 100;
         Point2D src;
-        if (Math.random() * 10 < 5) {
-            if (Math.random() * 10 < 5) {
+        if (Math.random() * 10 < RANGE) {
+            if (Math.random() * 10 < RANGE) {
                 src = new Point2D(-meteorSpacing, -meteorSpacing);
             } else {
                 src = new Point2D(-meteorSpacing, fieldSize.getHeight() + meteorSpacing);
             }
         } else {
-            if (Math.random() * 10 < 5) {
+            if (Math.random() * 10 < RANGE) {
                 src = new Point2D(fieldSize.getWidth() + meteorSpacing, fieldSize.getHeight() + meteorSpacing);
             } else {
                 src = new Point2D(fieldSize.getWidth() + meteorSpacing, -meteorSpacing);

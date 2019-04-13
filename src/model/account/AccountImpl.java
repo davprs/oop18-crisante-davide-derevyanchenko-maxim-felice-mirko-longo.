@@ -30,9 +30,9 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
 
         private final String username;
         private final String password;
-        private Optional<String> nick = Optional.empty();
+        private Optional<String> nick;
         private int score;
-        private Optional<Settings> setting = Optional.empty();
+        private Optional<Settings> setting;
 
         /**
          * Build the initial Builder.
@@ -45,6 +45,8 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
             }
             this.username = username;
             this.password = password;
+            this.nick = Optional.empty();
+            this.setting = Optional.empty();
         }
 
         /**
@@ -191,7 +193,7 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        result = prime * result + ((this.username == null) ? 0 : this.username.hashCode());
         return result;
     }
 
@@ -210,14 +212,23 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
             return false;
         }
         final AccountImpl other = (AccountImpl) obj;
-        if (username == null) {
+        if (this.username == null) {
             if (other.username != null) {
                 return false;
             }
-        } else if (!username.equals(other.username)) {
+        } else if (!this.username.equals(other.username)) {
             return false;
         }
         return true;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "AccountImpl [username=" + username + ", password=" + password + ", nickname=" + nickname
+                + ", bestScore=" + bestScore + ", settings=" + settings + "]";
     }
 
 }
