@@ -4,6 +4,7 @@
 
 .label {
     -fx-text-fill: #d8d8d8;
+    -fx-text-alignment: center;
 }
 
 .button {

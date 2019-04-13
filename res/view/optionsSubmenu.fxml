@@ -10,9 +10,9 @@
 
 <GridPane fx:id="grid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="100.0" prefHeight="664.0" prefWidth="1076.0" styleClass="background" stylesheets="@css/optionsStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="183.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="328.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="577.0" minWidth="10.0" prefWidth="481.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="149.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="466.0" minWidth="10.0" prefWidth="434.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="577.0" minWidth="10.0" prefWidth="415.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="77.0" />
   </columnConstraints>
   <rowConstraints>
@@ -43,7 +43,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="changeShipLb" prefHeight="92.0" prefWidth="376.0" text="Change Ship" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Label fx:id="changeShipLb" prefHeight="92.0" prefWidth="476.0" text="Change Ship" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <font>
             <Font size="24.0" />
          </font>

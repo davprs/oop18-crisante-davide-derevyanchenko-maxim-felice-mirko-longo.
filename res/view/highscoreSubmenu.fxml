@@ -15,7 +15,7 @@
     <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="571.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" prefHeight="46.0" prefWidth="90.0" text="Back" translateX="5.0" />
+      <Button fx:id="back" mnemonicParsing="false" onAction="#goBack" prefHeight="46.0" prefWidth="139.0" text="Back" translateX="5.0" />
       <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="675.0" text="   Highscore" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <font>
             <Font size="30.0" />
