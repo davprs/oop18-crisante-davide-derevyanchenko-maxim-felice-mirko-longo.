@@ -1,48 +1,52 @@
 package model.powerup;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import controller.field.EnemyController;
-import controller.field.FieldController;
+import model.entity.ship.enemyship.EnemyShip;
 
 /**
- * Freeze all enemy for 10 seconds. 
+ * Power Up that freeze all enemies for a duration time.
  */
 public class FreezePowerUp implements TemporaryPowerUp {
-    private static final long DURATION = 10;
-    private final FieldController field;
-    private final List<EnemyController> enemies;
+
+    private static final int DURATION = 10;
+    private final List<EnemyShip> enemies;
 
     /**
-     * 
-     * @param field the field power up.
+     * Build the FreezePowerUp.
+     * @param enemies the list of enemies
      */
-    public FreezePowerUp(final FieldController field) {
-        this.field = field;
-        this.enemies = new LinkedList<>();
+    public FreezePowerUp(final List<EnemyShip> enemies) {
+        this.enemies = enemies;
     }
+
     /**
-     * Method that delete all enemy .
+     * Method that freezes all enemies.
      */
     @Override
     public void run() {
-        this.enemies.addAll(field.getEnemies());
-        for (final EnemyController enemy : enemies) {
+        for (final EnemyShip enemy : enemies) {
             enemy.changeFreeze();
         }
-        new TimeAgent(this, DURATION);
     }
 
     /**
-     *   freeze the enemy for 10 seconds.
+     *  Method to invoke to stop freezing enemies.
      */
     @Override
     public void stop() {
-        for (final EnemyController enemy : enemies) {
+        for (final EnemyShip enemy : enemies) {
             enemy.changeFreeze();
         }
         this.enemies.clear();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDuration() {
+        return DURATION;
     }
 
 }

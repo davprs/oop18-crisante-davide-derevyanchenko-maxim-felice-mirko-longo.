@@ -3,14 +3,12 @@ package controller;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import utilities.GameUtils;
 
 /**
  * Controller class of the Stage.
@@ -20,15 +18,6 @@ public class StageController {
     private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private final Stage stage;
 
-    private final EventHandler<WindowEvent> exitWindow = new EventHandler<WindowEvent>() {
-        @Override
-        public void handle(final WindowEvent event) {
-            GameUtils.muteAllSounds();
-            Platform.exit();
-            System.exit(0);
-        } 
-    };
-
     /**
      * Build the StageController.
      * @param stage the stage to control
@@ -36,9 +25,11 @@ public class StageController {
     public StageController(final Stage stage) {
         this.stage = stage;
         this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        this.stage.setOnCloseRequest(this.exitWindow);
     }
 
+    public void setHandler(final EventHandler<WindowEvent> exitWindow) {
+        this.stage.setOnCloseRequest(exitWindow);
+    }
     /**
      * 
      * @return the width of the stage
@@ -79,12 +70,9 @@ public class StageController {
         return this.stage.getY();
     }
 
-    /**
-     * 
-     */
-    public void autosize() {
-        this.stage.setMinWidth(RESOLUTION.getWidth());
-        this.stage.setMinHeight(RESOLUTION.getHeight());
+    private void autosize(final Dimension2D dimension) {
+        this.stage.setMinWidth(dimension.getWidth());
+        this.stage.setMinHeight(dimension.getHeight());
     }
 
     /**
@@ -117,9 +105,17 @@ public class StageController {
      * @param dimension the dimension to set
      */
     public void setDimension(final Dimension2D dimension) {
-        this.stage.setWidth(dimension.getWidth());
-        this.stage.setHeight(dimension.getHeight());
-        this.stage.centerOnScreen();
+        if (!this.stage.isFullScreen()) {
+            if (dimension.getWidth() == RESOLUTION.getWidth() && dimension.getHeight() == RESOLUTION.getHeight()) {
+                this.stage.setMaximized(true);
+            } else {
+                this.stage.setMaximized(false);
+            }
+            this.autosize(dimension);
+            this.stage.setWidth(dimension.getWidth());
+            this.stage.setHeight(dimension.getHeight());
+            this.stage.centerOnScreen();
+        }
     }
 }
 

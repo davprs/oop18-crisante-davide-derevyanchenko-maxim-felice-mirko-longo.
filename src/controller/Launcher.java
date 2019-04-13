@@ -1,7 +1,8 @@
 package controller;
 
 import java.awt.Toolkit;
-import controller.login.LoginController;
+
+import controller.menu.login.LoginController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

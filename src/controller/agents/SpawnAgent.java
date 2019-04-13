@@ -1,0 +1,65 @@
+package controller.agents;
+
+import controller.game.GameController;
+import controller.game.field.FieldController;
+import controller.game.field.entities.CharacterController;
+import controller.game.field.entities.EnemyController;
+import controller.game.field.entities.MeteorController;
+import javafx.geometry.Dimension2D;
+import model.entity.ship.charactership.CharacterShip;
+import utilities.ErrorLog;
+
+/**
+ * 
+ * Agent that administrates the enemies spawns.
+ *
+ */
+public class SpawnAgent extends Thread {
+
+    private static final int WAITING_TIME = 3000;
+    private final CharacterController characterController;
+    private final GameController gameController;
+    private final int level;
+    private final Dimension2D fieldSize;
+    private final FieldController fieldController;
+    private double meteorWaiting;
+
+    /**
+     * 
+     * @param gameController the game controller.
+     * @param level the game level.
+     * @param fieldController to add entities to the fieldView's lists.
+     * @param fieldSize the field width and height.
+     */
+    public SpawnAgent(final GameController gameController, final int level, final FieldController fieldController, final Dimension2D fieldSize) {
+        this.gameController = gameController;
+        this.level = level;
+        this.fieldSize = fieldSize;
+        this.fieldController = fieldController;
+        this.characterController = fieldController.getCharacter();
+        this.meteorWaiting = (Math.random() * 8000) + 3000;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void run() {
+        while (!this.gameController.isEnded()) {
+            try {
+                if (!this.gameController.isInPause() && !this.gameController.checkEnemiesFrozen()) {
+                    this.meteorWaiting -= WAITING_TIME;
+                    if (this.meteorWaiting < 0) {
+                        fieldController.addMeteor(new MeteorController(gameController, this.level, ((CharacterShip) (characterController.getEntity())).getCentralPosition(), this.fieldSize));
+                        this.meteorWaiting = (Math.random() * 8000) + 3000;
+                    }
+                    fieldController.addEnemy(new EnemyController(gameController, this.level, characterController, this.fieldSize));
+                }
+                Thread.sleep(WAITING_TIME);
+            } catch (InterruptedException e) {
+                ErrorLog.getLog().printError();
+                System.exit(0);
+            }
+        }
+    }
+}

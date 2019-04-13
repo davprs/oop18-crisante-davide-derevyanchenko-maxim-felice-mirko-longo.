@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import controller.menu.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import model.account.Account;
 import utilities.BundleUtils;
 import view.AbstractView;
 
@@ -23,13 +22,12 @@ public class MenuView extends AbstractView {
 
     /**
      * Build the MenuView.
-     * @param account the game account
      * @param menuController the controller class
      */
-    public MenuView(final Account account, final MenuController menuController) {
-        this.prefWidth = account.getSettings().getResolution().getWidth();
-        this.prefHeight = account.getSettings().getResolution().getHeight();
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+    public MenuView(final MenuController menuController) {
+        this.prefWidth = menuController.getAccount().getSettings().getResolution().getWidth();
+        this.prefHeight = menuController.getAccount().getSettings().getResolution().getHeight();
+        BundleUtils.setLocale(menuController.getAccount().getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(MENU_VIEW), ResourceBundle.getBundle(MENU_BUNDLE));
         this.loader.setController(menuController);
         super.init();

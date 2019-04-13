@@ -53,7 +53,10 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
          * @return the Builder
          */
         public Builder withNickname(final String nickname) {
-            this.nick = Optional.ofNullable(nickname);
+            if (nickname == null) {
+                throw new IllegalStateException();
+            }
+            this.nick = Optional.of(nickname);
             return this;
         }
 
@@ -76,7 +79,10 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
          * @return the Builder
          */
         public Builder addMySettings(final Settings settings) {
-            this.setting = Optional.ofNullable(settings);
+            if (settings == null) {
+                throw new IllegalStateException();
+            }
+            this.setting = Optional.of(settings);
             return this; 
         }
 

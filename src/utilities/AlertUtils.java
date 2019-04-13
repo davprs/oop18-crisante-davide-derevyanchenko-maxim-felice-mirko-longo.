@@ -1,8 +1,8 @@
 package utilities;
 
 import javafx.scene.control.Alert;
-import view.AlertFactory;
-import view.AlertFactoryImpl;
+import view.alert.AlertFactory;
+import view.alert.AlertFactoryImpl;
 
 /**
  * Static Factory for different alerts.

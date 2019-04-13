@@ -1,39 +1,46 @@
 package model.powerup;
 
-import controller.field.CharacterController;
+import model.entity.ship.charactership.CharacterShip;
 
 /**
- * 
- * Makes the spaceship immune to enemies.
+ * PowerUp that makes the spaceship immune to any damage.
  *
  */
 public class ImmunityPowerUp implements TemporaryPowerUp {
-    private static final long DURATION = 10;
-    private final CharacterController character;
+
+    private static final int DURATION = 10;
+    private final CharacterShip characterShip;
 
     /**
-     * 
-     * @param character the character controller.
+     * Build this PowerUp.
+     * @param characterShip is the Ship of the player
      */
-    public ImmunityPowerUp(final CharacterController character) {
-        this.character = character;
+    public ImmunityPowerUp(final CharacterShip characterShip) {
+       this.characterShip = characterShip;
     }
 
     /**
-     * Method that sets on true the value of the immunity of the character ship.
+     * Method to invoke that makes the Character Ship immune to any damage.
      */
     @Override
     public void run() {
-        this.character.changeImmunity();
-        new TimeAgent(this, DURATION);
+        this.characterShip.setImmunity(true);
     }
 
     /**
-     * Method that sets on false the value of the immunity of the character ship.
+     * Method to invoke that makes the CharacterShip not immune to any damage.
      */
     @Override
     public void stop() {
-        this.character.changeImmunity();
+        this.characterShip.setImmunity(false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDuration() {
+        return DURATION;
     }
 
 }

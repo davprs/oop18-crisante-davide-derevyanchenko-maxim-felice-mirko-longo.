@@ -3,9 +3,9 @@ package controller.menu;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import controller.FXMLController;
+
 import controller.StageController;
-import controller.field.GameController;
+import controller.game.GameController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,10 +54,9 @@ public class MenuController implements FXMLController {
      */
     @Override
     public void start() {
-        this.stageController.setScene(new MenuView(this.account, this).getScene());
-//        this.stageController.autosize();
-        this.stageController.setDimension(this.account.getSettings().getResolution());
+        this.stageController.setScene(new MenuView(this).getScene());
         this.stageController.setFullScreen(this.account.getSettings().isFullScreenOn());
+        this.stageController.setDimension(this.account.getSettings().getResolution());
         if (account.getSettings().isSoundOn()) {
             GameUtils.MAIN_THEME.play();
         } else {
@@ -102,6 +101,14 @@ public class MenuController implements FXMLController {
         } else {
             this.grid.setEffect(GameUtils.getTransparentEffect());
         }
+    }
+
+    /**
+     * Get the game account.
+     * @return the account
+     */
+    public Account getAccount() {
+        return this.account;
     }
     /**
      * {@inheritDoc}

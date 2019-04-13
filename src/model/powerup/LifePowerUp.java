@@ -1,16 +1,16 @@
 package model.powerup;
 
-import model.Life;
+import model.game.Life;
 
 /**
- *  adds a life powerup.
+ *  Power Up that adds a life to the player.
  */
 public class LifePowerUp implements PowerUp {
 
     private final Life life;
 
     /**
-     * Build a LifePowerUp.
+     * Build this PowerUp.
      * @param life is the Life of the CharacterShip.
      */
     public LifePowerUp(final Life life) {
@@ -18,7 +18,7 @@ public class LifePowerUp implements PowerUp {
     }
 
     /**
-     * {@inheritDoc}
+     * Method to invoke to add the life.
      */
     @Override
     public void run() {
