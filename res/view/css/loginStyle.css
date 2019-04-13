@@ -30,8 +30,8 @@
     
 }
 
-.button:focused {
-    -fx-border-color: rgb(3, 202, 13)/*, rgb(30, 255, 0*/;
+.button:focused, #textField:focused, #passwordField:focused, #loginBtn:focused {
+    -fx-border-color: rgb(3, 202, 13);
     -fx-border-width: 1, 1;
     -fx-border-style: solid, segments(1, 1);
     -fx-border-radius: 0, 0;
@@ -53,34 +53,18 @@
 
 }
 
-#textField:focused {
-    -fx-border-color: rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
 #passwordField {
     -fx-background-color: #1d1d1d;
     -fx-border-color: #e2e2e2;
     -fx-text-fill: #ffffff;
 }
 
-#passwordField:hover {
+#passwordField:hover, #loginBtn:hover {
     -fx-background-color: #948d8d;
     -fx-text-fill: #222121;
     -fx-font-weight: bold;
     -fx-font-size: 10pt;
 }
-
-#passwordField:focused {
-    -fx-border-color: rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}    
 
 #loginBtn {
     -fx-background-color: rgba(0, 0, 0, 0.623);
@@ -91,33 +75,11 @@
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
-#loginBtn:hover {
-    -fx-background-color: rgba(245, 240, 240, 0.692);
-   -fx-font-size: 12pt;
-   -fx-text-fill: #000000;
-   -fx-font-weight: bold;
-}
-
 #loginBtn:pressed {
     -fx-background-color: rgba(6, 199, 54, 0.842);
     -fx-font-size: 9pt;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-}
-
-#loginBtn:focused {
-    -fx-border-color:rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-#exitBtn:hover {
-    -fx-background-color: rgba(245, 240, 240, 0.692);
-   -fx-font-size: 12pt;
-   -fx-text-fill: #000000;
-   -fx-font-weight: bold;
 }
 
 #exitBtn:pressed {

@@ -30,7 +30,7 @@
     
 }
 
-.button:focused {
+.button:focused, #loginBtn:focused, #signBtn:focused, #textField:focused, #passwordField:focused {
     -fx-border-color:rgb(3, 202, 13);
     -fx-border-width: 1, 1;
     -fx-border-style: solid, segments(1, 1);
@@ -38,49 +38,20 @@
     -fx-border-insets: 1 1 1 1, 0;
 }
 
-#textField {
+#textField, #passwordField {
     -fx-background-color: #1d1d1d;
     -fx-border-color: #e2e2e2;
     -fx-text-fill: #fdfdfd;
 
 }
 
-#textField:hover {
+#textField:hover, #passwordField:hover {
     -fx-background-color: #948d8d;
     -fx-text-fill: #222121;
     -fx-font-weight: bold;
     -fx-font-size: 10pt;
 
 }
-
-#textField:focused {
-    -fx-border-color:rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-#passwordField {
-    -fx-background-color: #1d1d1d;
-    -fx-border-color: #e2e2e2;
-    -fx-text-fill: #ffffff;
-}
-
-#passwordField:hover {
-    -fx-background-color: #948d8d;
-    -fx-text-fill: #222121;
-    -fx-font-weight: bold;
-    -fx-font-size: 10pt;
-}
-
-#passwordField:focused {
-    -fx-border-color:rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}    
 
 #signBtn {
     -fx-background-color: rgba(0, 0, 0, 0.623);
@@ -103,23 +74,6 @@
     -fx-font-size: 9pt;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-}
-
-
-#signBtn:focused {
-    -fx-border-color:rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
-}
-
-#loginBtn:focused {
-    -fx-border-color:rgb(3, 202, 13);
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
 }
 
 #cancelBtn:pressed {

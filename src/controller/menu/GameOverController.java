@@ -2,16 +2,14 @@ package controller.menu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import controller.FXMLController;
 import controller.StageController;
 import controller.field.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
 import model.account.Account;
+import utilities.GameUtils;
 import view.menu.GameOverView;
 /**
  * 
@@ -21,8 +19,6 @@ import view.menu.GameOverView;
 public class GameOverController implements FXMLController {
     private static final String LABEL_KEY = "gameOver";
     private static final String GO_TO_MENU_KEY = "menu";
-    private static final Effect BLUR = new BoxBlur(5, 5, 5);
-    private static final Effect TRANSPARENT = new BoxBlur(0, 0, 0);
     private final Account account;
     private final StageController stageController;
     private final GameController gameController;
@@ -50,7 +46,7 @@ public class GameOverController implements FXMLController {
      */
     @FXML
     public void goToMenu() {
-        this.gameController.getView().getRoot().setEffect(TRANSPARENT);
+        this.gameController.getView().getRoot().setEffect(GameUtils.getTransparentEffect());
         new MenuController(this.account, this.stageController).start();
     }
 
@@ -69,8 +65,8 @@ public class GameOverController implements FXMLController {
      */
     @Override
     public void start() {
-        this.gameController.getFieldView().getRoot().setEffect(BLUR);
-        this.gameController.getOverlayController().getView().getRoot().setEffect(BLUR);
+        this.gameController.getFieldView().getRoot().setEffect(GameUtils.getBlurEffect());
+        this.gameController.getOverlayController().getView().getRoot().setEffect(GameUtils.getBlurEffect());
         this.gameController.getView().getRoot().getChildren().add(gameOverView.getSubScene());
     }
 

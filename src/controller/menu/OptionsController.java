@@ -116,10 +116,10 @@ public class OptionsController implements FXMLController {
         setComponents();
     }
 
-
     /**
      * Method to go back to the menu.
      */
+    @FXML
     public void goBack() {
         this.grid.setEffect(GameUtils.getBlurEffect());
         final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();

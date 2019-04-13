@@ -68,7 +68,8 @@ public class HighscoreController implements FXMLController {
         }
         this.table.getSortOrder().add(highscore);
     }
-
+    
+    @FXML
     /**
      * Method to go back to the menu.
      */

@@ -1,7 +1,6 @@
 package controller.menu;
 
 import java.net.URL;
-
 import java.util.ResourceBundle;
 import controller.FXMLController;
 import controller.StageController;
@@ -9,8 +8,6 @@ import controller.field.GameController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
 import model.account.Account;
 import utilities.GameUtils;
 import view.menu.PauseView;
@@ -22,8 +19,6 @@ import view.menu.PauseView;
  */
 public class PauseController implements FXMLController {
 
-    private static final Effect BLUR = new BoxBlur(5, 5, 5);
-    private static final Effect TRANSPARENT = new BoxBlur(0, 0, 0);
     private static final String LABEL_KEY = "label";
     private static final String RESUME_KEY = "resume";
     private static final String GO_TO_MENU_KEY = "menu";
@@ -66,8 +61,8 @@ public class PauseController implements FXMLController {
      */
     @Override
     public void start() {
-        this.gameController.getFieldView().getRoot().setEffect(BLUR);
-        this.gameController.getOverlayController().getView().getRoot().setEffect(BLUR);
+        this.gameController.getFieldView().getRoot().setEffect(GameUtils.getBlurEffect());
+        this.gameController.getOverlayController().getView().getRoot().setEffect(GameUtils.getBlurEffect());
         this.gameController.getView().getRoot().getChildren().add(pauseView.getSubScene());
     }
 
@@ -76,8 +71,8 @@ public class PauseController implements FXMLController {
      */
     @FXML
     public void resume() {
-        this.gameController.getFieldView().getRoot().setEffect(TRANSPARENT);
-        this.gameController.getOverlayController().getView().getRoot().setEffect(TRANSPARENT);
+        this.gameController.getFieldView().getRoot().setEffect(GameUtils.getTransparentEffect());
+        this.gameController.getOverlayController().getView().getRoot().setEffect(GameUtils.getTransparentEffect());
         this.gameController.getView().getRoot().getChildren().remove(this.pauseView.getSubScene());
         this.gameController.getFieldController().getCharacter().setLastUpdate(System.currentTimeMillis());
         this.gameController.setInPause(false);
@@ -91,7 +86,7 @@ public class PauseController implements FXMLController {
      */
     @FXML
     public void goBackToMenu() {
-        this.gameController.getView().getRoot().setEffect(TRANSPARENT);
+        this.gameController.getView().getRoot().setEffect(GameUtils.getTransparentEffect());
         this.gameController.setEnded(true);
         new MenuController(this.account, this.stageController).start();
     }
