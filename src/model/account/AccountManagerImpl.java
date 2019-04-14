@@ -1,10 +1,7 @@
 package model.account;
 
-import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
-
-import utilities.ErrorLog;
-import utilities.FileUtils;
 
 /**
  * Implementation of AccountManager Interface.
@@ -43,11 +40,9 @@ public class AccountManagerImpl implements AccountManager {
      */
     @Override
     public boolean checkPassword(final Account account) {
-        try {
-            return isPresent(account) && account.getPassword().equals(FileUtils.getPassword(account.getUsername()));
-        } catch (IOException e) {
-            ErrorLog.getLog().printError(e);
-            System.exit(0);
+        final Optional<Account> acc = this.accounts.stream().filter(a -> a.equals(account)).findFirst();
+        if (acc.isPresent()) {
+            return acc.get().getPassword().equals(account.getPassword());
         }
         return false;
     }

@@ -28,12 +28,5 @@ public final class ErrorLog {
     public void printError() {
         System.out.println(ERROR_MESSAGE);
     }
-    /**
-     * Print an Error to STDOUT.
-     * @param e kxkas.
-     */
-    public void printError(final Exception e) {
-        System.out.println(ERROR_MESSAGE);
-        e.printStackTrace();
-    }
+
 }

@@ -32,7 +32,6 @@ import view.menu.login.RegisterView;
  */
 public class RegisterController implements FXMLController {
 
-
     private final AccountManager accManager;
     private final StageController stageController;
     private final EventHandler<KeyEvent> registerHandler;
@@ -143,8 +142,8 @@ public class RegisterController implements FXMLController {
     public void register() {
         if (checkFields()) {
             final Account account = new AccountImpl.Builder(this.usrField.getText(), getPassword())
-                    .withNickname(this.nickField.getText())
-                    .build();
+                                                   .withNickname(this.nickField.getText())
+                                                   .build();
             if (this.accManager.isPresent(account)) {
                 AlertUtils.createRegisterAccountError();
             } else {
@@ -152,7 +151,7 @@ public class RegisterController implements FXMLController {
                 try {
                     FileUtils.printAccount(account);
                 } catch (IOException e) {
-                    ErrorLog.getLog().printError(e);
+                    ErrorLog.getLog().printError();
                     System.exit(0);
                 }
                 AlertUtils.createRegisterAccountDialog();
@@ -189,7 +188,7 @@ public class RegisterController implements FXMLController {
         try {
             return new AccountManagerImpl(FileUtils.getAccounts());
         } catch (IOException e) {
-            ErrorLog.getLog().printError(e);
+            ErrorLog.getLog().printError();
             System.exit(0);
         }
         return null;

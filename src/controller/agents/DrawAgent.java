@@ -85,7 +85,7 @@ public class DrawAgent extends Thread {
                 }
                 Thread.sleep(WAITING_TIME);
             } catch (InterruptedException e) {
-                ErrorLog.getLog().printError(e);
+                ErrorLog.getLog().printError();
                 System.exit(0);
             }
         }

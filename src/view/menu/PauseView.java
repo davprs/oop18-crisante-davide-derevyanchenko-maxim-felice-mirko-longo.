@@ -3,7 +3,7 @@ package view.menu;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import controller.StageController;
-import controller.menu.PauseController;
+import controller.game.PauseController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SubScene;
 import model.account.Account;

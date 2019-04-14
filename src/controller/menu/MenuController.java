@@ -110,6 +110,7 @@ public class MenuController implements FXMLController {
     public Account getAccount() {
         return this.account;
     }
+
     /**
      * {@inheritDoc}
      */

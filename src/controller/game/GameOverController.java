@@ -12,12 +12,13 @@ import javafx.scene.control.Label;
 import model.account.Account;
 import utilities.GameUtils;
 import view.game.GameOverView;
+
 /**
- * 
- *  the class controls when the game is over.
+ * The class controls when the game is over.
  *
  */
 public class GameOverController implements FXMLController {
+
     private static final String LABEL_KEY = "gameOver";
     private static final String GO_TO_MENU_KEY = "menu";
     private final Account account;

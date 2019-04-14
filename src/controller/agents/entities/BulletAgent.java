@@ -28,7 +28,7 @@ public class BulletAgent extends Thread {
     @Override
     public void run() {
         while (!this.gameController.isInPause() && !this.gameController.isEnded()) {
-            List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
+            final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
             for (final EnemyController enemy : enemies) {
                 if (enemy.canShoot()) {
                     this.gameController.getFieldController().addEnemyBullet(enemy.shoot());

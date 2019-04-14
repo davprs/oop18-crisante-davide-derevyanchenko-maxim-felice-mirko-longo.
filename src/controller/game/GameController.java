@@ -5,7 +5,6 @@ import controller.agents.PowerUpAgent;
 import controller.agents.SpawnAgent;
 import controller.agents.entities.BulletAgent;
 import controller.game.field.FieldController;
-import controller.menu.PauseController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
@@ -185,7 +184,7 @@ public class GameController {
      * @return the fieldView
      */
     public FieldView getFieldView() {
-        return fieldView;
+        return this.fieldView;
     }
 
     /**

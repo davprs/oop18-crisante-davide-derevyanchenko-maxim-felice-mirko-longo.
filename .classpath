@@ -7,10 +7,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="res/sounds"/>
 	<classpathentry kind="src" path="res/bundles"/>
 	<classpathentry kind="src" path="res/images"/>
 	<classpathentry kind="src" path="res/view"/>
-	<classpathentry excluding="sounds/|bundles/|images/|view/" kind="src" path="res"/>
+	<classpathentry excluding="bundles/|images/|view/" kind="src" path="res"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

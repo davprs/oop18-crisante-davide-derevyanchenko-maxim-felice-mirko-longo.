@@ -42,7 +42,7 @@ public class AccountTest {
      */
     @Test
     public void testGettersSimpleAccount() {
-        account = DEFAULT_SIMPLE_ACCOUNT;
+        account = new AccountImpl.Builder(DEFAULT_USERNAME, DEFAULT_PASSWORD).build();
         assertEquals(DEFAULT_USERNAME, account.getUsername());
         assertEquals(DEFAULT_PASSWORD, account.getPassword());
         assertEquals(DEFAULT_USERNAME, account.getNickname());
@@ -55,7 +55,11 @@ public class AccountTest {
      */
     @Test
     public void testGettersCompleteAccount() {
-        account = DEFAULT_COMPLETE_ACCOUNT;
+        account =  new AccountImpl.Builder(DEFAULT_USERNAME, DEFAULT_PASSWORD)
+                                  .withNickname("")
+                                  .bestScore(100)
+                                  .addMySettings(DEFAULT_SETTINGS)
+                                  .build();
         final Settings settings = account.getSettings();
         assertEquals("it", settings.getLanguage());
         assertEquals(RESOLUTION, settings.getResolution());
@@ -85,6 +89,7 @@ public class AccountTest {
         final Settings settings = account.getSettings();
         assertEquals(SETTINGS_TO_SET, settings);
     }
+
     /**
      * Test the throwing of IllegalStateException.
      */

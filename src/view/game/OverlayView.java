@@ -36,7 +36,7 @@ public class OverlayView {
         try {
             this.root = loader.load();
         } catch (IOException e) {
-            ErrorLog.getLog().printError(e);
+            ErrorLog.getLog().printError();
             System.exit(0);
         }
         this.overlay = new SubScene(this.root, stageController.getScene().getWidth(), stageController.getScene().getHeight());
