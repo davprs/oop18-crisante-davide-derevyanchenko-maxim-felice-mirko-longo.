@@ -32,6 +32,8 @@ public class GameController {
     private final FieldView fieldView;
     private final Score score;
     private final Account account;
+    private final EventHandler<MouseEvent> exitSceneHandler;
+    private final EventHandler<KeyEvent> exitHandler;
     private boolean inPause;
     private boolean ended;
 
@@ -48,7 +50,7 @@ public class GameController {
         this.gameView = new GameView(stageController);
         this.score = new ScoreImpl();
         final GameController controller = this;
-        final EventHandler<KeyEvent> exitHandler = new EventHandler<KeyEvent>() {
+        this.exitHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode().compareTo(KeyCode.ESCAPE) == 0 && !controller.inPause) {
@@ -58,14 +60,13 @@ public class GameController {
                 }
             }
         };
-
         final EventHandler<MouseEvent> shootHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(final MouseEvent event) {
                 fieldController.getCharacter().shoot();
             }
         };
-        final EventHandler<MouseEvent> exitSceneHandler = new EventHandler<MouseEvent>() {
+        this.exitSceneHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(final MouseEvent event) {
                 if (!controller.inPause) {
@@ -88,9 +89,9 @@ public class GameController {
         if (account.getSettings().isSoundOn()) {
             GameUtils.GAMEPLAY_MUSIC.loop();
         }
-        this.gameView.getScene().setOnKeyPressed(exitHandler);
-        this.gameView.getScene().setOnMouseExited(exitSceneHandler);
-        this.gameView.getScene().setOnMouseClicked(shootHandler);
+        this.gameView.getScene().setOnKeyPressed(this.exitHandler);
+        this.gameView.getScene().setOnMouseExited(this.exitSceneHandler);
+        this.gameView.getScene().setOnMousePressed(shootHandler);
         this.fieldView = new FieldView(stageController);
         stageController.setScene(this.gameView.getScene());
         stageController.setFullScreen(account.getSettings().isFullScreenOn());
@@ -146,6 +147,8 @@ public class GameController {
     public synchronized void setEnded(final boolean ended) {
         this.ended = ended;
         if (!this.fieldController.getCharacter().getEntity().isAlive()) {
+            this.gameView.getScene().removeEventHandler(MouseEvent.MOUSE_EXITED, this.exitSceneHandler);
+            this.gameView.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, this.exitHandler);
             Platform.runLater(() -> new GameOverController(account, stageController, this).start());
         }
     }

@@ -64,26 +64,28 @@ public final class FileUtils {
         final File dir = new File(ACCOUNT_PATH);
         dir.mkdirs();
         final File[] array = dir.listFiles();
-        final List<File> files = new ArrayList<>(Arrays.asList(array));
-        files.stream()
-             .map(f -> {
-                 try {
-                     final Iterator<String> iterator = Files.readAllLines(Paths.get(f.getPath())).iterator();
-                     return new AccountImpl.Builder(iterator.next(), iterator.next())
-                                           .withNickname(iterator.next())
-                                           .bestScore(Integer.parseInt(iterator.next()))
-                                           .addMySettings(new SettingsImpl(Boolean.parseBoolean(iterator.next()),
-                                                          new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
-                                                          iterator.next(),
-                                                          iterator.next(),
-                                                          Boolean.parseBoolean(iterator.next())))
-                                           .build();
-                 } catch (IOException e) {
-                     e.printStackTrace();
-                 }
-                 return null;
-             })
-             .forEach(set::add);
+        if (array != null) {
+            final List<File> files = new ArrayList<>(Arrays.asList(array));
+            files.stream()
+                 .map(f -> {
+                     try {
+                         final Iterator<String> iterator = Files.readAllLines(Paths.get(f.getPath())).iterator();
+                         return new AccountImpl.Builder(iterator.next(), iterator.next())
+                                               .withNickname(iterator.next())
+                                               .bestScore(Integer.parseInt(iterator.next()))
+                                               .addMySettings(new SettingsImpl(Boolean.parseBoolean(iterator.next()),
+                                                              new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
+                                                              iterator.next(),
+                                                              iterator.next(),
+                                                              Boolean.parseBoolean(iterator.next())))
+                                               .build();
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     }
+                     return null;
+                 })
+                 .forEach(set::add);
+        }
         return set;
     }
 
