@@ -27,7 +27,6 @@ public class BulletController implements EntityController {
      */
     public BulletController(final GameController gameController, final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
         this.image = utilities.EntitiesImageUtils.getBulletImage(level);
-        System.out.println("bullet done");
         this.bullet = new BulletImpl(level, src, target, fieldSize);
         this.gameController = gameController;
     }
@@ -55,7 +54,7 @@ public class BulletController implements EntityController {
      */
     @Override
     public void draw() {
-        final double angle = Math.toDegrees(this.bullet.getAngle());
+        final double angle = Math.toDegrees(this.bullet.getAngle()) + 180;
         this.gameController.getFieldView().drawEntity(image, angle, this.bullet.getBoundary());
     }
 

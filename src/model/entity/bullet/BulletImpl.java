@@ -32,7 +32,7 @@ public class BulletImpl implements Bullet {
      * @param fieldSize the field width and height.
      */
     public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        this.speed = level * 3;
+        this.speed = level * 1.5;
         this.damage = level * BulletImpl.DAMAGE_UNIT;
         this.fieldSize = fieldSize;
         this.position = src;

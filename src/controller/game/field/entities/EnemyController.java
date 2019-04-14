@@ -85,7 +85,6 @@ public class EnemyController implements EntityController {
      * @return the new Bullet.
      */
     public BulletController shoot() {
-        System.out.println("sparo");
         return new BulletController(this.gameController, this.enemy.getLevel(), this.enemy.shoot(), 
                 new Point2D(this.characterController.getEntity().getBoundary().getMinX(),
                         this.characterController.getEntity().getBoundary().getMinY()), this.fieldSize);

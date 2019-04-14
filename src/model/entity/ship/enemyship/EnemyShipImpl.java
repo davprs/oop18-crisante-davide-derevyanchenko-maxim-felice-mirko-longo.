@@ -10,7 +10,7 @@ import model.entity.ship.AbstractShip;
  */
 public class EnemyShipImpl extends AbstractShip implements EnemyShip {
 
-    private static final int DELAY = (int) (Math.random() * 800 + 200);
+    private static final int DELAY = (int) (Math.random() * 600 + 200);
     private static final double DIMENSION_PROPORTION = 0.04;
     private static final int STARTING_LIVES = 1;
     private static final int STARTING_HEALTH = 1000;
@@ -93,7 +93,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     public Point2D shoot() {
         this.framesFromShoot = 0;
         this.shootingAvailable = false;
-        return this.position;
+        return this.position.add(this.shipDimension.getWidth() / 2, this.shipDimension.getHeight() / 2);
     }
 
     /**

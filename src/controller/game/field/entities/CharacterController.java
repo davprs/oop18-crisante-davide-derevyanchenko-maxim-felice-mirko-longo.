@@ -131,6 +131,6 @@ public class CharacterController implements EntityController {
         final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
         final Point2D mousePosition = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
         final Point2D vector = mousePosition.subtract(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2);
-        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, this.ship.getCentralPosition(), this.ship.getCentralPosition().add(vector), this.resolution));
+        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, 2, this.ship.getCentralPosition(), this.ship.getCentralPosition().add(vector), this.resolution));
     }
 }
