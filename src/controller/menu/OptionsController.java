@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.StageController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,6 +46,8 @@ public class OptionsController implements FXMLController {
     private static final String YES_KEY = "yes";
     private static final String NO_KEY = "no";
     private static final String CHANGE_SHIP_KEY = "change_ship";
+    private static final String CHANGE_CREDENTIALS_KEY = "changeCredentials";
+    private static final String CHANGE_KEY = "change";
     private static final String SHIP_1 = "spaceship";
     private static final String SHIP_2 = "enemyShip1";
     private static final String SHIP_3 = "GreenEvil";
@@ -61,6 +64,8 @@ public class OptionsController implements FXMLController {
     @FXML
     private Button back;
     @FXML
+    private Button changeBtn;
+    @FXML
     private ChoiceBox<String> language; 
     @FXML
     private ChoiceBox<String> resolution;
@@ -72,6 +77,8 @@ public class OptionsController implements FXMLController {
     private Label soundLb;
     @FXML
     private Label changeShipLb;
+    @FXML
+    private Label changeLbl;
     @FXML
     private RadioButton yes;
     @FXML
@@ -103,7 +110,7 @@ public class OptionsController implements FXMLController {
             @Override
             public void run() {
                 while (isInOptions) {
-                    image.setImage(new Image(shipList.getValue() + PNG));
+                    Platform.runLater(() -> image.setImage(new Image(shipList.getValue() + PNG)));
                 }
                 try {
                     Thread.sleep(SLEEP_TIME);
@@ -122,20 +129,21 @@ public class OptionsController implements FXMLController {
     @FXML
     public void goBack() {
         this.grid.setEffect(GameUtils.getBlurEffect());
-        final Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
+        final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
         if (confirmSettings.get() == ButtonType.YES) {
-            final String[] values = resolution.getValue().split("x");
-            final Dimension2D selectedResolution = new Dimension2D(Double.parseDouble(values[0]), Double.parseDouble(values[1]));
-            this.account.getSettings().setResolution(selectedResolution);
-            this.account.getSettings().setLanguage(language.getValue());
-            this.account.getSettings().setImageName(this.shipList.getValue());
-            if (yes.isSelected()) {
-                account.getSettings().setSound(true);
-            } else if (no.isSelected()) {
-                account.getSettings().setSound(false); 
-            }
             try {
+                final String[] values = resolution.getValue().split("x");
+                final Dimension2D selectedResolution = new Dimension2D(Double.parseDouble(values[0]), Double.parseDouble(values[1]));
+                this.account.getSettings().setResolution(selectedResolution);
+                this.account.getSettings().setLanguage(language.getValue());
+                this.account.getSettings().setImageName(this.shipList.getValue());
+                if (yes.isSelected()) {
+                    account.getSettings().setSound(true);
+                } else if (no.isSelected()) {
+                    account.getSettings().setSound(false); 
+                }
                 FileUtils.printAccount(account);
+                new MenuController(this.account, this.stageController).start();
             } catch (IOException e) {
                 ErrorLog.getLog().printError();
                 System.exit(0);
@@ -143,7 +151,12 @@ public class OptionsController implements FXMLController {
         }
         this.grid.setEffect(GameUtils.getTransparentEffect());
         this.isInOptions = false;
-        new MenuController(this.account, this.stageController).start();
+    }
+    /**
+     * 
+     */
+    public void changeCredentials() {
+        new ChangeCredentialsController(this.account, this.stageController).start();
     }
 
     /**
@@ -162,6 +175,8 @@ public class OptionsController implements FXMLController {
         this.yes.setText(this.bundle.getString(YES_KEY));
         this.no.setText(this.bundle.getString(NO_KEY));
         this.changeShipLb.setText(this.bundle.getString(CHANGE_SHIP_KEY));
+        this.changeBtn.setText(this.bundle.getString(CHANGE_KEY));
+        this.changeLbl.setText(this.bundle.getString(CHANGE_CREDENTIALS_KEY));
     }
 
     private void setComponents() {
