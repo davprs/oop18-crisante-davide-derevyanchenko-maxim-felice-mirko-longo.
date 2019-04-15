@@ -102,8 +102,15 @@ public final class LifeImpl implements Life {
     /**
      * {@inheritDoc}
      */
-    public synchronized int getHealth() {
+    public synchronized int getCurrentHealth() {
         return this.currentHealth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getHealth() {
+        return this.health;
     }
 
     /**

@@ -5,7 +5,6 @@ import java.util.List;
 
 import controller.game.GameController;
 import controller.game.field.CameraController;
-import controller.game.field.FieldController;
 import controller.game.field.entities.BulletController;
 import controller.game.field.entities.EnemyController;
 import controller.game.field.entities.EntityController;
@@ -27,21 +26,18 @@ public class DrawAgent extends Thread {
     private final CameraController cameraController;
     private final List<EntityController> explodingEntities;
     private final List<Long> explosionStartMoments;
-    private final FieldController fieldController;
 
     /**
      *  Constructor for the DrawAgent.
      * 
      * @param gameController the controller of the game
-     * @param fieldController the field controller of the game
      * @param cameraController the camera of the field
      */
-    public DrawAgent(final GameController gameController, final FieldController fieldController, final CameraController cameraController) {
+    public DrawAgent(final GameController gameController, final CameraController cameraController) {
         this.gameController = gameController;
         this.cameraController = cameraController;
         this.explodingEntities = new LinkedList<>();
         this.explosionStartMoments = new LinkedList<>();
-        this.fieldController = fieldController;
     }
 
     /**
@@ -51,22 +47,26 @@ public class DrawAgent extends Thread {
 
         while (!this.gameController.isEnded()) {
             try {
-                synchronized (this.fieldController) {
+                synchronized (this.gameController) {
                     if (!this.gameController.isInPause()) {
                         Platform.runLater(() -> {
                             this.gameController.getFieldView().drawBackground();
                             this.cameraController.update();
                             this.gameController.getFieldController().getCharacter().draw();
-                            for (final EnemyController enemy : this.gameController.getFieldController().getEnemies()) {
+                            final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
+                            for (final EnemyController enemy : enemies) {
                                 enemy.draw();
                             }
-                            for (final BulletController enemyBullet : this.gameController.getFieldController().getEnemyBullets()) {
+                            final List<BulletController> enemyBullets = this.gameController.getFieldController().getEnemyBullets();
+                            for (final BulletController enemyBullet : enemyBullets) {
                                 enemyBullet.draw();
                             }
-                            for (final BulletController characterBullet : this.gameController.getFieldController().getCharacterBullets()) {
+                            final List<BulletController> characterBullets = this.gameController.getFieldController().getCharacterBullets();
+                            for (final BulletController characterBullet : characterBullets) {
                                 characterBullet.draw();
                             }
-                            for (final MeteorController meteor : this.gameController.getFieldController().getMeteors()) {
+                            final List<MeteorController> meteors = this.gameController.getFieldController().getMeteors();
+                            for (final MeteorController meteor : meteors) {
                                 meteor.draw();
                             }
                             for (int i = 0; i < this.explodingEntities.size(); i++) {

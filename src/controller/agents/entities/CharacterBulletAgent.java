@@ -1,5 +1,7 @@
 package controller.agents.entities;
 
+import java.util.List;
+
 import controller.game.GameController;
 import controller.game.field.entities.EnemyController;
 import controller.game.field.entities.EntityController;
@@ -27,10 +29,12 @@ public class CharacterBulletAgent extends EntityAgent {
      */
     @Override
     protected void intersectChecker() {
-        for (final EnemyController enemyController : this.getFieldController().getEnemies()) {
+        final List<EnemyController> enemies = this.getFieldController().getEnemies();
+        final List<MeteorController> meteors = this.getFieldController().getMeteors();
+        for (final EnemyController enemyController : enemies) {
             this.getEntity().intersects(enemyController.getEntity());
         }
-        for (final MeteorController meteorController : this.getFieldController().getMeteors()) {
+        for (final MeteorController meteorController : meteors) {
             this.getEntity().intersects(meteorController.getEntity());
         }
     }

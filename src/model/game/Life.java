@@ -29,8 +29,16 @@ public interface Life {
     void loseLife();
 
     /**
+     * Method that gets the remaining amount of this life.
      * 
      * @return the amount of health left to the life
+     */
+    int getCurrentHealth();
+
+    /**
+     * Method that gets the initial health of this life.
+     * 
+     * @return the initial health of the life
      */
     int getHealth();
 

@@ -9,7 +9,7 @@ import model.entity.Entity;
  */
 public class MeteorImpl implements Meteor {
 
-    private static final int SCORE_POINTS = 50;
+    private static final int SCORE_POINTS = 750;
     private static final int DAMAGE_UNIT = 300;
     private static final double DIMENSION_PROPORTION = 0.04;
     private final int scorePoints;

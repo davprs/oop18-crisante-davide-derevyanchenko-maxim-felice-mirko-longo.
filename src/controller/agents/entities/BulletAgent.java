@@ -4,6 +4,7 @@ import java.util.List;
 
 import controller.game.GameController;
 import controller.game.field.entities.EnemyController;
+import utilities.ErrorLog;
 
 /**
  * 
@@ -12,6 +13,7 @@ import controller.game.field.entities.EnemyController;
  */
 public class BulletAgent extends Thread {
 
+    private static final int WAITING_TIME = 50;
     private final GameController gameController;
 
     /**
@@ -28,11 +30,17 @@ public class BulletAgent extends Thread {
     @Override
     public void run() {
         while (!this.gameController.isInPause() && !this.gameController.isEnded()) {
-            final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
-            for (final EnemyController enemy : enemies) {
-                if (enemy.canShoot()) {
-                    this.gameController.getFieldController().addEnemyBullet(enemy.shoot());
+            try {
+                final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
+                for (final EnemyController enemy : enemies) {
+                    if (enemy.canShoot()) {
+                        this.gameController.getFieldController().addEnemyBullet(enemy.shoot());
+                    }
                 }
+                Thread.sleep(WAITING_TIME);
+            } catch (InterruptedException e) {
+                ErrorLog.getLog().printError();
+                System.exit(0);
             }
         }
     }

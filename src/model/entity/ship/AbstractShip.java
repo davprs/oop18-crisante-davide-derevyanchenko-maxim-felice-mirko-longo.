@@ -43,7 +43,7 @@ public abstract class AbstractShip implements Ship {
      */
     @Override
     public boolean isAlive() {
-        return !(this.life.getHealth() <= 0 && this.life.getLives() <= 0);
+        return !(this.life.getCurrentHealth() <= 0 && this.life.getLives() <= 0);
     }
 
     /**

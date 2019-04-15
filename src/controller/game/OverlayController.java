@@ -72,7 +72,7 @@ public class OverlayController implements FXMLController {
                         if (!gameController.isInPause()) {
                             Platform.runLater(() -> {
                                 numberOfLives.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getLives()));
-                                hpNumber.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getHealth()));
+                                hpNumber.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getCurrentHealth()));
                                 scoreNumber.setText(Integer.toString(gameController.getScore().getScorePoints()));
                             });
                         }

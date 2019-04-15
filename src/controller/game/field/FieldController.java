@@ -2,6 +2,7 @@ package controller.game.field;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class FieldController {
         camController.setCam(SCALE_VALUE, resolution);
         this.characterController = new CharacterController(this.gameController, camController);
         this.startAgent(new CharacterAgent(this.characterController, this.gameController));
-        this.drawAgent = new DrawAgent(this.gameController, this, camController);
+        this.drawAgent = new DrawAgent(this.gameController, camController);
         this.startAgent(this.drawAgent);
         try {
             new Robot().mouseMove((int) resolution.getWidth() / 2, (int) resolution.getHeight() / 2);
@@ -82,7 +83,7 @@ public class FieldController {
      * @return the list of all enemy controllers
      */
     public synchronized List<EnemyController> getEnemies() {
-        return this.enemies;
+        return Collections.synchronizedList(this.enemies);
     }
 
     /**
@@ -91,7 +92,7 @@ public class FieldController {
      * @return the list of all enemy bullet controllers
      */
     public synchronized List<BulletController> getEnemyBullets() {
-        return this.enemyBullets;
+        return Collections.synchronizedList(this.enemyBullets);
     }
 
     /**
@@ -100,7 +101,7 @@ public class FieldController {
      * @return the list of all character bullet controllers
      */
     public synchronized List<BulletController> getCharacterBullets() {
-        return this.characterBullets;
+        return Collections.synchronizedList(this.characterBullets);
     }
 
     /**
@@ -109,7 +110,7 @@ public class FieldController {
      * @return the list of all meteor controllers
      */
     public synchronized List<MeteorController> getMeteors() {
-        return this.meteors;
+        return Collections.synchronizedList(this.meteors);
     }
 
     /**
@@ -160,7 +161,6 @@ public class FieldController {
     public synchronized void removeEnemy(final EnemyController enemy) {
         this.enemies.remove(enemy);
         this.drawAgent.addExplodingEntity(enemy);
-        System.gc();
     }
 
     /**

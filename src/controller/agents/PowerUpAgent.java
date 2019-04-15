@@ -32,7 +32,8 @@ public class PowerUpAgent extends Thread {
             try {
                 this.powerController.active();
                 Thread.sleep(WAITING_TIME);
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
+                System.out.println("non e' crashato qui!!!");
                 ErrorLog.getLog().printError();
                 System.exit(0);
             }
