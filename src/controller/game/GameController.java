@@ -86,7 +86,6 @@ public class GameController {
         this.gameView.getScene().setOnMousePressed(shootHandler);
         this.fieldView = new FieldView(stageController);
         stageController.setScene(this.gameView.getScene());
-        stageController.setFullScreen(account.getSettings().isFullScreenOn());
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
         this.fieldController = new FieldController(this);
         this.overlayController = new OverlayController(account, stageController, this);

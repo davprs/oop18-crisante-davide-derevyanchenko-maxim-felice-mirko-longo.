@@ -35,6 +35,7 @@ public class GameOverView {
         try {
             this.subScene = new SubScene(loader.load(), stageController.getScene().getWidth() / WIDTH, stageController.getScene().getHeight() / HEIGHT);
         } catch (IOException e) {
+            System.out.println(e);
             ErrorLog.getLog().printError();
             System.exit(0);
         }

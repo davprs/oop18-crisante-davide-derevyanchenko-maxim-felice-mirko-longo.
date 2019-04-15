@@ -63,6 +63,7 @@ public class HighscoreController implements FXMLController {
         try {
             this.table.getItems().addAll(FileUtils.getAccounts());
         } catch (IOException e) {
+            System.out.println(e);
             ErrorLog.getLog().printError();
             System.exit(0);
         }

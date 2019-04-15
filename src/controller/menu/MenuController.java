@@ -55,7 +55,6 @@ public class MenuController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new MenuView(this).getScene());
-        this.stageController.setFullScreen(this.account.getSettings().isFullScreenOn());
         this.stageController.setDimension(this.account.getSettings().getResolution());
         if (account.getSettings().isSoundOn()) {
             GameUtils.MAIN_THEME.play();

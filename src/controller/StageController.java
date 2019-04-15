@@ -16,6 +16,7 @@ import javafx.stage.WindowEvent;
 public class StageController {
 
     private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final String FULLSCREEN_MESSAGE = "";
     private final Stage stage;
 
     /**
@@ -24,7 +25,8 @@ public class StageController {
      */
     public StageController(final Stage stage) {
         this.stage = stage;
-        this.stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        this.stage.setFullScreenExitKeyCombination(KeyCombination.valueOf("F11"));
+        this.stage.setFullScreenExitHint(FULLSCREEN_MESSAGE);
     }
 
     /**
@@ -94,14 +96,6 @@ public class StageController {
     public void setScene(final Scene scene) {
         this.stage.setScene(scene);
         this.stage.centerOnScreen();
-    }
-
-    /**
-     * Set the FullScreen.
-     * @param value the value to set
-     */
-    public void setFullScreen(final boolean value) {
-        this.stage.setFullScreen(value);
     }
 
     /**

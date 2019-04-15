@@ -44,7 +44,6 @@ public final class FileUtils {
             ps.println(account.getPassword());
             ps.println(account.getNickname());
             ps.println(account.getBestScore());
-            ps.println(account.getSettings().isFullScreenOn());
             ps.println(account.getSettings().getResolution().getWidth());
             ps.println(account.getSettings().getResolution().getHeight());
             ps.println(account.getSettings().getLanguage());
@@ -73,7 +72,7 @@ public final class FileUtils {
                          return new AccountImpl.Builder(iterator.next(), iterator.next())
                                                .withNickname(iterator.next())
                                                .bestScore(Integer.parseInt(iterator.next()))
-                                               .addMySettings(new SettingsImpl(Boolean.parseBoolean(iterator.next()),
+                                               .addMySettings(new SettingsImpl(
                                                               new Dimension2D(Double.parseDouble(iterator.next()), Double.parseDouble(iterator.next())),
                                                               iterator.next(),
                                                               iterator.next(),

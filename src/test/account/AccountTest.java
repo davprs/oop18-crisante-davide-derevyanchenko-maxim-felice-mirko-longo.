@@ -3,7 +3,6 @@ package test.account;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -26,8 +25,8 @@ public class AccountTest {
     private static final String DEFAULT_PASSWORD = "Mirko";
     private static final String PASSWORD_TO_SET = "mirko";
     private static final Dimension2D RESOLUTION = new Dimension2D(WIDTH, HEIGHT);
-    private static final Settings DEFAULT_SETTINGS = new SettingsImpl(true, RESOLUTION, "it", "mySpaceship.png", false);
-    private static final Settings SETTINGS_TO_SET = new SettingsImpl(false, RESOLUTION, "en", "spaceship.png", true);
+    private static final Settings DEFAULT_SETTINGS = new SettingsImpl(RESOLUTION, "it", "mySpaceship.png", false);
+    private static final Settings SETTINGS_TO_SET = new SettingsImpl(RESOLUTION, "en", "spaceship.png", true);
     private static final Account DEFAULT_SIMPLE_ACCOUNT = new AccountImpl.Builder(DEFAULT_USERNAME, DEFAULT_PASSWORD)
                                                                          .build();
     private static final Account DEFAULT_COMPLETE_ACCOUNT = new AccountImpl.Builder(DEFAULT_USERNAME, DEFAULT_PASSWORD)
@@ -63,7 +62,6 @@ public class AccountTest {
         final Settings settings = account.getSettings();
         assertEquals("it", settings.getLanguage());
         assertEquals(RESOLUTION, settings.getResolution());
-        assertTrue(settings.isFullScreenOn());
         assertFalse(settings.isSoundOn());
     }
 

@@ -15,7 +15,6 @@ public final class SettingsImpl implements Settings {
     private static final Dimension2D RES_DEFAULT = new Dimension2D(RES.getWidth(), RES.getHeight());
     private static final String IMG_DEFAULT = "spaceship";
     private static final String LANGUAGE_DEFAULT = "en";
-    private boolean isFullScreen;
     private Dimension2D resolution;
     private String language;
     private String imageName;
@@ -23,33 +22,23 @@ public final class SettingsImpl implements Settings {
     /**
      * Default Settings configuration. 
      */
-    public static final SettingsImpl DEFAULT = new SettingsImpl(true, RES_DEFAULT, LANGUAGE_DEFAULT, IMG_DEFAULT, false);
+    public static final SettingsImpl DEFAULT = new SettingsImpl(RES_DEFAULT, LANGUAGE_DEFAULT, IMG_DEFAULT, false);
 
     /**
      * Build a new Settings.
-     * @param fullScreen the fullScreen value
      * @param res the resolution to set
      * @param language the String language to set
      * @param imageName the URL of the image to set
      * @param value the boolean value of the sound
      */
-    public SettingsImpl(final boolean fullScreen, final Dimension2D res, final String language, final String imageName, final boolean value) {
+    public SettingsImpl(final Dimension2D res, final String language, final String imageName, final boolean value) {
         if (res == null || language == null || imageName == null || res.getWidth() < 0 || res.getHeight() < 0 || language.equals("") || imageName.equals("")) {
             throw new IllegalArgumentException();
         }
-        this.isFullScreen = fullScreen;
         this.resolution = res;
         this.language = language;
         this.imageName = imageName;
         this.sound = value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override 
-    public boolean isFullScreenOn() {
-        return this.isFullScreen;
     }
 
     /**
@@ -82,17 +71,6 @@ public final class SettingsImpl implements Settings {
     @Override
     public boolean isSoundOn() {
         return this.sound;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setFullScreen(final boolean value) {
-        if (this.resolution.equals(RES_DEFAULT)) {
-            this.isFullScreen = value;
-        }
-        this.isFullScreen = false;
     }
 
     /**

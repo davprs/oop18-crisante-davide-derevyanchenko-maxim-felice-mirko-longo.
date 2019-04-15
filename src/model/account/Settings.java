@@ -9,12 +9,6 @@ import javafx.geometry.Dimension2D;
 public interface Settings {
 
     /**
-     * Get the FullScreen property.
-     * @return the full screen value
-     */
-    boolean isFullScreenOn();
-
-    /**
      * Get the current resolution.
      * @return the resolution
      */
@@ -37,12 +31,6 @@ public interface Settings {
      * @return the sound
      */
     boolean isSoundOn();
-
-    /**
-     * Set the value to FullScreen.
-     * @param value the value to set
-     */
-    void setFullScreen(boolean value);
 
     /**
      * Set the resolution.

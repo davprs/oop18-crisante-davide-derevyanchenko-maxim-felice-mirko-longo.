@@ -16,11 +16,13 @@
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="318.0" minWidth="10.0" prefWidth="77.0" />
   </columnConstraints>
   <rowConstraints>
-      <RowConstraints maxHeight="112.0" minHeight="0.0" prefHeight="92.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="118.0" minHeight="3.6666641235351562" prefHeight="118.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="188.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="377.0" minHeight="10.0" prefHeight="242.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="112.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="134.0" minHeight="3.6666641235351562" prefHeight="114.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="115.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="377.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="377.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="377.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Button fx:id="back" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="51.0" prefWidth="123.0" text="Back" translateX="5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -48,8 +50,8 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ChoiceBox id="choice" fx:id="resolution" prefHeight="59.0" prefWidth="324.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <ChoiceBox id="choice" fx:id="language" prefHeight="59.0" prefWidth="316.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <ChoiceBox id="choice" fx:id="resolution" prefHeight="88.0" prefWidth="355.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <ChoiceBox id="choice" fx:id="language" prefHeight="88.0" prefWidth="353.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <RadioButton fx:id="yes" mnemonicParsing="false" prefHeight="95.0" prefWidth="189.0" text="YES" textFill="#fffafa" translateX="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -64,6 +66,8 @@
          </font>
       </RadioButton>
       <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="70.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-      <ChoiceBox id="choice" fx:id="shipList" prefHeight="88.0" prefWidth="343.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <ChoiceBox id="choice" fx:id="shipList" prefHeight="88.0" prefWidth="353.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="changeBtn" mnemonicParsing="false" onAction="#changeCredentials" prefHeight="72.0" prefWidth="356.0" text="Change Password &amp; Nickname" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <Label fx:id="changeLbl" prefHeight="145.0" prefWidth="433.0" text="Change Credentials" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
 </GridPane>

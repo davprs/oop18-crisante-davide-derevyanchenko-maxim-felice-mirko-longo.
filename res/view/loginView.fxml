@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -49,6 +50,7 @@
         	<font>
             	<Font size="14.0" />
          	</font></Label>
+      <FontAwesomeIcon fill="#00a128" iconName="KEY" size="2em" wrappingWidth="74.0" GridPane.rowIndex="3" />
        	</children>
    	<cursor>
     	<Cursor fx:constant="HAND" />
