@@ -39,7 +39,7 @@ public class FieldController {
      */
     public FieldController(final GameController gameController) {
         this.gameController = gameController;
-        final Dimension2D resolution = new Dimension2D(this.gameController.getView().getScene().getWidth(), this.gameController.getView().getScene().getHeight());
+        final Dimension2D resolution = new Dimension2D(this.gameController.getGameView().getScene().getWidth(), this.gameController.getGameView().getScene().getHeight());
         this.enemies = new LinkedList<>();
         this.enemyBullets = new LinkedList<>();
         this.characterBullets = new LinkedList<>();

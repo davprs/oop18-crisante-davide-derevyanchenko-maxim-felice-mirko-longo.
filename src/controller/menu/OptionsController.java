@@ -122,7 +122,7 @@ public class OptionsController implements FXMLController {
     @FXML
     public void goBack() {
         this.grid.setEffect(GameUtils.getBlurEffect());
-        final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
+        final Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
         if (confirmSettings.get() == ButtonType.YES) {
             final String[] values = resolution.getValue().split("x");
             final Dimension2D selectedResolution = new Dimension2D(Double.parseDouble(values[0]), Double.parseDouble(values[1]));

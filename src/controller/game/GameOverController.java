@@ -48,7 +48,7 @@ public class GameOverController implements FXMLController {
      */
     @FXML
     public void goToMenu() {
-        this.gameController.getView().getRoot().setEffect(GameUtils.getTransparentEffect());
+        this.gameController.getGameView().getRoot().setEffect(GameUtils.getTransparentEffect());
         new MenuController(this.account, this.stageController).start();
     }
 
@@ -69,7 +69,7 @@ public class GameOverController implements FXMLController {
     public void start() {
         this.gameController.getFieldView().getRoot().setEffect(GameUtils.getBlurEffect());
         this.gameController.getOverlayController().getView().getRoot().setEffect(GameUtils.getBlurEffect());
-        this.gameController.getView().getRoot().getChildren().add(gameOverView.getSubScene());
+        this.gameController.getGameView().getRoot().getChildren().add(gameOverView.getSubScene());
     }
 
     private void setLanguage() {

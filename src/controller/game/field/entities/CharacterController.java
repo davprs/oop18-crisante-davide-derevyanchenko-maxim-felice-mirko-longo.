@@ -17,7 +17,7 @@ import model.game.Life;
  */
 public class CharacterController implements EntityController {
 
-    private static final Image SHIP_IMAGE = new Image("spaceship.png");
+    private final Image shipImage = new Image("spaceship.png");
     private final Dimension2D resolution;
     private final CharacterShip ship;
     private final GameController gameController;
@@ -33,7 +33,7 @@ public class CharacterController implements EntityController {
      */
     public CharacterController(final GameController gameController, final CameraController camController) {
         this.gameController = gameController;
-        this.resolution = new Dimension2D(this.gameController.getView().getScene().getWidth(), this.gameController.getView().getScene().getHeight());
+        this.resolution = new Dimension2D(this.gameController.getGameView().getScene().getWidth(), this.gameController.getGameView().getScene().getHeight());
         this.ship = new CharacterShipImpl(new Point2D(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2), this.resolution);
         this.camController = camController;
         this.lastUpdate = System.currentTimeMillis();
@@ -77,7 +77,7 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void draw() {
-        this.gameController.getFieldView().drawEntity(SHIP_IMAGE, this.angle, this.ship.getBoundary());
+        this.gameController.getFieldView().drawEntity(shipImage, this.angle, this.ship.getBoundary());
     }
 
     /**

@@ -65,7 +65,7 @@ public class PauseController implements FXMLController {
     public void start() {
         this.gameController.getFieldView().getRoot().setEffect(GameUtils.getBlurEffect());
         this.gameController.getOverlayController().getView().getRoot().setEffect(GameUtils.getBlurEffect());
-        this.gameController.getView().getRoot().getChildren().add(pauseView.getSubScene());
+        this.gameController.getGameView().getRoot().getChildren().add(pauseView.getSubScene());
     }
 
     /**
@@ -75,7 +75,7 @@ public class PauseController implements FXMLController {
     public void resume() {
         this.gameController.getFieldView().getRoot().setEffect(GameUtils.getTransparentEffect());
         this.gameController.getOverlayController().getView().getRoot().setEffect(GameUtils.getTransparentEffect());
-        this.gameController.getView().getRoot().getChildren().remove(this.pauseView.getSubScene());
+        this.gameController.getGameView().getRoot().getChildren().remove(this.pauseView.getSubScene());
         this.gameController.getFieldController().getCharacter().setLastUpdate(System.currentTimeMillis());
         this.gameController.setInPause(false);
         if (account.getSettings().isSoundOn()) {
@@ -88,7 +88,7 @@ public class PauseController implements FXMLController {
      */
     @FXML
     public void goBackToMenu() {
-        this.gameController.getView().getRoot().setEffect(GameUtils.getTransparentEffect());
+        this.gameController.getGameView().getRoot().setEffect(GameUtils.getTransparentEffect());
         this.gameController.setEnded(true);
         new MenuController(this.account, this.stageController).start();
     }

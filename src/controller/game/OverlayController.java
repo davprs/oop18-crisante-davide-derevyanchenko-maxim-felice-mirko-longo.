@@ -63,7 +63,7 @@ public class OverlayController implements FXMLController {
      */
     @Override
     public void start() {
-        this.gameController.getView().getRoot().getChildren().add(this.view.getSubScene());
+        this.gameController.getGameView().getRoot().getChildren().add(this.view.getSubScene());
         new Thread(new Runnable() {
             @Override
             public void run() {
