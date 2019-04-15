@@ -44,9 +44,10 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
     /**
      * {@inheritDoc}
      */
-    public Point2D getCentralPosition() {
+    public synchronized Point2D getCentralPosition() {
+        final Point2D minPos = new Point2D(this.getBoundary().getMinX(), this.getBoundary().getMinY());
         final Point2D maxPos = new Point2D(this.getBoundary().getMaxX(), this.getBoundary().getMaxY());
-        return this.position.midpoint(maxPos);
+        return minPos.midpoint(maxPos);
     }
 
     /**
@@ -60,7 +61,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public boolean intersects(final Entity entity) {
+    public synchronized boolean intersects(final Entity entity) {
         return entity.getBoundary().intersects(this.getBoundary());
     }
 
@@ -78,7 +79,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    protected Point2D getPosition() {
+    protected synchronized Point2D getPosition() {
         return this.position;
     }
 
@@ -94,7 +95,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public Point2D shoot() {
+    public synchronized Point2D shoot() {
         return this.position;
     }
 
@@ -102,7 +103,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      * {@inheritDoc}
      */
     @Override
-    public void setImmunity(final boolean value) {
+    public synchronized void setImmunity(final boolean value) {
         this.immune = value;
     }
 

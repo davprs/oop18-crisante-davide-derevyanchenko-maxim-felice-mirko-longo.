@@ -33,21 +33,22 @@ public class TimeAgent extends Thread {
      */
     @Override
     public void run() {
-        while (this.currentTime <= this.endTime) {
-            if (this.gameController.isInPause()) {
-                this.pauseStartingTime = System.currentTimeMillis();
-                while (this.gameController.isInPause()) {
-                    try {
+        while (this.currentTime <= this.endTime && !this.gameController.isEnded()) {
+            try {
+                if (this.gameController.isInPause()) {
+                    this.pauseStartingTime = System.currentTimeMillis();
+                    while (this.gameController.isInPause() && !this.gameController.isEnded()) {
                         Thread.sleep(SLEEPING_TIME);
-                    } catch (InterruptedException e) {
-                        ErrorLog.getLog().printError();
-                        System.exit(0);
                     }
+                    this.currentTime = System.currentTimeMillis();
+                    this.endTime = this.currentTime - this.pauseStartingTime;
                 }
                 this.currentTime = System.currentTimeMillis();
-                this.endTime = this.currentTime - this.pauseStartingTime;
+                Thread.sleep(SLEEPING_TIME);
+            } catch (InterruptedException e) {
+                ErrorLog.getLog().printError();
+                System.exit(0);
             }
-            this.currentTime = System.currentTimeMillis();
         }
         this.powerUp.stop();
     }

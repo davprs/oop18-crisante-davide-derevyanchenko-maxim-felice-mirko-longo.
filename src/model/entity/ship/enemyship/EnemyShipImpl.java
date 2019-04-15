@@ -90,7 +90,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     * {@inheritDoc}
     */
     @Override
-    public Point2D shoot() {
+    public synchronized Point2D shoot() {
         this.framesFromShoot = 0;
         this.shootingAvailable = false;
         return this.position.add(this.shipDimension.getWidth() / 2, this.shipDimension.getHeight() / 2);
@@ -100,7 +100,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void update(final Point2D position) {
+    public void update(final Point2D position) {
         if (!frozen) {
             this.position = this.position.add(position);
             this.framesFromShoot++;
@@ -122,7 +122,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    protected Point2D getPosition() {
+    protected synchronized Point2D getPosition() {
         return this.position;
     }
 
@@ -154,7 +154,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public boolean isFrozen() {
+    public synchronized boolean isFrozen() {
         return this.frozen;
     }
 }

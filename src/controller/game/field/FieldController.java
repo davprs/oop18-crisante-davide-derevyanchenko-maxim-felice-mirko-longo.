@@ -160,6 +160,7 @@ public class FieldController {
     public synchronized void removeEnemy(final EnemyController enemy) {
         this.enemies.remove(enemy);
         this.drawAgent.addExplodingEntity(enemy);
+        System.gc();
     }
 
     /**

@@ -17,7 +17,8 @@ import model.game.Life;
  */
 public class CharacterController implements EntityController {
 
-    private final Image shipImage = new Image("spaceship.png");
+    private static final String EXTENSION = ".png";
+    private final Image shipImage;
     private final Dimension2D resolution;
     private final CharacterShip ship;
     private final GameController gameController;
@@ -33,9 +34,10 @@ public class CharacterController implements EntityController {
      */
     public CharacterController(final GameController gameController, final CameraController camController) {
         this.gameController = gameController;
-        this.resolution = new Dimension2D(this.gameController.getGameView().getScene().getWidth(), this.gameController.getGameView().getScene().getHeight());
+        this.resolution = this.gameController.getAccount().getSettings().getResolution();
         this.ship = new CharacterShipImpl(new Point2D(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2), this.resolution);
         this.camController = camController;
+        this.shipImage = new Image(this.gameController.getAccount().getSettings().getImageName() + EXTENSION);
         this.lastUpdate = System.currentTimeMillis();
     }
 
@@ -131,6 +133,8 @@ public class CharacterController implements EntityController {
         final Point2D mouseOnScreen = new Point2D(MouseInfo.getPointerInfo().getLocation().getX(), MouseInfo.getPointerInfo().getLocation().getY());
         final Point2D mousePosition = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
         final Point2D vector = mousePosition.subtract(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2);
-        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, 2, this.ship.getCentralPosition(), this.ship.getCentralPosition().add(vector), this.resolution));
+        final double rad = Math.toRadians(this.angle);
+        final Point2D startingPoint = this.ship.getCentralPosition().add(Math.cos(rad) * (this.ship.getBoundary().getHeight() / 2), Math.sin(rad) * (this.ship.getBoundary().getHeight() / 2));
+        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, 2, startingPoint, startingPoint.add(vector), this.resolution));
     }
 }

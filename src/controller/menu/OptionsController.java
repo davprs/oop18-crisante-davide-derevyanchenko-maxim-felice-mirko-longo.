@@ -110,13 +110,13 @@ public class OptionsController implements FXMLController {
             @Override
             public void run() {
                 while (isInOptions) {
-                    Platform.runLater(() -> image.setImage(new Image(shipList.getValue() + PNG)));
-                }
-                try {
-                    Thread.sleep(SLEEP_TIME);
-                } catch (InterruptedException e) {
-                    ErrorLog.getLog().printError();
-                    System.exit(0);
+                    try {
+                        Platform.runLater(() -> image.setImage(new Image(shipList.getValue() + PNG)));
+                        Thread.sleep(SLEEP_TIME);
+                    } catch (InterruptedException e) {
+                        ErrorLog.getLog().printError();
+                        System.exit(0);
+                    }
                 }
             };
         }).start();

@@ -187,6 +187,15 @@ public class GameController {
         return this.overlayController;
     }
 
+    /**
+     * Method that returns the actual account that is in game.
+     * 
+     * @return the account that is in game
+     */
+    public Account getAccount() {
+        return this.account;
+    }
+
     private void startAgent(final Thread agent) {
         agent.start();
     }

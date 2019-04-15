@@ -40,7 +40,6 @@ public class PowerUpController {
      * Active a random PowerUp.
      */
     public void active() {
-        System.out.println("power up attivato");
         if (checkScore(this.gameController.getScore().getScorePoints())) {
             final List<EnemyShip> enemies = this.gameController.getFieldController().getEnemies().stream()
                                                                                                  .map(ec -> ec.getEntity())
