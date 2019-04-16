@@ -4,6 +4,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import model.entity.Entity;
+import utilities.GameUtils;
 
 /**
  * Implementation of Bullet interface.
@@ -14,7 +15,7 @@ public class BulletImpl implements Bullet {
     private static final int DAMAGE_UNIT = 400;
     private static final double X_DIMENSION_PROPORTION = 0.003;
     private static final double POPORTION_BETWEEN_SIZES = 7;
-    private static final double SPEED_UNIT = 1.5;
+    private static final double SPEED_UNIT = 2;
     private final int damage;
     private final double speed;
     private Point2D position;
@@ -33,8 +34,8 @@ public class BulletImpl implements Bullet {
      * @param fieldSize the field width and height.
      */
     public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        this.speed = level * SPEED_UNIT;
-        this.damage = level * BulletImpl.DAMAGE_UNIT;
+        this.speed = GameUtils.transform(SPEED_UNIT, level);
+        this.damage = (int) GameUtils.transform(DAMAGE_UNIT, level);
         this.fieldSize = fieldSize;
         this.position = src;
         this.angle = Math.atan2(src.getY() - target.getY(), src.getX() - target.getX());

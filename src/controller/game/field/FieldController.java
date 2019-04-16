@@ -40,11 +40,11 @@ public class FieldController {
      */
     public FieldController(final GameController gameController) {
         this.gameController = gameController;
-        final Dimension2D resolution = new Dimension2D(this.gameController.getGameView().getScene().getWidth(), this.gameController.getGameView().getScene().getHeight());
-        this.enemies = new LinkedList<>();
-        this.enemyBullets = new LinkedList<>();
-        this.characterBullets = new LinkedList<>();
-        this.meteors = new LinkedList<>();
+        final Dimension2D resolution = this.gameController.getAccount().getSettings().getResolution();
+        this.enemies = Collections.synchronizedList(new LinkedList<>());
+        this.enemyBullets = Collections.synchronizedList(new LinkedList<>());
+        this.characterBullets = Collections.synchronizedList(new LinkedList<>());
+        this.meteors = Collections.synchronizedList(new LinkedList<>());
         final CameraController camController = new CameraController(this.gameController.getFieldView().getCamera());
         camController.setCam(SCALE_VALUE, resolution);
         this.characterController = new CharacterController(this.gameController, camController);
@@ -83,7 +83,7 @@ public class FieldController {
      * @return the list of all enemy controllers
      */
     public synchronized List<EnemyController> getEnemies() {
-        return Collections.synchronizedList(this.enemies);
+        return new LinkedList<>(this.enemies);
     }
 
     /**
@@ -92,7 +92,7 @@ public class FieldController {
      * @return the list of all enemy bullet controllers
      */
     public synchronized List<BulletController> getEnemyBullets() {
-        return Collections.synchronizedList(this.enemyBullets);
+        return new LinkedList<>(this.enemyBullets);
     }
 
     /**
@@ -101,7 +101,7 @@ public class FieldController {
      * @return the list of all character bullet controllers
      */
     public synchronized List<BulletController> getCharacterBullets() {
-        return Collections.synchronizedList(this.characterBullets);
+        return new LinkedList<>(this.characterBullets);
     }
 
     /**
@@ -110,7 +110,7 @@ public class FieldController {
      * @return the list of all meteor controllers
      */
     public synchronized List<MeteorController> getMeteors() {
-        return Collections.synchronizedList(this.meteors);
+        return new LinkedList<>(this.meteors);
     }
 
     /**

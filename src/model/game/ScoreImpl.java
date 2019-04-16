@@ -12,7 +12,7 @@ public class ScoreImpl implements Score {
      * {@inheritDoc}
      */
     @Override
-    public void addScore(final int value) {
+    public synchronized void addScore(final int value) {
         this.score += value;
     }
 
@@ -20,7 +20,7 @@ public class ScoreImpl implements Score {
      * {@inheritDoc}
      */
     @Override
-    public int getScorePoints() {
+    public synchronized int getScorePoints() {
         return this.score;
     }
 

@@ -17,6 +17,7 @@ public final class GameUtils {
     private static final int BLUR_EFFECT_RANGE = 5;
     private static final Effect TRANSPARENT = new BoxBlur(0, 0, 0);
     private static final Effect BLUR = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
+    private static final double SECOND_LEVEL_MULTIPLIER = 1.5;
     /**
      * Sound of the Menu.
      */
@@ -50,5 +51,16 @@ public final class GameUtils {
      */
     public static Effect getBlurEffect() {
         return BLUR;
+    }
+
+    /**
+     * Method that transforms a value depending on the level of the entity.
+     * 
+     * @param value the value to be transformed
+     * @param level the level to be used in transformation
+     * @return the modified value
+     */
+    public static double transform(final double value, final int level) {
+        return level < 3 ? (level == 1 ? level * value : SECOND_LEVEL_MULTIPLIER * value) : Math.log(level) * value;
     }
 }

@@ -3,12 +3,10 @@ package controller.game;
 import controller.StageController;
 import controller.agents.GameAgent;
 import controller.agents.PowerUpAgent;
-import controller.agents.SpawnAgent;
 import controller.agents.entities.BulletAgent;
 import controller.game.field.FieldController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.geometry.Dimension2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -90,16 +88,15 @@ public class GameController {
         this.gameView.getScene().setOnKeyPressed(exitHandler);
         this.gameView.getScene().setOnMouseExited(exitSceneHandler);
         this.gameView.getScene().setOnMousePressed(shootHandler);
-        this.fieldView = new FieldView(stageController);
+        this.fieldView = new FieldView(stageController, this.account.getSettings().getResolution(), this.gameLevel);
         stageController.setScene(this.gameView.getScene());
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
         this.fieldController = new FieldController(this);
         this.overlayController = new OverlayController(account, stageController, this);
         this.overlayController.start();
-        this.startAgent(new SpawnAgent(this, 1, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())));
         this.startAgent(new BulletAgent(this));
         this.startAgent(new PowerUpAgent(this));
-        this.startAgent(new GameAgent(this, 1));
+        this.startAgent(new GameAgent(this, this.gameLevel));
     }
 
     /**

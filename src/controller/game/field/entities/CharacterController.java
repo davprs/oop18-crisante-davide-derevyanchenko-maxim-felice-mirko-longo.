@@ -17,6 +17,7 @@ import model.game.Life;
  */
 public class CharacterController implements EntityController {
 
+    private static final int BULLET_LEVEL = 5;
     private static final String EXTENSION = ".png";
     private final Image shipImage;
     private final Dimension2D resolution;
@@ -134,7 +135,7 @@ public class CharacterController implements EntityController {
         final Point2D mousePosition = this.gameController.getFieldView().getCanvas().screenToLocal(mouseOnScreen);
         final Point2D vector = mousePosition.subtract(this.resolution.getWidth() / 2, this.resolution.getHeight() / 2);
         final double rad = Math.toRadians(this.angle);
-        final Point2D startingPoint = this.ship.getCentralPosition().add(Math.cos(rad) * (this.ship.getBoundary().getHeight() / 2), Math.sin(rad) * (this.ship.getBoundary().getHeight() / 2));
-        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, 2, startingPoint, startingPoint.add(vector), this.resolution));
+        final Point2D startingPoint = this.ship.getCentralPosition().add(Math.cos(rad) * (this.ship.getBoundary().getHeight() * 0.5), Math.sin(rad) * (this.ship.getBoundary().getHeight() * 0.5));
+        this.gameController.getFieldController().addCharacterBullet(new BulletController(this.gameController, BULLET_LEVEL, startingPoint, startingPoint.add(vector), this.resolution));
     }
 }

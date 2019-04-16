@@ -1,10 +1,9 @@
 package view.game;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.util.List;
 import controller.StageController;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -27,19 +26,27 @@ public class FieldView {
     private static final String EXTENSION = ".png";
     private static final List<Image> EXPLOSION = new LinkedList<>();
     private static final int FRAME_AMOUNT = 10;
-    private final Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
-    private final Camera cam = new ParallelCamera();
-    private final Canvas canvas = new Canvas(res.getWidth(), res.getHeight());
-    private final GraphicsContext gc = canvas.getGraphicsContext2D();
+    private final Dimension2D resolution;
+    private final Camera cam;
+    private final Canvas canvas;
+    private final GraphicsContext gc;
     private final SubScene subScene;
     private final Group root;
+    private final int level;
 
     /**
      * Build the MenuView.
      * @param stageController the controller of the stage 
+     * @param resolution the resolution of the game
+     * @param level the difficulty level of the game
      */
-    public FieldView(final StageController stageController) {
+    public FieldView(final StageController stageController, final Dimension2D resolution, final int level) {
+        this.level = level;
         this.root = new Group();
+        this.cam = new ParallelCamera();
+        this.resolution = resolution;
+        this.canvas = new Canvas(resolution.getWidth(), resolution.getHeight());
+        this.gc = canvas.getGraphicsContext2D();
         this.subScene = new SubScene(this.root, stageController.getWidth(), stageController.getHeight());
         this.subScene.setCamera(this.cam);
         this.subScene.setFill(Color.BLACK);
@@ -69,7 +76,7 @@ public class FieldView {
      * Method that draws the background of the battlefield.
      */
     public void drawBackground() {
-        this.gc.drawImage(ImageUtils.getBackgroundImage(1), 0, 0);
+        this.gc.drawImage(ImageUtils.getBackgroundImage(this.level), 0, 0, this.resolution.getWidth(), this.resolution.getHeight());
     }
 
     /**

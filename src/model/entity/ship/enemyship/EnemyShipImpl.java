@@ -4,6 +4,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import model.entity.Entity;
 import model.entity.ship.AbstractShip;
+import utilities.GameUtils;
 
 /**
  * Implementation of EnemyShip interface.
@@ -15,6 +16,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     private static final int STARTING_LIVES = 1;
     private static final int STARTING_HEALTH = 1000;
     private static final int SCORE_POINTS = 500;
+    private static final double SPEED_UNIT = 1;
     private Point2D position;
     private final Dimension2D shipDimension;
     private final double speed;
@@ -31,9 +33,9 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * @param fieldSize the field width and height.
      */
     public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize) {
-        super(STARTING_LIVES, STARTING_HEALTH);
+        super(STARTING_LIVES, (int) GameUtils.transform(STARTING_HEALTH, level));
         this.level = level;
-        this.speed = level;
+        this.speed = GameUtils.transform(SPEED_UNIT, level);
         this.framesToShoot = timeToShoot;
         this.position = new Point2D(Math.random() * fieldSize.getWidth(), Math.random() * fieldSize.getHeight());
         final double xSize = fieldSize.getWidth() * DIMENSION_PROPORTION;
@@ -139,7 +141,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      */
     @Override
     public int getScorePoints() {
-        return this.level * SCORE_POINTS;
+        return (int) GameUtils.transform(SCORE_POINTS, this.level);
     }
 
     /**

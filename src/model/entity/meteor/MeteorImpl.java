@@ -4,6 +4,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import model.entity.Entity;
+import utilities.GameUtils;
 /**
  * Implementation of Meteor interface.
  */
@@ -12,6 +13,7 @@ public class MeteorImpl implements Meteor {
     private static final int SCORE_POINTS = 750;
     private static final int DAMAGE_UNIT = 300;
     private static final double DIMENSION_PROPORTION = 0.04;
+    private static final double SPEED_UNIT = 1.5;
     private final int scorePoints;
     private final int damage;
     private final Dimension2D meteorDimension;
@@ -32,10 +34,10 @@ public class MeteorImpl implements Meteor {
      * @param fieldSize the field width and height.
      */
     public MeteorImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        final int speed = level * 3;
+        final int speed = (int) GameUtils.transform(SPEED_UNIT, level);
         this.fieldSize = fieldSize;
-        this.damage = level * MeteorImpl.DAMAGE_UNIT;
-        this.scorePoints = level * SCORE_POINTS;
+        this.damage = (int) GameUtils.transform(DAMAGE_UNIT, level);
+        this.scorePoints = (int) GameUtils.transform(SCORE_POINTS, level);
         this.position = src;
         final double xSize = this.fieldSize.getWidth() * DIMENSION_PROPORTION;
         this.meteorDimension = new Dimension2D(xSize, xSize);

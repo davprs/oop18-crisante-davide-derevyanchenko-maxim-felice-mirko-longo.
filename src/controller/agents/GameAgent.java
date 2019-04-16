@@ -33,6 +33,7 @@ public class GameAgent extends Thread {
         if (this.gameLevel <= 3) {
             new SpawnAgent(this.gameContoller, this.gameLevel, this.gameContoller.getAccount().getSettings().getResolution()).start();
         } else {
+            this.spawnAgent = new SpawnAgent(this.gameContoller, this.currentLevel, this.gameContoller.getAccount().getSettings().getResolution());
             while (!this.gameContoller.isEnded()) {
                 try {
                     if (!this.spawnAgent.isAlive()) {
@@ -40,7 +41,6 @@ public class GameAgent extends Thread {
                         this.spawnAgent.start();
                         this.currentLevel++;
                     }
-                    System.out.println("Livello nemico " + this.currentLevel);
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     ErrorLog.getLog().printError();

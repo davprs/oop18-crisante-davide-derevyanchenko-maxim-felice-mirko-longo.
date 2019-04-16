@@ -16,7 +16,7 @@ import utilities.ErrorLog;
  */
 public class SpawnAgent extends Thread {
 
-    private static final int WAITING_TIME = 3000;
+    private static final int WAITING_TIME = 1000;
     private static final int BOUND = 8000;
     private static final int SCORE_LEVEL_MULTIPLIER = 7000;
     private final int scoreLimit;
@@ -36,7 +36,7 @@ public class SpawnAgent extends Thread {
     public SpawnAgent(final GameController gameController, final int level, final Dimension2D fieldSize) {
         this.gameController = gameController;
         this.level = level;
-        this.scoreLimit = (this.level * SCORE_LEVEL_MULTIPLIER);
+        this.scoreLimit = this.level * SCORE_LEVEL_MULTIPLIER;
         this.fieldSize = fieldSize;
         this.fieldController = this.gameController.getFieldController();
         this.characterController = fieldController.getCharacter();
