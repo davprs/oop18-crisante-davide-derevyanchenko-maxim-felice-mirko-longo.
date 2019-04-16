@@ -2,13 +2,13 @@ package controller.game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import controller.StageController;
 import controller.menu.FXMLController;
 import controller.menu.MenuController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.GameUtils;
 import view.game.GameOverView;
@@ -30,6 +30,8 @@ public class GameOverController implements FXMLController {
     private Label gameOver;
     @FXML
     private Button menu;
+    @FXML
+    private GridPane grid;
     /**
      * 
      * @param account account

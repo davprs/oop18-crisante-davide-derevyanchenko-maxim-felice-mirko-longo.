@@ -3,9 +3,8 @@ package controller.menu;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import controller.StageController;
-import controller.game.GameController;
+import controller.game.LevelController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -68,7 +67,7 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void playTheGame() {
-        new GameController(this.account, this.stageController, 4);
+        new LevelController(this.account, this.stageController, this).start();
     }
 
     /**
@@ -124,6 +123,13 @@ public class MenuController implements FXMLController {
         this.highscoreBtn.setText(this.bundle.getString(HIGHSCORES_KEY));
         this.optionsBtn.setText(this.bundle.getString(OPTIONS_KEY));
         this.exitBtn.setText(this.bundle.getString(EXIT_KEY));
+    }
+    /**
+     * 
+     * @return this grid.
+     */
+    public GridPane getRoot() {
+        return this.grid;
     }
 
 }

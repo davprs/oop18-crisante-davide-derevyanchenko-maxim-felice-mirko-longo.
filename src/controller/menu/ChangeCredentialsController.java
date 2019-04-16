@@ -118,6 +118,7 @@ public class ChangeCredentialsController implements FXMLController {
         this.bundle = resources;
         setLanguage();
         this.nicknameField.setText(this.account.getNickname());
+        this.changePasswordField.setText(this.account.getPassword());
     }
     /**
      * {@inheritDoc}

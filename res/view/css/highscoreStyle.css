@@ -1,5 +1,5 @@
 .background {
-    -fx-background-image: url("/96077.jpg");
+    -fx-background-image: url("/backgroundSurvival.jpg");
     -fx-background-size: 100% 100%;
 }
 
@@ -11,7 +11,7 @@
 
 .button {
     -fx-background-color: rgba(0, 0, 0, 0.623);
-    -fx-font-size: 10pt;
+    -fx-font-size: 13pt;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
@@ -28,7 +28,7 @@
 
 .button:pressed, .button:hover:pressed {
     -fx-background-color: rgba(255, 255, 255, 0.39);
-    -fx-font-size: 10pt;
+    -fx-font-size: 13pt;
     -fx-text-fill: #0c0c0c;
     -fx-font-weight: bold;
     
@@ -39,7 +39,7 @@
 }
 
 .table-view .column-header-background{
-    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+    -fx-background-color: linear-gradient(#131313da 0%, #424141d8 100%);
 }
 
 .table-view .column-header-background .label{
@@ -52,19 +52,19 @@
 }
 
 .table-row-cell{
-    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-color: -fx-table-cell-border-color, #616161dc;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; 
 }
 
 .table-row-cell:odd{
-    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-color: -fx-table-cell-border-color, #424242de;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em;   
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #b6960a;
+    -fx-background-color: #b6970aef;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
 }

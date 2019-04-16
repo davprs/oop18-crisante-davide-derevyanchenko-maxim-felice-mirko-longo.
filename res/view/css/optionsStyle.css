@@ -1,5 +1,5 @@
 .background {
-    -fx-background-image: url("/96154.jpg");
+    -fx-background-image: url("/options.jpg");
     -fx-background-size: 100% 100%;
 }
 
@@ -11,7 +11,7 @@
 
 .button {
     -fx-background-color: rgba(0, 0, 0, 0.623);
-    -fx-font-size: 10pt;
+    -fx-font-size: 13pt;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;

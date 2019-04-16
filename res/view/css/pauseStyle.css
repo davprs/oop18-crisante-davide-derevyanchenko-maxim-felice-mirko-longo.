@@ -2,6 +2,11 @@
     -fx-background-color: #1d1d1d;
 }
 
+#grid {
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+}
+
 .label {
     -fx-text-fill: #d8d8d8;
     -fx-font-weight: bold;

@@ -10,6 +10,7 @@ import controller.menu.MenuController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.GameUtils;
 import view.menu.PauseView;
@@ -35,6 +36,8 @@ public class PauseController implements FXMLController {
     private Button resumeBtn;
     @FXML
     private Button menu;
+    @FXML
+    private GridPane grid;
 
     /**
      * 
