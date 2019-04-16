@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class Launcher extends Application {
 
     private static final double INITIAL_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 6;
-    private static final double INITIAL_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 5.4;
+    private static final double INITIAL_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3.5;
     private static final String TITLE = "Space Shooting";
 
     /**

@@ -21,6 +21,7 @@ public class GameOverController implements FXMLController {
 
     private static final String LABEL_KEY = "gameOver";
     private static final String GO_TO_MENU_KEY = "menu";
+    private static final String WIN_KEY = "wind";
     private final Account account;
     private final StageController stageController;
     private final GameController gameController;
@@ -75,7 +76,11 @@ public class GameOverController implements FXMLController {
     }
 
     private void setLanguage() {
-        this.gameOver.setText(bundle.getString(LABEL_KEY));
+        if (!this.gameController.getFieldController().getCharacter().getEntity().isAlive()) {
+            this.gameOver.setText(this.bundle.getString(LABEL_KEY));
+        } else {
+            this.gameOver.setText(this.bundle.getString(WIN_KEY));
+        }
         this.menu.setText(bundle.getString(GO_TO_MENU_KEY));
     }
 

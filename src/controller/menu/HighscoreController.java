@@ -84,6 +84,7 @@ public class HighscoreController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new HighscoreView(this.account, this).getScene());
+        this.stageController.setMinResolution();
     }
 
     private void setLanguage() {

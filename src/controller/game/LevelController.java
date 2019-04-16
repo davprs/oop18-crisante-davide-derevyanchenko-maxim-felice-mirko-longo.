@@ -23,6 +23,11 @@ public class LevelController implements FXMLController {
     private static final String MEDIUM_KEY = "medium";
     private static final String HARD_KEY = "hard";
     private static final String SURVIVAL_KEY = "survival";
+    private static final String BACK_KEY = "back";
+    private static final int EASY = 1;
+    private static final int MEDIUM = 2;
+    private static final int HARD = 3;
+    private static final int SURVIVAL = 4;
     private final Account account;
     private final StageController stageController;
     private final MenuController menuController;
@@ -54,6 +59,7 @@ public class LevelController implements FXMLController {
         this.menuController = menuController;
         this.levelView = new LevelView(this.account, this.stageController, this);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -62,13 +68,53 @@ public class LevelController implements FXMLController {
         this.bundle = resources;
         setLanguage();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void start() {
         this.menuController.getRoot().getChildren().add(this.levelView.getSubScene());
-        // this.menuController.getRoot().setEffect(GameUtils.getBlurEffect());
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    public void setEasy() {
+        this.startGame(EASY);
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    public void setMedium() {
+        this.startGame(MEDIUM);
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    public void setHard() {
+        this.startGame(HARD);
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    public void setSurvival() {
+        this.startGame(SURVIVAL);
+    }
+
+    /**
+     * 
+     */
+    @FXML
+    public void goBack() {
+        new MenuController(this.account, this.stageController).start();
     }
 
     private void setLanguage() {
@@ -77,40 +123,10 @@ public class LevelController implements FXMLController {
         this.mediumBtn.setText(this.bundle.getString(MEDIUM_KEY));
         this.hardBtn.setText(this.bundle.getString(HARD_KEY));
         this.survivalBtn.setText(this.bundle.getString(SURVIVAL_KEY));
+        this.backBtn.setText(this.bundle.getString(BACK_KEY));
     }
-    /**
-     * 
-     */
-    @FXML
-    public void setEasy() {
-        new GameController(this.account, this.stageController, 1);
-    }
-    /**
-     * 
-     */
-    @FXML
-    public void setMedium() {
-        new GameController(this.account, this.stageController, 2);
-    }
-    /**
-     * 
-     */
-    @FXML
-    public void setHard() {
-        new GameController(this.account, this.stageController, 3);
-    }
-    /**
-     * 
-     */
-    @FXML
-    public void setSurvival() {
-        new GameController(this.account, this.stageController, 4);
-    }
-    /**
-     * 
-     */
-    @FXML
-    public void goBack() {
-        new MenuController(this.account, this.stageController).start();
+
+    private void startGame(final int level) {
+        new GameController(this.account, this.stageController, level);
     }
 }

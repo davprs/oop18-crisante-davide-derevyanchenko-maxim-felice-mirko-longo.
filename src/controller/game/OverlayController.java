@@ -24,18 +24,17 @@ public class OverlayController implements FXMLController {
     private static final long WAITING_TIME = 20;
     private final OverlayView view;
     private final GameController gameController;
+    private ResourceBundle bundle;
     @FXML
     private Label lives;
     @FXML
-    private Label numberOfLives;
-    @FXML
     private Label hp;
-    @FXML
-    private Label hpNumber;
     @FXML
     private Label score;
     @FXML
-    private Label scoreNumber;
+    private Label powerUpLbl;
+    @FXML
+    private Label tempPowerUpLbl;
 
     /**
      * Build the OverlayController.
@@ -53,9 +52,7 @@ public class OverlayController implements FXMLController {
      */
     @Override
     public void initialize(final URL url, final ResourceBundle bundle) {
-        this.lives.setText(bundle.getString(LIVES));
-        this.hp.setText(bundle.getString(HP));
-        this.score.setText(bundle.getString(SCORE));
+        this.bundle = bundle;
     }
 
     /**
@@ -71,9 +68,9 @@ public class OverlayController implements FXMLController {
                     try {
                         if (!gameController.isInPause()) {
                             Platform.runLater(() -> {
-                                numberOfLives.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getLives()));
-                                hpNumber.setText(Integer.toString(gameController.getFieldController().getCharacter().getLife().getCurrentHealth()));
-                                scoreNumber.setText(Integer.toString(gameController.getScore().getScorePoints()));
+                                lives.setText(bundle.getString(LIVES) + Integer.toString(gameController.getFieldController().getCharacter().getLife().getLives()));
+                                hp.setText(bundle.getString(HP) + Integer.toString(gameController.getFieldController().getCharacter().getLife().getCurrentHealth()));
+                                score.setText(bundle.getString(SCORE) + Integer.toString(gameController.getScore().getScorePoints()));
                             });
                         }
                         Thread.sleep(WAITING_TIME);
@@ -92,5 +89,21 @@ public class OverlayController implements FXMLController {
      */
     public OverlayView getView() {
         return this.view;
+    }
+
+    /**
+     * Get the PowerUpLabel.
+     * @return the powerUpLabel
+     */
+    public Label getPowerUpLabel() {
+        return this.powerUpLbl;
+    }
+
+    /**
+     * Get the TemporaryPowerUpLabel.
+     * @return the tempPowerUpLabel
+     */
+    public Label getTempPowerUpLbl() {
+        return this.tempPowerUpLbl;
     }
 }

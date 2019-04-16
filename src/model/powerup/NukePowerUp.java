@@ -29,4 +29,12 @@ public class NukePowerUp implements PowerUp {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "Nuke PowerUp";
+    }
+
 }

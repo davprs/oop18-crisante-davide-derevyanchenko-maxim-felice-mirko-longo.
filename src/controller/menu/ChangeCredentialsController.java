@@ -126,6 +126,7 @@ public class ChangeCredentialsController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new ChangeCredentialsView(this.account, this).getScene());
+        this.stageController.setMinResolution();
     }
 
     private void applyChanges() {

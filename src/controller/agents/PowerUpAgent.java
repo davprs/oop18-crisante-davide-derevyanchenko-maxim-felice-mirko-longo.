@@ -1,7 +1,6 @@
 package controller.agents;
 
 import controller.game.GameController;
-import controller.game.PowerUpController;
 import utilities.ErrorLog;
 
 /**
@@ -11,7 +10,6 @@ import utilities.ErrorLog;
 public class PowerUpAgent extends Thread {
 
     private static final long WAITING_TIME = 1000;
-    private final PowerUpController powerController;
     private final GameController gameController;
 
     /**
@@ -19,7 +17,6 @@ public class PowerUpAgent extends Thread {
      * @param gameController the controller of the game
      */
     public PowerUpAgent(final GameController gameController) {
-        this.powerController = new PowerUpController(gameController);
         this.gameController = gameController;
     }
 
@@ -30,7 +27,9 @@ public class PowerUpAgent extends Thread {
     public void run() {
         while (!this.gameController.isEnded()) {
             try {
-                this.powerController.active();
+                if (this.gameController.getPowerController().isAvailable()) {
+                    this.gameController.getPowerController().active();
+                }
                 Thread.sleep(WAITING_TIME);
             } catch (InterruptedException e) {
                 System.out.println("non e' crashato qui!!!");

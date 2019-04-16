@@ -49,4 +49,12 @@ public class FreezePowerUp implements TemporaryPowerUp {
         return DURATION;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "Freeze PowerUp";
+    }
+
 }

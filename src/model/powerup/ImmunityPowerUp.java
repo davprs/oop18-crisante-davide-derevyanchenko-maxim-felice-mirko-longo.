@@ -43,4 +43,12 @@ public class ImmunityPowerUp implements TemporaryPowerUp {
         return DURATION;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "Immunity PowerUp";
+    }
+
 }

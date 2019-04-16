@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import controller.menu.MenuController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.layout.GridPane;
 import utilities.BundleUtils;
 import view.AbstractView;
 
@@ -37,7 +37,7 @@ public class MenuView extends AbstractView {
      * {@inheritDoc}
      */
     @Override
-    public Parent getRoot() throws IOException {
+    public GridPane getRoot() throws IOException {
         return this.loader.load();
     }
 

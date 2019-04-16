@@ -5,16 +5,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1409.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1409.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="137.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.66666412353516" minWidth="10.0" prefWidth="193.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="650.9999847412109" minWidth="10.0" prefWidth="221.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="668.0000305175781" minWidth="10.0" prefWidth="150.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.3333740234375" minWidth="10.0" prefWidth="157.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.3333740234375" minWidth="10.0" prefWidth="255.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.3333740234375" minWidth="10.0" prefWidth="157.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="381.666748046875" minWidth="10.0" prefWidth="163.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="554.3333129882812" minWidth="10.0" prefWidth="458.66668701171875" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="896.0" minWidth="10.0" prefWidth="657.3333129882812" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.3333740234375" minWidth="10.0" prefWidth="293.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -22,34 +17,29 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="lives" mouseTransparent="true" prefHeight="88.0" prefWidth="204.0" text="Label" textFill="#eeeeee" translateX="10.0" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+      <Label fx:id="lives" alignment="CENTER" mouseTransparent="true" prefHeight="88.0" prefWidth="331.0" text="Label" textFill="#eeeeee" translateX="10.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="scoreNumber" prefHeight="86.0" prefWidth="170.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-         <font>
-            <Font name="System Bold Italic" size="42.0" />
-         </font>
-      </Label>
-      <Label fx:id="score" prefHeight="83.0" prefWidth="256.0" text="Label" textFill="#eeeeee" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label fx:id="score" prefHeight="83.0" prefWidth="465.0" text="Label" textFill="#eeeeee" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="numberOfLives" prefHeight="83.0" prefWidth="212.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-         <font>
-            <Font name="System Bold Italic" size="42.0" />
-         </font>
-      </Label>
-      <Label fx:id="hp" prefHeight="82.0" prefWidth="177.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <Label fx:id="hp" alignment="CENTER" prefHeight="82.0" prefWidth="328.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <font>
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <Label fx:id="hpNumber" prefHeight="81.0" prefWidth="159.0" text="Label" textFill="#eeeeee" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+      <Label fx:id="powerUpLbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="88.0" prefWidth="679.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <font>
-            <Font name="System Bold Italic" size="42.0" />
+            <Font name="System Bold Italic" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="tempPowerUpLbl" alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="697.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <font>
+            <Font name="System Bold Italic" size="30.0" />
          </font>
       </Label>
    </children>

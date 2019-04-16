@@ -18,8 +18,9 @@ public class LevelView {
     private static final String LEVEL_VIEW = "levelView.fxml";
     private static final String LEVEL_BUNDLE = "game.LevelBundle";
     private static final double WIDTH = 2.02;
-    private static final double HEIGHT = 2.02;
+    private static final double HEIGHT = 1.70;
     private SubScene subScene;
+
     /**
      * 
      * @param account this account

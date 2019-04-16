@@ -24,6 +24,7 @@ public class MenuController implements FXMLController {
     private static final String HIGHSCORES_KEY = "highscore";
     private static final String OPTIONS_KEY = "options";
     private static final String EXIT_KEY = "exit";
+    private final MenuView menuView;
     private final Account account;
     private final StageController stageController;
     private ResourceBundle bundle;
@@ -46,6 +47,7 @@ public class MenuController implements FXMLController {
     public MenuController(final Account account, final StageController stageController) {
         this.account = account;
         this.stageController = stageController;
+        this.menuView = new MenuView(this);
     }
 
     /**
@@ -53,8 +55,9 @@ public class MenuController implements FXMLController {
      */
     @Override
     public void start() {
-        this.stageController.setScene(new MenuView(this).getScene());
+        this.stageController.setScene(this.menuView.getScene());
         this.stageController.setDimension(this.account.getSettings().getResolution());
+        this.stageController.setMinResolution();
         if (account.getSettings().isSoundOn()) {
             GameUtils.MAIN_THEME.play();
         } else {
@@ -67,6 +70,14 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void playTheGame() {
+//        try {
+//            this.stackPane.setStyle("-fx-background-color:transparent");
+//            this.menuView.getRoot().getChildren().add(this.stackPane);
+//        } catch (IOException e) {
+//            System.out.println(e);
+//            ErrorLog.getLog().printError();
+//            System.exit(0);
+//        }
         new LevelController(this.account, this.stageController, this).start();
     }
 

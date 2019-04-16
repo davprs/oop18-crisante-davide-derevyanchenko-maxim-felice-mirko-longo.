@@ -13,6 +13,7 @@ import javafx.scene.SubScene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import utilities.ImageUtils;
 
@@ -40,8 +41,8 @@ public class FieldView {
     public FieldView(final StageController stageController) {
         this.root = new Group();
         this.subScene = new SubScene(this.root, stageController.getWidth(), stageController.getHeight());
-        //this.subScene.setFill(new ImagePattern(SPACE_IMAGE, 1000, 1000, 1000, 1000, true));
         this.subScene.setCamera(this.cam);
+        this.subScene.setFill(Color.BLACK);
         this.root.getChildren().add(this.canvas);
         for (int i = 0; i < FRAME_AMOUNT; i++) {
             EXPLOSION.add(new Image(EXPLOSION_FILE_NAME + i + EXTENSION));

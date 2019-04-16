@@ -16,6 +16,8 @@ import javafx.stage.WindowEvent;
 public class StageController {
 
     private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final double MIN_WIDTH = 1024;
+    private static final double MIN_HEIGHT = 600;
     private static final String FULLSCREEN_MESSAGE = "";
     private final Stage stage;
 
@@ -81,6 +83,13 @@ public class StageController {
         this.stage.setMinHeight(dimension.getHeight());
     }
 
+    /**
+     * Set the Min Resolution for the window in menu.
+     */
+    public void setMinResolution() {
+        this.stage.setMinWidth(MIN_WIDTH);
+        this.stage.setMinHeight(MIN_HEIGHT);
+    }
     /**
      * 
      * @param stage the stage in which set the owner

@@ -25,4 +25,12 @@ public class LifePowerUp implements PowerUp {
         this.life.addLife();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "Life PowerUp";
+    }
+
 }

@@ -1,5 +1,7 @@
 package controller.menu;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -32,12 +34,18 @@ import view.menu.OptionsView;
  */
 public class OptionsController implements FXMLController {
 
+    private static final Dimension RESOLUTION = Toolkit.getDefaultToolkit().getScreenSize();
     private static final int SLEEP_TIME = 150;
     private static final String BACK_KEY = "back";
-    private static final String FIRST_CHOICE_CB1 = "720x480";
-    private static final String SECOND_CHOICE_CB1 = "1024x600";
+    private static final String FIRST_CHOICE_CB1 = "1024x600";
+    private static final String SECOND_CHOICE_CB1 = "1024x768";
     private static final String THIRD_CHOICE_CB1 = "1280x720";
-    private static final String FOURTH_CHOICE_CB1 = "1920x1080";
+    private static final String FOURTH_CHOICE_CB1 = "1366x768";
+    private static final String FIFTH_CHOICE_CB1 = "1440x900";
+    private static final String SIXTH_CHOICE_CB1 = "1680x1050";
+    private static final String SEVENTH_CHOICE_CB1 = "1920x1080";
+    private static final String EIGHT_CHOICE_CB1 = "2560x1440";
+    private static final String NINTH_CHOICE_CB1 = "3840x2160";
     private static final String FIRST_CHOICE_CB2 = "it";
     private static final String SECOND_CHOICE_CB2 = "en";
     private static final String RESOLUTION_KEY = "resolution";
@@ -51,7 +59,10 @@ public class OptionsController implements FXMLController {
     private static final String SHIP_1 = "spaceship";
     private static final String SHIP_2 = "enemyShip1";
     private static final String SHIP_3 = "GreenEvil";
-    private static final ObservableList<String> RESOLUTIONS_LIST = FXCollections.observableArrayList(FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1, FOURTH_CHOICE_CB1);
+    private static final ObservableList<String> RESOLUTIONS_LIST = FXCollections.observableArrayList(
+                                                                   FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1,
+                                                                   FOURTH_CHOICE_CB1, FIFTH_CHOICE_CB1, SIXTH_CHOICE_CB1,
+                                                                   SEVENTH_CHOICE_CB1, EIGHT_CHOICE_CB1, NINTH_CHOICE_CB1);
     private static final ObservableList<String> LANGUAGE_LIST = FXCollections.observableArrayList(FIRST_CHOICE_CB2, SECOND_CHOICE_CB2);
     private static final ObservableList<String> SHIP_LIST = FXCollections.observableArrayList(SHIP_1, SHIP_2, SHIP_3);
     private static final String PNG = ".png";
@@ -134,7 +145,9 @@ public class OptionsController implements FXMLController {
             try {
                 final String[] values = resolution.getValue().split("x");
                 final Dimension2D selectedResolution = new Dimension2D(Double.parseDouble(values[0]), Double.parseDouble(values[1]));
-                this.account.getSettings().setResolution(selectedResolution);
+                if (selectedResolution.getWidth() < RESOLUTION.getWidth() || selectedResolution.getHeight() < RESOLUTION.getHeight()) {
+                    this.account.getSettings().setResolution(selectedResolution);
+                }
                 this.account.getSettings().setLanguage(language.getValue());
                 this.account.getSettings().setImageName(this.shipList.getValue());
                 if (yes.isSelected()) {
@@ -165,6 +178,7 @@ public class OptionsController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new OptionsView(this.account, this).getScene());
+        this.stageController.setMinResolution();
     }
 
     private void setLanguage() {

@@ -38,7 +38,7 @@
         	<font>
             	<Font size="13.0" />
          	</font></Button>
-      	<Label fx:id="login" text="Log in" translateY="30.0" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      	<Label fx:id="login" alignment="CENTER" text="Log in" translateY="30.0" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
         	<font>
             	<Font name="System Bold" size="14.0" />
         	</font></Label>
@@ -52,7 +52,7 @@
          	</font></Label>
       <FontAwesomeIcon fill="#08ae2e" iconName="KEY" size="2em" translateY="-5.0" wrappingWidth="32.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
       <FontAwesomeIcon fill="#08ae2e" iconName="USER" size="2em" wrappingWidth="31.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <FontAwesomeIcon fill="#08ae2e" iconName="LOCK" size="4em" translateY="-5.0" wrappingWidth="39.42856979370117" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+      <FontAwesomeIcon fill="#08ae2e" iconName="LOCK" size="4em" translateX="4.0" translateY="-5.0" wrappingWidth="39.42856979370117" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
        	</children>
    	<cursor>
     	<Cursor fx:constant="HAND" />

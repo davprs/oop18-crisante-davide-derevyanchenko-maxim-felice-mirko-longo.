@@ -29,6 +29,7 @@ public class GameController {
     private final FieldController fieldController;
     private final OverlayController overlayController;
     private final StageController stageController;
+    private final PowerUpController powerController;
     private final GameView gameView;
     private final FieldView fieldView;
     private final Score score;
@@ -49,6 +50,7 @@ public class GameController {
         this.ended = false;
         this.account = account;
         this.stageController = stageController;
+        this.powerController = new PowerUpController(this);
         this.gameView = new GameView(stageController);
         this.score = new ScoreImpl();
         final GameController controller = this;
@@ -101,6 +103,14 @@ public class GameController {
     }
 
     /**
+     * Get the PowerUpController.
+     * @return the PowerUpController
+     */
+    public PowerUpController getPowerController() {
+        return this.powerController;
+    }
+
+    /**
      * Get the Score.
      * @return the score
      */
@@ -142,9 +152,7 @@ public class GameController {
      */
     public synchronized void setEnded(final boolean ended) {
         this.ended = ended;
-        if (!this.fieldController.getCharacter().getEntity().isAlive()) {
-            Platform.runLater(() -> new GameOverController(account, stageController, this).start());
-        } //TODO else
+        Platform.runLater(() -> new GameOverController(account, stageController, this).start());
     }
 
     /**
