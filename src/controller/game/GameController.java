@@ -1,6 +1,7 @@
 package controller.game;
 
 import controller.StageController;
+import controller.agents.GameAgent;
 import controller.agents.PowerUpAgent;
 import controller.agents.SpawnAgent;
 import controller.agents.entities.BulletAgent;
@@ -32,6 +33,7 @@ public class GameController {
     private final FieldView fieldView;
     private final Score score;
     private final Account account;
+    private final int gameLevel;
     private boolean inPause;
     private boolean ended;
 
@@ -40,8 +42,10 @@ public class GameController {
      * 
      * @param account the account of the player
      * @param stageController the controller of the Stage
+     * @param gameLevel the difficulty of the game
      */
-    public GameController(final Account account, final StageController stageController) {
+    public GameController(final Account account, final StageController stageController, final int gameLevel) {
+        this.gameLevel = gameLevel;
         this.ended = false;
         this.account = account;
         this.stageController = stageController;
@@ -93,6 +97,7 @@ public class GameController {
         this.startAgent(new SpawnAgent(this, 1, new Dimension2D(stageController.getScene().getWidth(), stageController.getScene().getHeight())));
         this.startAgent(new BulletAgent(this));
         this.startAgent(new PowerUpAgent(this));
+        this.startAgent(new GameAgent(this, 1));
     }
 
     /**
@@ -139,7 +144,7 @@ public class GameController {
         this.ended = ended;
         if (!this.fieldController.getCharacter().getEntity().isAlive()) {
             Platform.runLater(() -> new GameOverController(account, stageController, this).start());
-        }
+        } //TODO else
     }
 
     /**
@@ -194,6 +199,15 @@ public class GameController {
      */
     public Account getAccount() {
         return this.account;
+    }
+
+    /**
+     * Method that gets the difficulty of the game.
+     * 
+     * @return the level of the game
+     */
+    public int getGameLevel() {
+        return this.gameLevel;
     }
 
     private void startAgent(final Thread agent) {

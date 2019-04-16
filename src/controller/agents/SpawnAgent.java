@@ -18,6 +18,8 @@ public class SpawnAgent extends Thread {
 
     private static final int WAITING_TIME = 3000;
     private static final int BOUND = 8000;
+    private static final int SCORE_LEVEL_MULTIPLIER = 7000;
+    private final int scoreLimit;
     private final CharacterController characterController;
     private final GameController gameController;
     private final int level;
@@ -34,6 +36,7 @@ public class SpawnAgent extends Thread {
     public SpawnAgent(final GameController gameController, final int level, final Dimension2D fieldSize) {
         this.gameController = gameController;
         this.level = level;
+        this.scoreLimit = (this.level * SCORE_LEVEL_MULTIPLIER);
         this.fieldSize = fieldSize;
         this.fieldController = this.gameController.getFieldController();
         this.characterController = fieldController.getCharacter();
@@ -45,7 +48,7 @@ public class SpawnAgent extends Thread {
      */
     @Override
     public void run() {
-        while (!this.gameController.isEnded()) {
+        while (!this.gameController.isEnded() && this.gameController.getScore().getScorePoints() <= this.scoreLimit) {
             try {
                 if (!this.gameController.isInPause() && !this.gameController.checkEnemiesFrozen()) {
                     this.meteorWaiting -= WAITING_TIME;
@@ -60,6 +63,9 @@ public class SpawnAgent extends Thread {
                 ErrorLog.getLog().printError();
                 System.exit(0);
             }
+        }
+        if (this.gameController.getGameLevel() < 4) {
+            this.gameController.setEnded(true);
         }
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
+import utilities.ImageUtils;
 
 /**
  * The class that represents the view of the whole field.
@@ -21,7 +22,6 @@ import javafx.scene.transform.Rotate;
  */
 public class FieldView {
 
-    private static final Image SPACE_IMAGE = new Image("space.png");
     private static final String EXPLOSION_FILE_NAME = "explosion";
     private static final String EXTENSION = ".png";
     private static final List<Image> EXPLOSION = new LinkedList<>();
@@ -68,7 +68,7 @@ public class FieldView {
      * Method that draws the background of the battlefield.
      */
     public void drawBackground() {
-        this.gc.drawImage(SPACE_IMAGE, 0, 0);
+        this.gc.drawImage(ImageUtils.getBackgroundImage(1), 0, 0);
     }
 
     /**

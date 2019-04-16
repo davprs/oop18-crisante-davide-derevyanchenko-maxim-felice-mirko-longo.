@@ -26,7 +26,7 @@ public class BulletController implements EntityController {
      * @param fieldSize the field width and height.
      */
     public BulletController(final GameController gameController, final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        this.image = utilities.EntitiesImageUtils.getBulletImage(level);
+        this.image = utilities.ImageUtils.getBulletImage(level);
         this.bullet = new BulletImpl(level, src, target, fieldSize);
         this.gameController = gameController;
     }

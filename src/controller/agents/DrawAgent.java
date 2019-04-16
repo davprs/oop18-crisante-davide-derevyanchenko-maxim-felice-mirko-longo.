@@ -43,6 +43,7 @@ public class DrawAgent extends Thread {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void run() {
 
         while (!this.gameController.isEnded()) {

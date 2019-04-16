@@ -26,7 +26,7 @@ public class MeteorController implements EntityController {
      * @param fieldSize the filed's width and height.
      */
     public MeteorController(final GameController gameController, final int level, final Point2D target, final Dimension2D fieldSize) {
-        this.image = utilities.EntitiesImageUtils.getMeteorImage(level);
+        this.image = utilities.ImageUtils.getMeteorImage(level);
         final double meteorSpacing = Math.random() * 100;
         Point2D src;
         if (Math.random() * 10 < RANGE) {

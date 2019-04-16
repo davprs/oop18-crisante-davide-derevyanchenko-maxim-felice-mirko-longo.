@@ -68,7 +68,7 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void playTheGame() {
-        new GameController(this.account, this.stageController);
+        new GameController(this.account, this.stageController, 4);
     }
 
     /**
