@@ -179,7 +179,6 @@ public class OptionsController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(new OptionsView(this.account, this).getScene());
-        this.stageController.setMinResolution();
     }
 
     private void setLanguage() {

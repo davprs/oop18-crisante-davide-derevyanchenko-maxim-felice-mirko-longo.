@@ -3,10 +3,10 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import utilities.ImageUtils;
 import utilities.SystemUtils;
 
 /**
@@ -14,10 +14,8 @@ import utilities.SystemUtils;
  */
 public class StageController {
 
-    private static final double MIN_WIDTH = 1024;
-    private static final double MIN_HEIGHT = 600;
     private static final String F11 = "F11";
-    private static final String FULLSCREEN_MESSAGE = "";
+    private static final String FULLSCREEN_MESSAGE = "Press F11 to exit fullscreen and press ESC to pause";
     private final Stage stage;
 
     /**
@@ -26,7 +24,7 @@ public class StageController {
      */
     public StageController(final Stage stage) {
         this.stage = stage;
-        this.stage.getIcons().add(new Image("spaceship.png")); // todo
+        this.stage.getIcons().add(ImageUtils.getIconImage());
         this.stage.setFullScreenExitKeyCombination(KeyCombination.valueOf(F11));
         this.stage.setFullScreenExitHint(FULLSCREEN_MESSAGE);
     }
@@ -69,14 +67,6 @@ public class StageController {
      */
     public double getY() {
         return this.stage.getY();
-    }
-
-    /**
-     * Set the minimum Resolution for the window in menu.
-     */
-    public void setMinResolution() {
-        this.stage.setMinWidth(MIN_WIDTH);
-        this.stage.setMinHeight(MIN_HEIGHT);
     }
 
     /**

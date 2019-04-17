@@ -30,7 +30,6 @@ public class LevelController implements FXMLController {
     private static final int SURVIVAL = 4;
     private final Account account;
     private final StageController stageController;
-    private final MenuController menuController;
     private final LevelView levelView;
     private ResourceBundle bundle;
     @FXML
@@ -51,13 +50,11 @@ public class LevelController implements FXMLController {
      * 
      * @param account account
      * @param stageController stage controller
-     * @param menuController    menu controller
      */
-    public LevelController(final Account account, final StageController stageController, final MenuController menuController) {
+    public LevelController(final Account account, final StageController stageController) {
         this.account = account;
         this.stageController = stageController;
-        this.menuController = menuController;
-        this.levelView = new LevelView(this.account, this.stageController, this);
+        this.levelView = new LevelView(this);
     }
 
     /**
@@ -74,7 +71,16 @@ public class LevelController implements FXMLController {
      */
     @Override
     public void start() {
-        this.menuController.getRoot().getChildren().add(this.levelView.getSubScene());
+        this.stageController.setScene(this.levelView.getScene());
+        this.stageController.setDimension(this.account.getSettings().getResolution());
+    }
+
+    /**
+     * Get the Account.
+     * @return the account
+     */
+    public Account getAccount() {
+        return this.account;
     }
 
     /**

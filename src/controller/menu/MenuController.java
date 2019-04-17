@@ -69,15 +69,7 @@ public class MenuController implements FXMLController {
      */
     @FXML
     public void playTheGame() {
-//        try {
-//            this.stackPane.setStyle("-fx-background-color:transparent");
-//            this.menuView.getRoot().getChildren().add(this.stackPane);
-//        } catch (IOException e) {
-//            System.out.println(e);
-//            ErrorLog.getLog().printError();
-//            System.exit(0);
-//        }
-        new LevelController(this.account, this.stageController, this).start();
+        new LevelController(this.account, this.stageController).start();
     }
 
     /**

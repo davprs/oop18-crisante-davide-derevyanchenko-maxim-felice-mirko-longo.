@@ -2,48 +2,58 @@ package view.game;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
-import controller.StageController;
 import controller.game.LevelController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.SubScene;
-import model.account.Account;
+import javafx.scene.Parent;
 import utilities.SystemUtils;
+import view.AbstractView;
 /**
  * 
  * View of the Level View.
  *
  */
-public class LevelView {
+public class LevelView extends AbstractView {
 
     private static final String LEVEL_VIEW = "levelView.fxml";
     private static final String LEVEL_BUNDLE = "game.LevelBundle";
-    private static final double WIDTH = 2.02;
-    private static final double HEIGHT = 1.70;
-    private SubScene subScene;
+    private final double prefWidth;
+    private final double prefHeight;
+    private final FXMLLoader loader;
 
     /**
      * 
-     * @param account this account
-     * @param stageController this stage controller
      * @param levelController of this controller
      */
-    public LevelView(final Account account, final StageController stageController, final LevelController levelController) {
-        SystemUtils.setLocale(account.getSettings().getLanguage());
-        final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(LEVEL_VIEW), ResourceBundle.getBundle(LEVEL_BUNDLE));
-        loader.setController(levelController);
-        try {
-            this.subScene = new SubScene(loader.load(), stageController.getScene().getWidth() / WIDTH, stageController.getScene().getHeight() / HEIGHT);
-        } catch (IOException e) {
-            System.out.println(e);
-            System.exit(0);
-        }
+    public LevelView(final LevelController levelController) {
+        this.prefWidth = levelController.getAccount().getSettings().getResolution().getWidth();
+        this.prefHeight = levelController.getAccount().getSettings().getResolution().getHeight();
+        SystemUtils.setLocale(levelController.getAccount().getSettings().getLanguage());
+        this.loader = new FXMLLoader(ClassLoader.getSystemResource(LEVEL_VIEW), ResourceBundle.getBundle(LEVEL_BUNDLE));
+        this.loader.setController(levelController);
+        super.init();
     }
 
     /**
-     * Get the SubScene.
-     * @return the SubScene
+     * {@inheritDoc}
      */
-    public SubScene getSubScene() {
-        return this.subScene;
+    @Override
+    public Parent getRoot() throws IOException {
+        return this.loader.load();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected double getWidth() {
+        return this.prefWidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected double getHeight() {
+        return this.prefHeight;
     }
 }
