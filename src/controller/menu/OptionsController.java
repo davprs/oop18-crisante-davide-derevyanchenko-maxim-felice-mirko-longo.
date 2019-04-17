@@ -169,6 +169,7 @@ public class OptionsController implements FXMLController {
      * 
      */
     public void changeCredentials() {
+        this.isInOptions = false;
         new ChangeCredentialsController(this.account, this.stageController).start();
     }
 

@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import controller.StageController;
-import controller.menu.login.LoginController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,7 +25,6 @@ import view.menu.ChangeCredentialsView;
 public class ChangeCredentialsController implements FXMLController {
 
     private static final String BACK_KEY = "back";
-    private static final String LOGIN_KEY = "login";
     private static final String NICKNAME_KEY = "nickname";
     private static final String PASSWORD_KEY = "password"; 
     private static final String CONFIRM_KEY = "confirm";
@@ -42,8 +39,6 @@ public class ChangeCredentialsController implements FXMLController {
     private Label changePasswordLbl;
     @FXML
     private Button backBtn;
-    @FXML
-    private Button loginBtn;
     @FXML
     private TextField nicknameField;
     @FXML
@@ -64,20 +59,6 @@ public class ChangeCredentialsController implements FXMLController {
         this.account = account;
         this.stageController = stageController;
     }
-
-    /**
-     *
-     * 
-     */
-    @FXML
-    public void newLogin() {
-        final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
-        if (confirmSettings.get() == ButtonType.YES) {
-            applyChanges();
-            new LoginController(this.stageController).start();
-        }
-    }
-
     /**
      * 
      */
@@ -148,7 +129,6 @@ public class ChangeCredentialsController implements FXMLController {
     }
 
     private void setLanguage() {
-        this.loginBtn.setText(this.bundle.getString(LOGIN_KEY));
         this.backBtn.setText(this.bundle.getString(BACK_KEY));
         this.changeLbl.setText(this.bundle.getString(CONFIRM_KEY));
         this.changeNicknameLbl.setText(this.bundle.getString(NICKNAME_KEY));

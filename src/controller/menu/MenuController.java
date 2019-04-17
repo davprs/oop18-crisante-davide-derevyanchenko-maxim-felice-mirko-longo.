@@ -57,7 +57,6 @@ public class MenuController implements FXMLController {
     public void start() {
         this.stageController.setScene(this.menuView.getScene());
         this.stageController.setDimension(this.account.getSettings().getResolution());
-        this.stageController.setMinResolution();
         if (account.getSettings().isSoundOn()) {
             GameUtils.MAIN_THEME.play();
         } else {

@@ -37,8 +37,8 @@
       	<CheckBox fx:id="pswCheckBox" mnemonicParsing="false" onAction="#changePswField" text="Show password" textFill="#e8e0e0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
       	<PasswordField id="passwordField" fx:id="confPswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       	<CheckBox fx:id="confPswCheckBox" mnemonicParsing="false" onAction="#changeConfPswField" text="Show password" textFill="#d7cdcd" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-      	<TextField fx:id="pswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      	<TextField fx:id="confPswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      	<TextField id="textField" fx:id="pswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      	<TextField id="textField" fx:id="confPswTextField" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
  	  	<Button id="signBtn" fx:id="regBtn" mnemonicParsing="false" onAction="#register" text="Sign" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
       	<Button id="cancelBtn" fx:id="closeBtn" mnemonicParsing="false" onAction="#close" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
    			<GridPane.margin>
