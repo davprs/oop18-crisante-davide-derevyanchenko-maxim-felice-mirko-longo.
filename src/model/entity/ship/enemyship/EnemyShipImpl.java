@@ -31,13 +31,28 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * @param level is the level (fastness, power of bullets)
      * @param timeToShoot frames passing from one bullet-shot to the next one
      * @param fieldSize the field width and height.
+     * @param characterPosition the position of the character when the ship is created.
      */
-    public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize) {
+    public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize, final Point2D characterPosition) {
         super(STARTING_LIVES, (int) GameUtils.transform(STARTING_HEALTH, level));
         this.level = level;
         this.speed = GameUtils.transform(SPEED_UNIT, level);
         this.framesToShoot = timeToShoot;
-        this.position = new Point2D(Math.random() * fieldSize.getWidth(), Math.random() * fieldSize.getHeight());
+        double provX = Math.random() * fieldSize.getWidth();
+        double provY = Math.random() * fieldSize.getHeight();
+        if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / 5) {
+            provX = characterPosition.getX() + fieldSize.getWidth() / 5;
+            if (provX < 0 || provX > fieldSize.getWidth()) {
+                provX = -provX;
+            }
+        }
+        if (Math.abs(provY - characterPosition.getY()) < fieldSize.getHeight() / 5) {
+            provY = characterPosition.getY() + fieldSize.getHeight() / 5;
+            if (provY < 0 || provY > fieldSize.getHeight()) {
+                provY = -provY;
+            }
+        }
+        this.position = new Point2D(provX, provY);
         final double xSize = fieldSize.getWidth() * DIMENSION_PROPORTION;
         this.shipDimension = new Dimension2D(xSize, xSize);
     }
@@ -46,17 +61,19 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * Build a customizable level Bullet.
      * @param level is the level (fastness, power of bullets)
      * @param fieldSize the field width and height.
+     * @param characterPosition the position of the character when the ship is created.
      */
-    public EnemyShipImpl(final int level, final Dimension2D fieldSize) {
-        this(level, DELAY, fieldSize);
+    public EnemyShipImpl(final int level, final Dimension2D fieldSize, final Point2D characterPosition) {
+        this(level, DELAY, fieldSize, characterPosition);
     }
 
     /**
      * Build a simple EnemyShip.
      * @param fieldSize the field width and height.
+     * @param characterPosition the position of the character when the ship is created.
      */
-    public EnemyShipImpl(final Dimension2D fieldSize) {
-        this(1, fieldSize);
+    public EnemyShipImpl(final Dimension2D fieldSize, final Point2D characterPosition) {
+        this(1, fieldSize, characterPosition);
     }
 
     /**

@@ -32,7 +32,7 @@ public class EnemyController implements EntityController {
     public EnemyController(final GameController gameController, final int level, final CharacterController characterController, final Dimension2D fieldSize) {
         this.fieldSize = fieldSize;
         this.image = utilities.ImageUtils.getEnemyShipImage(level);
-        this.enemy = new EnemyShipImpl(level, fieldSize);
+        this.enemy = new EnemyShipImpl(level, fieldSize, characterController.getEntity().getCentralPosition());
         this.gameController = gameController;
         this.characterController = characterController;
         this.freeze = false;
