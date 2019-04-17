@@ -3,6 +3,7 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -25,6 +26,7 @@ public class StageController {
      */
     public StageController(final Stage stage) {
         this.stage = stage;
+        this.stage.getIcons().add(new Image("spaceship.png")); // todo
         this.stage.setFullScreenExitKeyCombination(KeyCombination.valueOf(F11));
         this.stage.setFullScreenExitHint(FULLSCREEN_MESSAGE);
     }
@@ -109,7 +111,9 @@ public class StageController {
      * @param value the value to set
      */
     public void setFullScreen(final boolean value) {
-        this.stage.setFullScreen(value);
+        if (this.stage.getWidth() == SystemUtils.getScreenResolution().getWidth() && this.stage.getHeight() == SystemUtils.getScreenResolution().getHeight()) {
+            this.stage.setFullScreen(value);
+        }
     }
 
     /**

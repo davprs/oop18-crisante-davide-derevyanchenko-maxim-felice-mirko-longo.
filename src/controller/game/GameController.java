@@ -49,7 +49,6 @@ public class GameController {
         this.ended = false;
         this.account = account;
         this.stageController = stageController;
-        this.stageController.setFullScreen(true);
         this.powerController = new PowerUpController(this);
         this.gameView = new GameView(stageController);
         this.score = new ScoreImpl();
@@ -99,6 +98,7 @@ public class GameController {
         this.startAgent(new BulletAgent(this));
         this.startAgent(new PowerUpAgent(this));
         this.startAgent(new GameAgent(this, this.gameLevel));
+        this.stageController.setFullScreen(true);
     }
 
     /**

@@ -21,7 +21,7 @@ import model.powerup.TemporaryPowerUp;
  */
 public class PowerUpController {
 
-    private static final int POWER_UP_RATE = 3000;
+    private static final int POWER_UP_RATE = 15000;
     private static final List<PowerUp> POWER_UPS = new ArrayList<>();
     private static final List<TemporaryPowerUp> TEMPORARY_POWER_UPS = new ArrayList<>();
     private final GameController gameController;

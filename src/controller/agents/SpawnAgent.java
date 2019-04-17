@@ -16,9 +16,9 @@ import utilities.ErrorLog;
  */
 public class SpawnAgent extends Thread {
 
-    private static final int WAITING_TIME = 1000;
+    private static final int WAITING_TIME = 1500;
     private static final int BOUND = 8000;
-    private static final int SCORE_LEVEL_MULTIPLIER = 7000;
+    private static final int SCORE_LEVEL_MULTIPLIER = 70000;
     private final int scoreLimit;
     private final CharacterController characterController;
     private final GameController gameController;

@@ -140,7 +140,7 @@ public class OptionsController implements FXMLController {
     @FXML
     public void goBack() {
         this.grid.setEffect(GameUtils.getBlurEffect());
-        final  Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
+        final Optional<ButtonType> confirmSettings = AlertUtils.createConfirmOptionsDialog().showAndWait();
         if (confirmSettings.get() == ButtonType.YES) {
             try {
                 final String[] values = resolution.getValue().split("x");
@@ -155,6 +155,7 @@ public class OptionsController implements FXMLController {
                 } else if (no.isSelected()) {
                     account.getSettings().setSound(false); 
                 }
+                this.isInOptions = false;
                 FileUtils.printAccount(account);
                 new MenuController(this.account, this.stageController).start();
             } catch (IOException e) {
@@ -163,7 +164,6 @@ public class OptionsController implements FXMLController {
             }
         }
         this.grid.setEffect(GameUtils.getTransparentEffect());
-        this.isInOptions = false;
     }
     /**
      * 

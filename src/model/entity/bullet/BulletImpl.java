@@ -12,12 +12,11 @@ import utilities.GameUtils;
 
 public class BulletImpl implements Bullet {
 
-    private static final int DAMAGE_UNIT = 400;
+    private static final int DAMAGE_UNIT = 500;
     private static final double X_DIMENSION_PROPORTION = 0.003;
     private static final double POPORTION_BETWEEN_SIZES = 7;
-    private static final double SPEED_UNIT = 2;
+    private static final double SPEED_UNIT = 3;
     private final int damage;
-    private final double speed;
     private Point2D position;
     private final Dimension2D shipDimension;
     private Point2D target;
@@ -34,13 +33,12 @@ public class BulletImpl implements Bullet {
      * @param fieldSize the field width and height.
      */
     public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        this.speed = GameUtils.transform(SPEED_UNIT, level);
-        this.damage = (int) GameUtils.transform(DAMAGE_UNIT, level);
+        this.damage = GameUtils.transform(DAMAGE_UNIT, level);
         this.fieldSize = fieldSize;
         this.position = src;
         this.angle = Math.atan2(src.getY() - target.getY(), src.getX() - target.getX());
-        this.movY = -this.speed * Math.sin(this.angle);
-        this.movX = -this.speed * Math.cos(this.angle);
+        this.movY = -SPEED_UNIT * Math.sin(this.angle);
+        this.movX = -SPEED_UNIT * Math.cos(this.angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
         final double xSize = fieldSize.getWidth() * X_DIMENSION_PROPORTION;
         this.shipDimension = new Dimension2D(xSize, xSize * POPORTION_BETWEEN_SIZES);
@@ -88,8 +86,8 @@ public class BulletImpl implements Bullet {
      */
     @Override
     public synchronized void update() {
-        position = new Point2D(position.getX() + (movX * speed), position.getY() + (movY * speed));
-        target = new Point2D(target.getX() + (movX * speed), target.getY() + (movY * speed));
+        position = new Point2D(position.getX() + (movX * SPEED_UNIT), position.getY() + (movY * SPEED_UNIT));
+        target = new Point2D(target.getX() + (movX * SPEED_UNIT), target.getY() + (movY * SPEED_UNIT));
     }
 
     /**

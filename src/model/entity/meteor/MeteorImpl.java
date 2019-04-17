@@ -10,11 +10,10 @@ import utilities.GameUtils;
  */
 public class MeteorImpl implements Meteor {
 
-    private static final int SCORE_POINTS = 750;
+    private static final int SCORE_POINTS = 300;
     private static final int DAMAGE_UNIT = 300;
     private static final double DIMENSION_PROPORTION = 0.04;
-    private static final double SPEED_UNIT = 1.5;
-    private final int scorePoints;
+    private static final double SPEED_UNIT = 3;
     private final int damage;
     private final Dimension2D meteorDimension;
     private Point2D position;
@@ -34,10 +33,8 @@ public class MeteorImpl implements Meteor {
      * @param fieldSize the field width and height.
      */
     public MeteorImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
-        final int speed = (int) GameUtils.transform(SPEED_UNIT, level);
         this.fieldSize = fieldSize;
         this.damage = (int) GameUtils.transform(DAMAGE_UNIT, level);
-        this.scorePoints = (int) GameUtils.transform(SCORE_POINTS, level);
         this.position = src;
         final double xSize = this.fieldSize.getWidth() * DIMENSION_PROPORTION;
         this.meteorDimension = new Dimension2D(xSize, xSize);
@@ -45,8 +42,8 @@ public class MeteorImpl implements Meteor {
         this.angle = Math.atan2(centralPosition.getY() - target.getY(), 
                 centralPosition.getX() - target.getX());
 
-        this.movY = -speed * Math.sin(angle);
-        this.movX = -speed * Math.cos(angle);
+        this.movY = -SPEED_UNIT * Math.sin(angle);
+        this.movX = -SPEED_UNIT * Math.cos(angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
         this.enteredInField = false;
         this.isCollided = false;
@@ -131,6 +128,6 @@ public class MeteorImpl implements Meteor {
      */
     @Override
     public synchronized int getScorePoints() {
-        return this.scorePoints;
+        return SCORE_POINTS;
     }
 }

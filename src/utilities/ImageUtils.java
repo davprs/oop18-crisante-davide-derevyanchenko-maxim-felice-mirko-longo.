@@ -24,10 +24,10 @@ public final class ImageUtils {
             new Image("enemyShip2.png"),
             new Image("enemyShip3.png"));
     private static final List<Image> BACKGROUNG_IMAGES = Arrays.asList(
-            new Image("backgroundEasy.jpg"),
-            new Image("backgroundMedium.jpg"),
-            new Image("backgroundHard.jpg"),
-            new Image("backgroundSurvival.jpg"));
+            new Image("backgroundEasy.png"),
+            new Image("backgroundMedium.png"),
+            new Image("backgroundHard.png"),
+            new Image("backgroundSurvival.png"));
 
     private ImageUtils() { }
 

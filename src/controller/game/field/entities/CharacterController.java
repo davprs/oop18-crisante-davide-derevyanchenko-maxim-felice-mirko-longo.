@@ -17,7 +17,7 @@ import model.game.Life;
  */
 public class CharacterController implements EntityController {
 
-    private static final int BULLET_LEVEL = 5;
+    private static final int BULLET_LEVEL = 2;
     private static final String EXTENSION = ".png";
     private final Image shipImage;
     private final Dimension2D resolution;
