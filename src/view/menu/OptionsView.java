@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import controller.menu.OptionsController;
 import model.account.Account;
-import utilities.BundleUtils;
+import utilities.SystemUtils;
 import view.AbstractView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +30,7 @@ public class OptionsView extends AbstractView {
     public OptionsView(final Account account, final OptionsController optionsController) {
         this.prefWidth = account.getSettings().getResolution().getWidth();
         this.prefHeight = account.getSettings().getResolution().getHeight();
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(OPTIONS_VIEW), ResourceBundle.getBundle(OPTIONS_BUNDLE));
         this.loader.setController(optionsController);
         super.init();

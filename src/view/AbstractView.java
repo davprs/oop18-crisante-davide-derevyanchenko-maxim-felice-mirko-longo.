@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import utilities.ErrorLog;
 
 /**
- * Abstract class of View.
+ * Abstract class of FXMLView.
  *
  */
 public abstract class AbstractView {
@@ -15,14 +15,7 @@ public abstract class AbstractView {
     private Scene scene;
 
     /**
-     * Get the Scene.
-     * @return the Scene.
-     */
-    public Scene getScene() {
-        return this.scene;
-    }
-
-    /**
+     * This method HAS to be called in the constructor of subclasses.
      * Initialize the view.
      */
     public final void init() {
@@ -32,6 +25,14 @@ public abstract class AbstractView {
             ErrorLog.getLog().printError();
             System.exit(0);
         }
+    }
+
+    /**
+     * Get the Scene.
+     * @return the Scene.
+     */
+    public Scene getScene() {
+        return this.scene;
     }
 
     /**
@@ -48,7 +49,7 @@ public abstract class AbstractView {
     protected abstract double getWidth();
 
     /**
-     * Get theHeight.
+     * Get the Height.
      * @return the height
      */
     protected abstract double getHeight();

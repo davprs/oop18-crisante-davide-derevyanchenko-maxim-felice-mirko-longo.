@@ -38,6 +38,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
         this.level = level;
         this.speed = GameUtils.transform(SPEED_UNIT, level);
         this.framesToShoot = timeToShoot;
+        this.frozen = false;
         double provX = Math.random() * fieldSize.getWidth();
         double provY = Math.random() * fieldSize.getHeight();
         if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / 5) {
@@ -165,8 +166,8 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public void changeFreeze() {
-        this.frozen = !this.frozen;
+    public synchronized void setFreeze(final boolean value) {
+        this.frozen = value;
     }
 
     /**

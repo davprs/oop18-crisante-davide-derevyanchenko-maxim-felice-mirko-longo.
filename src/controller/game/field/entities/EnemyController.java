@@ -17,7 +17,6 @@ public class EnemyController implements EntityController {
     private final CharacterController characterController;
     private final GameController gameController;
     private final EnemyShip enemy;
-    private boolean freeze;
     private Dimension2D fieldSize;
     private double rad;
 
@@ -35,7 +34,6 @@ public class EnemyController implements EntityController {
         this.enemy = new EnemyShipImpl(level, fieldSize, characterController.getEntity().getCentralPosition());
         this.gameController = gameController;
         this.characterController = characterController;
-        this.freeze = false;
     }
 
     /**
@@ -71,13 +69,6 @@ public class EnemyController implements EntityController {
         movY = -this.enemy.getSpeed() * Math.sin(this.rad);
         movX = -this.enemy.getSpeed() * Math.cos(this.rad);
         enemy.update(new Point2D(movX, movY));
-    }
-
-    /**
-     * Method that changes the value of the freeze enemies. 
-     */
-    public void changeFreeze() {
-        this.freeze = !this.freeze;
     }
 
     /**

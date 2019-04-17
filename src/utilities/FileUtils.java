@@ -23,9 +23,7 @@ import model.account.SettingsImpl;
  */
 public final class FileUtils {
 
-    private static final String SEPARATOR = System.getProperty("file.separator");
-    private static final String HOME_DIR = System.getProperty("user.home");
-    private static final String ACCOUNT_PATH = HOME_DIR + SEPARATOR + "accounts" + SEPARATOR;
+    private static final String ACCOUNT_PATH = SystemUtils.getHomeDir() + SystemUtils.getSystemSeparator() + "accounts" + SystemUtils.getSystemSeparator();
     private static final String TXT_EXTENSION = ".txt";
 
     private FileUtils() { }
@@ -100,18 +98,6 @@ public final class FileUtils {
                 .filter(a -> a.getUsername().equals(username))
                 .findFirst()
                 .get();
-    }
-
-    /**
-     * Read the password of the account linked to the username. 
-     * 
-     * @param username the account username to read
-     * @return the Account password.
-     * @throws IOException if an I/O error is thrown when accessing the file.
-     */
-    public static String getPassword(final String username) throws IOException {
-        return getAccountFromUsername(username)
-                             .getPassword();
     }
 
 }

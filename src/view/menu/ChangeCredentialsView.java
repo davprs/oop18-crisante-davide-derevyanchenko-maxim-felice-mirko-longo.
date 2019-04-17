@@ -6,7 +6,7 @@ import controller.menu.ChangeCredentialsController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import model.account.Account;
-import utilities.BundleUtils;
+import utilities.SystemUtils;
 import view.AbstractView;
 
 /**
@@ -29,7 +29,7 @@ public class ChangeCredentialsView extends AbstractView {
     public ChangeCredentialsView(final Account account, final ChangeCredentialsController changeCredentialsController) {
         this.prefWidth = account.getSettings().getResolution().getWidth();
         this.prefHeight = account.getSettings().getResolution().getHeight();
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(CHANGE_CREDENTIALS_VIEW), ResourceBundle.getBundle(CHANGE_CREDENTIALS_BUNDLE));
         this.loader.setController(changeCredentialsController);
         super.init();

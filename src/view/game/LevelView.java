@@ -7,7 +7,7 @@ import controller.game.LevelController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SubScene;
 import model.account.Account;
-import utilities.BundleUtils;
+import utilities.SystemUtils;
 /**
  * 
  * View of the Level View.
@@ -28,7 +28,7 @@ public class LevelView {
      * @param levelController of this controller
      */
     public LevelView(final Account account, final StageController stageController, final LevelController levelController) {
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(LEVEL_VIEW), ResourceBundle.getBundle(LEVEL_BUNDLE));
         loader.setController(levelController);
         try {

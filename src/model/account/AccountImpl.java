@@ -2,6 +2,8 @@ package model.account;
 
 import java.util.Optional;
 
+import utilities.SystemUtils;
+
 /**
  * Implementation of Account Interface.
  *
@@ -93,7 +95,7 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
          * @return the account
          */
         public AccountImpl build() {
-            if (this.nick.isPresent() && !this.nick.get().equals("")) {
+            if (this.nick.isPresent() && !this.nick.get().equals(SystemUtils.getEmptyString())) {
                 if (!this.setting.isPresent()) {
                     return new AccountImpl(this.username, this.nick.get(), this.password, this.score, SettingsImpl.DEFAULT);
                 } else {
@@ -169,10 +171,12 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
      */
     @Override
     public void setBestScore(final int bestScore) {
-        if (bestScore < 0 || bestScore < this.bestScore) {
+        if (bestScore < 0) {
             throw new IllegalArgumentException();
         }
-        this.bestScore = bestScore;
+        if (bestScore > this.bestScore) {
+            this.bestScore = bestScore;
+        }
     }
 
     /**
@@ -220,15 +224,6 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
             return false;
         }
         return true;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "AccountImpl [username=" + username + ", password=" + password + ", nickname=" + nickname
-                + ", bestScore=" + bestScore + ", settings=" + settings + "]";
     }
 
 }

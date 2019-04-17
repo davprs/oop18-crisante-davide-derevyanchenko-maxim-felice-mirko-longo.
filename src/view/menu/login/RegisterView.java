@@ -1,11 +1,11 @@
 package view.menu.login;
 
-import java.awt.Toolkit;
 import java.io.IOException;
 
 import controller.menu.login.RegisterController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import utilities.SystemUtils;
 import view.AbstractView;
 
 /**
@@ -15,8 +15,10 @@ import view.AbstractView;
 public class RegisterView extends AbstractView {
 
     private static final String REGISTER_VIEW = "registerView.fxml";
-    private static final double PREF_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3.49;
-    private static final double PREF_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3.08571428571;
+    private static final double WIDTH_RATIO = 3.49;
+    private static final double HEIGHT_RATIO = 3.08571428571;
+    private static final double PREF_WIDTH = SystemUtils.getScreenResolution().getWidth() / WIDTH_RATIO;
+    private static final double PREF_HEIGHT = SystemUtils.getScreenResolution().getHeight() / HEIGHT_RATIO;
     private final FXMLLoader loader;
 
     /**

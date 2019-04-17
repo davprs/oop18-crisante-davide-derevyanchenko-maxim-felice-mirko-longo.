@@ -7,8 +7,8 @@ import controller.game.GameOverController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SubScene;
 import model.account.Account;
-import utilities.BundleUtils;
 import utilities.ErrorLog;
+import utilities.SystemUtils;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class GameOverView {
      * @param gameOverController the controller of this class
      */
     public GameOverView(final Account account, final StageController stageController, final GameOverController gameOverController) {
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PAUSE_VIEW), ResourceBundle.getBundle(PAUSE_BUNDLE));
         loader.setController(gameOverController);
         try {

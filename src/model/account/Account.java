@@ -32,7 +32,7 @@ public interface Account {
 
     /**
      * Get the Settings.
-     * @return the Settings.
+     * @return the Settings
      */
     Settings getSettings();
 

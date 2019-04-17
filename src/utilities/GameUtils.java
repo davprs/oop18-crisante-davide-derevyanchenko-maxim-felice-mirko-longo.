@@ -13,19 +13,18 @@ import javafx.scene.effect.Effect;
  */
 public final class GameUtils {
 
-    private static final String SEPARATOR = System.getProperty("file.separator");
     private static final int BLUR_EFFECT_RANGE = 5;
     private static final Effect TRANSPARENT = new BoxBlur(0, 0, 0);
     private static final Effect BLUR = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
-    private static final double SECOND_LEVEL_MULTIPLIER = 1.5;
+    private static final double SECOND_LEVEL_MULTIPLIER = 1.3;
     /**
      * Sound of the Menu.
      */
-    public static final AudioClip MAIN_THEME = Applet.newAudioClip(ClassLoader.getSystemResource("sounds" + SEPARATOR + "mainTheme.wav"));
+    public static final AudioClip MAIN_THEME = Applet.newAudioClip(ClassLoader.getSystemResource("sounds" + SystemUtils.getSystemSeparator() + "mainTheme.wav"));
     /**
      * Main sound of the Game.
      */
-    public static final AudioClip GAMEPLAY_MUSIC = Applet.newAudioClip(ClassLoader.getSystemResource("sounds" + SEPARATOR + "low-fi.wav"));
+    public static final AudioClip GAMEPLAY_MUSIC = Applet.newAudioClip(ClassLoader.getSystemResource("sounds" + SystemUtils.getSystemSeparator() + "low-fi.wav"));
 
     private GameUtils() { };
 
@@ -63,4 +62,5 @@ public final class GameUtils {
     public static double transform(final double value, final int level) {
         return level < 3 ? (level == 1 ? level * value : SECOND_LEVEL_MULTIPLIER * value) : Math.log(level) * value;
     }
+
 }

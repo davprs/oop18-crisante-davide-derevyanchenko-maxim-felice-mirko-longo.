@@ -90,7 +90,6 @@ public class DrawAgent extends Thread {
                 System.exit(0);
             }
         }
-        System.out.println("Game Over!!!");
     }
 
     /**

@@ -2,6 +2,7 @@ package controller.agents;
 
 import controller.game.GameController;
 import javafx.application.Platform;
+import model.powerup.FreezePowerUp;
 import model.powerup.PowerUp;
 import model.powerup.TemporaryPowerUp;
 import utilities.ErrorLog;
@@ -92,6 +93,9 @@ public class TimeAgent extends Thread {
 
     private void checkStop() {
         if (this.temporaryPowerUp != null) {
+            if (this.temporaryPowerUp instanceof FreezePowerUp) {
+                this.gameController.setFrozen(false);
+            }
             this.temporaryPowerUp.stop();
         }
     }

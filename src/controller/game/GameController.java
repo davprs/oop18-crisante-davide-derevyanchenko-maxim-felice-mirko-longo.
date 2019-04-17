@@ -35,6 +35,7 @@ public class GameController {
     private final int gameLevel;
     private boolean inPause;
     private boolean ended;
+    private boolean frozen;
 
     /**
      * Constructor of the GameController.
@@ -48,6 +49,7 @@ public class GameController {
         this.ended = false;
         this.account = account;
         this.stageController = stageController;
+        this.stageController.setFullScreen(true);
         this.powerController = new PowerUpController(this);
         this.gameView = new GameView(stageController);
         this.score = new ScoreImpl();
@@ -81,14 +83,14 @@ public class GameController {
                 System.exit(0);
             } 
         };
-        this.stageController.setHandler(exitWindow);
+        this.stageController.setWindowHandler(exitWindow);
         if (account.getSettings().isSoundOn()) {
             GameUtils.GAMEPLAY_MUSIC.loop();
         }
         this.gameView.getScene().setOnKeyPressed(exitHandler);
         this.gameView.getScene().setOnMouseExited(exitSceneHandler);
         this.gameView.getScene().setOnMousePressed(shootHandler);
-        this.fieldView = new FieldView(stageController, this.account.getSettings().getResolution(), this.gameLevel);
+        this.fieldView = new FieldView(this.account.getSettings().getResolution(), this.gameLevel);
         stageController.setScene(this.gameView.getScene());
         this.gameView.getRoot().getChildren().add(this.fieldView.getSubScene());
         this.fieldController = new FieldController(this);
@@ -162,15 +164,19 @@ public class GameController {
     }
 
     /**
+     * Set the frozen status.
+     * @param value the value to set
+     */
+    public synchronized void setFrozen(final boolean value) {
+        this.frozen = value;
+    }
+
+    /**
      * Check the enemies' frozen status, if there aren't enemies the value is set to false.
      * @return the enemies' frozen status
      */
-    public synchronized boolean checkEnemiesFrozen() {
-        if (!this.fieldController.getEnemies().isEmpty()) {
-            return this.fieldController.getEnemies().get(0).getEntity().isFrozen();
-        } else {
-            return false;
-        }
+    public synchronized boolean isFrozen() {
+        return this.frozen;
     }
 
     /**

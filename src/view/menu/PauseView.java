@@ -7,8 +7,8 @@ import controller.game.PauseController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.SubScene;
 import model.account.Account;
-import utilities.BundleUtils;
 import utilities.ErrorLog;
+import utilities.SystemUtils;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class PauseView {
      * @param pauseController the controller of this class
      */
     public PauseView(final Account account, final StageController stageController, final PauseController pauseController) {
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(PAUSE_VIEW), ResourceBundle.getBundle(PAUSE_BUNDLE));
         loader.setController(pauseController);
         try {

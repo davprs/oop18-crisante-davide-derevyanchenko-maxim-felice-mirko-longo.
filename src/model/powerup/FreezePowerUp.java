@@ -26,7 +26,7 @@ public class FreezePowerUp implements TemporaryPowerUp {
     @Override
     public void run() {
         for (final EnemyShip enemy : enemies) {
-            enemy.changeFreeze();
+            enemy.setFreeze(true);
         }
     }
 
@@ -35,9 +35,6 @@ public class FreezePowerUp implements TemporaryPowerUp {
      */
     @Override
     public void stop() {
-        for (final EnemyShip enemy : enemies) {
-            enemy.changeFreeze();
-        }
         this.enemies.clear();
     }
 

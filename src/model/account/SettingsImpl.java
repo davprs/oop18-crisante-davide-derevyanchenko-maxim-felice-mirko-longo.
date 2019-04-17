@@ -1,20 +1,17 @@
 package model.account;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javafx.geometry.Dimension2D;
+import utilities.SystemUtils;
 
 /**
- * This class represents all the Settings an Account can set.
+ * Implementation of Settings Interface.
  *
  */
 public final class SettingsImpl implements Settings {
 
-    private static final Dimension RES = Toolkit.getDefaultToolkit().getScreenSize();
-    private static final Dimension2D RES_DEFAULT = new Dimension2D(RES.getWidth(), RES.getHeight());
-    private static final String IMG_DEFAULT = "spaceship";
-    private static final String LANGUAGE_DEFAULT = "en";
+    private static final Dimension2D DEFAULT_RESOLUTION = new Dimension2D(SystemUtils.getScreenResolution().getWidth(), SystemUtils.getScreenResolution().getHeight());
+    private static final String DEFAULT_IMAGE = "spaceship";
+    private static final String DEFAULT_LANGUAGE = "en";
     private Dimension2D resolution;
     private String language;
     private String imageName;
@@ -22,7 +19,7 @@ public final class SettingsImpl implements Settings {
     /**
      * Default Settings configuration. 
      */
-    public static final SettingsImpl DEFAULT = new SettingsImpl(RES_DEFAULT, LANGUAGE_DEFAULT, IMG_DEFAULT, false);
+    public static final Settings DEFAULT = new SettingsImpl(DEFAULT_RESOLUTION, DEFAULT_LANGUAGE, DEFAULT_IMAGE, false);
 
     /**
      * Build a new Settings.
@@ -32,7 +29,7 @@ public final class SettingsImpl implements Settings {
      * @param value the boolean value of the sound
      */
     public SettingsImpl(final Dimension2D res, final String language, final String imageName, final boolean value) {
-        if (res == null || language == null || imageName == null || res.getWidth() < 0 || res.getHeight() < 0 || language.equals("") || imageName.equals("")) {
+        if (res == null || language == null || imageName == null || res.getWidth() < 0 || res.getHeight() < 0 || language.equals(SystemUtils.getEmptyString()) || imageName.equals(SystemUtils.getEmptyString())) {
             throw new IllegalArgumentException();
         }
         this.resolution = res;

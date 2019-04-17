@@ -2,8 +2,8 @@ package view.game;
 
 import java.util.LinkedList;
 import java.util.List;
-import controller.StageController;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -36,18 +36,17 @@ public class FieldView {
 
     /**
      * Build the MenuView.
-     * @param stageController the controller of the stage 
      * @param resolution the resolution of the game
      * @param level the difficulty level of the game
      */
-    public FieldView(final StageController stageController, final Dimension2D resolution, final int level) {
+    public FieldView(final Dimension2D resolution, final int level) {
         this.level = level;
         this.root = new Group();
         this.cam = new ParallelCamera();
         this.resolution = resolution;
-        this.canvas = new Canvas(resolution.getWidth(), resolution.getHeight());
+        this.canvas = new Canvas(this.resolution.getWidth(), this.resolution.getHeight());
         this.gc = canvas.getGraphicsContext2D();
-        this.subScene = new SubScene(this.root, stageController.getWidth(), stageController.getHeight());
+        this.subScene = new SubScene(this.root, this.resolution.getWidth(), this.resolution.getHeight());
         this.subScene.setCamera(this.cam);
         this.subScene.setFill(Color.BLACK);
         this.root.getChildren().add(this.canvas);
@@ -76,7 +75,7 @@ public class FieldView {
      * Method that draws the background of the battlefield.
      */
     public void drawBackground() {
-        this.gc.drawImage(ImageUtils.getBackgroundImage(this.level), 0, 0, this.resolution.getWidth(), this.resolution.getHeight());
+        this.gc.drawImage(ImageUtils.getBackgroundImage(this.level), Point2D.ZERO.getX(), Point2D.ZERO.getY(), this.resolution.getWidth(), this.resolution.getHeight());
     }
 
     /**

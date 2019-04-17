@@ -7,7 +7,7 @@ import controller.menu.HighscoreController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import model.account.Account;
-import utilities.BundleUtils;
+import utilities.SystemUtils;
 import view.AbstractView;
 /**
  * 
@@ -30,7 +30,7 @@ public class HighscoreView extends AbstractView {
     public HighscoreView(final Account account, final HighscoreController highscoreController) {
         this.prefWidth = account.getSettings().getResolution().getWidth();
         this.prefHeight = account.getSettings().getResolution().getHeight();
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(HIGHSCORE_VIEW), ResourceBundle.getBundle(HIGHSCORE_BUNDLE));
         this.loader.setController(highscoreController);
         super.init();

@@ -48,9 +48,9 @@ public class FieldController {
         final CameraController camController = new CameraController(this.gameController.getFieldView().getCamera());
         camController.setCam(SCALE_VALUE, resolution);
         this.characterController = new CharacterController(this.gameController, camController);
-        this.startAgent(new CharacterAgent(this.characterController, this.gameController));
         this.drawAgent = new DrawAgent(this.gameController, camController);
         this.startAgent(this.drawAgent);
+        this.startAgent(new CharacterAgent(this.characterController, this.gameController));
         try {
             new Robot().mouseMove((int) resolution.getWidth() / 2, (int) resolution.getHeight() / 2);
         } catch (AWTException e) {

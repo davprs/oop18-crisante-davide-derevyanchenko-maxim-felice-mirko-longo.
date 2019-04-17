@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -33,11 +34,11 @@ import view.menu.login.LoginView;
  */
 public class LoginController implements FXMLController {
 
-    private final AccountManager accManager;
+    private final AccountManager accountManager;
+    private final StageController stageController;
     private final EventHandler<KeyEvent> loginHandler;
     private final EventHandler<KeyEvent> registerHandler;
     private final EventHandler<KeyEvent> exitHandler;
-    private final StageController stageController;
     @FXML
     private GridPane grid;
     @FXML
@@ -63,29 +64,23 @@ public class LoginController implements FXMLController {
      */
     public LoginController(final StageController stageController) {
         this.stageController = stageController;
-        this.accManager = initAccountManager();
+        this.accountManager = this.initAccountManager();
         this.loginHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    loginBtn.fire();
-                }
+                checkKeyEvent(event, loginBtn);
             }
         };
         this.registerHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    regBtn.fire();
-                }
+                checkKeyEvent(event, regBtn);
             }
         };
         this.exitHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    exitBtn.fire();
-                }
+                checkKeyEvent(event, exitBtn);
             }
         };
     }
@@ -112,8 +107,8 @@ public class LoginController implements FXMLController {
     @FXML
     public void tryLogin() {
         final Account account = new AccountImpl.Builder(this.usrField.getText(), this.pswField.getText()).build();
-        if (this.accManager.isPresent(account)) {
-            if (this.accManager.checkPassword(account)) {
+        if (this.accountManager.isPresent(account)) {
+            if (this.accountManager.checkPassword(account)) {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
                 } catch (IOException e) {
@@ -122,14 +117,14 @@ public class LoginController implements FXMLController {
                     System.exit(0);
                 }
             } else {
-                this.grid.setEffect(GameUtils.getBlurEffect());
+                this.setBlur();
                 AlertUtils.createLoginPasswordError();
-                this.grid.setEffect(GameUtils.getTransparentEffect());
+                this.setTransparentBlur();
             }
         } else {
-            this.grid.setEffect(GameUtils.getBlurEffect());
+            this.setBlur();
             AlertUtils.createLoginUsernameError();
-            this.grid.setEffect(GameUtils.getTransparentEffect());
+            this.setTransparentBlur();
         }
     }
 
@@ -153,7 +148,6 @@ public class LoginController implements FXMLController {
         try {
             return new AccountManagerImpl(FileUtils.getAccounts());
         } catch (IOException e) {
-            System.out.println(e);
             ErrorLog.getLog().printError();
             System.exit(0);
         }
@@ -170,5 +164,19 @@ public class LoginController implements FXMLController {
         this.pswField.setOnKeyPressed(this.loginHandler);
         this.regBtn.setOnKeyPressed(this.registerHandler);
         this.exitBtn.setOnKeyPressed(this.exitHandler);
+    }
+
+    private void setBlur() {
+        this.grid.setEffect(GameUtils.getBlurEffect());
+    }
+
+    private void setTransparentBlur() {
+        this.grid.setEffect(GameUtils.getTransparentEffect());
+    }
+
+    private void checkKeyEvent(final KeyEvent event, final ButtonBase button) {
+        if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+            button.fire();
+        }
     }
 }

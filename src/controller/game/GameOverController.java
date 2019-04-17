@@ -1,5 +1,6 @@
 package controller.game;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import controller.StageController;
@@ -10,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.account.Account;
+import utilities.ErrorLog;
+import utilities.FileUtils;
 import utilities.GameUtils;
 import view.game.GameOverView;
 
@@ -21,7 +24,7 @@ public class GameOverController implements FXMLController {
 
     private static final String LABEL_KEY = "gameOver";
     private static final String GO_TO_MENU_KEY = "menu";
-    private static final String WIN_KEY = "wind";
+    private static final String WIN_KEY = "win";
     private final Account account;
     private final StageController stageController;
     private final GameController gameController;
@@ -51,8 +54,15 @@ public class GameOverController implements FXMLController {
      */
     @FXML
     public void goToMenu() {
-        this.gameController.getGameView().getRoot().setEffect(GameUtils.getTransparentEffect());
-        new MenuController(this.account, this.stageController).start();
+        try {
+            this.gameController.getGameView().getRoot().setEffect(GameUtils.getTransparentEffect());
+            this.account.setBestScore(this.gameController.getScore().getScorePoints());
+            FileUtils.printAccount(this.account);
+            new MenuController(this.account, this.stageController).start();
+        } catch (IOException e) {
+            ErrorLog.getLog().printError();
+            System.exit(0);
+        }
     }
 
     /**

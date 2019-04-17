@@ -9,8 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.SubScene;
 import javafx.scene.layout.GridPane;
 import model.account.Account;
-import utilities.BundleUtils;
 import utilities.ErrorLog;
+import utilities.SystemUtils;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class OverlayView {
      * @param overlayController the controller of this class
      */
     public OverlayView(final Account account, final StageController stageController, final OverlayController overlayController) {
-        BundleUtils.setLocale(account.getSettings().getLanguage());
+        SystemUtils.setLocale(account.getSettings().getLanguage());
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(OVERLAY_VIEW), ResourceBundle.getBundle(OVERLAY_BUNDLE));
         loader.setController(overlayController);
         try {

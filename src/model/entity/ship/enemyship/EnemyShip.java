@@ -40,9 +40,10 @@ public interface EnemyShip extends Ship {
     int getScorePoints();
 
     /**
-     * Change the freeze status.
+     * Set the freeze status.
+     * @param value the value to set
      */
-    void changeFreeze();
+    void setFreeze(boolean value);
 
     /**
      * Get the frozen status.

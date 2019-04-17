@@ -2,6 +2,7 @@ package controller.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ import model.powerup.TemporaryPowerUp;
  */
 public class PowerUpController {
 
-    private static final int POWER_UP_RATE = 1000;
+    private static final int POWER_UP_RATE = 3000;
     private static final List<PowerUp> POWER_UPS = new ArrayList<>();
     private static final List<TemporaryPowerUp> TEMPORARY_POWER_UPS = new ArrayList<>();
     private final GameController gameController;
@@ -63,14 +64,17 @@ public class PowerUpController {
             final List<EnemyShip> enemies = this.gameController.getFieldController().getEnemies().stream()
                                                                                                  .map(ec -> ec.getEntity())
                                                                                                  .collect(Collectors.toList());
-            POWER_UPS.addAll(Arrays.asList(new LifePowerUp(this.gameController.getFieldController().getCharacter().getLife()), new NukePowerUp(enemies)));
-            TEMPORARY_POWER_UPS.addAll(Arrays.asList(new FreezePowerUp(enemies), new ImmunityPowerUp(this.gameController.getFieldController().getCharacter().getEntity())));
+            POWER_UPS.addAll(Arrays.asList(new LifePowerUp(this.gameController.getFieldController().getCharacter().getLife()), new NukePowerUp(Collections.synchronizedList(enemies))));
+            TEMPORARY_POWER_UPS.addAll(Arrays.asList(new FreezePowerUp(Collections.synchronizedList(enemies)), new ImmunityPowerUp(this.gameController.getFieldController().getCharacter().getEntity())));
             if (this.random.nextInt(2) == 0) {
                 final PowerUp powerUp = POWER_UPS.get((this.random.nextInt(POWER_UPS.size())));
                 powerUp.run();
                 new TimeAgent(powerUp, gameController).start();
             } else {
                 final TemporaryPowerUp tempPowerUp = TEMPORARY_POWER_UPS.get(this.random.nextInt(TEMPORARY_POWER_UPS.size()));
+                if (tempPowerUp instanceof FreezePowerUp) {
+                    this.gameController.setFrozen(true);
+                }
                 tempPowerUp.run();
                 new TimeAgent(tempPowerUp, gameController).start();
             }

@@ -145,7 +145,7 @@ public class OptionsController implements FXMLController {
             try {
                 final String[] values = resolution.getValue().split("x");
                 final Dimension2D selectedResolution = new Dimension2D(Double.parseDouble(values[0]), Double.parseDouble(values[1]));
-                if (selectedResolution.getWidth() < RESOLUTION.getWidth() || selectedResolution.getHeight() < RESOLUTION.getHeight()) {
+                if (selectedResolution.getWidth() <= RESOLUTION.getWidth() || selectedResolution.getHeight() <= RESOLUTION.getHeight()) {
                     this.account.getSettings().setResolution(selectedResolution);
                 }
                 this.account.getSettings().setLanguage(language.getValue());

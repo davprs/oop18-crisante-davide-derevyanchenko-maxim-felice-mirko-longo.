@@ -45,7 +45,7 @@ public interface Settings {
     void setLanguage(String language);
 
     /**
-     * Set the image.
+     * Set the image name.
      * @param imageName the image to set
      */
     void setImageName(String imageName);

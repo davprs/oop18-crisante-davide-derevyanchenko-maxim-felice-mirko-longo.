@@ -9,7 +9,7 @@ import utilities.ErrorLog;
  */
 public class PowerUpAgent extends Thread {
 
-    private static final long WAITING_TIME = 1000;
+    private static final long WAITING_TIME = 100;
     private final GameController gameController;
 
     /**
@@ -32,7 +32,6 @@ public class PowerUpAgent extends Thread {
                 }
                 Thread.sleep(WAITING_TIME);
             } catch (InterruptedException e) {
-                System.out.println("non e' crashato qui!!!");
                 ErrorLog.getLog().printError();
                 System.exit(0);
             }

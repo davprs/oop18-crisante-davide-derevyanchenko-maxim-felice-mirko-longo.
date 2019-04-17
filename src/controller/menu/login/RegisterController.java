@@ -9,6 +9,7 @@ import controller.menu.FXMLController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -24,6 +25,7 @@ import utilities.AlertUtils;
 import utilities.ErrorLog;
 import utilities.FileUtils;
 import utilities.GameUtils;
+import utilities.SystemUtils;
 import view.menu.login.RegisterView;
 
 /**
@@ -32,12 +34,14 @@ import view.menu.login.RegisterView;
  */
 public class RegisterController implements FXMLController {
 
-    private final AccountManager accManager;
+    private final AccountManager accountManager;
     private final StageController stageController;
     private final EventHandler<KeyEvent> registerHandler;
     private final EventHandler<KeyEvent> cancelHandler;
     private final EventHandler<KeyEvent> checkHandler;
     private final EventHandler<KeyEvent> confCheckHandler;
+    @FXML
+    private GridPane grid;
     @FXML
     private Label regLabel;
     @FXML
@@ -68,53 +72,36 @@ public class RegisterController implements FXMLController {
     private CheckBox pswCheckBox;
     @FXML
     private CheckBox confPswCheckBox;
-    @FXML
-    private GridPane grid;
+
     /**
      * Build the RegisterController.
-     * @param stageController the StageController
+     * @param stageController the controller of the stage
      */
     public RegisterController(final StageController stageController) {
         this.stageController = stageController;
-        this.accManager = initAccountManager();
+        this.accountManager = this.initAccountManager();
         this.registerHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(GameUtils.getBlurEffect());
-                    regBtn.fire();
-                } 
-                grid.setEffect(GameUtils.getTransparentEffect());
+                checkKeyEvent(event, regBtn);
             }
         };
         this.cancelHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(GameUtils.getTransparentEffect());
-                    closeBtn.fire();
-                } 
-                grid.setEffect(GameUtils.getTransparentEffect());
+                checkKeyEvent(event, closeBtn);
             }
         };
         this.checkHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(GameUtils.getBlurEffect());
-                    pswCheckBox.fire();
-                }
-                grid.setEffect(GameUtils.getTransparentEffect());
+                checkKeyEvent(event, pswCheckBox);
             }
         };
         this.confCheckHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
-                    grid.setEffect(GameUtils.getBlurEffect());
-                    confPswCheckBox.fire();
-                }
-                grid.setEffect(GameUtils.getTransparentEffect());
+                checkKeyEvent(event, confPswCheckBox);
             }
         };
     }
@@ -144,19 +131,22 @@ public class RegisterController implements FXMLController {
             final Account account = new AccountImpl.Builder(this.usrField.getText(), getPassword())
                                                    .withNickname(this.nickField.getText())
                                                    .build();
-            if (this.accManager.isPresent(account)) {
+            if (this.accountManager.isPresent(account)) {
+                this.setBlur();
                 AlertUtils.createRegisterAccountError();
+                this.setTransparentBlur();
             } else {
-                this.accManager.register(account);
+                this.accountManager.register(account);
                 try {
                     FileUtils.printAccount(account);
                 } catch (IOException e) {
-                    System.out.println(e);
                     ErrorLog.getLog().printError();
                     System.exit(0);
                 }
+                this.setBlur();
                 AlertUtils.createRegisterAccountDialog();
-                close();
+                this.setTransparentBlur();
+                this.close();
             }
         }
     }
@@ -189,7 +179,6 @@ public class RegisterController implements FXMLController {
         try {
             return new AccountManagerImpl(FileUtils.getAccounts());
         } catch (IOException e) {
-            System.out.println(e);
             ErrorLog.getLog().printError();
             System.exit(0);
         }
@@ -210,10 +199,10 @@ public class RegisterController implements FXMLController {
 
     private boolean checkPassword() {
         if (this.pswField.getText().equals(this.confPswField.getText())) {
-            return !this.pswField.getText().equals("");
+            return !this.pswField.getText().equals(SystemUtils.getEmptyString());
         }
         if (this.pswTextField.getText().equals(this.confPswTextField.getText())) {
-            return !this.pswTextField.getText().equals("");
+            return !this.pswTextField.getText().equals(SystemUtils.getEmptyString());
         }
         return false;
     }
@@ -223,10 +212,14 @@ public class RegisterController implements FXMLController {
     }
 
     private boolean checkFields() {
-        if (!checkUserField()) {
+        if (!this.checkUserField()) {
+            this.setBlur();
             AlertUtils.createRegisterUsernameError();
-        } else if (!checkPassword()) {
+            this.setTransparentBlur();
+        } else if (!this.checkPassword()) {
+            this.setBlur();
             AlertUtils.createRegisterPasswordError();
+            this.setTransparentBlur();
         }
         return this.checkPassword() && this.checkUserField();
     }
@@ -246,5 +239,19 @@ public class RegisterController implements FXMLController {
         this.closeBtn.setOnKeyPressed(this.cancelHandler);
         this.pswCheckBox.setOnKeyPressed(this.checkHandler);
         this.confPswCheckBox.setOnKeyPressed(this.confCheckHandler);
+    }
+
+    private void setBlur() {
+        this.grid.setEffect(GameUtils.getBlurEffect());
+    }
+
+    private void setTransparentBlur() {
+        this.grid.setEffect(GameUtils.getTransparentEffect());
+    }
+
+    private void checkKeyEvent(final KeyEvent event, final ButtonBase button) {
+        if (event.getCode().compareTo(KeyCode.ENTER) == 0) {
+            button.fire();
+        }
     }
 }

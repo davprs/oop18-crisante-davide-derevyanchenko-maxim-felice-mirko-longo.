@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import controller.menu.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
-import utilities.BundleUtils;
+import utilities.SystemUtils;
 import view.AbstractView;
 
 /**
@@ -27,7 +27,7 @@ public class MenuView extends AbstractView {
     public MenuView(final MenuController menuController) {
         this.prefWidth = menuController.getAccount().getSettings().getResolution().getWidth();
         this.prefHeight = menuController.getAccount().getSettings().getResolution().getHeight();
-        BundleUtils.setLocale(menuController.getAccount().getSettings().getLanguage());
+        SystemUtils.setLocale(menuController.getAccount().getSettings().getLanguage());
         this.loader = new FXMLLoader(ClassLoader.getSystemResource(MENU_VIEW), ResourceBundle.getBundle(MENU_BUNDLE));
         this.loader.setController(menuController);
         super.init();

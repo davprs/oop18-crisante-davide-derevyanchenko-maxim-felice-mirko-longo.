@@ -1,10 +1,9 @@
 package controller;
 
-import java.awt.Toolkit;
-
 import controller.menu.login.LoginController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import utilities.SystemUtils;
 
 /**
  * Launcher class.
@@ -12,9 +11,11 @@ import javafx.stage.Stage;
  */
 public class Launcher extends Application {
 
-    private static final double INITIAL_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 6;
-    private static final double INITIAL_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3.5;
-    private static final String TITLE = "Space Shooting";
+    private static final double WIDTH_RATIO = 6;
+    private static final double HEIGHT_RATIO = 3.5;
+    private static final double INITIAL_WIDTH = SystemUtils.getScreenResolution().getWidth() / WIDTH_RATIO;
+    private static final double INITIAL_HEIGHT = SystemUtils.getScreenResolution().getHeight() / HEIGHT_RATIO;
+    private static final String TITLE = "SPACE SHOOTING";
 
     /**
      * {@inheritDoc}

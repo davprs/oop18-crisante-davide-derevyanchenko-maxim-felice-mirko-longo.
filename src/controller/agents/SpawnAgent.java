@@ -48,15 +48,17 @@ public class SpawnAgent extends Thread {
      */
     @Override
     public void run() {
-        while (!this.gameController.isEnded() && this.gameController.getScore().getScorePoints() <= this.scoreLimit) {
+        while (!this.gameController.isEnded() && this.gameController.getScore().getScorePoints() < this.scoreLimit) {
             try {
-                if (!this.gameController.isInPause() && !this.gameController.checkEnemiesFrozen()) {
+                if (!this.gameController.isInPause()) {
                     this.meteorWaiting -= WAITING_TIME;
                     if (this.meteorWaiting < 0) {
                         this.fieldController.addMeteor(new MeteorController(gameController, this.level, ((CharacterShip) (characterController.getEntity())).getCentralPosition(), this.fieldSize));
                         this.meteorWaiting = (Math.random() * BOUND) + WAITING_TIME;
                     }
-                    this.fieldController.addEnemy(new EnemyController(gameController, this.level, characterController, this.fieldSize));
+                    final EnemyController enemyController = new EnemyController(gameController, this.level, characterController, this.fieldSize);
+                    enemyController.getEntity().setFreeze(this.gameController.isFrozen());
+                    this.fieldController.addEnemy(enemyController);
                 }
                 Thread.sleep(WAITING_TIME);
             } catch (InterruptedException e) {
