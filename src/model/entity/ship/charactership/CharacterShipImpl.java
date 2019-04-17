@@ -70,6 +70,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      */
     @Override
     public void endGame() {
+        this.immune = false;
         for (int i = this.getLife().getLives(); i > 0; i--) {
             this.destroy();
         }

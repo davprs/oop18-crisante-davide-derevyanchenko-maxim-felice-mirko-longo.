@@ -96,6 +96,8 @@ public final class LifeImpl implements Life {
         this.lives--;
         if (this.lives > 0) {
             this.currentHealth = this.health;
+        } else {
+            this.currentHealth = 0;
         }
     }
 
