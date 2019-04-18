@@ -16,7 +16,7 @@ public class LoginView extends AbstractView {
 
     private static final String LOGIN_VIEW = "loginView.fxml";
     private static final double WIDTH_RATIO = 4.8;
-    private static final double HEIGHT_RATIO = 3.375;
+    private static final double HEIGHT_RATIO = 3.1;
     private static final double PREF_WIDTH = SystemUtils.getScreenResolution().getWidth() / WIDTH_RATIO;
     private static final double PREF_HEIGHT = SystemUtils.getScreenResolution().getHeight() / HEIGHT_RATIO;
     private final FXMLLoader loader;

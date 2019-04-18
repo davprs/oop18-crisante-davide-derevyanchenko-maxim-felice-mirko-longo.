@@ -82,10 +82,7 @@ public class GameController {
             } 
         };
         this.stageController.setWindowHandler(exitWindow);
-        if (account.getSettings().isSoundOn()) {
-            GameUtils.getMainTheme().stop();
-            GameUtils.getGameplayMusic().loop();
-        }
+        GameUtils.muteAllSounds();
         this.gameView.getScene().setOnKeyPressed(exitHandler);
         this.gameView.getScene().setOnMouseExited(exitSceneHandler);
         this.gameView.getScene().setOnMousePressed(shootHandler);

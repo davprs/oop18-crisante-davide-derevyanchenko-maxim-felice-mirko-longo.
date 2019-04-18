@@ -2,6 +2,7 @@ package controller.agents;
 
 import controller.game.GameController;
 import utilities.ErrorLog;
+import utilities.GameUtils;
 
 /**
  * Class that represents the game thread that constantly creates spawn agents of the appropriate level.
@@ -31,8 +32,14 @@ public class GameAgent extends Thread {
     @Override
     public void run() {
         if (this.gameLevel <= 3) {
+            if (this.gameContoller.getAccount().getSettings().isSoundOn()) {
+                GameUtils.getLevelMusic().loop();
+            }
             new SpawnAgent(this.gameContoller, this.gameLevel, this.gameContoller.getAccount().getSettings().getResolution()).start();
         } else {
+            if (this.gameContoller.getAccount().getSettings().isSoundOn()) {
+                GameUtils.getSurvivalMusic().loop();
+            }
             this.spawnAgent = new SpawnAgent(this.gameContoller, this.currentLevel, this.gameContoller.getAccount().getSettings().getResolution());
             while (!this.gameContoller.isEnded()) {
                 try {

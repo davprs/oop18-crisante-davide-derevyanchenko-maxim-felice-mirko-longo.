@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
  */
 public final class ImageUtils {
 
-    private static final Image ICON_IMAGE = new Image("spaceship.png");
+    private static final Image ICON_IMAGE = new Image("RedFury.png");
     private static final List<Image> BULLET_IMAGES = Arrays.asList(
             new Image("bulletGreen.png"),
             new Image("bulletYellow.png"),

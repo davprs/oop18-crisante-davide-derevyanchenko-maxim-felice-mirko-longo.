@@ -81,8 +81,14 @@ public class PauseController implements FXMLController {
         this.gameController.getGameView().getRoot().getChildren().remove(this.pauseView.getSubScene());
         this.gameController.getFieldController().getCharacter().setLastUpdate(System.currentTimeMillis());
         this.gameController.setInPause(false);
-        if (account.getSettings().isSoundOn()) {
-            GameUtils.getGameplayMusic().loop();
+        if (this.gameController.getGameLevel() <= 3) {
+            if (account.getSettings().isSoundOn()) {
+                GameUtils.getLevelMusic().loop();
+            }
+        } else {
+            if (account.getSettings().isSoundOn()) {
+                GameUtils.getSurvivalMusic().loop();
+            }
         }
     }
 

@@ -67,11 +67,9 @@ public class MenuController implements FXMLController {
         };
         this.stageController.setWindowHandler(exitWindow);
         this.stageController.setDimension(this.account.getSettings().getResolution());
+        GameUtils.muteAllSounds();
         if (account.getSettings().isSoundOn()) {
-            GameUtils.getGameplayMusic().stop();
-            GameUtils.getMainTheme().loop();
-        } else {
-            GameUtils.muteAllSounds();
+            GameUtils.getMenuMusic().loop();
         }
     }
 

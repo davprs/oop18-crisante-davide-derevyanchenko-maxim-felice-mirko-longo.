@@ -56,8 +56,8 @@ public class OptionsController implements FXMLController {
     private static final String CHANGE_SHIP_KEY = "change_ship";
     private static final String CHANGE_CREDENTIALS_KEY = "changeCredentials";
     private static final String CHANGE_KEY = "change";
-    private static final String SHIP_1 = "spaceship";
-    private static final String SHIP_2 = "enemyShip1";
+    private static final String SHIP_1 = "RedFury";
+    private static final String SHIP_2 = "NightMare";
     private static final String SHIP_3 = "GreenEvil";
     private static final ObservableList<String> RESOLUTIONS_LIST = FXCollections.observableArrayList(
                                                                    FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1,

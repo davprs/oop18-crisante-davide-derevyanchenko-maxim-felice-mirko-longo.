@@ -24,7 +24,7 @@
 
 .button:hover {
    -fx-background-color: rgba(245, 240, 240, 0.692);
-   -fx-font-size: 15pt;
+   -fx-font-size: 11pt;
    -fx-text-fill: #000000;
    -fx-font-weight: bold;
 }

@@ -16,33 +16,43 @@ public final class GameUtils {
     private static final int BLUR_EFFECT_RANGE = 5;
     private static final Effect TRANSPARENT = new BoxBlur(0, 0, 0);
     private static final Effect BLUR = new BoxBlur(BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE, BLUR_EFFECT_RANGE);
-    private static final AudioClip MAIN_THEME = Applet.newAudioClip(ClassLoader.getSystemResource("mainTheme.wav"));
-    private static final AudioClip GAMEPLAY_MUSIC = Applet.newAudioClip(ClassLoader.getSystemResource("survival.wav"));
+    private static final AudioClip MENU = Applet.newAudioClip(ClassLoader.getSystemResource("menu.wav"));
+    private static final AudioClip SURVIVAL = Applet.newAudioClip(ClassLoader.getSystemResource("survival.wav"));
+    private static final AudioClip LEVEL = Applet.newAudioClip(ClassLoader.getSystemResource("level.wav"));
 
-    private GameUtils() { };
+    private GameUtils() { }
 
     /**
      * Method to mute all the sounds in the game.
      */
     public static void muteAllSounds() {
-        MAIN_THEME.stop();
-        GAMEPLAY_MUSIC.stop();
+        MENU.stop();
+        SURVIVAL.stop();
+        LEVEL.stop();
     }
 
     /**
      * Get the sound of the Menu.
      * @return the sound of menu
      */
-    public static AudioClip getMainTheme() {
-        return MAIN_THEME;
+    public static AudioClip getMenuMusic() {
+        return MENU;
     }
 
     /**
-     * Get the main sound of the Game.
-     * @return the sound of the game
+     * Get the survival sound of the Game.
+     * @return the sound of the survival
      */
-    public static AudioClip getGameplayMusic() {
-        return GAMEPLAY_MUSIC;
+    public static AudioClip getSurvivalMusic() {
+        return SURVIVAL;
+    }
+
+    /**
+     * Get the level sound of the Game.
+     * @return the sound of the level
+     */
+    public static AudioClip getLevelMusic() {
+        return LEVEL;
     }
 
     /**
