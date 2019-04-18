@@ -25,6 +25,41 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     private boolean shootingAvailable;
     private boolean frozen;
 
+    
+    /**
+     * Build a new EnemyShip.
+     * @param level is the level (fastness, power of bullets)
+     * @param timeToShoot frames passing from one bullet-shot to the next one
+     * @param fieldSize the field width and height.
+     * @param characterPosition the position of the character when the ship is created.
+     * @param myPosition the enemyship starting position.
+     */
+    public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize, final Point2D characterPosition, final Point2D myPosition) {
+        super(STARTING_LIVES, (int) GameUtils.transform(STARTING_HEALTH, level));
+        this.level = level;
+        final double speedUnit = fieldSize.getWidth() / 1920;
+        this.speed = speedUnit;
+        this.framesToShoot = timeToShoot;
+        this.frozen = false;
+        double provX = Math.random() * fieldSize.getWidth();
+        double provY = Math.random() * fieldSize.getHeight();
+        if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / 5) {
+            provX = characterPosition.getX() + fieldSize.getWidth() / 5;
+            if (provX < 0 || provX > fieldSize.getWidth()) {
+                provX = -provX;
+            }
+        }
+        if (Math.abs(provY - characterPosition.getY()) < fieldSize.getHeight() / 5) {
+            provY = characterPosition.getY() + fieldSize.getHeight() / 5;
+            if (provY < 0 || provY > fieldSize.getHeight()) {
+                provY = -provY;
+            }
+        }
+        this.position = myPosition;
+        final double xSize = fieldSize.getWidth() * DIMENSION_PROPORTION;
+        this.shipDimension = new Dimension2D(xSize, xSize);
+    }
+    
     /**
      * Build a new EnemyShip.
      * @param level is the level (fastness, power of bullets)
@@ -176,5 +211,13 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     @Override
     public synchronized boolean isFrozen() {
         return this.frozen;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPosition(Point2D position) {
+        this.position = position;
     }
 }

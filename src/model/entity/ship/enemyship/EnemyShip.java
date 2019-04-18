@@ -2,6 +2,7 @@ package model.entity.ship.enemyship;
 
 import javafx.geometry.Point2D;
 import model.entity.ship.Ship;
+import model.game.Life;
 
 /**
  * An interface that represents an EnemyShip.
@@ -50,4 +51,10 @@ public interface EnemyShip extends Ship {
      * @return the value
      */
     boolean isFrozen();
+    
+    /**
+     * Sets where the left-high corner of the image will be printed.
+     * @param position where to print the image in the canvas.
+     */
+    void setPosition(Point2D position);
 }
