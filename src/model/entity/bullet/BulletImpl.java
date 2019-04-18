@@ -15,7 +15,7 @@ public class BulletImpl implements Bullet {
     private static final int DAMAGE_UNIT = 500;
     private static final double X_DIMENSION_PROPORTION = 0.003;
     private static final double POPORTION_BETWEEN_SIZES = 7;
-    private static final double SPEED_UNIT = 3;
+    private final double speedUnit;
     private final int damage;
     private Point2D position;
     private final Dimension2D shipDimension;
@@ -34,11 +34,12 @@ public class BulletImpl implements Bullet {
      */
     public BulletImpl(final int level, final Point2D src, final Point2D target, final Dimension2D fieldSize) {
         this.damage = GameUtils.transform(DAMAGE_UNIT, level);
+        this.speedUnit = (fieldSize.getWidth() / 1920) * 3.5;
         this.fieldSize = fieldSize;
         this.position = src;
         this.angle = Math.atan2(src.getY() - target.getY(), src.getX() - target.getX());
-        this.movY = -SPEED_UNIT * Math.sin(this.angle);
-        this.movX = -SPEED_UNIT * Math.cos(this.angle);
+        this.movY = -speedUnit * Math.sin(this.angle);
+        this.movX = -speedUnit * Math.cos(this.angle);
         this.target = new Point2D(src.getX() + movX, src.getY() + movY);
         final double xSize = fieldSize.getWidth() * X_DIMENSION_PROPORTION;
         this.shipDimension = new Dimension2D(xSize, xSize * POPORTION_BETWEEN_SIZES);
@@ -86,8 +87,8 @@ public class BulletImpl implements Bullet {
      */
     @Override
     public synchronized void update() {
-        position = new Point2D(position.getX() + (movX * SPEED_UNIT), position.getY() + (movY * SPEED_UNIT));
-        target = new Point2D(target.getX() + (movX * SPEED_UNIT), target.getY() + (movY * SPEED_UNIT));
+        position = new Point2D(position.getX() + (movX * speedUnit), position.getY() + (movY * speedUnit));
+        target = new Point2D(target.getX() + (movX * speedUnit), target.getY() + (movY * speedUnit));
     }
 
     /**

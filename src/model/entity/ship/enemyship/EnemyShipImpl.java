@@ -16,7 +16,6 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     private static final int STARTING_LIVES = 1;
     private static final int STARTING_HEALTH = 1000;
     private static final int SCORE_POINTS = 900;
-    private static final double SPEED_UNIT = 1;
     private Point2D position;
     private final Dimension2D shipDimension;
     private final double speed;
@@ -36,7 +35,8 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize, final Point2D characterPosition) {
         super(STARTING_LIVES, (int) GameUtils.transform(STARTING_HEALTH, level));
         this.level = level;
-        this.speed = SPEED_UNIT;
+        final double speedUnit = fieldSize.getWidth() / 1920;
+        this.speed = speedUnit;
         this.framesToShoot = timeToShoot;
         this.frozen = false;
         double provX = Math.random() * fieldSize.getWidth();

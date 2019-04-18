@@ -14,7 +14,8 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
     private static final int STARTING_LIVES = 3;
     private static final int STARTING_HEALTH = 1000;
     private static final double DIMENSION_PROPORTION = 0.04;
-    private static final double SPEED = 0.4;
+    private final double speed;
+    //private static final double SPEED = 0.4;
     private final Dimension2D dimension;
     private Point2D position;
     private boolean immune;
@@ -28,6 +29,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
     public CharacterShipImpl(final Point2D initialPosition, final Dimension2D fieldDimension) {
         super(STARTING_LIVES, STARTING_HEALTH);
         this.immune = false;
+        this.speed = (fieldDimension.getWidth() / 1920) * 0.5;
         final double sizeDimension = fieldDimension.getWidth() * DIMENSION_PROPORTION;
         this.dimension = new Dimension2D(sizeDimension, sizeDimension);
         this.position = initialPosition.subtract(this.dimension.getWidth() / 2, this.dimension.getHeight() / 2);
@@ -54,7 +56,7 @@ public class CharacterShipImpl extends AbstractShip implements CharacterShip {
      * {@inheritDoc}
      */
     public double getSpeed() {
-        return SPEED;
+        return speed;
     }
 
     /**

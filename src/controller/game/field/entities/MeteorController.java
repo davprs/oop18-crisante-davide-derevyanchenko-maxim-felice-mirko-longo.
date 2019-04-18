@@ -13,7 +13,6 @@ import model.entity.meteor.MeteorImpl;
  */
 public class MeteorController implements EntityController {
 
-    private static final int RANGE = 5;
     private final Image image;
     private final GameController gameController;
     private final Meteor meteor;
@@ -27,21 +26,33 @@ public class MeteorController implements EntityController {
      */
     public MeteorController(final GameController gameController, final int level, final Point2D target, final Dimension2D fieldSize) {
         this.image = utilities.ImageUtils.getMeteorImage(level);
-        final double meteorSpacing = Math.random() * 100;
+        final double meteorSpacingX = Math.random() * fieldSize.getWidth();
+        final double meteorSpacingY = Math.random() * fieldSize.getWidth();
         Point2D src;
-        if (Math.random() * 10 < RANGE) {
-            if (Math.random() * 10 < RANGE) {
-                src = new Point2D(-meteorSpacing, -meteorSpacing);
-            } else {
-                src = new Point2D(-meteorSpacing, fieldSize.getHeight() + meteorSpacing);
-            }
+        final double wall = Math.random() * fieldSize.getWidth() / 100;
+        if (wall < 25) {
+            src = new Point2D(-100, meteorSpacingY);
+        } else if (wall < 50) {
+            src = new Point2D(meteorSpacingX, fieldSize.getHeight());
+        } else if (wall < 75) {
+            src = new Point2D(fieldSize.getWidth(), meteorSpacingY);
         } else {
-            if (Math.random() * 10 < RANGE) {
-                src = new Point2D(fieldSize.getWidth() + meteorSpacing, fieldSize.getHeight() + meteorSpacing);
-            } else {
-                src = new Point2D(fieldSize.getWidth() + meteorSpacing, -meteorSpacing);
-            }
+            src = new Point2D(meteorSpacingX, -100);
         }
+        
+//        if (Math.random() * 10 < RANGE) {
+//            if (Math.random() * 10 < RANGE) {
+//                src = new Point2D(-meteorSpacing, -meteorSpacing);
+//            } else {
+//                src = new Point2D(-meteorSpacing, fieldSize.getHeight());
+//            }
+//        } else {
+//            if (Math.random() * 10 < RANGE) {
+//                src = new Point2D(fieldSize.getWidth() + meteorSpacing, fieldSize.getHeight() + meteorSpacing);
+//            } else {
+//                src = new Point2D(fieldSize.getWidth() + meteorSpacing, -meteorSpacing);
+//            }
+//        }
         this.meteor = new MeteorImpl(level, src, target, fieldSize);
         this.gameController = gameController;
     }
