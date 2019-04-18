@@ -26,7 +26,7 @@
       <RowConstraints maxHeight="377.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Button fx:id="back" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="51.0" prefWidth="123.0" text="Back" translateX="5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Button fx:id="back" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="51.0" prefWidth="160.0" text="Back" translateX="5.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
@@ -51,9 +51,9 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ChoiceBox id="choice" fx:id="resolution" prefHeight="88.0" prefWidth="401.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <ChoiceBox id="choice" fx:id="language" prefHeight="88.0" prefWidth="400.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <RadioButton fx:id="yes" mnemonicParsing="false" prefHeight="95.0" prefWidth="189.0" text="YES" textFill="#fffafa" translateX="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <ChoiceBox id="choice" fx:id="resolution" prefHeight="88.0" prefWidth="317.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+      <ChoiceBox id="choice" fx:id="language" prefHeight="88.0" prefWidth="317.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <RadioButton fx:id="yes" mnemonicParsing="false" prefHeight="95.0" prefWidth="189.0" text="YES" textFill="#fffafa" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -61,14 +61,14 @@
             <ToggleGroup fx:id="choice" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="no" mnemonicParsing="false" prefHeight="99.0" prefWidth="177.0" text="NO" textFill="#fffefe" toggleGroup="$choice" translateX="300.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <RadioButton fx:id="no" mnemonicParsing="false" prefHeight="99.0" prefWidth="177.0" text="NO" textFill="#fffefe" toggleGroup="$choice" translateX="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </RadioButton>
-      <ImageView fx:id="image" fitHeight="150.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true" translateX="80.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-      <ChoiceBox id="choice" fx:id="shipList" prefHeight="88.0" prefWidth="402.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-      <Button fx:id="changeBtn" mnemonicParsing="false" onAction="#changeCredentials" prefHeight="80.0" prefWidth="407.0" text="Change Password &amp; Nickname" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <ImageView fx:id="image" fitHeight="150.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <ChoiceBox id="choice" fx:id="shipList" prefHeight="88.0" prefWidth="315.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+      <Button fx:id="changeBtn" mnemonicParsing="false" onAction="#changeCredentials" prefHeight="80.0" prefWidth="317.0" text="Password &amp; Nickname" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
       <Label fx:id="changeLbl" prefHeight="103.0" prefWidth="557.0" text="Change Credentials" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <FontAwesomeIcon fill="#b8b2b2" iconName="EXPAND" size="4em" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
       <FontAwesomeIcon fill="#b8b2b2" iconName="LANGUAGE" size="4em" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
