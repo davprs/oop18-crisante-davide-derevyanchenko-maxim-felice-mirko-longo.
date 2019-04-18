@@ -13,6 +13,9 @@ public class ScoreImpl implements Score {
      */
     @Override
     public synchronized void addScore(final int value) {
+        if (value < 0) {
+            throw new IllegalArgumentException("Only positive numbers");
+        }
         this.score += value;
     }
 

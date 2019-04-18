@@ -1,7 +1,6 @@
 package controller.agents.entities;
 
 import controller.game.GameController;
-import controller.game.field.FieldController;
 import controller.game.field.entities.EntityController;
 import model.entity.Entity;
 import utilities.ErrorLog;
@@ -57,12 +56,12 @@ public abstract class EntityAgent extends Thread {
     }
 
     /**
-     * Method that gets the field of the game.
+     * Method that gets the game controller.
      * 
-     * @return the field
+     * @return the game controller
      */
-    protected FieldController getFieldController() {
-        return this.gameController.getFieldController();
+    protected GameController getGameController() {
+        return this.gameController;
     }
 
     /**

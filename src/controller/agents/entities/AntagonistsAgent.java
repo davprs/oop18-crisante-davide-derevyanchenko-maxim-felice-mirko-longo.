@@ -23,6 +23,6 @@ public class AntagonistsAgent extends EntityAgent {
      */
     @Override
     protected void intersectChecker() {
-        this.getEntity().intersects(this.getFieldController().getCharacter().getEntity());
+        this.getEntity().intersects(this.getGameController().getFieldController().getCharacter().getEntity());
     }
 }

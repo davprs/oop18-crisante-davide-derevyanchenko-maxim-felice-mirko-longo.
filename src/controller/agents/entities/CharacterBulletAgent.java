@@ -29,8 +29,8 @@ public class CharacterBulletAgent extends EntityAgent {
      */
     @Override
     protected void intersectChecker() {
-        final List<EnemyController> enemies = this.getFieldController().getEnemies();
-        final List<MeteorController> meteors = this.getFieldController().getMeteors();
+        final List<EnemyController> enemies = this.getGameController().getFieldController().getEnemies();
+        final List<MeteorController> meteors = this.getGameController().getFieldController().getMeteors();
         for (final EnemyController enemyController : enemies) {
             this.getEntity().intersects(enemyController.getEntity());
         }
