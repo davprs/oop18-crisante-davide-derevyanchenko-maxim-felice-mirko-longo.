@@ -10,7 +10,7 @@ import utilities.SystemUtils;
 public final class SettingsImpl implements Settings {
 
     private static final Dimension2D DEFAULT_RESOLUTION = new Dimension2D(SystemUtils.getScreenResolution().getWidth(), SystemUtils.getScreenResolution().getHeight());
-    private static final String DEFAULT_IMAGE = "spaceship";
+    private static final String DEFAULT_IMAGE = "RedFury";
     private static final String DEFAULT_LANGUAGE = "en";
     private static final Settings DEFAULT = new SettingsImpl(DEFAULT_RESOLUTION, DEFAULT_LANGUAGE, DEFAULT_IMAGE, false);
     private Dimension2D resolution;
