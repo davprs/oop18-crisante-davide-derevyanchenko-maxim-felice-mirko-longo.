@@ -97,13 +97,13 @@ public final class AccountImpl implements Account {  // NOPMD by Mirko on 04/04/
         public AccountImpl build() {
             if (this.nick.isPresent() && !this.nick.get().equals(SystemUtils.getEmptyString())) {
                 if (!this.setting.isPresent()) {
-                    return new AccountImpl(this.username, this.nick.get(), this.password, this.score, SettingsImpl.DEFAULT);
+                    return new AccountImpl(this.username, this.nick.get(), this.password, this.score, SettingsImpl.getDefaultSettings());
                 } else {
                     return new AccountImpl(this.username, this.nick.get(), this.password, this.score, this.setting.get());
                 }
             } else {
                 if (!this.setting.isPresent()) {
-                    return new AccountImpl(this.username, this.username, this.password, this.score, SettingsImpl.DEFAULT);
+                    return new AccountImpl(this.username, this.username, this.password, this.score, SettingsImpl.getDefaultSettings());
                 } else {
                     return new AccountImpl(this.username, this.username, this.password, this.score, this.setting.get());
                 }

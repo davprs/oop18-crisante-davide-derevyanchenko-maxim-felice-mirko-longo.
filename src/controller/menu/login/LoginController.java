@@ -112,7 +112,6 @@ public class LoginController implements FXMLController {
                 try {
                     startMenu(FileUtils.getAccountFromUsername(account.getUsername()));
                 } catch (IOException e) {
-                    System.out.println(e);
                     ErrorLog.getLog().printError();
                     System.exit(0);
                 }

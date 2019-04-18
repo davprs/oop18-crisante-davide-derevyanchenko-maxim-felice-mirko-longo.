@@ -46,7 +46,7 @@ public class AccountTest {
         assertEquals(DEFAULT_PASSWORD, account.getPassword());
         assertEquals(DEFAULT_USERNAME, account.getNickname());
         assertEquals(0, account.getBestScore());
-        assertEquals(SettingsImpl.DEFAULT, account.getSettings());
+        assertEquals(SettingsImpl.getDefaultSettings(), account.getSettings());
     }
 
     /**

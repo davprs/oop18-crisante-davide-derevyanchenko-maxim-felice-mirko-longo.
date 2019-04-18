@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
-		<accessrules>
-			<accessrule kind="accessible" pattern="javafx/**"/>
-		</accessrules>
-	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="res/bundles"/>
-	<classpathentry kind="src" path="res/images"/>
-	<classpathentry kind="src" path="res/view"/>
-	<classpathentry kind="src" path="res/sounds"/>
-	<classpathentry kind="lib" path="lib/fontawesomefx-8.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="bin"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+    <accessrules>
+      <accessrule kind="accessible" pattern="javafx/**"/>
+    </accessrules>
+  </classpathentry>
+  <classpathentry kind="src" path="src"/>
+  <classpathentry kind="src" path="res/bundles"/>
+  <classpathentry kind="src" path="res/images"/>
+  <classpathentry kind="src" path="res/view"/>
+  <classpathentry kind="src" path="res/sounds"/>
+  <classpathentry kind="lib" path="lib/fontawesomefx-8.1.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+  <classpathentry kind="output" path="bin"/>
 </classpath>

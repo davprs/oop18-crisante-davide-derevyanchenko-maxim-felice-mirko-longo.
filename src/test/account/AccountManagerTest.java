@@ -3,6 +3,7 @@ package test.account;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,20 +20,42 @@ import model.account.AccountManagerImpl;
  */
 public class AccountManagerTest {
 
-    private static final String USERNAME = "prova";
+    private static final String USERNAME_1 = "prova";
+    private static final String USERNAME_2 = "test";
     private static final String PASSWORD = "prova";
-    private static final Account ACCOUNT1 = new AccountImpl.Builder(USERNAME, PASSWORD).build();
-    private static final Set<Account> SET = new HashSet<>();
-    private final AccountManager accManager = new AccountManagerImpl(SET);
+    private static final String PASSWORD_2 = "test";
+    private static final Account ACCOUNT_1 = new AccountImpl.Builder(USERNAME_1, PASSWORD).build();
+    private static final Account ACCOUNT_2 = new AccountImpl.Builder(USERNAME_2, PASSWORD).build();
+    private static final Set<Account> SET = new HashSet<>(Arrays.asList(ACCOUNT_1));
+    private AccountManager accManager;
+
+    /**
+     * Simple Test for the AccountManager. 
+     */
+    @Test
+    public void testIsPresent() {
+        this.accManager = new AccountManagerImpl(SET);
+        assertTrue(this.accManager.isPresent(ACCOUNT_1));
+        assertFalse(this.accManager.isPresent(ACCOUNT_2));
+    }
 
     /**
      * Simple Test for the AccountManager. 
      */
     @Test
     public void testRegister() {
-        assertFalse(this.accManager.isPresent(ACCOUNT1));
-        this.accManager.register(ACCOUNT1);
-        assertTrue(this.accManager.isPresent(ACCOUNT1));
-        assertTrue(this.accManager.checkPassword(new AccountImpl.Builder(USERNAME, PASSWORD).build()));
+        this.accManager = new AccountManagerImpl(SET);
+        this.accManager.register(ACCOUNT_2);
+        assertTrue(this.accManager.isPresent(ACCOUNT_2));
+    }
+
+    /**
+     * Simple Test for the AccountManager. 
+     */
+    @Test
+    public void testCheckPassword() {
+        this.accManager = new AccountManagerImpl(SET);
+        assertTrue(this.accManager.checkPassword(new AccountImpl.Builder(USERNAME_1, PASSWORD).build()));
+        assertFalse(this.accManager.checkPassword(new AccountImpl.Builder(USERNAME_1, PASSWORD_2).build()));
     }
 }

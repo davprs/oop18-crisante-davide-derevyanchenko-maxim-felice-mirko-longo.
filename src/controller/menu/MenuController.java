@@ -6,10 +6,12 @@ import java.util.ResourceBundle;
 import controller.StageController;
 import controller.game.LevelController;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
+import javafx.stage.WindowEvent;
 import model.account.Account;
 import utilities.AlertUtils;
 import utilities.GameUtils;
@@ -56,9 +58,18 @@ public class MenuController implements FXMLController {
     @Override
     public void start() {
         this.stageController.setScene(this.menuView.getScene());
+        final EventHandler<WindowEvent> exitWindow = new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(final WindowEvent event) {
+                GameUtils.muteAllSounds();
+                Platform.exit();
+            } 
+        };
+        this.stageController.setWindowHandler(exitWindow);
         this.stageController.setDimension(this.account.getSettings().getResolution());
         if (account.getSettings().isSoundOn()) {
-            GameUtils.MAIN_THEME.play();
+            GameUtils.getGameplayMusic().stop();
+            GameUtils.getMainTheme().loop();
         } else {
             GameUtils.muteAllSounds();
         }

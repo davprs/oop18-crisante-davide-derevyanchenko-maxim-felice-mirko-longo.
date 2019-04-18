@@ -79,12 +79,12 @@ public class GameController {
                 controller.ended = true;
                 GameUtils.muteAllSounds();
                 Platform.exit();
-                System.exit(0);
             } 
         };
         this.stageController.setWindowHandler(exitWindow);
         if (account.getSettings().isSoundOn()) {
-            GameUtils.GAMEPLAY_MUSIC.loop();
+            GameUtils.getMainTheme().stop();
+            GameUtils.getGameplayMusic().loop();
         }
         this.gameView.getScene().setOnKeyPressed(exitHandler);
         this.gameView.getScene().setOnMouseExited(exitSceneHandler);

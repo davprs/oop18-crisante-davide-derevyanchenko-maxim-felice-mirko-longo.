@@ -82,7 +82,7 @@ public class PauseController implements FXMLController {
         this.gameController.getFieldController().getCharacter().setLastUpdate(System.currentTimeMillis());
         this.gameController.setInPause(false);
         if (account.getSettings().isSoundOn()) {
-            GameUtils.GAMEPLAY_MUSIC.loop();
+            GameUtils.getGameplayMusic().loop();
         }
     }
 

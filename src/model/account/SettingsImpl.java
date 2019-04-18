@@ -12,14 +12,11 @@ public final class SettingsImpl implements Settings {
     private static final Dimension2D DEFAULT_RESOLUTION = new Dimension2D(SystemUtils.getScreenResolution().getWidth(), SystemUtils.getScreenResolution().getHeight());
     private static final String DEFAULT_IMAGE = "spaceship";
     private static final String DEFAULT_LANGUAGE = "en";
+    private static final Settings DEFAULT = new SettingsImpl(DEFAULT_RESOLUTION, DEFAULT_LANGUAGE, DEFAULT_IMAGE, false);
     private Dimension2D resolution;
     private String language;
     private String imageName;
     private boolean sound;
-    /**
-     * Default Settings configuration. 
-     */
-    public static final Settings DEFAULT = new SettingsImpl(DEFAULT_RESOLUTION, DEFAULT_LANGUAGE, DEFAULT_IMAGE, false);
 
     /**
      * Build a new Settings.
@@ -36,6 +33,14 @@ public final class SettingsImpl implements Settings {
         this.language = language;
         this.imageName = imageName;
         this.sound = value;
+    }
+
+    /**
+     * Get the Default Settings.
+     * @return the default settings
+     */
+    public static Settings getDefaultSettings() {
+        return DEFAULT;
     }
 
     /**
@@ -75,7 +80,7 @@ public final class SettingsImpl implements Settings {
      */
     @Override
     public void setResolution(final Dimension2D resolution) {
-        if (resolution == null) {
+        if (resolution == null || resolution.getWidth() < 0 || resolution.getHeight() < 0) {
             throw new IllegalArgumentException();
         }
         this.resolution = resolution;
@@ -86,7 +91,7 @@ public final class SettingsImpl implements Settings {
      */
     @Override
     public void setLanguage(final String language) {
-        if (language == null) {
+        if (language == null || language.equals(SystemUtils.getEmptyString())) {
             throw new IllegalArgumentException();
         }
         this.language = language;
@@ -97,7 +102,7 @@ public final class SettingsImpl implements Settings {
      */
     @Override
     public void setImageName(final String imageName) {
-        if (imageName == null) {
+        if (imageName == null || imageName.equals(SystemUtils.getEmptyString())) {
             throw new IllegalArgumentException();
         }
         this.imageName = imageName;
