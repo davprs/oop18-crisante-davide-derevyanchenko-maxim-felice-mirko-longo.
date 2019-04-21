@@ -80,7 +80,7 @@ public class CharacterController implements EntityController {
      */
     @Override
     public void draw() {
-        this.gameController.getFieldView().drawEntity(shipImage, this.angle, this.ship.getBoundary());
+        this.gameController.getFieldView().drawEntity(this.shipImage, this.angle, this.ship.getBoundary());
     }
 
     /**

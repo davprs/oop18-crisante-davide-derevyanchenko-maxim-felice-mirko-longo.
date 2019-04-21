@@ -148,7 +148,7 @@ public class GameController {
      */
     public synchronized void setEnded(final boolean ended) {
         this.ended = ended;
-        Platform.runLater(() -> new GameOverController(account, stageController, this).start());
+        Platform.runLater(() -> new GameOverController(this.account, this.stageController, this).start());
     }
 
     /**
@@ -223,10 +223,10 @@ public class GameController {
     }
 
     private void startHandler() {
-        if (!inPause && !ended) {
-            inPause = true;
+        if (!this.inPause && !this.ended) {
+            this.inPause = true;
             GameUtils.muteAllSounds();
-            new PauseController(account, stageController, this).start();
+            new PauseController(this.account, this.stageController, this).start();
         }
     }
 }
