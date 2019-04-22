@@ -84,7 +84,7 @@ public class LevelController implements FXMLController {
     }
 
     /**
-     * 
+     * this method set the level to EASY.
      */
     @FXML
     public void setEasy() {
@@ -92,7 +92,7 @@ public class LevelController implements FXMLController {
     }
 
     /**
-     * 
+     * this method set the level to MEDIUM.
      */
     @FXML
     public void setMedium() {
@@ -100,7 +100,7 @@ public class LevelController implements FXMLController {
     }
 
     /**
-     * 
+     * this method set the level to HARD.
      */
     @FXML
     public void setHard() {
@@ -108,7 +108,7 @@ public class LevelController implements FXMLController {
     }
 
     /**
-     * 
+     * this method set the level to SURVIVAL.
      */
     @FXML
     public void setSurvival() {
@@ -116,7 +116,7 @@ public class LevelController implements FXMLController {
     }
 
     /**
-     * 
+     * this method bring to the Main menu.
      */
     @FXML
     public void goBack() {

@@ -59,27 +59,29 @@ public class OptionsController implements FXMLController {
     private static final String SHIP_1 = "RedFury";
     private static final String SHIP_2 = "NightMare";
     private static final String SHIP_3 = "GreenEvil";
+    private static final String PNG = ".png";
     private static final ObservableList<String> RESOLUTIONS_LIST = FXCollections.observableArrayList(
                                                                    FIRST_CHOICE_CB1, SECOND_CHOICE_CB1, THIRD_CHOICE_CB1,
                                                                    FOURTH_CHOICE_CB1, FIFTH_CHOICE_CB1, SIXTH_CHOICE_CB1,
                                                                    SEVENTH_CHOICE_CB1, EIGHT_CHOICE_CB1, NINTH_CHOICE_CB1);
     private static final ObservableList<String> LANGUAGE_LIST = FXCollections.observableArrayList(FIRST_CHOICE_CB2, SECOND_CHOICE_CB2);
     private static final ObservableList<String> SHIP_LIST = FXCollections.observableArrayList(SHIP_1, SHIP_2, SHIP_3);
-    private static final String PNG = ".png";
     private final Account account;
     private final StageController stageController;
     private ResourceBundle bundle;
     private boolean isInOptions;
+    @FXML
+    private ChoiceBox<String> language; 
+    @FXML
+    private ChoiceBox<String> resolution;
+    @FXML
+    private ChoiceBox<String> shipList;
     @FXML
     private GridPane grid;
     @FXML
     private Button back;
     @FXML
     private Button changeBtn;
-    @FXML
-    private ChoiceBox<String> language; 
-    @FXML
-    private ChoiceBox<String> resolution;
     @FXML
     private Label resolutionLb;
     @FXML
@@ -94,8 +96,6 @@ public class OptionsController implements FXMLController {
     private RadioButton yes;
     @FXML
     private RadioButton no;
-    @FXML
-    private ChoiceBox<String> shipList;
     @FXML
     private ImageView image;
 
@@ -166,7 +166,7 @@ public class OptionsController implements FXMLController {
         this.grid.setEffect(GameUtils.getTransparentEffect());
     }
     /**
-     * 
+     * this method let check the change credentials scene.
      */
     public void changeCredentials() {
         this.isInOptions = false;
