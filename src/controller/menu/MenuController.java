@@ -74,7 +74,7 @@ public class MenuController implements FXMLController {
     }
 
     /**
-     * 
+     * this method let chose you the game level difficulty.
      */
     @FXML
     public void playTheGame() {
@@ -82,7 +82,7 @@ public class MenuController implements FXMLController {
     }
 
     /**
-     * 
+     * this method let check the highscore of the players.
      */
     @FXML
     public void checkHighscore() {
@@ -90,7 +90,7 @@ public class MenuController implements FXMLController {
     }
 
     /**
-     * 
+     * this method let change check the options.
      */
     @FXML
     public void enterOptions() {
@@ -98,7 +98,7 @@ public class MenuController implements FXMLController {
     }
 
     /**
-     * 
+     * this method let exit the game.
      */
     @FXML
     public void exitGame() { 
@@ -135,12 +135,4 @@ public class MenuController implements FXMLController {
         this.optionsBtn.setText(this.bundle.getString(OPTIONS_KEY));
         this.exitBtn.setText(this.bundle.getString(EXIT_KEY));
     }
-    /**
-     * 
-     * @return this grid.
-     */
-    public GridPane getRoot() {
-        return this.grid;
-    }
-
 }

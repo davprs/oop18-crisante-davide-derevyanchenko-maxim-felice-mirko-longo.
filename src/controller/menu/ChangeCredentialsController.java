@@ -60,7 +60,7 @@ public class ChangeCredentialsController implements FXMLController {
         this.stageController = stageController;
     }
     /**
-     * 
+     * this method set visible the password.
      */
     @FXML
     public void revealPassword() {
@@ -80,7 +80,7 @@ public class ChangeCredentialsController implements FXMLController {
     }
 
     /**
-     * 
+     * this method bring back to Main menu.
      */
     @FXML
     public void goBack() {

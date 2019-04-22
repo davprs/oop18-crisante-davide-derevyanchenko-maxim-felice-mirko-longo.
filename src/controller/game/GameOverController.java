@@ -50,7 +50,7 @@ public class GameOverController implements FXMLController {
     }
 
     /**
-     * 
+     * This method bring to the Main menu.
      */
     @FXML
     public void goToMenu() {

@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.account.Account;
 import utilities.GameUtils;
-import view.menu.PauseView;
+import view.game.PauseView;
 
 /**
  * 
@@ -72,7 +72,7 @@ public class PauseController implements FXMLController {
     }
 
     /**
-     * 
+     * this method resume the game after it was paused.
      */
     @FXML
     public void resume() {
@@ -93,7 +93,7 @@ public class PauseController implements FXMLController {
     }
 
     /**
-     * 
+     * this method bring back to the Main menu.
      */
     @FXML
     public void goBackToMenu() {
@@ -102,9 +102,6 @@ public class PauseController implements FXMLController {
         new MenuController(this.account, this.stageController).start();
     }
 
-    /**
-     * 
-     */
     private void setLanguage() {
         this.label.setText(bundle.getString(LABEL_KEY));
         this.resumeBtn.setText(bundle.getString(RESUME_KEY));

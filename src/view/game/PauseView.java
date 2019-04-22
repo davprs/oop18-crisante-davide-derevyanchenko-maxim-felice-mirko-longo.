@@ -1,4 +1,4 @@
-package view.menu;
+package view.game;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
