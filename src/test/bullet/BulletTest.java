@@ -1,6 +1,7 @@
 package test.bullet;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -16,6 +17,8 @@ import model.entity.ship.charactership.CharacterShipImpl;
  */
 public class BulletTest {
 
+    private static final int X_POSITION = -100;
+    private static final int Y_POSITION = -100;
     /**
      * Method that tests the movements of the bullet.
      */
@@ -25,18 +28,18 @@ public class BulletTest {
         assertTrue(bullet.getBoundary().getMinX() == 0 && bullet.getBoundary().getMinY() == 0);
         bullet.update();
         assertTrue(bullet.getBoundary().getMinX() > 0 && bullet.getBoundary().getMinY() > 0);
-        
-        bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(-100, -100), new Dimension2D(1000, 1000));
+
+        bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(X_POSITION, Y_POSITION), new Dimension2D(1000, 1000));
         assertTrue(bullet.getBoundary().getMinX() == 0 && bullet.getBoundary().getMinY() == 0);
         bullet.update();
         assertTrue(bullet.getBoundary().getMinX() < 0 && bullet.getBoundary().getMinY() < 0);
-        
-        bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(-100, 100), new Dimension2D(1000, 1000));
+
+        bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(X_POSITION, 100), new Dimension2D(1000, 1000));
         assertTrue(bullet.getBoundary().getMinX() == 0 && bullet.getBoundary().getMinY() == 0);
         bullet.update();
         assertTrue(bullet.getBoundary().getMinX() < 0 && bullet.getBoundary().getMinY() > 0);
-        
-        bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(100, -100), new Dimension2D(1000, 1000));
+
+        bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(100, Y_POSITION), new Dimension2D(1000, 1000));
         assertTrue(bullet.getBoundary().getMinX() == 0 && bullet.getBoundary().getMinY() == 0);
         bullet.update();
         assertTrue(bullet.getBoundary().getMinX() > 0 && bullet.getBoundary().getMinY() < 0);
@@ -64,6 +67,4 @@ public class BulletTest {
         bullet.intersects(new CharacterShipImpl(new Point2D(0, 0), new Dimension2D(1000, 1000)));
         assertFalse(bullet.isAlive());
     }
-    
-
 }

@@ -13,6 +13,13 @@ import model.entity.meteor.MeteorImpl;
  */
 public class MeteorController implements EntityController {
 
+    private static final int REGULATION_ANGLE = 180;
+    private static final int METEOR_LEVEL = 1;
+    private static final int LEFT_WALL_CHECK_VALUE = 25;
+    private static final int LOWER_WALL_CHECK_VALUE = 50;
+    private static final int RIGHT_WALL_CHECK_VALUE = 75;
+    private static final int STARTING_LEFT_WALL_X_VALUE = -100;
+    private static final int STARTING_UPPER_WALL_Y_VALUE = -100;
     private final Image image;
     private final GameController gameController;
     private final Meteor meteor;
@@ -30,29 +37,15 @@ public class MeteorController implements EntityController {
         final double meteorSpacingY = Math.random() * fieldSize.getWidth();
         Point2D src;
         final double wall = Math.random() * fieldSize.getWidth() / 100;
-        if (wall < 25) {
-            src = new Point2D(-100, meteorSpacingY);
-        } else if (wall < 50) {
+        if (wall < LEFT_WALL_CHECK_VALUE) {
+            src = new Point2D(STARTING_LEFT_WALL_X_VALUE, meteorSpacingY);
+        } else if (wall < LOWER_WALL_CHECK_VALUE) {
             src = new Point2D(meteorSpacingX, fieldSize.getHeight());
-        } else if (wall < 75) {
+        } else if (wall < RIGHT_WALL_CHECK_VALUE) {
             src = new Point2D(fieldSize.getWidth(), meteorSpacingY);
         } else {
-            src = new Point2D(meteorSpacingX, -100);
+            src = new Point2D(meteorSpacingX, STARTING_UPPER_WALL_Y_VALUE);
         }
-        
-//        if (Math.random() * 10 < RANGE) {
-//            if (Math.random() * 10 < RANGE) {
-//                src = new Point2D(-meteorSpacing, -meteorSpacing);
-//            } else {
-//                src = new Point2D(-meteorSpacing, fieldSize.getHeight());
-//            }
-//        } else {
-//            if (Math.random() * 10 < RANGE) {
-//                src = new Point2D(fieldSize.getWidth() + meteorSpacing, fieldSize.getHeight() + meteorSpacing);
-//            } else {
-//                src = new Point2D(fieldSize.getWidth() + meteorSpacing, -meteorSpacing);
-//            }
-//        }
         this.meteor = new MeteorImpl(level, src, target, fieldSize);
         this.gameController = gameController;
     }
@@ -64,7 +57,7 @@ public class MeteorController implements EntityController {
      * @param fieldSize the filed's width and height.
      */
     public MeteorController(final GameController gameController, final Point2D target, final Dimension2D fieldSize) {
-        this(gameController, 1, target, fieldSize);
+        this(gameController, METEOR_LEVEL, target, fieldSize);
     }
 
     /**
@@ -80,7 +73,7 @@ public class MeteorController implements EntityController {
     @Override
     public void draw() {
         final double angle = Math.toDegrees(this.meteor.getAngle());
-        this.gameController.getFieldView().drawEntity(image, angle, this.meteor.getBoundary());
+        this.gameController.getFieldView().drawEntity(image, (angle + REGULATION_ANGLE), this.meteor.getBoundary());
     }
 
     /**

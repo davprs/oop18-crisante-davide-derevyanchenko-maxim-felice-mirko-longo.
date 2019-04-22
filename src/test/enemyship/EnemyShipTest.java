@@ -1,6 +1,7 @@
 package test.enemyship;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -17,17 +18,22 @@ import model.game.Life;
  */
 public class EnemyShipTest {
 
+    private static final Point2D INITIAL_POSITION = new Point2D(500, 500);
+    private static final Point2D TRANSLATE_VECTOR = new Point2D(-200, -200);
+    private static final Point2D DESTINATION = new Point2D(-100, -100);
+    private static final int DAMAGE_VALUE = 500;
+
     /**
      * Method that tests the movements of the enemyship.
      */
     @Test
     public void moveTest() {
-        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), new Point2D(500, 500));
+        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         enemy.update(new Point2D(100, 100));
         assertTrue(enemy.getBoundary().getMinX() == 100 && enemy.getBoundary().getMinY() == 100);
-        enemy.update(new Point2D(-200, -200));
-        assertTrue(enemy.getBoundary().getMinX() == -100 && enemy.getBoundary().getMinY() == -100);
+        enemy.update(TRANSLATE_VECTOR);
+        assertTrue(enemy.getBoundary().getMinX() == DESTINATION.getX() && enemy.getBoundary().getMinY() == DESTINATION.getY());
     }
 
     /**
@@ -35,7 +41,7 @@ public class EnemyShipTest {
      */
     @Test
     public void intersectTest() {
-        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), new Point2D(500, 500));
+        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         assertTrue(enemy.intersects(new CharacterShipImpl(new Point2D(0, 0), new Dimension2D(1000, 1000))));
         assertFalse(enemy.intersects(new CharacterShipImpl(new Point2D(1000, 1000), new Dimension2D(1000, 1000))));
@@ -46,7 +52,7 @@ public class EnemyShipTest {
      */
     @Test
     public void frozenTest() {
-        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), new Point2D(500, 500));
+        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         enemy.setFreeze(true);
         enemy.update(new Point2D(100, 100));
@@ -58,10 +64,10 @@ public class EnemyShipTest {
      */
     @Test
     public void lifeTest() {
-        EnemyShipImpl enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), new Point2D(500, 500));
+        EnemyShipImpl enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         Life startingLife = enemy.getLife();
-        enemy.takeDamage(500);
+        enemy.takeDamage(DAMAGE_VALUE);
         assertTrue(enemy.getLife().getCurrentHealth() < startingLife.getHealth() || enemy.getLife().getLives() < enemy.getLife().getLives());
     }
 }

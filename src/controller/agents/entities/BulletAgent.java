@@ -29,7 +29,7 @@ public class BulletAgent extends Thread {
     public void run() {
         while (!this.gameController.isInPause() && !this.gameController.isEnded()) {
             final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
-            enemies.stream().forEach(x->{
+            enemies.stream().forEach(x -> {
                 if (x.canShoot()) {
                     this.gameController.getFieldController().addEnemyBullet(x.shoot());
                 }

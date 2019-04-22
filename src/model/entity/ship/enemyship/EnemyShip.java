@@ -49,7 +49,7 @@ public interface EnemyShip extends Ship {
      * @return the value
      */
     boolean isFrozen();
-    
+
     /**
      * Sets where the left-high corner of the image will be printed.
      * @param position where to print the image in the canvas.

@@ -11,7 +11,9 @@ import utilities.GameUtils;
  */
 public class EnemyShipImpl extends AbstractShip implements EnemyShip {
 
+    private static final int DEFAULT_SCREEN_X_SIZE = 1920;
     private static final int DELAY = (int) (Math.random() * 600 + 200);
+    private static final double POSITION_PROPORTION_VALUE = 5;
     private static final double DIMENSION_PROPORTION = 0.04;
     private static final int STARTING_LIVES = 1;
     private static final int STARTING_HEALTH = 1000;
@@ -25,7 +27,6 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     private boolean shootingAvailable;
     private boolean frozen;
 
-    
     /**
      * Build a new EnemyShip.
      * @param level is the level (fastness, power of bullets)
@@ -37,20 +38,20 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
     public EnemyShipImpl(final int level, final int timeToShoot, final Dimension2D fieldSize, final Point2D characterPosition, final Point2D myPosition) {
         super(STARTING_LIVES, (int) GameUtils.transform(STARTING_HEALTH, level));
         this.level = level;
-        final double speedUnit = fieldSize.getWidth() / 1920;
+        final double speedUnit = fieldSize.getWidth() / DEFAULT_SCREEN_X_SIZE;
         this.speed = speedUnit;
         this.framesToShoot = timeToShoot;
         this.frozen = false;
         double provX = Math.random() * fieldSize.getWidth();
         double provY = Math.random() * fieldSize.getHeight();
-        if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / 5) {
-            provX = characterPosition.getX() + fieldSize.getWidth() / 5;
+        if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / POSITION_PROPORTION_VALUE) {
+            provX = characterPosition.getX() + fieldSize.getWidth() / POSITION_PROPORTION_VALUE;
             if (provX < 0 || provX > fieldSize.getWidth()) {
                 provX = -provX;
             }
         }
-        if (Math.abs(provY - characterPosition.getY()) < fieldSize.getHeight() / 5) {
-            provY = characterPosition.getY() + fieldSize.getHeight() / 5;
+        if (Math.abs(provY - characterPosition.getY()) < fieldSize.getHeight() / POSITION_PROPORTION_VALUE) {
+            provY = characterPosition.getY() + fieldSize.getHeight() / POSITION_PROPORTION_VALUE;
             if (provY < 0 || provY > fieldSize.getHeight()) {
                 provY = -provY;
             }
@@ -59,7 +60,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
         final double xSize = fieldSize.getWidth() * DIMENSION_PROPORTION;
         this.shipDimension = new Dimension2D(xSize, xSize);
     }
-    
+
     /**
      * Build a new EnemyShip.
      * @param level is the level (fastness, power of bullets)
@@ -76,14 +77,14 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
         this.frozen = false;
         double provX = Math.random() * fieldSize.getWidth();
         double provY = Math.random() * fieldSize.getHeight();
-        if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / 5) {
-            provX = characterPosition.getX() + fieldSize.getWidth() / 5;
+        if (Math.abs(provX - characterPosition.getX()) < fieldSize.getWidth() / POSITION_PROPORTION_VALUE) {
+            provX = characterPosition.getX() + fieldSize.getWidth() / POSITION_PROPORTION_VALUE;
             if (provX < 0 || provX > fieldSize.getWidth()) {
                 provX = -provX;
             }
         }
-        if (Math.abs(provY - characterPosition.getY()) < fieldSize.getHeight() / 5) {
-            provY = characterPosition.getY() + fieldSize.getHeight() / 5;
+        if (Math.abs(provY - characterPosition.getY()) < fieldSize.getHeight() / POSITION_PROPORTION_VALUE) {
+            provY = characterPosition.getY() + fieldSize.getHeight() / POSITION_PROPORTION_VALUE;
             if (provY < 0 || provY > fieldSize.getHeight()) {
                 provY = -provY;
             }
@@ -217,7 +218,7 @@ public class EnemyShipImpl extends AbstractShip implements EnemyShip {
      * {@inheritDoc}
      */
     @Override
-    public void setPosition(Point2D position) {
+    public void setPosition(final Point2D position) {
         this.position = position;
     }
 }
