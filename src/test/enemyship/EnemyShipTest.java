@@ -28,7 +28,7 @@ public class EnemyShipTest {
      */
     @Test
     public void moveTest() {
-        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
+        final EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         enemy.update(new Point2D(100, 100));
         assertTrue(enemy.getBoundary().getMinX() == 100 && enemy.getBoundary().getMinY() == 100);
@@ -41,7 +41,7 @@ public class EnemyShipTest {
      */
     @Test
     public void intersectTest() {
-        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
+        final EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         assertTrue(enemy.intersects(new CharacterShipImpl(new Point2D(0, 0), new Dimension2D(1000, 1000))));
         assertFalse(enemy.intersects(new CharacterShipImpl(new Point2D(1000, 1000), new Dimension2D(1000, 1000))));
@@ -52,7 +52,7 @@ public class EnemyShipTest {
      */
     @Test
     public void frozenTest() {
-        EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
+        final EnemyShip enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
         enemy.setFreeze(true);
         enemy.update(new Point2D(100, 100));
@@ -64,9 +64,9 @@ public class EnemyShipTest {
      */
     @Test
     public void lifeTest() {
-        EnemyShipImpl enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
+        final EnemyShipImpl enemy = new EnemyShipImpl(new Dimension2D(1000, 1000), INITIAL_POSITION);
         enemy.setPosition(new Point2D(0, 0));
-        Life startingLife = enemy.getLife();
+        final Life startingLife = enemy.getLife();
         enemy.takeDamage(DAMAGE_VALUE);
         assertTrue(enemy.getLife().getCurrentHealth() < startingLife.getHealth() || enemy.getLife().getLives() < enemy.getLife().getLives());
     }

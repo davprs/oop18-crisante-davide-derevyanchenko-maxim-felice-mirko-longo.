@@ -1,4 +1,4 @@
-package test.charactership;
+package test.life;
 
 import static org.junit.Assert.assertEquals;
 

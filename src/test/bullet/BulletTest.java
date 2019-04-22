@@ -50,7 +50,7 @@ public class BulletTest {
      */
     @Test
     public void intersects() {
-        Bullet bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(100, 100), new Dimension2D(1000, 1000));
+        final Bullet bullet = new BulletImpl(1, new Point2D(0, 0), new Point2D(100, 100), new Dimension2D(1000, 1000));
         assertTrue(bullet.intersects(new CharacterShipImpl(new Point2D(0, 0), new Dimension2D(1000, 1000))));
     }
 
