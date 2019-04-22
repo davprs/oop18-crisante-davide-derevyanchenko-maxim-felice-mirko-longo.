@@ -2,8 +2,6 @@ package model.entity.ship.enemyship;
 
 import javafx.geometry.Point2D;
 import model.entity.ship.Ship;
-import model.game.Life;
-
 /**
  * An interface that represents an EnemyShip.
  *

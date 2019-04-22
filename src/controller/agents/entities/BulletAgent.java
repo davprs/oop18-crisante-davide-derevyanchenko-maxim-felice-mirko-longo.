@@ -1,10 +1,8 @@
 package controller.agents.entities;
 
 import java.util.List;
-
 import controller.game.GameController;
 import controller.game.field.entities.EnemyController;
-import utilities.ErrorLog;
 
 /**
  * 
@@ -30,17 +28,17 @@ public class BulletAgent extends Thread {
     @Override
     public void run() {
         while (!this.gameController.isInPause() && !this.gameController.isEnded()) {
-            try {
-                final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
-                for (final EnemyController enemy : enemies) {
-                    if (enemy.canShoot()) {
-                        this.gameController.getFieldController().addEnemyBullet(enemy.shoot());
-                    }
+            final List<EnemyController> enemies = this.gameController.getFieldController().getEnemies();
+            enemies.stream().forEach(x->{
+                if (x.canShoot()) {
+                    this.gameController.getFieldController().addEnemyBullet(x.shoot());
                 }
+            });
+            try {
                 Thread.sleep(WAITING_TIME);
             } catch (InterruptedException e) {
-                ErrorLog.getLog().printError();
-                System.exit(0);
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
     }
