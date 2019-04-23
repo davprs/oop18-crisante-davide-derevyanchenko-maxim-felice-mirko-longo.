@@ -29,7 +29,7 @@ public class PowerUp {
       private static final Point2D POINT2D2 = new Point2D(15, 20);
 
       /**
-       * 
+       * Method that the freeze powerUp.
        */
     @Test
     public void testFreeze() {
@@ -56,7 +56,7 @@ public class PowerUp {
       assertTrue(positionInitial2.getX() == position2.getX() && positionInitial2.getY() == position2.getY());
     }
     /**
-     * 
+     * Method that the nuke powerUp.
      */
     @Test
     public void nuke() {
@@ -74,7 +74,7 @@ public class PowerUp {
       assertFalse(enemy.get(2).isAlive());
     }
     /**
-     * 
+     * Method that the life powerUp.
      */
     @Test
 
@@ -87,7 +87,7 @@ public class PowerUp {
  
     }
     /**
-     * 
+     * Method that the immunity powerUp.
      */
     @Test
     public void immunity() {
