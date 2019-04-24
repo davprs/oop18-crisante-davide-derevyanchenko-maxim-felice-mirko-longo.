@@ -34,11 +34,11 @@ public class PowerUp {
      */
     @Test
     public void testFreeze() {
-        ArrayList<EnemyShip> enemy = new ArrayList<EnemyShip>();
+        final ArrayList<EnemyShip> enemy = new ArrayList<EnemyShip>();
         enemy.add(new EnemyShipImpl(DIMENSION, POINT2D));
         enemy.add(new EnemyShipImpl(DIMENSION, POINT2D));
         enemy.add(new EnemyShipImpl(DIMENSION, POINT2D));
-        FreezePowerUp freeze = new FreezePowerUp(enemy);
+        final FreezePowerUp freeze = new FreezePowerUp(enemy);
         enemy.get(0);
         enemy.get(1);
         enemy.get(2);
@@ -68,11 +68,11 @@ public class PowerUp {
      */
     @Test
     public void nuke() {
-        ArrayList<EnemyShip> enemy = new ArrayList<EnemyShip>();
+        final ArrayList<EnemyShip> enemy = new ArrayList<EnemyShip>();
         enemy.add(new EnemyShipImpl(DIMENSION, POINT2D));
         enemy.add(new EnemyShipImpl(DIMENSION, POINT2D));
         enemy.add(new EnemyShipImpl(DIMENSION, POINT2D));
-        NukePowerUp nuke = new NukePowerUp(enemy);
+        final NukePowerUp nuke = new NukePowerUp(enemy);
         enemy.get(0);
         enemy.get(1);
         enemy.get(2);
@@ -88,8 +88,8 @@ public class PowerUp {
     @Test
 
     public void life() {
-        Life life = LifeImpl.createDefaultLife();
-        LifePowerUp lifePowerUp = new LifePowerUp(life);
+        final Life life = LifeImpl.createDefaultLife();
+        final LifePowerUp lifePowerUp = new LifePowerUp(life);
         final int initialLife = life.getLives();
         lifePowerUp.run();
         assertEquals(initialLife + 1, life.getLives());
@@ -104,9 +104,9 @@ public class PowerUp {
         final Point2D point2D = new Point2D(10, 15);
         final int damage = 5;
         final Dimension2D dimension = new Dimension2D(100, 150);
-        CharacterShipImpl ship = new CharacterShipImpl(point2D, dimension);
-        ImmunityPowerUp immunity = new ImmunityPowerUp(ship);
-        Life life = ship.getLife();
+        final CharacterShipImpl ship = new CharacterShipImpl(point2D, dimension);
+        final ImmunityPowerUp immunity = new ImmunityPowerUp(ship);
+        final Life life = ship.getLife();
         immunity.run();
         ship.destroy();
         ship.takeDamage(damage);
